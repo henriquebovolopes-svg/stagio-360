@@ -1,8 +1,16 @@
 # Implantação da área administrativa — STAGIO 360
 
-## Situação atual
+## Situação atual (04/11/2026)
 
-O site público em GitHub Pages funciona com indicadores agregados. A rota `/admin/` está publicada, mas **fica bloqueada até a configuração do backend privado**. Nenhum registro sensível está no repositório.
+- ✅ Projeto Supabase **stagio-360** criado na organização Stagio Academy (região São Paulo; plano gratuito).
+- ✅ Migração SQL aplicada, seis tabelas com RLS ativo e políticas de leitura restrita.
+- ✅ Auditoria Supabase sem avisos de segurança; papel `anon` não consegue ler `stg_evidence`; papel `authenticated` sem usuário autorizado recebe zero linhas.
+- ✅ `admin/config.js` aponta para o projeto, usando **somente chave publishable**.
+- ⏳ Contas individuais de administração e Érica ainda não criadas nem autorizadas.
+- ⏳ Arquivo de respostas individuais **não importado** ao Supabase.
+- ⏳ Implantação no GitHub Pages pode ainda estar em fila; o código está no repositório.
+
+O site público continua exibindo somente indicadores agregados. A rota `/admin/` exige sessão e permissão explícita. Nenhum registro sensível foi publicado no GitHub.
 
 **Não use o GitHub como banco de avaliações individuais, exportações Typeform ou comentários de crianças.**
 
@@ -15,9 +23,9 @@ O site público em GitHub Pages funciona com indicadores agregados. A rota `/adm
 
 ## Ativar o backend em ordem segura
 
-1. Criar um projeto **privado** em https://supabase.com/dashboard, com credenciais sob controle do Colégio e responsável definido pela proteção de dados.
-2. No **SQL Editor**, executar a migração em `supabase/migrations/20261104_stagio360_secure.sql`.
-3. Em Authentication, **desabilitar cadastro aberto ao público**. Criar apenas contas individuais convidadas (administração e coordenação). Usar senha forte e, quando possível, MFA.
+1. **Já concluído:** projeto Supabase em https://supabase.com/dashboard/project/imwmkftrtljdokmkwicj; banco e RLS aplicados.
+2. **Já concluído:** regras e permissões testadas, sem alertas de segurança.
+3. **Ação humana necessária:** em Authentication → Providers (ou configurações de Auth), restringir cadastro aberto. Em Authentication → Users, criar contas individuais convidadas (administração e coordenação); usar senhas fortes e MFA quando disponível.
 4. Em `Authentication → Users`, copiar o UUID de cada conta. Autorizar apenas as pessoas desejadas no SQL Editor:
 
    ```sql
@@ -41,14 +49,7 @@ O site público em GitHub Pages funciona com indicadores agregados. A rota `/adm
    python importar_dados_restritos.py --file "STAGIO_360_FI_M1_APROFUNDAMENTO_QUALITATIVO_RESTRITO_v1_6.html" --apply --confirm
    ```
 
-7. Em `Project Settings → API Keys`, obter **Project URL** e **Publishable key** (ou legacy anon key, quando aplicável). Após a homologação das políticas, preencher apenas esses dois valores em `admin/config.js`:
-
-   ```js
-   window.STAGIO_AUTH = {
-     url: "https://SEU-PROJETO.supabase.co",
-     publishableKey: "SUA-CHAVE-PUBLICAVEL"
-   };
-   ```
+7. **Já concluído:** `admin/config.js` contém apenas o Project URL e a Publishable key. Nunca substituir por chave administrativa.
 
    São informações públicas de conexão, não privilégios administrativos. **Nunca** colocar `service_role` em `config.js`.
 
@@ -74,4 +75,4 @@ O site público em GitHub Pages funciona com indicadores agregados. A rota `/adm
 - Supabase Auth: https://supabase.com/docs/guides/auth
 - Supabase RLS: https://supabase.com/docs/guides/database/postgres/row-level-security
 
-**Status:** código e política disponíveis; criação do projeto, implantação SQL, homologação da segurança, importação e contas reais **pendentes**.
+**Status:** projeto e regras de segurança criados e testados; faltam contas reais, importação dos dados privados e teste final do login autorizado. O deploy recente ainda precisava de confirmação na última consulta.
