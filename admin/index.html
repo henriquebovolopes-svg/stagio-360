@@ -185,7 +185,7 @@ async function loadStudents(){
   arr.forEach((r,i)=>studentAliases.set(r.respondent_code,'Resposta '+String(i+1).padStart(2,'0')));
  }
  addSelect($('class-select'),[['','Selecione uma série e turma'],...codes.map(cl=>[cl,turmaLabel(cl)+' · '+studentList.filter(r=>r.class_code===cl).length+' respostas'])]);
- $('class-select').onchange=updateStudentOptions;updateStudentOptions();
+ $('class-select').onchange=updateStudentOptions;initStudentDashboard();updateStudentOptions();
  $('student-select').onchange=e=>renderResponse('student-view',studentList.find(x=>x.respondent_code===e.target.value),'student');
 }
 function updateStudentOptions(){
@@ -195,7 +195,7 @@ function updateStudentOptions(){
  $('student-context').textContent=cl?
   turmaLabel(cl)+' · '+arr.length+' respostas codificadas. A numeração facilita a navegação e não identifica nomes ou ordem de chamada.':
   'Selecione uma turma para consultar as respostas preservadas por código.';
- empty('student-view',cl?'Selecione uma resposta desta turma.':'Selecione primeiro uma série e turma.');
+ empty('student-view',cl?'Selecione uma resposta desta turma.':'Selecione primeiro uma série e turma.');renderStudentDashboard();
 }
 async function loadFamilies(){
  familyList=await safe(sup.from('stg_families').select('respondent_code,scope,grade_names,answers').order('respondent_code').limit(500));
@@ -204,7 +204,7 @@ async function loadFamilies(){
   const rows=familyList.filter(f=>f.scope===scope).sort((a,b)=>a.respondent_code.localeCompare(b.respondent_code));
   rows.forEach((r,i)=>familyAliases.set(r.respondent_code,prefix+' '+String(i+1).padStart(3,'0')));
  }
- $('family-scope').onchange=updateFamilyOptions;updateFamilyOptions();
+ $('family-scope').onchange=updateFamilyOptions;initFamilyDashboard();updateFamilyOptions();
  $('family-select').onchange=e=>renderResponse('family-view',familyList.find(x=>x.respondent_code===e.target.value),'family');
 }
 function updateFamilyOptions(){
@@ -216,7 +216,7 @@ function updateFamilyOptions(){
  const fi=familyList.filter(x=>x.scope==='FI').length;
  const multi=familyList.filter(x=>x.scope==='FI + OUTROS').length;
  $('family-context').textContent=rows.length+' respostas no filtro · '+fi+' exclusivas do FI e '+multi+' multissegmento no total. O identificador técnico fica disponível no detalhe, não na lista.';
- empty('family-view','Selecione uma resposta para consultar o questionário original.');
+ empty('family-view','Selecione uma resposta para consultar o questionário original.');renderFamilyDashboard();
 }
 function renderResponse(id,p,type){
  if(!p){empty(id,'Selecione uma resposta codificada.');return}
@@ -234,6 +234,199 @@ function renderResponse(id,p,type){
    r.texto??r.resposta??r.answer??'(sem resposta)',
    r.categoria??r.nota??r.origem??''));
 }
+
+// Dashboards calculados exclusivamente em memória, a partir das respostas autorizadas.
+const STUDENT_IDS=['FI_INST_001','FI_INST_002','FI_INST_003','FI_INST_004','FI_PED_001','FI_PED_002','FI_PED_003','FI_PED_004','FI_PED_005'];
+const FAMILY_IDS=['F003','F004','F005','F006','F007','F008','F009','F010','F011','F012','F013','F014','F015'];
+const colors={fav:'dash-color-primary',mid:'dash-color-mid',low:'dash-color-low',other:'dash-color-reference'};
+const percent=(n,d)=>d?(100*n/d).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%':'—';
+const decimal=n=>Number.isFinite(n)?n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
+function answerById(record,id){return (record.answers||[]).find(a=>a.id===id)}
+function numericScore(v,min,max){const n=Number(v);return v!==null&&v!==undefined&&v!==''&&Number.isFinite(n)&&n>=min&&n<=max?n:null}
+function studentCategory(answer){
+ const value=String(answer?.texto||answer?.resposta||'').trim();
+ if(value.startsWith('😊'))return 2;
+ if(value.startsWith('😐'))return 1;
+ if(value.startsWith('😞'))return 0;
+ return null;
+}
+function studentCount(records,id){
+ const out={fav:0,mid:0,low:0,valid:0};
+ for(const record of records){const v=studentCategory(answerById(record,id));
+  if(v===null)continue;out.valid++;out[v===2?'fav':v===1?'mid':'low']++;
+ }
+ return out;
+}
+function studentCombined(records){
+ const out={fav:0,mid:0,low:0,valid:0};
+ for(const id of STUDENT_IDS){const q=studentCount(records,id);
+  for(const k of Object.keys(out))out[k]+=q[k]}
+ return out;
+}
+function familyValues(records,id,min=1,max=4){
+ const values=[];let invalid=0;
+ for(const record of records){
+  const answer=answerById(record,id);
+  const n=numericScore(answer?.nota,min,max);
+  if(n===null){invalid++;continue}values.push(n)
+ }
+ return {values,invalid,mean:values.length?values.reduce((a,b)=>a+b,0)/values.length:null};
+}
+function familyScoreSummary(records){
+ let sum=0,n=0,invalid=0;
+ for(const id of FAMILY_IDS){const x=familyValues(records,id);sum+=x.values.reduce((a,b)=>a+b,0);n+=x.values.length;invalid+=x.invalid}
+ return {mean:n?sum/n:null,valid:n,invalid};
+}
+function npsResult(records){
+ const x=familyValues(records,'F018',0,10);
+ const promoter=x.values.filter(n=>n>=9).length;
+ const passive=x.values.filter(n=>n>=7&&n<=8).length;
+ const detractor=x.values.filter(n=>n<=6).length;
+ return {n:x.values.length,invalid:x.invalid,promoter,passive,detractor,
+  nps:x.values.length?100*(promoter-detractor)/x.values.length:null};
+}
+function kpi(target,value,label){
+ const card=el('div','','dash-metric');
+ card.append(el('strong',value),el('span',label));target.append(card);
+}
+function createTrack(chunks){
+ const tr=el('span','','dash-track');
+ for(const item of chunks){const node=el('span','','dash-segment '+item.className);
+  node.style.width=Math.max(0,Math.min(100,item.pct))+'%';
+  node.title=item.title||'';
+  tr.append(node)}
+ return tr;
+}
+function legend(items){
+ const wrap=el('div','','dash-legend');
+ for(const [name,color] of items){const it=el('span','');
+  it.append(el('i','','dash-dot '+color),el('span',name));wrap.append(it)}
+ return wrap;
+}
+function compareLine(label,value,max,display,color){
+ const row=el('div','','dash-compare');
+ const left=el('small',label);
+ row.append(left,createTrack([{pct:value===null?0:(100*value/max),className:color}]),el('b',display));
+ return row;
+}
+function stacked(counts,order,total){
+ return createTrack(order.map(([key,color])=>({pct:total?100*counts[key]/total:0,
+  className:color,title:key+': '+counts[key]})));
+}
+function studentQuestionName(id){
+ for(const r of studentList){const a=answerById(r,id);if(a?.pergunta)return a.pergunta}
+ return id;
+}
+function familyQuestionName(id){
+ for(const r of familyList){const a=answerById(r,id);if(a?.pergunta)return a.pergunta}
+ return id;
+}
+function initStudentDashboard(){
+ const sel=$('student-question');sel.replaceChildren();
+ STUDENT_IDS.forEach((id,i)=>{const o=el('option',String(i+1).padStart(2,'0')+' · '+studentQuestionName(id));o.value=id;sel.append(o)});
+ sel.addEventListener('change',renderStudentDashboard);
+}
+function renderStudentDashboard(){
+ if(!studentList.length)return;
+ const cl=$('class-select').value;
+ const group=cl?studentList.filter(r=>r.class_code===cl):studentList;
+ const all=studentList,stats=studentCombined(group),reference=studentCombined(all);
+ const scope=cl?turmaLabel(cl):'Fundamental I · Todas as turmas';
+ const m=clear('student-dash-metrics');
+ kpi(m,String(group.length),'Respostas de alunos · '+scope);
+ kpi(m,percent(stats.fav,stats.valid),'Favoráveis · 9 questões (entre válidas)');
+ kpi(m,String(stats.valid),'Respostas objetivas válidas');
+ kpi(m,cl?(stats.valid&&reference.valid?((stats.fav/stats.valid-reference.fav/reference.valid)*100).toLocaleString('pt-BR',{signDisplay:'always',maximumFractionDigits:1})+' p.p.':'—'):'8',
+   cl?'Diferença descritiva ante o FI':'Turmas participantes');
+ const overview=clear('student-dash-overview');
+ overview.append(legend([['Favorável','dash-color-primary'],['Referência FI','dash-color-reference']]));
+ for(const id of STUDENT_IDS){
+  const own=studentCount(group,id),fi=studentCount(all,id),row=el('div','','dash-row');
+  row.append(el('div',studentQuestionName(id),'dash-row-title'));
+  row.append(compareLine(cl?'Turma selecionada':'Fundamental I',own.valid?100*own.fav/own.valid:null,100,percent(own.fav,own.valid)+' · n='+own.valid,'dash-color-primary'));
+  if(cl)row.append(compareLine('Referência FI',fi.valid?100*fi.fav/fi.valid:null,100,percent(fi.fav,fi.valid)+' · n='+fi.valid,'dash-color-reference'));
+  overview.append(row)
+ }
+ const id=$('student-question').value||STUDENT_IDS[0];
+ const detail=clear('student-dash-detail');
+ const own=studentCount(group,id),whole=studentCount(all,id);
+ const summary=el('div','','dash-question-detail');
+ summary.append(el('h3',studentQuestionName(id)),legend([['Favorável','dash-color-primary'],['Intermediária','dash-color-mid'],['Desfavorável','dash-color-low']]));
+ const addDistribution=(title,counts)=>{
+  const line=el('div','','dash-row');
+  line.append(el('div',title+' · '+counts.valid+' respostas válidas','dash-row-title'),
+    stacked(counts,[['fav','dash-color-primary'],['mid','dash-color-mid'],['low','dash-color-low']],counts.valid),
+    el('div','Favoráveis: '+counts.fav+' · Intermediárias: '+counts.mid+' · Desfavoráveis: '+counts.low,'dash-stack-label'));
+  summary.append(line)
+ };
+ addDistribution(scope,own);
+ if(cl)addDistribution('Referência: todas as turmas',whole);
+ detail.append(summary,el('h3','Percentual favorável por turma'));
+ const codes=[...new Set(all.map(x=>x.class_code))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ for(const code of codes){
+  const item=studentCount(all.filter(r=>r.class_code===code),id);
+  const line=compareLine(turmaLabel(code),item.valid?100*item.fav/item.valid:null,100,
+   percent(item.fav,item.valid)+' · n='+item.valid,code===cl?'dash-color-primary':'dash-color-reference');
+  if(code===cl){line.style.background='#eff8f7';line.style.borderRadius='7px'}
+  detail.append(line)
+ }
+ detail.append(el('p','Referência FI: '+percent(whole.fav,whole.valid)+' favoráveis, n='+whole.valid+'. Turmas com poucos participantes podem ter variações percentuais expressivas.','small muted'));
+}
+function initFamilyDashboard(){
+ const sel=$('family-question');sel.replaceChildren();
+ FAMILY_IDS.forEach((id,i)=>{const o=el('option',String(i+1).padStart(2,'0')+' · '+familyQuestionName(id));o.value=id;sel.append(o)});
+ sel.addEventListener('change',renderFamilyDashboard);
+}
+function renderFamilyDashboard(){
+ if(!familyList.length)return;
+ const selected=$('family-scope').value;
+ const all=familyList,rows=all.filter(r=>!selected||r.scope===selected);
+ const fi=all.filter(r=>r.scope==='FI'),multi=all.filter(r=>r.scope==='FI + OUTROS');
+ const results=familyScoreSummary(rows),nps=npsResult(rows);
+ const scopeText=selected?familyScopeLabel(selected):'Todas as famílias com vínculo FI';
+ const metrics=clear('family-dash-metrics');
+ kpi(metrics,String(rows.length),'Famílias respondentes · '+scopeText);
+ kpi(metrics,decimal(results.mean)+' / 4','Média de itens objetivos válidos');
+ kpi(metrics,nps.nps===null?'—':nps.nps.toLocaleString('pt-BR',{maximumFractionDigits:1,signDisplay:'always'}),'NPS · '+nps.n+' respostas válidas');
+ kpi(metrics,String(results.valid),'Notas válidas · 13 indicadores');
+ const overview=clear('family-dash-overview');
+ overview.append(legend([['Exclusivo Fundamental I','dash-color-primary'],['FI + outras etapas','dash-color-reference']]));
+ for(const id of FAMILY_IDS){
+  const x=familyValues(fi,id),y=familyValues(multi,id);
+  const row=el('div','','dash-row');row.append(el('div',familyQuestionName(id),'dash-row-title'));
+  row.append(compareLine('Somente FI',x.mean,4,decimal(x.mean)+' · n='+x.values.length,'dash-color-primary'));
+  row.append(compareLine('FI + outros',y.mean,4,decimal(y.mean)+' · n='+y.values.length,'dash-color-reference'));
+  overview.append(row)
+ }
+ const detail=clear('family-dash-detail');
+ const id=$('family-question').value||FAMILY_IDS[0];
+ const topic=el('div','','dash-question-detail');
+ topic.append(el('h3',familyQuestionName(id)),legend([['Nota 1','dash-color-low'],['Nota 2','dash-color-mid'],['Nota 3','dash-color-primary'],['Nota 4','dash-color-four']]));
+ const subgroups=[['Exclusivo Fundamental I',fi],['Fundamental I + outras etapas',multi]];
+ for(const [title,list] of subgroups){
+  const x=familyValues(list,id);const counts={n1:0,n2:0,n3:0,n4:0};
+  x.values.forEach(v=>counts['n'+v]++);
+  const wrap=el('div','','dash-row');
+  wrap.append(el('div',title+' · Média '+decimal(x.mean)+' / 4 · n='+x.values.length,'dash-row-title'));
+  wrap.append(stacked(counts,[['n1','dash-color-low'],['n2','dash-color-mid'],['n3','dash-color-primary'],['n4','dash-color-four']],x.values.length));
+  wrap.append(el('div','Nota 1: '+counts.n1+' · Nota 2: '+counts.n2+' · Nota 3: '+counts.n3+' · Nota 4: '+counts.n4+' · Ausentes/inválidas: '+x.invalid,'dash-stack-label'));
+  topic.append(wrap)
+ }
+ detail.append(topic);
+ const npsBox=el('div','','dash-question-detail');npsBox.style.marginTop='14px';
+ npsBox.append(el('h3','NPS por grupo familiar'),legend([['Promotores · 9–10','dash-color-primary'],['Neutros · 7–8','dash-color-mid'],['Detratores · 0–6','dash-color-low']]));
+ for(const [title,list] of subgroups){
+  const x=npsResult(list);const wrap=el('div','','dash-row');
+  wrap.append(el('div',title+' · NPS '+(x.nps===null?'—':x.nps.toLocaleString('pt-BR',{maximumFractionDigits:1,signDisplay:'always'}))+' · n='+x.n,'dash-row-title'));
+  wrap.append(stacked(x,[['promoter','dash-color-primary'],['passive','dash-color-mid'],['detractor','dash-color-low']],x.n));
+  wrap.append(el('div','Promotores: '+x.promoter+' · Neutros: '+x.passive+' · Detratores: '+x.detractor,'dash-stack-label'));
+  npsBox.append(wrap)
+ }
+ detail.append(npsBox);
+ if(results.invalid)detail.append(el('p',results.invalid+' valor(es) ausente(s) ou fora da escala entre os '+(rows.length*FAMILY_IDS.length)+' itens esperados no recorte. Esses valores não entraram nas médias.','small muted'));
+ detail.append(el('p','A comparação entre grupos é descritiva. Respostas de famílias com filhos em outras etapas não podem ser atribuídas exclusivamente ao Fundamental I.','small muted'));
+}
+
 $('search-form').addEventListener('submit',async e=>{e.preventDefault();const text=$('search-text').value.trim();if(text.length<3)return;const box=clear('search-result');box.append(el('p','Pesquisando…','muted'));try{let q=sup.from('stg_evidence').select('scope,question,answer,axis,class_code,respondent_code,origin').ilike('answer','%'+text+'%').limit(50);if($('search-scope').value)q=q.eq('scope',$('search-scope').value);const rows=await safe(q);clear(box);box.append(el('p',rows.length+' resultado(s), máximo de 50 por busca.','muted'));rows.forEach(x=>textBlock(box,x.question,x.answer,x.scope+' · '+(x.axis||x.class_code||x.respondent_code||'')+' · '+(x.origin||'')));if(!rows.length)box.append(el('p','Nenhum texto encontrado.'))}catch(x){err(x.message)}});
 
 // Leitura temática exclusivamente no navegador, após autorização no Supabase.
