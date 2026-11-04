@@ -15,7 +15,7 @@ h2{font-size:19px;margin:0 0 7px}h3{font-size:15px;margin:0 0 8px}p{margin:7px 0
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 label{font-size:12px;font-weight:750;display:block;margin:0 0 6px}
 input,select,textarea{width:100%;border:1px solid #bdd0d6;border-radius:8px;padding:11px;color:var(--ink);font:inherit;background:#fff}
-textarea{resize:vertical;min-height:100px}input:disabled,textarea:disabled,select:disabled{background:#f6f8f9}
+textarea{resize:vertical;min-height:100px}.audit-record{border-bottom:1px solid #e1ecee;padding:11px 0}.audit-record:last-child{border-bottom:0}.audit-record button{margin-top:7px}.audit-detail{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;border-left:3px solid #387f86;background:#f5f9fa;padding:13px;margin-top:8px;border-radius:8px}.inline-check{display:flex;align-items:flex-start;gap:11px;margin:12px 0;font-size:13px}.inline-check input{width:19px;height:19px;flex-shrink:0;margin:1px 0 0}input:disabled,textarea:disabled,select:disabled{background:#f6f8f9}
 button{background:var(--sea);border:0;border-radius:9px;padding:12px 16px;color:#fff;cursor:pointer;font:inherit;font-weight:730}
 button.secondary{background:#fff;border:1px solid #a9c3cd;color:var(--ink)}
 button:disabled{opacity:.5;cursor:default}
@@ -88,24 +88,38 @@ button:disabled{opacity:.5;cursor:default}
 </div>
 </div>
 <div class="card">
-<h2>5. Registro e validação</h2>
-<div class="note">O plano começa como <strong>rascunho</strong>. Enviar para revisão significa apenas que os campos mínimos foram preenchidos; <strong>não equivale a homologação, assinatura ou concordância da professora</strong>. A gestão deverá validar a versão final em reunião com ela.</div>
+<h2>5. Reunião de devolutiva e registro dos acordos</h2>
+<p class="muted tiny">Estes campos só devem ser preenchidos depois de uma conversa real com a profissional. O sistema <strong>não registra assinatura nem concordância digital da professora</strong>: documenta o relato da gestão, sujeito a conferência.</p>
+<div class="grid" style="margin-top:16px">
+<div><label for="meeting-date">Data da conversa realizada</label><input id="meeting-date" type="date"></div>
+<div><label for="participants">Participantes e funções</label><input id="participants" maxlength="500" placeholder="Ex.: professora regente, coordenação, direção"></div>
+<div><label for="feedback">Devolutiva da professora, inclusive ressalvas e discordâncias</label><textarea id="feedback" maxlength="4000" placeholder="Registre com fidelidade o que foi relatado pela professora, sem pressupor concordância."></textarea></div>
+<div><label for="agreements">Acordos efetivamente conversados e responsabilidades institucionais</label><textarea id="agreements" maxlength="4000" placeholder="Registre compromissos que foram de fato discutidos e quem ficará responsável."></textarea></div>
+</div>
+<label class="inline-check" for="consulted"><input id="consulted" type="checkbox"><span>Confirmo que houve uma conversa real com a professora e que este registro representa a devolutiva e os acordos discutidos, inclusive ressalvas.</span></label>
+<p class="tiny muted">Ao registrar uma pactuação, o plano será congelado e preservado no histórico. Para reformulá-lo posteriormente, será necessário abrir uma nova versão formal do processo.</p>
+</div>
+<div class="card">
+<h2>6. Registro e validação</h2>
+<div class="note">O plano começa como <strong>rascunho</strong>. Enviar para revisão significa apenas que os campos mínimos foram preenchidos; <strong>não equivale a homologação, assinatura ou concordância da professora</strong>. Apenas a administração pode registrar uma pactuação após reunião, campos obrigatórios e confirmação explícita. Isso não equivale à assinatura da professora.</div>
 <div id="read-only" class="warning" hidden>A conta de coordenação pode consultar o PDI, mas a gravação foi reservada ao administrador nesta etapa piloto.</div>
 <div class="actions no-print">
 <button id="save" type="button">Salvar rascunho protegido</button>
 <button id="review-btn" type="button" class="secondary">Encaminhar para revisão</button>
+<button id="pactuate" type="button" class="secondary">Registrar pactuação informada pela gestão</button>
 <button id="print" type="button" class="secondary">Imprimir / salvar como PDF</button>
 </div>
 <p id="notice" role="status" aria-live="polite"></p>
 <p class="tiny muted">Registros ficam no Supabase, protegidos por RLS. A versão pública do GitHub contém apenas a interface, sem respostas ou planos preenchidos. Nenhum conteúdo é salvo automaticamente no computador.</p>
 </div>
+<div class="card"><h2>Histórico de versões</h2><p class="muted tiny">Registros de auditoria protegidos. A versão inicial anterior à implantação do histórico aparece como linha de base, não como edição retroativamente comprovada.</p><div id="history-list" aria-live="polite"></div></div>
 </section>
 </main>
 <script src="./config.js"></script>
 <script type="module">
 const $=id=>document.getElementById(id), config=window.STAGIO_AUTH||{};
 let sup=null,user=null,role=null,teachers=[],selected=null,scoreRows=[],evidenceRows=[],currentPlan=null,loading=false;
-const fields=['context','goal','actions','support','indicator','responsible','review'];
+const fields=['context','goal','actions','support','indicator','responsible','review','meeting-date','participants','feedback','agreements'];
 function el(tag,text,cls){const x=document.createElement(tag);if(text!==undefined)x.textContent=String(text??'');if(cls)x.className=cls;return x}
 function notify(message,bad=false){$('notice').className=bad?'error':'ok';$('notice').textContent=message}
 function fail(message){$('gate').hidden=false;$('app').hidden=true;$('gate-message').textContent=message}
@@ -140,7 +154,7 @@ function renderEvidences(ids=[]){
  const rows=evidenceRows.filter(x=>['ERICA','AUTO'].includes(x.scope));
  if(!rows.length){box.append(el('div','Nenhum texto vinculado diretamente a esta profissional.','empty'));return}
  for(const r of rows){
-  const wrap=el('label',undefined,'checkitem'),ck=document.createElement('input');ck.type='checkbox';ck.value=r.id;ck.checked=selectedIds.has(r.id);ck.disabled=role!=='admin';
+  const wrap=el('label',undefined,'checkitem'),ck=document.createElement('input');ck.type='checkbox';ck.value=r.id;ck.checked=selectedIds.has(r.id);ck.disabled=role!=='admin'||currentPlan?.status==='pactuacao_registrada';
   const desc=el('div',undefined,'desc');
   desc.append(el('span',r.scope==='ERICA'?'Coordenação':'Autoavaliação','source'),el('strong',r.question||'Pergunta sem título'));
   if(r.axis)desc.append(el('div',r.axis,'tiny muted'));
@@ -157,9 +171,12 @@ function chosenIds(){return [...$('evidence-list').querySelectorAll('input[type=
 function updateEvidenceCounter(){$('evidence-counter').textContent=chosenIds().length+' de 5 evidências selecionadas'}
 function clearForm(){fields.forEach(f=>$(f).value='');$('focus-source').value='ERICA';fillAxisOptions('');currentPlan=null;notify('');}
 function setWriteAccess(){
- const admin=role==='admin';for(const id of ['context','goal','actions','support','indicator','responsible','review','focus-source','focus-axis'])$(id).disabled=!admin;
- for(const id of ['save','review-btn','template'])$(id).disabled=!admin;
- $('read-only').hidden=admin;
+ const editable=role==='admin'&&currentPlan?.status!=='pactuacao_registrada';
+ for(const id of [...fields,'focus-source','focus-axis','consulted'])$(id).disabled=!editable;
+ for(const id of ['save','review-btn','template'])$(id).disabled=!editable;
+ $('pactuate').disabled=!editable||currentPlan?.status!=='para_revisao';
+ const readOnly=$('read-only');readOnly.hidden=editable;
+ readOnly.textContent=role!=='admin'?'A coordenação pode consultar o PDI e seu histórico, mas somente a administração pode editá-los.':'Pactuação registrada e congelada. Esta versão não pode ser editada; o registro permanece disponível para consulta e impressão.';
 }
 function renderPlan(){
  if(!selected)return;
@@ -169,10 +186,12 @@ function renderPlan(){
  fillAxisOptions(currentPlan?.focus_axis||'');
  const map={
   context:'context_notes',goal:'objective',actions:'actions',support:'support_needed',
-  indicator:'evidence_indicator',responsible:'responsible',review:'next_review'
+  indicator:'evidence_indicator',responsible:'responsible',review:'next_review',
+  'meeting-date':'meeting_date',participants:'meeting_participants',feedback:'teacher_feedback',agreements:'agreement_notes'
  };
  for(const [id,key] of Object.entries(map))$(id).value=currentPlan?.[key]||'';
- $('status').textContent=currentPlan?(currentPlan.status==='para_revisao'?'Para revisão':'Rascunho salvo'):'Ainda não salvo';
+ $('consulted').checked=Boolean(currentPlan?.teacher_consulted);
+ $('status').textContent=currentPlan?(currentPlan.status==='pactuacao_registrada'?'Pactuação registrada pela gestão':currentPlan.status==='para_revisao'?'Para revisão':'Rascunho salvo'):'Ainda não salvo';
  $('modified').textContent=currentPlan?'Última alteração: '+new Date(currentPlan.updated_at).toLocaleString('pt-BR'):'Novo plano · M1/2026';
  renderEvidences(currentPlan?.evidence_ids||[]);
  setWriteAccess();
@@ -190,12 +209,54 @@ async function selectTeacher(id){
   if(sc.error)throw sc.error;if(ev.error)throw ev.error;if(plan.error)throw plan.error;
   if(selected.id!==next.id)return;
   scoreRows=sc.data||[];evidenceRows=ev.data||[];currentPlan=plan.data||null;
-  renderPlan();notify(currentPlan?'PDI carregado. Revise os campos antes de alterá-lo.':'Nenhum PDI registrado. Escolha o foco formativo e prepare o primeiro rascunho.');
+  renderPlan();await loadHistory();notify(currentPlan?'PDI carregado. Revise os campos antes de alterá-lo.':'Nenhum PDI registrado. Escolha o foco formativo e prepare o primeiro rascunho.');
  }catch(e){notify('Falha ao abrir registros: '+(e?.message||'erro inesperado'),true)}
  finally{loading=false}
 }
+async function loadHistory(){
+ const box=$('history-list');box.replaceChildren();
+ if(!currentPlan){box.append(el('p','Nenhuma versão registrada para esta profissional.','empty'));return}
+ const planId=currentPlan.id;
+ const {data,error}=await sup.from('stg_pdi_revisions')
+  .select('id,revision_number,operation,changed_at')
+  .eq('plan_id',planId).order('revision_number',{ascending:false}).limit(60);
+ if(selected?.id!==currentPlan?.teacher_id||currentPlan?.id!==planId)return;
+ if(error){box.append(el('p','Não foi possível ler o histórico: '+error.message,'warning'));return}
+ if(!data?.length){box.append(el('p','Histórico não encontrado.','empty'));return}
+ for(const r of data){
+  const wrap=el('div',undefined,'audit-record');
+  const line=r.operation==='baseline'?'Linha de base registrada na ativação do histórico':r.operation==='insert'?'Criação do plano':'Alteração do plano';
+  wrap.append(el('strong','Versão '+r.revision_number+' · '+line),el('div',new Date(r.changed_at).toLocaleString('pt-BR'),'tiny muted'));
+  const btn=el('button','Consultar conteúdo desta versão','secondary');btn.type='button';
+  const detail=el('div',undefined,'audit-detail');detail.hidden=true;
+  btn.onclick=async()=>{
+   if(!detail.hidden){detail.hidden=true;btn.textContent='Consultar conteúdo desta versão';return}
+   btn.disabled=true;
+   try{
+    const {data:snapshot,error:err}=await sup.from('stg_pdi_revisions')
+      .select('snapshot').eq('id',r.id).eq('plan_id',planId).single();
+    if(err)throw err;if(currentPlan?.id!==planId)return;
+    const p=snapshot.snapshot||{};
+    const pretty=[
+     'Etapa: '+(p.status||'—'),'Fonte / eixo: '+(p.focus_source||'—')+' / '+(p.focus_axis||'—'),
+     'Objetivo:\n'+(p.objective||'—'),'Ações:\n'+(p.actions||'—'),
+     'Apoios:\n'+(p.support_needed||'—'),
+     'Indicadores:\n'+(p.evidence_indicator||'—'),
+     'Contexto:\n'+(p.context_notes||'—'),
+     'Reunião: '+(p.meeting_date||'não registrada'),
+     'Devolutiva da professora:\n'+(p.teacher_feedback||'—'),
+     'Acordos:\n'+(p.agreement_notes||'—'),
+     'Referências a evidências: '+(p.evidence_ids?.length||0)
+    ].join('\n\n');
+    detail.textContent=pretty;detail.hidden=false;btn.textContent='Ocultar versão';
+   }catch(e){detail.textContent='Erro ao consultar a versão: '+(e?.message||'erro');detail.hidden=false}
+   finally{btn.disabled=false}
+  };
+  wrap.append(btn,detail);box.append(wrap);
+ }
+}
 function fillExample(){
- if(role!=='admin')return;
+ if(role!=='admin'||currentPlan?.status==='pactuacao_registrada')return;
  const axis=$('focus-axis').value;if(!axis){notify('Selecione primeiro o eixo de referência.',true);return}
  const hasContent=['goal','actions','support','indicator'].some(f=>$(f).value.trim());
  if(hasContent&&!confirm('A proposta substituirá o conteúdo atual de objetivo, ações, apoio e indicadores. Deseja continuar?'))return;
@@ -241,9 +302,17 @@ function fillExample(){
  notify('Proposta editável inserida. Não há diagnóstico automático; confirme as ações com a professora.');
 }
 async function save(status){
- if(role!=='admin'||!selected)return;
+ if(role!=='admin'||!selected||currentPlan?.status==='pactuacao_registrada')return;
+ if(status==='pactuacao_registrada'){
+  if(currentPlan?.status!=='para_revisao'){notify('Encaminhe o plano para revisão antes de registrar a pactuação.',true);return}
+  if(!$('consulted').checked||!$('meeting-date').value||!$('participants').value.trim()||!$('feedback').value.trim()||!$('agreements').value.trim()){
+   notify('Registre a reunião, os participantes, a devolutiva, os acordos e a confirmação de conversa real.',true);return
+  }
+  if($('meeting-date').value>new Date().toLocaleDateString('en-CA')){notify('A conversa precisa ter ocorrido antes do registro.',true);return}
+  if(!confirm('Confirma que a reunião com a professora ocorreu e que a devolutiva e os acordos foram registrados fielmente? Esta versão ficará congelada. Não é uma assinatura digital.'))return;
+ }
  const focusAxis=$('focus-axis').value.trim(),source=$('focus-source').value;
- if(status==='para_revisao'&&(!focusAxis||!$('goal').value.trim()||!$('actions').value.trim()||!$('indicator').value.trim()||!$('review').value)){
+ if(status!=='rascunho'&&(!focusAxis||!$('goal').value.trim()||!$('actions').value.trim()||!$('indicator').value.trim()||!$('review').value)){
   notify('Para revisão: selecione eixo, objetivo, ações, indicadores e data de acompanhamento.',true);return
  }
  if(chosenIds().length>5){notify('Máximo de cinco evidências.',true);return}
@@ -252,9 +321,12 @@ async function save(status){
   objective:$('goal').value.trim(),actions:$('actions').value.trim(),
   support_needed:$('support').value.trim(),evidence_indicator:$('indicator').value.trim(),
   responsible:$('responsible').value.trim(),next_review:$('review').value||null,
-  evidence_ids:chosenIds(),status
+  evidence_ids:chosenIds(),status,
+  meeting_date:$('meeting-date').value||null,meeting_participants:$('participants').value.trim(),
+  teacher_feedback:$('feedback').value.trim(),agreement_notes:$('agreements').value.trim(),
+  teacher_consulted:$('consulted').checked
  };
- for(const id of ['save','review-btn'])$(id).disabled=true;
+ for(const id of ['save','review-btn','pactuate'])$(id).disabled=true;
  notify('Gravando rascunho em ambiente protegido…');
  try{
   let q;
@@ -265,7 +337,7 @@ async function save(status){
   }
   const {data,error}=await q;if(error)throw error;
   if(!data){notify('O registro foi alterado em outra sessão. Reabra a professora para evitar sobrescrever o trabalho.',true);return}
-  currentPlan=data;renderPlan();notify(status==='para_revisao'?'Plano encaminhado para revisão. Ainda não homologado.':'Rascunho salvo no Supabase com sucesso.');
+  currentPlan=data;renderPlan();await loadHistory();notify(status==='pactuacao_registrada'?'Pactuação registrada pela gestão e congelada. A professora não assinou digitalmente.':status==='para_revisao'?'Plano encaminhado para revisão. Ainda não homologado.':'Rascunho salvo no Supabase com sucesso.');
  }catch(e){notify('Erro ao salvar: '+(e?.message||'erro inesperado')+'. Nenhum conteúdo foi publicado no GitHub.',true)}
  finally{setWriteAccess()}
 }
@@ -297,6 +369,7 @@ $('focus-source').addEventListener('change',()=>fillAxisOptions(''));
 $('template').addEventListener('click',fillExample);
 $('save').addEventListener('click',()=>save('rascunho'));
 $('review-btn').addEventListener('click',()=>save('para_revisao'));
+$('pactuate').addEventListener('click',()=>save('pactuacao_registrada'));
 $('print').addEventListener('click',()=>window.print());
 boot();
 </script></body></html>
