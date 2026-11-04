@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | Síntese Pedagógica M1</title>
+<style>
+:root{--ink:#193c4f;--sea:#207c86;--navy:#153a52;--mint:#ecf6f3;--line:#d9e6e9;--muted:#637d88;--paper:#fff;--bg:#f4f8f9}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(118deg,#12374e,#236d77);color:white;padding:25px max(20px,calc((100% - 1160px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:24px;margin:4px 0}header small{font-weight:700;letter-spacing:.14em;font-size:11px;color:#c4e5e8}header a{color:#fff}header .sub{color:#d3eaed;font-size:12px}
+main{max-width:1160px;margin:0 auto;padding:23px 17px 65px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 16px;box-shadow:0 6px 20px #17415c0a}
+h2{font-size:19px;margin:0 0 8px}h3{font-size:15px;margin:0 0 8px}p{margin:7px 0}a{color:var(--sea)}
+.muted{color:var(--muted)}.tiny{font-size:12px}.lead{font-size:13px;color:#526c77}
+.badge{display:inline-flex;align-items:center;font-size:11px;color:#196757;background:#e5f2ee;padding:4px 9px;border-radius:20px;font-weight:750;letter-spacing:.02em}
+.controls{display:flex;gap:14px;align-items:end;flex-wrap:wrap}.controls>div{flex:1;min-width:210px}
+label{display:block;font-weight:700;font-size:12px;margin-bottom:7px}
+select,input{width:100%;padding:11px 12px;border:1px solid #bacfd5;border-radius:8px;font:inherit;color:var(--ink);background:white}
+button{cursor:pointer;background:var(--sea);color:#fff;border:0;border-radius:9px;padding:11px 15px;font:inherit;font-weight:700}
+button.secondary{background:#fff;border:1px solid #b9d0d5;color:var(--ink)}
+button:disabled{opacity:.55;cursor:default}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:17px 0}
+.kpi{background:white;border:1px solid var(--line);border-radius:12px;padding:18px}
+.kpi .v{font-size:28px;font-weight:800;line-height:1.2}.kpi .k{color:#5b7684;font-size:12px;margin-top:5px}
+.warn{background:#fff7e9;border:1px solid #ead8b3;border-left:4px solid #c28a35;padding:13px 15px;border-radius:10px;margin:12px 0}
+.note{background:var(--mint);border:1px solid #d0e8e1;border-left:4px solid var(--sea);padding:13px 15px;border-radius:10px;margin:12px 0}
+table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;text-align:left;vertical-align:middle;border-bottom:1px solid #e9eff1}th{font-size:11px;text-transform:uppercase;letter-spacing:.035em;color:#66838f}td{font-size:13px}.tablewrap{overflow:auto}
+.value{font-weight:800;white-space:nowrap}
+.track{height:7px;border-radius:30px;background:#e8eff2;margin-top:7px;overflow:hidden;min-width:85px;max-width:240px}
+.fill{height:100%;border-radius:30px;background:#277d88}.fill.auto{background:#a27a42}
+.list{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.evidence{padding:12px 0;border-bottom:1px solid #edf1f2}.evidence:last-child{border-bottom:0}
+.evidence strong{display:block}.quote{margin-top:7px;white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f8f9;border-radius:8px;padding:12px;border-left:3px solid #4c9fa4}
+.topic{border:1px solid #dce9eb;border-radius:9px;padding:13px;margin:8px 0;background:#fbfdfd}
+.topic .mini{font-size:12px;color:#55717b}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.meta{font-size:12px;color:#59717c}.pill-muted{display:inline-block;padding:3px 8px;border-radius:6px;background:#f0f4f5;font-size:11px;color:#586e78}
+[hidden]{display:none!important}
+@media(max-width:750px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.list{grid-template-columns:1fr}header{padding:20px 17px}.card{padding:16px}th,td{padding:10px 7px}}
+@media print{body{background:#fff}header{background:#fff;color:#193c4f;padding:10px}header small,header .sub{color:#193c4f}main{padding:5px}.controls,.actions,.no-print,#gate{display:none!important}.card,.kpi{box-shadow:none;break-inside:avoid} .list{grid-template-columns:1fr 1fr}.note,.warn{background:white}.quote{background:#f8f8f8}a{color:#173c53}}
+</style></head>
+<body>
+<header><div><small>STAGIO 360 · INTELIGÊNCIA PEDAGÓGICA</small><h1>Síntese pedagógica</h1><div class="sub">Fundamental I · Avaliação 360 · Módulo 1 / 2026</div></div>
+<div class="tiny"><a href="./">← Área administrativa</a> &nbsp; · &nbsp; <a href="../">Painel institucional</a></div></header>
+<main>
+<section id="gate" class="card"><h2>Verificando acesso</h2><p id="gate-message" class="muted">Consultando a autorização desta sessão.</p><p><a href="./">Entrar no STAGIO 360</a></p></section>
+<section id="app" hidden>
+<div class="card">
+<div class="badge">LEITURA FORMATIVA · USO RESTRITO</div>
+<h2 style="margin-top:13px">Da avaliação à decisão pedagógica</h2>
+<p class="lead">As médias descrevem o conjunto de respostas de cada fonte; não equivalem a diagnóstico individual, classificação de desempenho ou decisão de pessoal. As escalas da coordenação e da autoavaliação são diferentes e <strong>não devem ser subtraídas diretamente</strong>.</p>
+<div class="controls" style="margin-top:17px">
+<div><label for="scope">População de análise</label><select id="scope">
+<option value="regentes">Regentes confirmadas (2º ao 5º ano)</option>
+<option value="revisar">Demais vínculos — requerem conferência</option>
+<option value="todos">Todos os profissionais registrados</option>
+</select></div>
+<div><label for="teacher">Aprofundar um profissional</label><select id="teacher"></select></div>
+</div>
+<p class="tiny muted" id="scope-note"></p>
+</div>
+<div class="kpis" id="kpis" aria-live="polite"></div>
+<div class="card">
+<h2>Panorama por eixo avaliativo</h2>
+<p class="muted tiny">Média dos resultados individuais de cada profissional no eixo; depois, média entre profissionais. Dessa forma, cada profissional tem o mesmo peso no eixo. A barra representa somente a posição dentro da escala de origem (1–5 ou 1–4), nunca uma equivalência estatística entre fontes.</p>
+<div class="tablewrap"><table aria-label="Médias por eixo e fonte"><thead><tr><th>Eixo</th><th>Coordenação · 1–5</th><th>Autoavaliação · 1–4</th></tr></thead><tbody id="axes"></tbody></table></div>
+</div>
+<div class="card" id="professional-card">
+<h2 id="profile-title">Leitura por profissional</h2><p id="profile-meta" class="muted"></p>
+<div class="list">
+<div><h3>Coordenação</h3><div id="profile-erica"></div></div>
+<div><h3>Autoavaliação</h3><div id="profile-auto"></div></div>
+</div>
+<div style="margin-top:18px"><h3>Pautas para uma conversa formativa</h3><div class="note" id="pdi-prompts"></div>
+<p class="tiny muted">Os eixos sugeridos são apenas pontos de partida baseados nas médias da própria ficha. Valide cada hipótese com observações, registros de planejamento e diálogo com a profissional antes de construir um PDI.</p></div>
+<div class="actions no-print">
+<button id="show-evidence" class="secondary" type="button">Consultar textos originais desta profissional</button>
+<button id="copy-brief" class="secondary" type="button">Copiar pauta para PDI</button>
+<button id="print-view" class="secondary" type="button">Imprimir síntese</button>
+</div>
+<div id="action-feedback" class="tiny muted" role="status" style="margin-top:9px"></div>
+<div id="evidence-panel" hidden style="margin-top:20px"><h3>Evidências qualitativas da coordenação e da própria profissional</h3>
+<p class="tiny muted">Respostas originais, sem edição, para leitura contextualizada. Não incluem relatos de alunos ou famílias atribuídos individualmente a professoras.</p><div id="evidence-content"></div>
+</div>
+</div>
+<div class="card">
+<h2>Cuidados para interpretação e próximos passos</h2>
+<div class="list">
+<div><strong>O que esta visão permite</strong><p class="tiny muted">Reconhecer padrões declarados nas duas fontes, identificar eixos para estudo coletivo e preparar conversas formativas individuais com evidências.</p></div>
+<div><strong>O que esta visão não permite</strong><p class="tiny muted">Inferir causalidade, ranquear profissionais, equiparar escalas distintas ou atribuir respostas gerais de alunos e famílias a uma professora específica.</p></div>
+<div><strong>População homologada</strong><p class="tiny muted">O recorte principal contém somente regentes confirmadas. Vínculos com escopo não homologado permanecem em uma consulta separada.</p></div>
+<div><strong>Comparação no tempo</strong><p class="tiny muted">Apenas M1/2026 foi importado. Não existem aqui dados das próximas janelas para calcular evolução individual.</p></div>
+</div>
+</div>
+</section></main>
+<script src="./config.js"></script>
+<script type="module">
+const $=id=>document.getElementById(id);
+const cfg=window.STAGIO_AUTH||{};
+let sup=null,teachers=[],scores=[],currentTeacher=null,scopeTeachers=[];
+function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text??'');if(cls)e.className=cls;return e}
+function clear(e){(typeof e==='string'?$(e):e).replaceChildren();return typeof e==='string'?$(e):e}
+function pavg(ar){return ar.length?ar.reduce((a,b)=>a+b,0)/ar.length:null}
+function fmt(n){return n===null||!Number.isFinite(n)?'—':n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function byName(a,b){return String(a.name).localeCompare(String(b.name),'pt-BR')}
+function isRegente(t){return t.scope==='REGENTE CONFIRMADA'}
+function scoresFor(ids){return scores.filter(s=>ids.has(s.teacher_id))}
+function summary(rows,source,axis=null){
+ const only=rows.filter(s=>s.source===source&&(axis===null||s.axis===axis)&&Number.isFinite(Number(s.score))&&Number(s.scale_max)>1);
+ const groups=new Map();
+ for(const r of only){if(!groups.has(r.teacher_id))groups.set(r.teacher_id,[]);groups.get(r.teacher_id).push(Number(r.score))}
+ const perTeacher=[...groups.values()].map(pavg);
+ return {n:only.length,people:groups.size,mean:pavg(perTeacher),scale:source==='ERICA'?5:4};
+}
+function addKpi(value,label){
+ const wrap=el('div',undefined,'kpi');wrap.append(el('div',value,'v'),el('div',label,'k'));$('kpis').append(wrap);
+}
+function meter(cell,r,kind){
+ if(!r.n){cell.append(el('span','Sem respostas nesta fonte','muted tiny'));return}
+ const val=el('div',fmt(r.mean)+' / '+r.scale,'value');const subtitle=el('div',r.people+' profissionais · '+r.n+' critérios','tiny muted');
+ const track=el('div',undefined,'track'),fill=el('div',undefined,'fill'+(kind==='AUTO'?' auto':''));
+ const percentage=Math.min(100,Math.max(0,((r.mean-1)/(r.scale-1))*100));
+ fill.style.width=percentage+'%';track.append(fill);cell.append(val,track,subtitle);
+}
+function getTeachers(){
+ const choice=$('scope').value;
+ return teachers.filter(t=>choice==='todos'||(choice==='regentes'?isRegente(t):!isRegente(t))).sort(byName);
+}
+function renderScope(){
+ scopeTeachers=getTeachers();const ids=new Set(scopeTeachers.map(t=>t.id));const own=scoresFor(ids);
+ const coord=summary(own,'ERICA'),self=summary(own,'AUTO');
+ clear('kpis');addKpi(String(scopeTeachers.length),'Profissionais no recorte');
+ addKpi(String(coord.people),'Com avaliação da coordenação');
+ addKpi(String(self.people),'Com autoavaliação');
+ const both=scopeTeachers.filter(t=>own.some(s=>s.teacher_id===t.id&&s.source==='ERICA')&&own.some(s=>s.teacher_id===t.id&&s.source==='AUTO')).length;
+ addKpi(String(both),'Com ambas as fontes');
+ const info=$('scope-note');
+ info.textContent=$('scope').value==='regentes'?'Recorte principal homologado: 7 regentes confirmadas. Resultados de outras atuações ficam fora desta síntese.':$('scope').value==='revisar'?'Estes registros têm atuação ou vínculo pendentes de conferência; não são automaticamente comparáveis às regentes.':'Recorte exploratório de toda a base. Mistura funções diferentes e não deve ser usado para comparações de desempenho.';
+ const axes=[...new Set(own.map(s=>s.axis).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ const tbody=clear('axes');
+ for(const axis of axes){
+   const tr=el('tr'),name=el('td');name.append(el('strong',axis));tr.append(name);
+   for(const src of ['ERICA','AUTO']){const td=el('td');meter(td,summary(own,src,axis),src);tr.append(td)}
+   tbody.append(tr);
+ }
+ if(!axes.length){const tr=el('tr'),td=el('td','Sem avaliações neste recorte.','muted');td.colSpan=3;tr.append(td);tbody.append(tr)}
+ const prior=currentTeacher&&scopeTeachers.find(t=>t.id===currentTeacher.id);
+ clear('teacher');
+ scopeTeachers.forEach(t=>{const o=el('option',t.name);o.value=t.id;$('teacher').append(o)});
+ currentTeacher=prior||scopeTeachers[0]||null;
+ if(currentTeacher){$('teacher').value=currentTeacher.id;renderProfile()}
+ else{clear('profile-erica');clear('profile-auto');$('profile-title').textContent='Nenhum profissional neste recorte';$('profile-meta').textContent='';$('pdi-prompts').textContent='Sem dados.'}
+}
+function teacherSummary(t,source){const sr=scores.filter(s=>s.teacher_id===t.id&&s.source===source);
+ const axes=[...new Set(sr.map(s=>s.axis).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ return axes.map(a=>({axis:a,stat:summary(sr,source,a)}));
+}
+function renderTeacherAxis(where,items,source){
+ const box=clear(where);
+ if(!items.length){box.append(el('p','Fonte não disponível para este profissional.','muted'));return}
+ for(const v of items){const topic=el('div',undefined,'topic');topic.append(el('strong',v.axis));const row=el('div');
+ meter(row,v.stat,source);topic.append(row);box.append(topic)}
+}
+function lowest(items){
+ if(!items.length)return null;
+ const min=Math.min(...items.map(v=>v.stat.mean));
+ return {names:items.filter(v=>Math.abs(v.stat.mean-min)<0.001).map(v=>v.axis),mean:min,scale:items[0].stat.scale};
+}
+function brief(t){
+ const a=teacherSummary(t,'ERICA'),b=teacherSummary(t,'AUTO');
+ const c=lowest(a),s=lowest(b);
+ const fmtFocus=(v,origin)=>v?origin+': '+v.names.join(', ')+' ('+fmt(v.mean)+'/'+v.scale+').':origin+': sem avaliação nesta fonte.';
+ return [
+  'STAGIO 360 — Pauta preliminar para conversa formativa · M1/2026',
+  'Profissional: '+t.name,
+  'Escopo: '+t.scope,
+  'Turmas associadas: '+((t.classes||[]).join(', ')||'A confirmar'),
+  fmtFocus(c,'Eixo(s) de menor média dentro da avaliação da coordenação'),
+  fmtFocus(s,'Eixo(s) de menor média dentro da autoavaliação'),
+  'Perguntas para a conversa:',
+  '1. Quais situações reais ilustram ou contrastam com esses resultados?',
+  '2. O que a profissional identifica como avanço e como necessidade de apoio?',
+  '3. Que evidências observáveis e compromissos específicos podem orientar um PDI?',
+  '4. Qual acompanhamento fará sentido na próxima janela avaliativa?',
+  'Observação: escalas 1–5 e 1–4 não são diretamente comparáveis; escutas de alunos e famílias não são atribuídas a um docente.',
+  'Documento de trabalho. Não é um julgamento conclusivo nem um PDI homologado.'
+ ].join('\n');
+}
+function renderProfile(){
+ const t=currentTeacher;if(!t)return;
+ $('profile-title').textContent=t.name;
+ $('profile-meta').textContent=t.role_label+' · '+t.scope+' · Turmas: '+((t.classes||[]).join(', ')||'não homologadas');
+ const a=teacherSummary(t,'ERICA'),b=teacherSummary(t,'AUTO');
+ renderTeacherAxis('profile-erica',a,'ERICA');renderTeacherAxis('profile-auto',b,'AUTO');
+ const fc=lowest(a),fs=lowest(b);const p=clear('pdi-prompts');
+ p.append(el('div','Eixos que merecem uma conversa contextualizada — não representam uma classificação:', 'tiny'));
+ if(fc)p.append(el('p','Coordenação: '+fc.names.join(', ')+' ('+fmt(fc.mean)+' / '+fc.scale+').'));
+ if(fs)p.append(el('p','Autoavaliação: '+fs.names.join(', ')+' ('+fmt(fs.mean)+' / '+fs.scale+').'));
+ if(!fc&&!fs)p.append(el('p','Sem notas registradas.','muted'));
+ p.append(el('p','Perguntas: Que práticas concretas sustentam essas percepções? Que condições de trabalho e apoios institucionais precisam ser considerados? Qual evidência observável indicaria avanço na próxima janela?','tiny'));
+ $('evidence-panel').hidden=true;clear('evidence-content');$('action-feedback').textContent='';
+ $('show-evidence').disabled=false;
+}
+function setAccessError(message){$('gate').hidden=false;$('app').hidden=true;$('gate-message').textContent=message}
+async function start(){
+ try{
+  if(!cfg.url||!cfg.publishableKey)throw Error('Configuração de autenticação ausente.');
+  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+  sup=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  const {data:{user},error:authError}=await sup.auth.getUser();
+  if(authError||!user){setAccessError('Entre na área administrativa para abrir esta síntese. Nenhum dado individual é acessível sem login.');return}
+  const {data:member,error:memError}=await sup.from('stg_members').select('role,active').eq('user_id',user.id).limit(1);
+  if(memError||!member||member.length!==1||!member[0].active||!['admin','coordenacao'].includes(member[0].role)){
+    setAccessError('Esta conta não possui autorização ativa para visualizar dados do STAGIO 360.');return
+  }
+  const [te,sc]=await Promise.all([
+    sup.from('stg_teachers').select('id,name,classes,scope,role_label').order('name').limit(100),
+    sup.from('stg_teacher_scores').select('teacher_id,source,axis,criterion,score,scale_max').limit(1000)
+  ]);
+  if(te.error)throw te.error;if(sc.error)throw sc.error;
+  teachers=te.data||[];scores=sc.data||[];
+  if(teachers.length!==25||scores.length!==629){
+    const n=$('gate');n.className='card';setAccessError('Leitura parcial da base detectada ('+teachers.length+' profissionais, '+scores.length+' notas). Não serão exibidos indicadores incompletos. Contate a administração.');return
+  }
+  $('gate').hidden=true;$('app').hidden=false;renderScope();
+ }catch(e){setAccessError('Falha ao consultar dados protegidos: '+(e?.message||'erro desconhecido'))}
+}
+$('scope').addEventListener('change',renderScope);
+$('teacher').addEventListener('change',()=>{currentTeacher=teachers.find(t=>t.id===$('teacher').value)||null;renderProfile()});
+$('print-view').addEventListener('click',()=>window.print());
+$('copy-brief').addEventListener('click',async()=>{if(!currentTeacher)return;try{await navigator.clipboard.writeText(brief(currentTeacher));$('action-feedback').textContent='Pauta copiada. Revise e valide as evidências antes de criar o PDI.'}catch(e){$('action-feedback').textContent='Seu navegador não permitiu copiar. Utilize a opção Imprimir síntese.'}});
+$('show-evidence').addEventListener('click',async()=>{
+ const t=currentTeacher;if(!t)return;const button=$('show-evidence');
+ if(!$('evidence-panel').hidden){$('evidence-panel').hidden=true;button.textContent='Consultar textos originais desta profissional';return}
+ button.disabled=true;$('action-feedback').textContent='Lendo os registros autorizados…';
+ try{
+  const {data,error}=await sup.from('stg_evidence').select('scope,question,answer,axis,origin').eq('teacher_id',t.id).in('scope',['ERICA','AUTO']).order('scope').limit(200);
+  if(error)throw error;
+  if(currentTeacher?.id!==t.id)return;
+  const box=clear('evidence-content');
+  if(!data?.length){box.append(el('p','Sem registros qualitativos nesta fonte.','muted'))}
+  else for(const r of data){const wrap=el('div',undefined,'evidence');
+   wrap.append(el('span',(r.scope==='ERICA'?'Coordenação':'Autoavaliação')+' · '+(r.axis||'Sem eixo'),'pill-muted'),
+               el('strong',r.question||'Pergunta sem título'),
+               el('div',r.answer||'(sem resposta)','quote'));
+   box.append(wrap)
+  }
+  $('evidence-panel').hidden=false;button.textContent='Ocultar textos originais';
+  $('action-feedback').textContent=(data||[]).length+' registros qualitativos desta profissional.';
+ }catch(e){$('action-feedback').textContent='Erro ao abrir evidências: '+(e?.message||'erro')}
+ finally{button.disabled=false}
+});
+start();
+</script></body></html>
