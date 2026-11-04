@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | PDI Piloto M1</title>
+<style>
+:root{--ink:#193b4d;--navy:#173b53;--sea:#217a84;--mute:#647e88;--line:#d9e6e9;--bg:#f4f8f9;--light:#eaf5f2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.52 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#13384f,#256b75);color:#fff;padding:21px max(18px,calc((100vw - 1160px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+header small{font-size:11px;letter-spacing:.15em;font-weight:800;color:#cae5e9}header h1{margin:4px 0 0;font-size:23px}header a{color:#fff}
+main{max-width:1160px;margin:0 auto;padding:22px 16px 70px}
+.card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:21px;margin-bottom:15px;box-shadow:0 5px 24px #17384d0a}
+h2{font-size:19px;margin:0 0 7px}h3{font-size:15px;margin:0 0 8px}p{margin:7px 0}a{color:#236d79}
+.muted{color:var(--mute)}.tiny{font-size:12px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--sea)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+label{font-size:12px;font-weight:750;display:block;margin:0 0 6px}
+input,select,textarea{width:100%;border:1px solid #bdd0d6;border-radius:8px;padding:11px;color:var(--ink);font:inherit;background:#fff}
+textarea{resize:vertical;min-height:100px}input:disabled,textarea:disabled,select:disabled{background:#f6f8f9}
+button{background:var(--sea);border:0;border-radius:9px;padding:12px 16px;color:#fff;cursor:pointer;font:inherit;font-weight:730}
+button.secondary{background:#fff;border:1px solid #a9c3cd;color:var(--ink)}
+button:disabled{opacity:.5;cursor:default}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.note{padding:13px 15px;background:#eef7f5;border:1px solid #cfe4de;border-left:4px solid var(--sea);border-radius:9px;font-size:13px;margin:14px 0}
+.warning{padding:13px 15px;background:#fff7e8;border:1px solid #ead7b3;border-left:4px solid #be8a36;border-radius:9px;font-size:13px;margin:14px 0}
+.status{display:inline-flex;background:#f0f5f7;color:#47646e;border-radius:99px;font-size:12px;font-weight:800;padding:5px 11px}
+.scores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.score{background:#f8fbfc;border:1px solid #e4edef;border-radius:9px;padding:12px;margin:9px 0}
+.score .bar{height:7px;background:#e5edf0;border-radius:8px;margin:7px 0;overflow:hidden}.score .fill{height:100%;background:var(--sea);border-radius:8px}
+.score .fill.auto{background:#a57b41}
+.score strong{font-size:13px}.score .meta{font-size:11px;color:#617b87}
+.checkitem{display:flex;gap:11px;align-items:flex-start;border:1px solid #dce8ea;background:#fbfdfd;border-radius:9px;padding:12px;margin:10px 0}
+.checkitem input{width:19px;height:19px;margin:2px 0 0;flex-shrink:0;accent-color:var(--sea)}.checkitem .desc{flex:1;min-width:0}
+.checkitem .text{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f7f8;border-radius:7px;padding:9px;margin-top:7px}
+.checkitem .source{display:inline-block;background:#e8f4f1;color:#245f63;border-radius:99px;padding:2px 7px;font-size:11px;margin-bottom:5px}
+.empty{padding:13px;border:1px dashed #c5d7dc;color:var(--mute);border-radius:8px;font-size:13px}
+#notice{margin-top:12px;font-weight:650;font-size:13px}#notice.error{color:#9b3333}#notice.ok{color:#226955}
+.sr{position:absolute;left:-10000px}
+[hidden]{display:none!important}
+@media(max-width:780px){.grid,.triple,.scores{grid-template-columns:1fr}.card{padding:16px}header{padding:19px 16px}}
+@media print{body{background:#fff;font-size:12px}header{padding:8px 20px;background:#fff;color:#193b4d}header a{display:none}header small{color:#193b4d}main{padding:5px 16px}.card{box-shadow:none;break-inside:avoid}button,.actions,#gate,#teacher,#notice,.no-print,.checkitem input{display:none!important}input,textarea,select{border:0;padding:2px;background:transparent!important}.checkitem{break-inside:avoid}.score{break-inside:avoid}}
+</style></head>
+<body>
+<header><div><small>STAGIO 360 · INTELIGÊNCIA PEDAGÓGICA</small><h1>PDI Piloto · Módulo 1</h1><div class="tiny">Fundamental I · Trabalho formativo · Acesso restrito</div></div><div class="tiny"><a href="./sintese.html">← Síntese pedagógica</a> &nbsp; · &nbsp; <a href="./">Área administrativa</a></div></header>
+<main>
+<section id="gate" class="card"><h2>Verificando autorização</h2><p id="gate-message" class="muted">Conectando ao STAGIO 360…</p></section>
+<section id="app" hidden>
+<div class="card">
+<div class="eyebrow">PDI · PRIMEIRA JANELA / 2026</div>
+<h2>Construção de um plano de desenvolvimento</h2>
+<p class="muted">O PDI é um instrumento de diálogo e acompanhamento, não uma decisão automática sobre desempenho. Escolha uma das <strong>sete regentes homologadas</strong> para preparar o piloto. Os dados são lidos somente após autenticação.</p>
+<div class="grid" style="margin-top:18px">
+<div><label for="teacher">Professora regente</label><select id="teacher"></select></div>
+<div><label>Situação do registro</label><div style="padding:8px 0"><span class="status" id="status">Nenhum rascunho criado</span><div class="tiny muted" id="modified"></div></div></div>
+</div>
+<div id="profile" class="note"></div>
+<div class="warning">A média por eixo descreve a percepção registrada em cada instrumento. <strong>Não compare diretamente escala 1–5 com 1–4.</strong> A diferença entre respostas não define, por si só, uma dificuldade. Dados de alunos e famílias não são atribuídos individualmente a docentes.</div>
+</div>
+<div class="card">
+<h2>1. Leitura das duas fontes</h2>
+<p class="tiny muted">Cada eixo apresenta a média dos critérios respondidos pela mesma professora na escala original. Use esses dados como ponto de partida, confrontando-os com evidências e contexto.</p>
+<div class="scores"><div><h3>Coordenação · Escala 1–5</h3><div id="coord-scores"></div></div><div><h3>Autoavaliação · Escala 1–4</h3><div id="auto-scores"></div></div></div>
+</div>
+<div class="card">
+<h2>2. Escolha do foco formativo</h2>
+<p class="tiny muted">Esta escolha é deliberada pela gestão e pela professora. O sistema não define automaticamente o eixo de intervenção.</p>
+<div class="grid">
+<div><label for="focus-source">Instrumento de referência</label><select id="focus-source"><option value="ERICA">Avaliação da coordenação</option><option value="AUTO">Autoavaliação</option></select></div>
+<div><label for="focus-axis">Eixo escolhido</label><select id="focus-axis"></select></div>
+</div>
+<div style="margin-top:15px"><label for="context">Leitura contextualizada · pontos fortes, condições e hipóteses a verificar</label><textarea id="context" maxlength="4000" placeholder="O que precisa ser discutido com a professora antes de formular uma meta? Quais evidências e condições institucionais importam?"></textarea></div>
+</div>
+<div class="card">
+<h2>3. Evidências originais selecionadas</h2>
+<p class="muted tiny">Escolha até cinco respostas vinculadas à professora, provenientes exclusivamente da coordenação ou da autoavaliação. O banco salvará <strong>referências às evidências</strong>, não cópias adicionais dos textos. Leia o contexto completo antes de selecionar.</p>
+<div id="evidence-list"></div><p id="evidence-counter" class="tiny muted"></p>
+</div>
+<div class="card">
+<h2>4. Plano de ação e acompanhamento</h2>
+<p class="tiny muted">As sugestões de preenchimento são exemplos de trabalho e podem ser alteradas. Não são diagnósticos nem compromissos já pactuados.</p>
+<div class="actions no-print" style="margin:12px 0 18px"><button class="secondary" id="template" type="button">Inserir proposta editável para o eixo escolhido</button></div>
+<div class="grid">
+<div><label for="goal">Objetivo observável</label><textarea id="goal" maxlength="2000" placeholder="Que prática concreta pretende ser desenvolvida e com qual resultado observável?"></textarea></div>
+<div><label for="actions">Ações acordadas</label><textarea id="actions" maxlength="4000" placeholder="Quais etapas, atividades e momentos de devolutiva serão realizados?"></textarea></div>
+<div><label for="support">Apoio e condições oferecidos pela instituição</label><textarea id="support" maxlength="2500" placeholder="Tempo, materiais, formação, observação entre pares, acompanhamento da coordenação…"></textarea></div>
+<div><label for="indicator">Indicadores e evidências de acompanhamento</label><textarea id="indicator" maxlength="2500" placeholder="Que registro ou prática permite observar o progresso sem reduzir o trabalho docente a uma nota?"></textarea></div>
+<div><label for="responsible">Responsáveis pelo acompanhamento</label><input id="responsible" maxlength="300" placeholder="Ex.: professora e coordenação pedagógica"></div>
+<div><label for="review">Data de revisão do plano</label><input id="review" type="date"></div>
+</div>
+</div>
+<div class="card">
+<h2>5. Registro e validação</h2>
+<div class="note">O plano começa como <strong>rascunho</strong>. Enviar para revisão significa apenas que os campos mínimos foram preenchidos; <strong>não equivale a homologação, assinatura ou concordância da professora</strong>. A gestão deverá validar a versão final em reunião com ela.</div>
+<div id="read-only" class="warning" hidden>A conta de coordenação pode consultar o PDI, mas a gravação foi reservada ao administrador nesta etapa piloto.</div>
+<div class="actions no-print">
+<button id="save" type="button">Salvar rascunho protegido</button>
+<button id="review-btn" type="button" class="secondary">Encaminhar para revisão</button>
+<button id="print" type="button" class="secondary">Imprimir / salvar como PDF</button>
+</div>
+<p id="notice" role="status" aria-live="polite"></p>
+<p class="tiny muted">Registros ficam no Supabase, protegidos por RLS. A versão pública do GitHub contém apenas a interface, sem respostas ou planos preenchidos. Nenhum conteúdo é salvo automaticamente no computador.</p>
+</div>
+</section>
+</main>
+<script src="./config.js"></script>
+<script type="module">
+const $=id=>document.getElementById(id), config=window.STAGIO_AUTH||{};
+let sup=null,user=null,role=null,teachers=[],selected=null,scoreRows=[],evidenceRows=[],currentPlan=null,loading=false;
+const fields=['context','goal','actions','support','indicator','responsible','review'];
+function el(tag,text,cls){const x=document.createElement(tag);if(text!==undefined)x.textContent=String(text??'');if(cls)x.className=cls;return x}
+function notify(message,bad=false){$('notice').className=bad?'error':'ok';$('notice').textContent=message}
+function fail(message){$('gate').hidden=false;$('app').hidden=true;$('gate-message').textContent=message}
+function mean(nums){return nums.reduce((a,b)=>a+b,0)/nums.length}
+function fmt(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function bySource(source){return scoreRows.filter(x=>x.source===source)}
+function axisRows(source){const rows=bySource(source),axes=[...new Set(rows.map(r=>r.axis).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ return axes.map(axis=>({axis,items:rows.filter(r=>r.axis===axis)}))}
+function fillAxisOptions(wanted){const source=$('focus-source').value,list=axisRows(source),node=$('focus-axis');node.replaceChildren();
+ const prompt=el('option','Selecione um eixo');prompt.value='';node.append(prompt);
+ for(const group of list){const opt=el('option',group.axis);opt.value=group.axis;node.append(opt)}
+ if(wanted&&list.some(g=>g.axis===wanted))node.value=wanted;
+}
+function renderScores(){
+ for(const [source,id] of [['ERICA','coord-scores'],['AUTO','auto-scores']]){
+  const box=$(id);box.replaceChildren();const groups=axisRows(source);
+  if(!groups.length){box.append(el('div','Sem registros nesta fonte.','empty'));continue}
+  for(const group of groups){
+   const avg=mean(group.items.map(x=>Number(x.score))),scale=source==='ERICA'?5:4;
+   const block=el('div',undefined,'score');block.append(el('strong',group.axis));
+   const meta=el('div',fmt(avg)+' / '+scale+' · '+group.items.length+' critérios','meta');
+   const bar=el('div',undefined,'bar'),fill=el('div',undefined,'fill'+(source==='AUTO'?' auto':''));
+   fill.style.width=Math.max(0,Math.min(100,100*(avg-1)/(scale-1)))+'%';bar.append(fill);
+   block.append(meta,bar);box.append(block);
+  }
+ }
+}
+function truncate(txt,n=450){return txt.length>n?txt.slice(0,n)+'…':txt}
+function renderEvidences(ids=[]){
+ const box=$('evidence-list');box.replaceChildren();
+ const selectedIds=new Set(ids);
+ const rows=evidenceRows.filter(x=>['ERICA','AUTO'].includes(x.scope));
+ if(!rows.length){box.append(el('div','Nenhum texto vinculado diretamente a esta profissional.','empty'));return}
+ for(const r of rows){
+  const wrap=el('label',undefined,'checkitem'),ck=document.createElement('input');ck.type='checkbox';ck.value=r.id;ck.checked=selectedIds.has(r.id);ck.disabled=role!=='admin';
+  const desc=el('div',undefined,'desc');
+  desc.append(el('span',r.scope==='ERICA'?'Coordenação':'Autoavaliação','source'),el('strong',r.question||'Pergunta sem título'));
+  if(r.axis)desc.append(el('div',r.axis,'tiny muted'));
+  const body=el('div',truncate(String(r.answer||'')),'text');desc.append(body);
+  if((r.answer||'').length>450){const button=el('button','Exibir texto completo','secondary');button.type='button';button.style.cssText='font-size:12px;padding:5px 8px;margin-top:7px';
+   button.onclick=()=>{const full=button.textContent==='Exibir texto completo';body.textContent=full?r.answer:truncate(r.answer);button.textContent=full?'Recolher texto':'Exibir texto completo'};
+   desc.append(button)}
+  wrap.append(ck,desc);box.append(wrap);
+  ck.addEventListener('change',()=>{if(chosenIds().length>5){ck.checked=false;notify('Selecione no máximo cinco evidências para este PDI.',true)}updateEvidenceCounter()});
+ }
+ updateEvidenceCounter();
+}
+function chosenIds(){return [...$('evidence-list').querySelectorAll('input[type=checkbox]:checked')].map(c=>c.value)}
+function updateEvidenceCounter(){$('evidence-counter').textContent=chosenIds().length+' de 5 evidências selecionadas'}
+function clearForm(){fields.forEach(f=>$(f).value='');$('focus-source').value='ERICA';fillAxisOptions('');currentPlan=null;notify('');}
+function setWriteAccess(){
+ const admin=role==='admin';for(const id of ['context','goal','actions','support','indicator','responsible','review','focus-source','focus-axis'])$(id).disabled=!admin;
+ for(const id of ['save','review-btn','template'])$(id).disabled=!admin;
+ $('read-only').hidden=admin;
+}
+function renderPlan(){
+ if(!selected)return;
+ $('profile').textContent=selected.role_label+' · '+selected.scope+' · Turmas associadas: '+((selected.classes||[]).join(', ')||'Não informadas');
+ renderScores();fillAxisOptions(currentPlan?.focus_axis);
+ $('focus-source').value=currentPlan?.focus_source||'ERICA';
+ fillAxisOptions(currentPlan?.focus_axis||'');
+ const map={
+  context:'context_notes',goal:'objective',actions:'actions',support:'support_needed',
+  indicator:'evidence_indicator',responsible:'responsible',review:'next_review'
+ };
+ for(const [id,key] of Object.entries(map))$(id).value=currentPlan?.[key]||'';
+ $('status').textContent=currentPlan?(currentPlan.status==='para_revisao'?'Para revisão':'Rascunho salvo'):'Ainda não salvo';
+ $('modified').textContent=currentPlan?'Última alteração: '+new Date(currentPlan.updated_at).toLocaleString('pt-BR'):'Novo plano · M1/2026';
+ renderEvidences(currentPlan?.evidence_ids||[]);
+ setWriteAccess();
+}
+async function selectTeacher(id){
+ if(loading)return;const next=teachers.find(t=>t.id===id);if(!next)return;
+ selected=next;loading=true;notify('');
+ $('profile').textContent='Buscando avaliação e rascunho protegidos…';
+ try{
+  const [sc,ev,plan]=await Promise.all([
+   sup.from('stg_teacher_scores').select('source,axis,criterion,score,scale_max').eq('teacher_id',next.id).eq('module','M1').limit(120),
+   sup.from('stg_evidence').select('id,scope,axis,question,answer').eq('teacher_id',next.id).eq('module','M1').in('scope',['ERICA','AUTO']).limit(100),
+   sup.from('stg_pdi_plans').select('*').eq('teacher_id',next.id).eq('module','M1').maybeSingle()
+  ]);
+  if(sc.error)throw sc.error;if(ev.error)throw ev.error;if(plan.error)throw plan.error;
+  if(selected.id!==next.id)return;
+  scoreRows=sc.data||[];evidenceRows=ev.data||[];currentPlan=plan.data||null;
+  renderPlan();notify(currentPlan?'PDI carregado. Revise os campos antes de alterá-lo.':'Nenhum PDI registrado. Escolha o foco formativo e prepare o primeiro rascunho.');
+ }catch(e){notify('Falha ao abrir registros: '+(e?.message||'erro inesperado'),true)}
+ finally{loading=false}
+}
+function fillExample(){
+ if(role!=='admin')return;
+ const axis=$('focus-axis').value;if(!axis){notify('Selecione primeiro o eixo de referência.',true);return}
+ const hasContent=['goal','actions','support','indicator'].some(f=>$(f).value.trim());
+ if(hasContent&&!confirm('A proposta substituirá o conteúdo atual de objetivo, ações, apoio e indicadores. Deseja continuar?'))return;
+ const proposals={
+ 'Planejamento':[
+ 'Construir, aplicar e revisar uma sequência didática com objetivos de aprendizagem, estratégias e instrumentos de verificação explícitos, em diálogo com a coordenação.',
+ '1. Selecionar uma sequência de ensino prioritária com a professora.\n2. Registrar objetivos, estratégias e formas de avaliação no planejamento.\n3. Coanalisar a aplicação e ajustar uma versão do material.',
+ 'Tempo protegido de planejamento, acompanhamento da coordenação e acesso a materiais de referência.',
+ 'Planejamento inicial e revisado; registros de aplicação; devolutiva da professora sobre o que funcionou e o que mudou.'
+ ],
+ 'Condução da aula':[
+ 'Planejar, experimentar e refletir sobre uma rotina de aula com instruções compreensíveis, participação dos estudantes e verificação de aprendizagem.',
+ '1. Descrever a rotina atual com exemplos.\n2. Definir e experimentar uma estratégia de instrução e checagem.\n3. Observar os resultados e discutir ajustes na reunião de acompanhamento.',
+ 'Apoio para observação formativa, troca entre pares e elaboração de recursos adequados à turma.',
+ 'Plano da rotina; registro de observação contextualizado; produções dos estudantes e reflexão da docente.'
+ ],
+ 'Cultura profissional':[
+ 'Desenvolver e documentar uma prática de colaboração pedagógica, com troca de experiências e retorno formativo entre profissionais.',
+ '1. Escolher um tema de estudo compartilhado.\n2. Realizar uma sessão de planejamento ou observação entre pares.\n3. Registrar aprendizagens, revisões e próximos acordos.',
+ 'Agenda protegida para colaboração, mediação da coordenação e acordos claros de participação.',
+ 'Registro dos encontros, material cocriado e relato reflexivo sobre mudança de prática.'
+ ],
+ 'Desenvolvimento profissional':[
+ 'Articular um estudo profissional escolhido em conjunto a uma experiência concreta de sala de aula e a uma reflexão sobre seus resultados.',
+ '1. Definir uma questão da prática.\n2. Estudar um recurso selecionado em conjunto.\n3. Experimentar uma estratégia em aula.\n4. Apresentar evidências e ajustes em devolutiva.',
+ 'Curadoria de materiais e tempo de formação acompanhada pela coordenação.',
+ 'Registro da questão, material estudado, evidências da experiência e reflexão posterior.'
+ ],
+ 'Condições de trabalho':[
+ 'Identificar e pactuar ajustes institucionais que favoreçam o desenvolvimento do trabalho pedagógico, com responsabilidades compartilhadas.',
+ '1. Ouvir a docente e mapear condições relatadas.\n2. Priorizar uma barreira institucional passível de intervenção.\n3. Definir apoio de gestão, responsáveis e prazo.\n4. Verificar com a docente o efeito do ajuste.',
+ 'Compromisso explícito da gestão com condições materiais, tempo, apoio e comunicação.',
+ 'Registro do acordo institucional, providências efetivamente realizadas e devolutiva da professora sobre sua utilidade.'
+ ]
+ };
+ const p=proposals[axis]||[
+ 'Formular com a professora um objetivo de desenvolvimento observável no eixo '+axis+'.',
+ '1. Analisar evidências e contexto.\n2. Definir uma ação concreta.\n3. Experimentar e registrar resultados.\n4. Revisar em encontro formativo.',
+ 'Apoios institucionais a definir em diálogo com a professora.',
+ 'Evidências acordadas de implementação, reflexão e próximos ajustes.'
+ ];
+ for(const [i,id] of ['goal','actions','support','indicator'].entries())$(id).value=p[i];
+ notify('Proposta editável inserida. Não há diagnóstico automático; confirme as ações com a professora.');
+}
+async function save(status){
+ if(role!=='admin'||!selected)return;
+ const focusAxis=$('focus-axis').value.trim(),source=$('focus-source').value;
+ if(status==='para_revisao'&&(!focusAxis||!$('goal').value.trim()||!$('actions').value.trim()||!$('indicator').value.trim()||!$('review').value)){
+  notify('Para revisão: selecione eixo, objetivo, ações, indicadores e data de acompanhamento.',true);return
+ }
+ if(chosenIds().length>5){notify('Máximo de cinco evidências.',true);return}
+ const payload={
+  focus_source:source,focus_axis:focusAxis,context_notes:$('context').value.trim(),
+  objective:$('goal').value.trim(),actions:$('actions').value.trim(),
+  support_needed:$('support').value.trim(),evidence_indicator:$('indicator').value.trim(),
+  responsible:$('responsible').value.trim(),next_review:$('review').value||null,
+  evidence_ids:chosenIds(),status
+ };
+ for(const id of ['save','review-btn'])$(id).disabled=true;
+ notify('Gravando rascunho em ambiente protegido…');
+ try{
+  let q;
+  if(currentPlan){
+   q=sup.from('stg_pdi_plans').update(payload).eq('id',currentPlan.id).eq('updated_at',currentPlan.updated_at).select('*').maybeSingle()
+  }else{
+   q=sup.from('stg_pdi_plans').insert({...payload,teacher_id:selected.id,module:'M1'}).select('*').single()
+  }
+  const {data,error}=await q;if(error)throw error;
+  if(!data){notify('O registro foi alterado em outra sessão. Reabra a professora para evitar sobrescrever o trabalho.',true);return}
+  currentPlan=data;renderPlan();notify(status==='para_revisao'?'Plano encaminhado para revisão. Ainda não homologado.':'Rascunho salvo no Supabase com sucesso.');
+ }catch(e){notify('Erro ao salvar: '+(e?.message||'erro inesperado')+'. Nenhum conteúdo foi publicado no GitHub.',true)}
+ finally{setWriteAccess()}
+}
+async function boot(){
+ try{
+  if(!config.url||!config.publishableKey)throw Error('Configuração de autenticação ausente.');
+  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+  sup=createClient(config.url,config.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  const resp=await sup.auth.getUser();if(resp.error||!resp.data.user)throw Error('Entre primeiro na área administrativa com uma conta autorizada.');
+  user=resp.data.user;
+  const {data:members,error:memberError}=await sup.from('stg_members').select('role,active').eq('user_id',user.id).limit(1);
+  if(memberError||!members?.[0]?.active||!['admin','coordenacao'].includes(members[0].role))throw Error('Seu perfil não está autorizado a acessar o PDI.');
+  role=members[0].role;
+  const {data,error}=await sup.from('stg_teachers').select('id,name,classes,scope,role_label').eq('scope','REGENTE CONFIRMADA').order('name').limit(15);
+  if(error)throw error;if(data?.length!==7)throw Error('O conjunto de regentes homologadas foi alterado. Confira a base antes de elaborar um PDI.');
+  teachers=data||[];
+  const select=$('teacher');select.replaceChildren();
+  for(const t of teachers){const option=el('option',t.name);option.value=t.id;select.append(option)}
+  const initial=new URLSearchParams(location.search).get('teacher');
+  const start=teachers.some(t=>t.id===initial)?initial:teachers[0].id;
+  select.value=start;
+  $('gate').hidden=true;$('app').hidden=false;
+  setWriteAccess();
+  await selectTeacher(start);
+ }catch(e){fail(e.message||'Erro ao consultar o sistema.')}
+}
+$('teacher').addEventListener('change',()=>selectTeacher($('teacher').value));
+$('focus-source').addEventListener('change',()=>fillAxisOptions(''));
+$('template').addEventListener('click',fillExample);
+$('save').addEventListener('click',()=>save('rascunho'));
+$('review-btn').addEventListener('click',()=>save('para_revisao'));
+$('print').addEventListener('click',()=>window.print());
+boot();
+</script></body></html>
