@@ -138,10 +138,71 @@ async function renderTeacher(t){
  box.append(texts);
 }
 async function renderErica(id){const t=teacherList.find(x=>x.id===id);if(!t)return;const [sc,ev]=await Promise.all([safe(sup.from('stg_teacher_scores').select('source,axis,criterion,score,scale_max').eq('teacher_id',id).eq('source','ERICA').order('axis')),safe(sup.from('stg_evidence').select('question,answer,axis,origin').eq('teacher_id',id).eq('scope','ERICA').limit(100))]);const box=clear('erica-view');box.append(el('h3',t.name+' — Critérios avaliados'));sc.forEach(x=>scoreBlock(box,x));box.append(el('h3','Registros dissertativos da Érica'));ev.forEach(x=>textBlock(box,x.question,x.answer,(x.axis||'Síntese')+' · '+(x.origin||'Pesquisa coordenação')));if(!sc.length&&!ev.length)box.append(el('p','Não há registros da coordenação para esta pessoa.','muted'))}
-async function loadStudents(){studentList=await safe(sup.from('stg_students').select('respondent_code,class_code,answers').order('class_code').limit(500));const codes=[...new Set(studentList.map(x=>x.class_code))].sort();addSelect($('class-select'),[['','Selecione uma turma'],...codes.map(x=>[x,x])]);$('class-select').onchange=updateStudentOptions;updateStudentOptions();$('student-select').onchange=e=>renderResponse('student-view',studentList.find(x=>x.respondent_code===e.target.value),'student');}
-function updateStudentOptions(){const cl=$('class-select').value,arr=studentList.filter(x=>x.class_code===cl);addSelect($('student-select'),[['','Selecione um código'],...arr.map(x=>[x.respondent_code,x.respondent_code])]);empty('student-view',cl?arr.length+' registros na turma. Selecione um código.':'Selecione uma turma.')}
-async function loadFamilies(){familyList=await safe(sup.from('stg_families').select('respondent_code,scope,grade_names,answers').order('respondent_code').limit(500));addSelect($('family-select'),[['','Selecione uma família'],...familyList.map(x=>[x.respondent_code,x.respondent_code+' · '+x.scope])]);$('family-select').onchange=e=>renderResponse('family-view',familyList.find(x=>x.respondent_code===e.target.value),'family');empty('family-view','Selecione um registro.')}
-function renderResponse(id,p,type){if(!p){empty(id,'Selecione um registro.');return}const box=clear(id);append(box,el('h3',(type==='student'?'Aluno: ':'Família: ')+p.respondent_code),el('p',type==='student'?p.class_code:p.scope+' · '+(p.grade_names||''),'muted'));(p.answers||[]).forEach(r=>textBlock(box,r.pergunta||r.question||r.id||'Pergunta',r.texto||r.resposta||r.answer||'(sem resposta)',r.categoria||r.nota||r.origem||''))}
+function turmaLabel(code){
+ const match=String(code||'').match(/^(\d+)º\s+([A-Z])$/);
+ return match?match[1]+'º ano · Turma '+match[2]:String(code||'Não informada');
+}
+function familyScopeLabel(scope){
+ return scope==='FI'?'Exclusivo do Fundamental I':scope==='FI + OUTROS'?'Fundamental I + outras etapas':String(scope||'Não informado');
+}
+async function loadStudents(){
+ studentList=await safe(sup.from('stg_students').select('respondent_code,class_code,answers').order('class_code').limit(500));
+ studentAliases.clear();
+ const codes=[...new Set(studentList.map(x=>x.class_code))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ for(const cl of codes){
+  const arr=studentList.filter(x=>x.class_code===cl).sort((a,b)=>a.respondent_code.localeCompare(b.respondent_code));
+  arr.forEach((r,i)=>studentAliases.set(r.respondent_code,'Resposta '+String(i+1).padStart(2,'0')));
+ }
+ addSelect($('class-select'),[['','Selecione uma série e turma'],...codes.map(cl=>[cl,turmaLabel(cl)+' · '+studentList.filter(r=>r.class_code===cl).length+' respostas'])]);
+ $('class-select').onchange=updateStudentOptions;updateStudentOptions();
+ $('student-select').onchange=e=>renderResponse('student-view',studentList.find(x=>x.respondent_code===e.target.value),'student');
+}
+function updateStudentOptions(){
+ const cl=$('class-select').value;
+ const arr=studentList.filter(x=>x.class_code===cl).sort((a,b)=>a.respondent_code.localeCompare(b.respondent_code));
+ addSelect($('student-select'),[['','Selecione uma resposta'],...arr.map(x=>[x.respondent_code,studentAliases.get(x.respondent_code)+' · '+turmaLabel(x.class_code)])]);
+ $('student-context').textContent=cl?
+  turmaLabel(cl)+' · '+arr.length+' respostas codificadas. A numeração facilita a navegação e não identifica nomes ou ordem de chamada.':
+  'Selecione uma turma para consultar as respostas preservadas por código.';
+ empty('student-view',cl?'Selecione uma resposta desta turma.':'Selecione primeiro uma série e turma.');
+}
+async function loadFamilies(){
+ familyList=await safe(sup.from('stg_families').select('respondent_code,scope,grade_names,answers').order('respondent_code').limit(500));
+ familyAliases.clear();
+ for(const [scope,prefix] of [['FI','Resposta FI'],['FI + OUTROS','Resposta multissegmento']]){
+  const rows=familyList.filter(f=>f.scope===scope).sort((a,b)=>a.respondent_code.localeCompare(b.respondent_code));
+  rows.forEach((r,i)=>familyAliases.set(r.respondent_code,prefix+' '+String(i+1).padStart(3,'0')));
+ }
+ $('family-scope').onchange=updateFamilyOptions;updateFamilyOptions();
+ $('family-select').onchange=e=>renderResponse('family-view',familyList.find(x=>x.respondent_code===e.target.value),'family');
+}
+function updateFamilyOptions(){
+ const scope=$('family-scope').value;
+ const rows=familyList.filter(f=>!scope||f.scope===scope);
+ addSelect($('family-select'),[['','Selecione uma resposta de família'],...rows.map(f=>[
+   f.respondent_code,(familyAliases.get(f.respondent_code)||'Resposta sem categoria')+' · '+familyScopeLabel(f.scope)
+ ])]);
+ const fi=familyList.filter(x=>x.scope==='FI').length;
+ const multi=familyList.filter(x=>x.scope==='FI + OUTROS').length;
+ $('family-context').textContent=rows.length+' respostas no filtro · '+fi+' exclusivas do FI e '+multi+' multissegmento no total. O identificador técnico fica disponível no detalhe, não na lista.';
+ empty('family-view','Selecione uma resposta para consultar o questionário original.');
+}
+function renderResponse(id,p,type){
+ if(!p){empty(id,'Selecione uma resposta codificada.');return}
+ const box=clear(id),label=type==='student'?studentAliases.get(p.respondent_code):familyAliases.get(p.respondent_code);
+ const title=type==='student'?turmaLabel(p.class_code):familyScopeLabel(p.scope);
+ const head=el('div','','profile-hero');
+ head.append(el('h2',label||'Registro pseudonimizado'),el('div',title,'small muted'),
+             el('div','Identificador técnico para auditoria: '+p.respondent_code,'mini'));
+ if(type==='family'&&p.grade_names)head.append(el('div','Etapas informadas: '+(Array.isArray(p.grade_names)?p.grade_names.join(', '):p.grade_names),'small muted'));
+ box.append(head);
+ const answers=p.answers||[];
+ box.append(el('div',answers.length+' respostas registradas nesta ficha.','record-label'));
+ answers.forEach((r,i)=>textBlock(box,
+   String(i+1).padStart(2,'0')+' · '+(r.pergunta||r.question||r.id||'Pergunta'),
+   r.texto??r.resposta??r.answer??'(sem resposta)',
+   r.categoria??r.nota??r.origem??''));
+}
 $('search-form').addEventListener('submit',async e=>{e.preventDefault();const text=$('search-text').value.trim();if(text.length<3)return;const box=clear('search-result');box.append(el('p','Pesquisando…','muted'));try{let q=sup.from('stg_evidence').select('scope,question,answer,axis,class_code,respondent_code,origin').ilike('answer','%'+text+'%').limit(50);if($('search-scope').value)q=q.eq('scope',$('search-scope').value);const rows=await safe(q);clear(box);box.append(el('p',rows.length+' resultado(s), máximo de 50 por busca.','muted'));rows.forEach(x=>textBlock(box,x.question,x.answer,x.scope+' · '+(x.axis||x.class_code||x.respondent_code||'')+' · '+(x.origin||'')));if(!rows.length)box.append(el('p','Nenhum texto encontrado.'))}catch(x){err(x.message)}});
 boot();
 </script></body></html>
