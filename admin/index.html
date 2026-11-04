@@ -41,7 +41,7 @@ button:disabled{opacity:.5;cursor:default}
 <section id="erica" hidden><div class="card"><h2>Leitura da coordenação</h2><p class="muted">Respostas da Érica, organizadas por profissional e critério. Notas e textos mantidos em contexto; campos em branco não são preenchidos automaticamente.</p><div class="field"><label for="erica-select">Profissional avaliado</label><select id="erica-select"></select></div><div id="erica-view"></div></div></section>
 <section id="students" hidden><div class="card"><h2>Escuta dos alunos</h2><p class="muted">Consulta individual por código pseudonimizado. Não é possível identificar o aluno pelo nome a partir desta tela. Respostas abertas podem conter referências pessoais; trate-as como confidenciais.</p><div class="twocol"><div class="field"><label for="class-select">Série e turma</label><select id="class-select"></select></div><div class="field"><label for="student-select">Resposta pseudonimizada</label><select id="student-select"></select></div></div><div class="field-hint" id="student-context">Selecione uma turma para visualizar suas respostas.</div><div id="student-view"></div></div></section>
 <section id="families" hidden><div class="card"><h2>Escuta das famílias</h2><p class="muted">Recorte exclusivo do FI e multissegmento identificados separadamente. Respostas de famílias multissegmento não devem ser atribuídas exclusivamente ao Fundamental I.</p><div class="twocol"><div class="field"><label for="family-scope">Tipo de vínculo</label><select id="family-scope"><option value="">Todas as respostas</option><option value="FI">Somente Fundamental I</option><option value="FI + OUTROS">Fundamental I + outras etapas</option></select></div><div class="field"><label for="family-select">Resposta pseudonimizada</label><select id="family-select"></select></div></div><div class="field-hint" id="family-context"></div><div id="family-view"></div></div></section>
-<section id="search" hidden><div class="card"><h2>Busca nas respostas dissertativas</h2><p class="muted">Localize expressões específicas ou examine temas recorrentes entre as quatro fontes. As citações são originais e confidenciais; nenhum trecho é enviado a serviços externos de IA.</p><form id="search-form" class="twocol"><div class="field"><label for="search-text">Palavra ou expressão</label><input id="search-text" minlength="3" maxlength="100" required placeholder="Ex.: planejamento coletivo"/></div><div class="field"><label for="search-scope">Fonte</label><select id="search-scope"><option value="">Todas as fontes</option><option value="ERICA">Érica</option><option value="AUTO">Autoavaliação</option><option value="ALUNO">Alunos</option><option value="FAMILIA">Famílias</option></select></div><div><button type="submit">Pesquisar evidências</button></div></form><div id="search-result" style="margin-top:18px"></div></div><div class="card" id="themes-card"><h2>Mapa temático das respostas</h2><p class="muted">Explore assuntos recorrentes, trechos que merecem atenção e registros de valorização. A identificação é lexical e serve apenas à triagem: não equivale a análise de sentimento, julgamento de gravidade ou conclusão pedagógica.</p><div class="twocol"><div class="field"><label for="theme-select">Tema</label><select id="theme-select"></select></div><div class="field"><label for="theme-view">Tipo de destaque</label><select id="theme-view"><option value="all">Todos os trechos do tema</option><option value="attention">Trechos com sinais de dificuldade</option><option value="positive">Trechos de valorização</option></select></div></div><div class="twocol"><div class="field"><label for="theme-source">Fonte</label><select id="theme-source"><option value="">Todas as fontes</option><option value="ERICA">Coordenação</option><option value="AUTO">Autoavaliação</option><option value="ALUNO">Alunos</option><option value="FAMILIA">Famílias</option></select></div><div style="align-self:end;padding-bottom:13px"><button id="theme-run" type="button">Analisar respostas por tema</button></div></div><p class="mini">A contagem é de trechos, não de pessoas. O mesmo respondente pode ter várias respostas e um trecho pode aparecer em mais de um tema.</p><div id="theme-result" aria-live="polite" style="margin-top:16px"></div></div></section>
+<section id="search" hidden><div class="card"><h2>Busca nas respostas dissertativas</h2><p class="muted">Localize expressões específicas ou examine temas recorrentes entre as quatro fontes. As citações são originais e confidenciais; nenhum trecho é enviado a serviços externos de IA.</p><form id="search-form" class="twocol"><div class="field"><label for="search-text">Palavra ou expressão</label><input id="search-text" minlength="3" maxlength="100" required placeholder="Ex.: planejamento coletivo"/></div><div class="field"><label for="search-scope">Fonte</label><select id="search-scope"><option value="">Todas as fontes</option><option value="ERICA">Érica</option><option value="AUTO">Autoavaliação</option><option value="ALUNO">Alunos</option><option value="FAMILIA">Famílias</option></select></div><div><button type="submit">Pesquisar evidências</button></div></form><div id="search-result" style="margin-top:18px"></div></div><div class="card" id="themes-card"><h2>Mapa temático das respostas</h2><p class="muted">Explore assuntos recorrentes, trechos que merecem atenção e registros de valorização. A identificação é lexical e serve apenas à triagem: não equivale a análise de sentimento, julgamento de gravidade ou conclusão pedagógica.</p><div class="twocol"><div class="field"><label for="theme-select">Tema</label><select id="theme-select"></select></div><div class="field"><label for="theme-view">Tipo de destaque</label><select id="theme-view"><option value="all">Todos os trechos do tema</option><option value="attention">Trechos com sinais de dificuldade</option><option value="positive">Trechos de valorização</option><option value="cross">Trechos que conectam dois ou mais temas</option></select></div></div><div class="twocol"><div class="field"><label for="theme-source">Fonte</label><select id="theme-source"><option value="">Todas as fontes</option><option value="ERICA">Coordenação</option><option value="AUTO">Autoavaliação</option><option value="ALUNO">Alunos</option><option value="FAMILIA">Famílias</option></select></div><div style="align-self:end;padding-bottom:13px"><button id="theme-run" type="button">Analisar respostas por tema</button></div></div><p class="mini">A contagem é de trechos, não de pessoas. O mesmo respondente pode ter várias respostas e um trecho pode aparecer em mais de um tema.</p><div id="theme-result" aria-live="polite" style="margin-top:16px"></div></div></section>
 <details id="utilities" class="utility" hidden><summary>Manutenção e módulos complementares</summary><p class="small muted">Ferramentas administrativas fora do fluxo principal de leitura.</p><p><a href="./import.html" id="maintenance-import" hidden>Importar base protegida</a><a href="./pdi.html">PDI piloto</a><a href="./revisao.html">Pré-revisão institucional</a></p></details>
 </section>
 </main>
@@ -204,5 +204,103 @@ function renderResponse(id,p,type){
    r.categoria??r.nota??r.origem??''));
 }
 $('search-form').addEventListener('submit',async e=>{e.preventDefault();const text=$('search-text').value.trim();if(text.length<3)return;const box=clear('search-result');box.append(el('p','Pesquisando…','muted'));try{let q=sup.from('stg_evidence').select('scope,question,answer,axis,class_code,respondent_code,origin').ilike('answer','%'+text+'%').limit(50);if($('search-scope').value)q=q.eq('scope',$('search-scope').value);const rows=await safe(q);clear(box);box.append(el('p',rows.length+' resultado(s), máximo de 50 por busca.','muted'));rows.forEach(x=>textBlock(box,x.question,x.answer,x.scope+' · '+(x.axis||x.class_code||x.respondent_code||'')+' · '+(x.origin||'')));if(!rows.length)box.append(el('p','Nenhum texto encontrado.'))}catch(x){err(x.message)}});
+
+// Leitura temática exclusivamente no navegador, após autorização no Supabase.
+// Os marcadores são heurísticas lexicais, NÃO classificações automáticas de sentimento ou importância.
+const THEMES=[
+ {id:'comunicacao',label:'Comunicação e atendimento',words:['comunic','informa','mensag','recad','avis','respost','atendimen','dialog']},
+ {id:'recursos',label:'Materiais e infraestrutura',words:['material','recurso','estrutura','copia','copias','equipament','espac','infraestrutura']},
+ {id:'praticas',label:'Práticas de aula e aprendizagem',words:['aula','aprendiz','atividad','ensino','planej','particip','conteud','metodolog']},
+ {id:'convivencia',label:'Convivência, acolhimento e bem-estar',words:['acolh','respeit','conviv','amizad','relac','bully','bem-estar','bem estar','seguranc','escuta']},
+ {id:'gestao',label:'Gestão, organização e processos',words:['gestao','direcao','coorden','organiza','burocr','prazo','rotina','regra','procediment']},
+ {id:'formacao',label:'Formação e desenvolvimento profissional',words:['formacao','capacita','curso','tecnolog','inova','aperfeico','desenvolviment profissional','pratica docente']},
+ {id:'valorizacao',label:'Valorização e condições de trabalho',words:['salari','valoriz','reconhec','apoio','condic','sobrecarga','carga horaria','funcionario','auxiliar']}
+];
+const ATTENTION=['falta','dificuld','dificil','problema','desgaste','insuficient','demora','nao consigo','nao tem','precisa melhorar','deveria','limitac','limita','reclam','atraso','pouca','pouco','preocupa','necessidade de'];
+const APPRECIATION=['gosto','bom','boa','otim','excelente','acolhedor','positivo','gostei','ajuda','atenc','criativ','feliz','seguro','respeito','agradec','maravilhos','parabens','satisfeito'];
+const SOURCE_NAMES={ERICA:'Coordenação',AUTO:'Autoavaliação',ALUNO:'Alunos',FAMILIA:'Famílias'};
+const SOURCE_KEYS=['ERICA','AUTO','ALUNO','FAMILIA'];
+const normalizeTerm=value=>String(value??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR');
+const lexicalHits=(normalized,words)=>words.filter(w=>normalized.includes(w)).length;
+function themeTag(tag,text){const x=el(tag,text);x.className='kpi-mini';return x}
+async function readAllEvidence(){
+ if(allEvidenceCache!==null)return allEvidenceCache;
+ const entries=[];const batchSize=500;
+ for(let page=0;page<8;page++){
+  const segment=await safe(sup.from('stg_evidence')
+   .select('id,scope,question,answer,axis,class_code')
+   .order('id',{ascending:true})
+   .range(page*batchSize,(page+1)*batchSize-1));
+  entries.push(...segment);
+  if(segment.length<batchSize){
+   allEvidenceCache=entries.map(r=>({...r,_normalized:normalizeTerm(r.answer)}));
+   return allEvidenceCache;
+  }
+ }
+ throw Error('A base excedeu o limite de leitura. A análise temática não foi exibida para evitar contagens incompletas.');
+}
+function distinctThemeMatches(row){return THEMES.filter(t=>lexicalHits(row._normalized,t.words)>0)}
+function thematicSample(rows,max=10){
+ // Intercala fontes em vez de deixar uma fonte dominar as primeiras citações.
+ const buckets=SOURCE_KEYS.map(src=>rows.filter(r=>r.scope===src));
+ const out=[];let pos=0;
+ while(out.length<max&&buckets.some(x=>x.length>pos)){
+  for(const bucket of buckets){if(bucket.length>pos&&out.length<max)out.push(bucket[pos])}
+  pos++;
+ }
+ return out;
+}
+function themeOverview(){
+ const box=clear('theme-result');
+ if(!allEvidenceCache){box.append(el('p','Clique em “Analisar respostas por tema” para carregar os textos autorizados.','field-hint'));return}
+ const th=THEMES.find(t=>t.id===$('theme-select').value)||THEMES[0];
+ const src=$('theme-source').value,view=$('theme-view').value;
+ const themeRows=allEvidenceCache.filter(r=>lexicalHits(r._normalized,th.words)>0);
+ const sourceRows=themeRows.filter(r=>!src||r.scope===src);
+ let rows=sourceRows;
+ if(view==='attention')rows=rows.filter(r=>lexicalHits(r._normalized,ATTENTION)>0);
+ if(view==='positive')rows=rows.filter(r=>lexicalHits(r._normalized,APPRECIATION)>0);
+ if(view==='cross')rows=rows.filter(r=>distinctThemeMatches(r).length>=2);
+ const head=el('div','','theme-grid');
+ const total=el('div','','theme-stat');total.append(el('strong',String(themeRows.length)),el('small','Trechos associados ao tema, nas quatro fontes'));head.append(total);
+ const current=el('div','','theme-stat');current.append(el('strong',String(rows.length)),el('small','Trechos após os filtros selecionados'));head.append(current);
+ const sources=new Set(themeRows.map(r=>r.scope));
+ const diversity=el('div','','theme-stat');diversity.append(el('strong',String(sources.size)+' / 4'),el('small','Fontes com menções ao assunto'));head.append(diversity);
+ box.append(head);
+ const lines=el('div','','theme-line');
+ for(const source of SOURCE_KEYS){
+  const count=themeRows.filter(r=>r.scope===source).length;
+  lines.append(themeTag('span',SOURCE_NAMES[source]+' · '+count));
+ }
+ box.append(lines);
+ box.append(el('p','São contagens de trechos por palavras associadas ao tema, não de pessoas ou de avaliações positivas/negativas. Questionários e amostras diferentes impedem comparar diretamente a prevalência entre fontes.','small muted'));
+ const overlaps=THEMES.filter(t=>t.id!==th.id).map(t=>({
+  label:t.label,n:sourceRows.filter(r=>lexicalHits(r._normalized,t.words)>0).length
+ })).filter(x=>x.n>0).sort((a,b)=>b.n-a.n).slice(0,4);
+ const rel=el('div','','safe');rel.append(el('strong','Convergências no mesmo trecho'));
+ rel.append(el('p',overlaps.length?overlaps.map(x=>x.label+' ('+x.n+')').join(' · '):'Não foram encontradas sobreposições lexicais neste recorte.','small'));
+ rel.append(el('p','Sobreposição temática não demonstra relação causal, concordância entre pessoas ou correlação estatística.','mini'));box.append(rel);
+ const subtitle=el('h3','Citações ilustrativas para leitura crítica');subtitle.style.marginTop='17px';box.append(subtitle);
+ box.append(el('p','Até dez trechos originais, distribuídos entre as fontes disponíveis. A seleção não é um ranking de importância ou gravidade.','small muted'));
+ if(!rows.length){box.append(el('div','Nenhum trecho correspondente aos filtros escolhidos.','empty'));return}
+ for(const r of thematicSample(rows)){
+  const meta=SOURCE_NAMES[r.scope]+' · '+(r.axis||r.class_code||'Questionário')+
+   (lexicalHits(r._normalized,ATTENTION)?' · Marcador lexical de atenção':'');
+  textBlock(box,r.question||'Pergunta original',r.answer,meta);
+ }
+}
+for(const item of THEMES){const option=el('option',item.label);option.value=item.id;$('theme-select').append(option)}
+$('theme-select').addEventListener('change',themeOverview);
+$('theme-view').addEventListener('change',themeOverview);
+$('theme-source').addEventListener('change',themeOverview);
+$('theme-run').addEventListener('click',async()=>{
+ const button=$('theme-run');button.disabled=true;
+ clear('theme-result').append(el('p','Carregando e organizando os registros protegidos…','muted'));
+ try{
+  await readAllEvidence();themeOverview();
+ }catch(e){clear('theme-result').append(el('div','Não foi possível concluir a leitura temática: '+(e?.message||'erro desconhecido'),'warning'))}
+ finally{button.disabled=false}
+});
+
 boot();
 </script></body></html>
