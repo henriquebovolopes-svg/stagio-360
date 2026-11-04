@@ -47,6 +47,7 @@ document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>show(x.dataset.tab));
 
 const byTurma={"2º A":[[14,9,0],[17,6,0],[17,6,0],[12,10,1],[18,5,0],[20,2,1],[20,3,0],[18,4,1],[17,5,1]],"2º B":[[23,0,0],[21,2,0],[18,5,0],[19,3,1],[17,5,1],[17,6,0],[20,3,0],[16,6,1],[21,1,1]],"3º A":[[12,5,2],[8,10,1],[13,6,0],[15,4,0],[15,4,0],[14,4,1],[17,2,0],[9,7,3],[17,2,0]],"3º B":[[17,3,0],[15,4,1],[17,3,0],[16,4,0],[19,1,0],[18,2,0],[19,1,0],[19,1,0],[20,0,0]],"4º A":[[13,3,0],[11,5,0],[8,8,0],[11,5,0],[9,7,0],[13,3,0],[13,3,0],[8,7,1],[14,2,0]],"4º B":[[11,0,0],[8,3,0],[7,4,0],[7,4,0],[9,2,0],[8,3,0],[9,2,0],[8,3,0],[8,3,0]],"5º A":[[17,10,0],[13,14,0],[14,12,1],[22,5,0],[19,7,1],[17,10,0],[18,9,0],[24,2,1],[23,4,0]],"5º B":[[15,5,0],[9,9,2],[12,8,0],[15,5,0],[12,8,0],[11,7,2],[17,3,0],[13,5,2],[18,2,0]]};
 const seriesNames=['2º ano','3º ano','4º ano','5º ano'];
+const questionIds=questions.map(q=>q.id);
 const sum3=(a,b)=>a.map((v,i)=>v+b[i]);
 function getScope(scope){if(byTurma[scope])return byTurma[scope];if(scope==='Fundamental I'){return questions.map((_,i)=>Object.values(byTurma).reduce((a,t)=>sum3(a,t[i]),[0,0,0]));}const k=scope.slice(0,2);return questions.map((_,i)=>Object.entries(byTurma).filter(([n])=>n.startsWith(k)).reduce((a,[n,t])=>sum3(a,t[i]),[0,0,0]));}
 function nScope(scope){return getScope(scope)[0].reduce((a,b)=>a+b,0);}
