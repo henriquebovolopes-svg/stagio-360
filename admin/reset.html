@@ -42,7 +42,7 @@ if(!cfg.url||!cfg.publishableKey){info('Configuração de autenticação indispo
 else{
  try{
  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
- const supabase=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+ const supabase=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}});
  // The same callback accepts both PKCE ?code=... and recovery hash tokens.
  // Recovery requires a valid session established from the emailed link, never an unchecked URL parameter.
  let recoveryConfirmed=false;
