@@ -89,6 +89,9 @@ button:disabled{opacity:.5;cursor:default}
 </div>
 <div class="card">
 <h2>5. Reunião de devolutiva e registro dos acordos</h2>
+<div class="note no-print"><strong>Antes da reunião com a professora:</strong> avalie a viabilidade dos apoios institucionais com a direção e a coordenação.
+<a id="review-link" href="./revisao.html" style="font-weight:800">Abrir pré-revisão institucional</a>.
+Os pareceres não homologam o PDI nem confirmam compromissos.</div>
 <p class="muted tiny">Estes campos só devem ser preenchidos depois de uma conversa real com a profissional. O sistema <strong>não registra assinatura nem concordância digital da professora</strong>: documenta o relato da gestão, sujeito a conferência.</p>
 <div class="grid" style="margin-top:16px">
 <div><label for="meeting-date">Data da conversa realizada</label><input id="meeting-date" type="date"></div>
@@ -180,6 +183,7 @@ function setWriteAccess(){
 }
 function renderPlan(){
  if(!selected)return;
+ $('review-link').href='./revisao.html'+(currentPlan?.id?'?plan='+encodeURIComponent(currentPlan.id):'');
  $('profile').textContent=selected.role_label+' · '+selected.scope+' · Turmas associadas: '+((selected.classes||[]).join(', ')||'Não informadas');
  renderScores();fillAxisOptions(currentPlan?.focus_axis);
  $('focus-source').value=currentPlan?.focus_source||'ERICA';
