@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | Pré-revisão institucional do PDI</title>
+<style>
+:root{--ink:#193c4f;--navy:#173e55;--sea:#247c84;--pale:#ecf6f4;--muted:#607985;--line:#d9e6e9;--bg:#f4f8f9}
+*{box-sizing:border-box}body{font:14px/1.52 system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;color:var(--ink);background:var(--bg)}
+header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;background:linear-gradient(115deg,#17384f,#216b76);color:#fff;padding:23px max(17px,calc((100% - 1090px)/2))}
+header h1{font-size:22px;margin:4px 0}header small{letter-spacing:.12em;font-weight:800;font-size:11px;color:#c7e4e9}header a{color:#fff}
+main{max-width:1090px;margin:auto;padding:22px 16px 60px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 6px 20px #21455c0b}
+h2{font-size:18px;margin:0 0 8px}h3{font-size:15px;margin:0 0 8px}p{margin:7px 0}
+a{color:#236d79}.muted{color:var(--muted)}.tiny{font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+label{display:block;font-weight:750;font-size:12px;margin-bottom:6px}
+input,select,textarea{font:inherit;color:var(--ink);border-radius:8px;border:1px solid #bfd3d7;width:100%;background:white;padding:11px 12px}
+textarea{min-height:105px;resize:vertical}
+button{font:inherit;cursor:pointer;background:var(--sea);color:#fff;border:0;border-radius:9px;padding:12px 16px;font-weight:760}
+button:disabled{opacity:.5;cursor:default}
+.badge{background:var(--pale);color:#1e6f62;border-radius:22px;padding:5px 10px;display:inline-block;font-size:11px;font-weight:800}
+.note{background:var(--pale);border:1px solid #cee5df;border-left:4px solid var(--sea);padding:13px 15px;border-radius:9px;margin:13px 0}
+.warn{background:#fff8ed;border:1px solid #eadcbe;border-left:4px solid #b88b42;padding:13px 15px;border-radius:9px;margin:12px 0}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
+.summary-item{border:1px solid #d7e5e8;border-radius:10px;background:#fbfdfd;padding:12px}
+.summary-item .item-name{font-size:12px;font-weight:800}.summary-item .status{font-size:11px;color:var(--muted);margin-top:7px}
+.profile-item{padding:10px 0;border-bottom:1px solid #ebf1f2;white-space:pre-wrap;overflow-wrap:anywhere}
+.profile-item:last-child{border-bottom:0}.profile-item strong{display:block;margin-bottom:4px;font-size:12px}
+.history-entry{padding:15px 0;border-bottom:1px solid #e7eff1}.history-entry:last-child{border:0}
+.history-heading{display:flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:space-between}
+.quote{background:#f7fafb;border-left:3px solid #66a6ac;padding:11px;border-radius:7px;white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0}
+#status-message{margin-top:13px;font-weight:680;font-size:13px}#status-message.error{color:#b54437}#status-message.ok{color:#256e59}
+[hidden]{display:none!important}
+@media(max-width:830px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.card{padding:16px}}
+@media print{body{background:#fff}.card,.summary-item{box-shadow:none;break-inside:avoid}.no-print,button,#form-card{display:none!important}header{background:#fff;color:var(--ink)}header a,header small{color:var(--ink)}main{padding:9px}}
+</style>
+</head>
+<body>
+<header><div><small>STAGIO 360 · INTELIGÊNCIA PEDAGÓGICA</small>
+<h1>Pré-revisão institucional do PDI</h1><div class="tiny">Fundamental I · Módulo 1 / 2026 · Pareceres internos</div></div>
+<div class="tiny"><a href="./pdi.html">← PDI piloto</a> &nbsp; · &nbsp; <a href="./">Área administrativa</a></div>
+</header>
+<main>
+<section id="gate" class="card"><h2>Validando o acesso</h2><p id="gate-message" class="muted">Consultando as permissões do STAGIO 360…</p><a href="./">Entrar na área administrativa</a></section>
+<section id="app" hidden>
+<div class="card">
+<span class="badge">PRÉ-REVISÃO · NÃO É APROVAÇÃO</span>
+<h2 style="margin-top:13px">Quais apoios a escola consegue oferecer?</h2>
+<p class="muted">Direção e coordenação podem registrar leituras independentes sobre a viabilidade dos apoios institucionais. Cada parecer é assinado pela própria conta de acesso e preservado no histórico. <strong>Nenhuma decisão é presumida ou registrada automaticamente.</strong></p>
+<div class="grid" style="margin-top:16px">
+<div><label for="plan">Plano de desenvolvimento em análise</label><select id="plan"></select></div>
+<div><label>Identificação do parecerista</label><div id="member" class="note" style="margin:0"></div></div>
+</div>
+<p id="plan-meta" class="tiny muted"></p>
+<div class="warn">Antes de conversar com a professora, valide a viabilidade material, o tempo, os fluxos e os responsáveis. A falta de recursos não deve ser tratada como insuficiência da profissional. Não registre como compromisso aquilo que ainda não foi autorizado pela direção.</div>
+</div>
+<div class="card">
+<h2>Resumo do PDI selecionado</h2><p class="muted tiny">Conteúdo protegido, carregado somente após login e autorização.</p>
+<div id="plan-body"></div>
+<p class="tiny no-print"><a id="edit-link" href="./pdi.html">Abrir ficha completa e evidências originais</a></p>
+</div>
+<div class="card">
+<h2>Panorama de viabilidade — cinco frentes</h2>
+<p class="muted tiny">Este panorama mostra a anotação mais recente por frente, quando houver. Os pareceres anteriores continuam consultáveis. Situações diferentes podem coexistir entre administração e coordenação.</p>
+<div id="summary" class="summary"></div>
+</div>
+<div class="card" id="form-card">
+<h2>Registrar novo parecer institucional</h2>
+<p class="muted tiny">O envio cria uma nova anotação permanente. Para corrigir uma posição anterior, registre outro parecer explicando a revisão — nunca exclua o histórico.</p>
+<form id="review-form">
+<div class="grid">
+<div><label for="area">Frente de viabilidade</label>
+<select id="area" required>
+<option value="recursos_materiais">Materiais, cópias e estrutura</option>
+<option value="processos_solicitacoes">Fluxos de solicitação e comunicação</option>
+<option value="tempo_planejamento">Tempo para planejamento e colaboração</option>
+<option value="apoio_equipe">Apoio de equipe e acompanhamento em sala</option>
+<option value="acompanhamento">Acompanhamento e verificação de resultados</option>
+</select></div>
+<div><label for="feasibility">Avaliação preliminar</label>
+<select id="feasibility" required>
+<option value="a_verificar">A verificar — sem decisão</option>
+<option value="viavel_com_condicoes">Potencialmente viável, com condições</option>
+<option value="precisa_reformulacao">Reformular antes de assumir compromisso</option>
+<option value="nao_viavel">Não viável nas condições atuais</option>
+</select></div>
+</div>
+<div class="note" id="area-guidance" aria-live="polite"></div>
+<div class="grid">
+<div><label for="observations">Análise fundamentada (obrigatória)</label>
+<textarea id="observations" required minlength="12" maxlength="4000" placeholder="O que foi verificado? Que informação ainda falta? Não registrar hipótese como fato."></textarea></div>
+<div><label for="adjustment">Ajuste ou providência sugerida (não aprovada)</label>
+<textarea id="adjustment" maxlength="2500" placeholder="Qual opção pode ser discutida com a gestão?"></textarea></div>
+</div>
+<div style="margin-top:13px"><label for="owner">Área ou responsável sugerido (opcional, ainda não designado)</label>
+<input id="owner" maxlength="300" placeholder="Ex.: direção / coordenação / administrativo"></div>
+<div style="margin-top:18px"><button id="submit" type="submit">Registrar parecer restrito</button></div>
+<div id="status-message" role="status" aria-live="polite"></div>
+</form></div>
+<div class="card">
+<h2>Histórico de pareceres da gestão</h2>
+<p class="muted tiny">Todos os registros são individuais e imutáveis. O histórico identifica a conta que realizou cada análise, mas não confirma aprovação ou participação da professora.</p>
+<div id="history"></div>
+</div>
+<div class="card">
+<h2>Critério para a reunião interna</h2>
+<p class="muted">A gestão pode utilizar os pareceres para distinguir decisões já viáveis de propostas que exigem recursos, autorização ou reformulação. A passagem do PDI para “Para revisão” deve resultar da leitura crítica desse material, não de uma aprovação automática do sistema.</p>
+<p class="tiny muted">O planejamento com a professora somente deve ser registrado como pactuação depois de uma conversa efetivamente realizada, com escuta, ressalvas e responsabilidades documentadas.</p>
+</div>
+</section></main>
+<script src="./config.js"></script>
+<script type="module">
+const $=id=>document.getElementById(id);
+const config=window.STAGIO_AUTH||{};
+const labels={
+ recursos_materiais:'Materiais, cópias e estrutura',
+ processos_solicitacoes:'Fluxos de solicitação e comunicação',
+ tempo_planejamento:'Tempo para planejamento e colaboração',
+ apoio_equipe:'Apoio de equipe e acompanhamento em sala',
+ acompanhamento:'Acompanhamento e verificação de resultados'
+};
+const texts={
+ recursos_materiais:'Verificar materiais disponíveis, limites de cópias, necessidade real de reposição e alternativas compatíveis com a proposta pedagógica.',
+ processos_solicitacoes:'Verificar como as solicitações são feitas, quem responde, prazos atuais e eventual simplificação dos fluxos.',
+ tempo_planejamento:'Conferir se há tempo protegido para planejamento, revisão de materiais e conversa formativa, sem acrescentar carga não pactuada.',
+ apoio_equipe:'Avaliar disponibilidade de apoio em sala, distribuição de tarefas e condições reais de acompanhamento.',
+ acompanhamento:'Definir indicadores observáveis, registro de providências da escola e escuta posterior da professora, sem reduzir a evolução a uma nota.'
+};
+const statuses={
+ a_verificar:'A verificar',
+ viavel_com_condicoes:'Potencialmente viável',
+ precisa_reformulacao:'Precisa reformular',
+ nao_viavel:'Não viável agora'
+};
+let sup,user,member,plans=[],plan=null,reviews=[];
+const E=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text??'');if(cls)n.className=cls;return n};
+function put(id,...children){const n=$(id);n.replaceChildren(...children);return n}
+function msg(str,bad=false){const n=$('status-message');n.textContent=str;n.className=bad?'error':'ok'}
+function gate(str){$('gate').hidden=false;$('app').hidden=true;$('gate-message').textContent=str}
+function profile(label,value){const w=E('div',undefined,'profile-item');w.append(E('strong',label),E('div',String(value||'Não preenchido'),'tiny'));return w}
+function dateText(d){return new Date(d).toLocaleString('pt-BR')}
+function renderPlan(){
+ const body=$('plan-body');body.replaceChildren();
+ if(!plan){body.append(E('p','Não há PDI nesta seleção.','muted'));return}
+ body.append(
+  profile('Status do PDI',plan.status==='rascunho'?'Rascunho — não pactuado':plan.status==='para_revisao'?'Para revisão — não pactuado':'Pactuação registrada pela gestão'),
+  profile('Fonte e eixo do foco', (plan.focus_source==='AUTO'?'Autoavaliação':'Coordenação')+' · '+(plan.focus_axis||'A definir')),
+  profile('Leitura contextualizada',plan.context_notes),
+  profile('Objetivo proposto',plan.objective),
+  profile('Ações propostas',plan.actions),
+  profile('Apoios institucionais previstos, ainda sujeitos a validação',plan.support_needed),
+  profile('Evidências de acompanhamento',plan.evidence_indicator),
+  profile('Responsável sugerido no plano',plan.responsible),
+  profile('Data de acompanhamento',plan.next_review||'A definir')
+ );
+ $('edit-link').href='./pdi.html?teacher='+encodeURIComponent(plan.teacher_id);
+ $('form-card').hidden=plan.status==='pactuacao_registrada';
+}
+function renderSummary(){
+ const box=$('summary');box.replaceChildren();
+ for(const [area,label] of Object.entries(labels)){
+  const latest=reviews.find(r=>r.area===area);
+  const item=E('div',undefined,'summary-item');
+  item.append(E('div',label,'item-name'),E('div',latest?statuses[latest.feasibility]:'Sem parecer','status'));
+  if(latest)item.append(E('div',latest.reviewer_display_name||latest.reviewer_role,'tiny muted'));
+  box.append(item)
+ }
+}
+function renderHistory(){
+ const box=$('history');box.replaceChildren();
+ if(!reviews.length){box.append(E('div','Nenhum parecer foi registrado. As cinco frentes ainda aguardam análise da gestão.','note'));return}
+ for(const r of reviews){
+  const row=E('div',undefined,'history-entry');
+  const head=E('div',undefined,'history-heading');
+  head.append(E('strong',labels[r.area]||r.area),E('span',statuses[r.feasibility]||r.feasibility,'badge'));
+  row.append(head,E('div',(r.reviewer_display_name||'Conta autorizada')+' · '+(r.reviewer_role==='admin'?'Administração':'Coordenação')+' · '+dateText(r.created_at),'tiny muted'));
+  row.append(profile('Análise registrada',r.observations));
+  if(r.proposed_adjustment)row.append(profile('Ajuste sugerido, não aprovado',r.proposed_adjustment));
+  if(r.potential_owner)row.append(profile('Responsável sugerido, ainda não designado',r.potential_owner));
+  box.append(row)
+ }
+}
+async function selectPlan(id){
+ plan=plans.find(p=>p.id===id)||null;
+ if(!plan){reviews=[];renderPlan();renderSummary();renderHistory();return}
+ const {data,error}=await sup.from('stg_pdi_institutional_reviews')
+  .select('id,area,feasibility,observations,proposed_adjustment,potential_owner,reviewer_display_name,reviewer_role,created_at')
+  .eq('plan_id',id).order('created_at',{ascending:false}).limit(250);
+ if(error){msg('Não foi possível carregar pareceres: '+error.message,true);return}
+ if(!plan||plan.id!==id)return;
+ reviews=data||[];renderPlan();renderSummary();renderHistory();
+ $('plan-meta').textContent='PDI de '+(plan.teacher_name||'profissional selecionada')+
+  ' · M1/2026 · '+reviews.length+' parecer(es) registrados. Nenhum registro desta tela equivale a homologação.';
+ msg('');
+}
+async function boot(){
+ try{
+  if(!config.url||!config.publishableKey)throw new Error('Configuração de autenticação indisponível.');
+  const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+  sup=createClient(config.url,config.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  const result=await sup.auth.getUser();
+  if(result.error||!result.data.user)throw new Error('Faça login pela área administrativa antes de abrir esta página.');
+  user=result.data.user;
+  const {data:members,error:membershipError}=await sup.from('stg_members').select('role,display_name,active').eq('user_id',user.id).limit(1);
+  if(membershipError||!members?.[0]?.active||!['admin','coordenacao'].includes(members[0].role))throw new Error('Conta não autorizada para a pré-revisão.');
+  member=members[0];$('member').textContent=member.display_name+' · '+(member.role==='admin'?'Administração':'Coordenação');
+  const [teachersResponse,plansResponse]=await Promise.all([
+   sup.from('stg_teachers').select('id,name,scope').eq('scope','REGENTE CONFIRMADA').limit(20),
+   sup.from('stg_pdi_plans').select('id,teacher_id,focus_source,focus_axis,context_notes,objective,actions,support_needed,evidence_indicator,responsible,next_review,status,module').eq('module','M1').limit(30)
+  ]);
+  if(teachersResponse.error)throw teachersResponse.error;
+  if(plansResponse.error)throw plansResponse.error;
+  const teacherNames=new Map((teachersResponse.data||[]).map(t=>[t.id,t.name]));
+  plans=(plansResponse.data||[]).filter(p=>teacherNames.has(p.teacher_id)).map(p=>({...p,teacher_name:teacherNames.get(p.teacher_id)}));
+  const select=$('plan');select.replaceChildren();
+  if(!plans.length){const p=E('option','Nenhum PDI criado para regentes');p.value='';select.append(p)}
+  else for(const p of plans){const item=E('option',p.teacher_name);item.value=p.id;select.append(item)}
+  $('gate').hidden=true;$('app').hidden=false;
+  const initial=new URLSearchParams(location.search).get('plan');
+  const start=plans.some(p=>p.id===initial)?initial:plans[0]?.id;
+  if(start){select.value=start;await selectPlan(start)}
+  else {$('form-card').hidden=true;put('plan-body',E('p','Crie um PDI piloto antes de registrar pré-revisões.','empty'));renderSummary();renderHistory()}
+  $('area-guidance').textContent=texts[$('area').value];
+ }catch(e){gate(e?.message||'Falha ao iniciar sistema protegido.')}
+}
+$('plan').addEventListener('change',()=>selectPlan($('plan').value));
+$('area').addEventListener('change',()=>$('area-guidance').textContent=texts[$('area').value]);
+$('review-form').addEventListener('submit',async ev=>{
+ ev.preventDefault();
+ if(!plan){msg('Selecione um plano existente.',true);return}
+ if(plan.status==='pactuacao_registrada'){msg('Esta ficha já foi pactuada e não aceita nova pré-revisão.',true);return}
+ const values={
+   plan_id:plan.id,area:$('area').value,feasibility:$('feasibility').value,
+   observations:$('observations').value.trim(),
+   proposed_adjustment:$('adjustment').value.trim(),
+   potential_owner:$('owner').value.trim()
+ };
+ if(values.observations.length<12){msg('Registre uma análise fundamentada de pelo menos 12 caracteres.',true);return}
+ if(!confirm('Registrar este parecer como anotação permanente da sua conta? Ele não representa decisão nem aprovação da direção.'))return;
+ const button=$('submit');button.disabled=true;msg('Registrando parecer protegido…');
+ try{
+  const {error}=await sup.from('stg_pdi_institutional_reviews').insert(values);
+  if(error)throw error;
+  $('observations').value='';$('adjustment').value='';$('owner').value='';
+  await selectPlan(plan.id);
+  msg('Parecer registrado no histórico. Não houve alteração no PDI nem aprovação institucional.');
+ }catch(e){msg('Erro ao registrar: '+(e?.message||'falha de conexão'),true)}
+ finally{button.disabled=false}
+});
+boot();
+</script>
+</body></html>
