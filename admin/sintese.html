@@ -75,6 +75,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;text-align:lef
 <p class="tiny muted">Os eixos sugeridos são apenas pontos de partida baseados nas médias da própria ficha. Valide cada hipótese com observações, registros de planejamento e diálogo com a profissional antes de construir um PDI.</p></div>
 <div class="actions no-print">
 <button id="show-evidence" class="secondary" type="button">Consultar textos originais desta profissional</button>
+<a id="go-pdi" href="./pdi.html" style="display:inline-block;border-radius:9px;padding:11px 15px;background:#207c86;color:#fff;text-decoration:none;font-weight:750">Abrir PDI piloto desta professora</a>
 <button id="copy-brief" class="secondary" type="button">Copiar pauta para PDI</button>
 <button id="print-view" class="secondary" type="button">Imprimir síntese</button>
 </div>
@@ -188,6 +189,7 @@ function brief(t){
 }
 function renderProfile(){
  const t=currentTeacher;if(!t)return;
+ $('go-pdi').href='./pdi.html?teacher='+encodeURIComponent(t.id);
  $('profile-title').textContent=t.name;
  $('profile-meta').textContent=t.role_label+' · '+t.scope+' · Turmas: '+((t.classes||[]).join(', ')||'não homologadas');
  const a=teacherSummary(t,'ERICA'),b=teacherSummary(t,'AUTO');
