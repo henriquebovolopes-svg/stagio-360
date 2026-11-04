@@ -264,9 +264,27 @@ function themeOverview(){
  const head=el('div','','theme-grid');
  const total=el('div','','theme-stat');total.append(el('strong',String(themeRows.length)),el('small','Trechos associados ao tema, nas quatro fontes'));head.append(total);
  const current=el('div','','theme-stat');current.append(el('strong',String(rows.length)),el('small','Trechos após os filtros selecionados'));head.append(current);
+ const att=themeRows.filter(r=>lexicalHits(r._normalized,ATTENTION)>0).length;
+ const pos=themeRows.filter(r=>lexicalHits(r._normalized,APPRECIATION)>0).length;
+ for(const [num,label] of [[att,'Trechos com marcadores de dificuldade'],[pos,'Trechos com marcadores de valorização']]){
+  const item=el('div','','theme-stat');
+  item.append(el('strong',String(num)),el('small',label));head.append(item);
+ }
  const sources=new Set(themeRows.map(r=>r.scope));
  const diversity=el('div','','theme-stat');diversity.append(el('strong',String(sources.size)+' / 4'),el('small','Fontes com menções ao assunto'));head.append(diversity);
  box.append(head);
+ const top=THEMES.map(t=>({
+  theme:t,
+  n:allEvidenceCache.filter(r=>lexicalHits(r._normalized,t.words)>0).length
+ })).sort((a,b)=>b.n-a.n);
+ const recurring=el('div','','theme-line');
+ for(const a of top){
+  const btn=el('button',a.theme.label+' · '+a.n,'theme-chip');
+  btn.type='button';btn.classList.toggle('active',a.theme.id===th.id);
+  btn.onclick=()=>{$('theme-select').value=a.theme.id;themeOverview()};
+  recurring.append(btn);
+ }
+ box.append(el('p','Temas por número de trechos encontrados (não é uma ordem de importância):','tiny muted'),recurring);
  const lines=el('div','','theme-line');
  for(const source of SOURCE_KEYS){
   const count=themeRows.filter(r=>r.scope===source).length;
