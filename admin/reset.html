@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Recuperar senha | STAGIO 360</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f2f7f8;color:#193d50;margin:0;min-height:100vh}
+header{background:#153b52;color:white;padding:22px max(20px,calc((100vw - 760px)/2));font-weight:750;letter-spacing:.05em}
+main{max-width:580px;margin:60px auto;padding:0 18px}.card{background:white;border:1px solid #d6e5e8;border-radius:16px;padding:28px;box-shadow:0 8px 30px #122f3f10}
+h1{font-size:23px;margin:5px 0 11px}p{font-size:14px;line-height:1.6;color:#59727e}label{display:block;margin-top:20px;margin-bottom:6px;font-size:13px;font-weight:720}input{width:100%;padding:12px;font:inherit;border-radius:9px;border:1px solid #bbd1db}
+button{background:#237e88;color:white;border:0;border-radius:9px;padding:12px 18px;font-weight:750;font-size:14px;margin-top:20px;cursor:pointer;width:100%}button:disabled{opacity:.55}
+a{color:#236e81}.notice{border:1px solid #c7ddd8;border-left:4px solid #237e88;padding:13px;border-radius:8px;margin-top:16px;background:#f0faf8;font-size:13px}
+.error{border-left-color:#ba5448;background:#fff4f2;border-color:#f0cecb}.small{font-size:12px;color:#67808d;margin-top:22px}
+[hidden]{display:none!important}
+</style></head>
+<body><header>STAGIO 360 · ACESSO RESTRITO</header>
+<main><div class="card">
+<div id="request">
+<h1>Recuperar minha senha</h1>
+<p>Informe o e-mail cadastrado na conta do STAGIO 360. Enviaremos um link para redefinir a senha, sem alterar seu perfil de acesso.</p>
+<form id="request-form">
+<label for="email">E-mail de acesso</label><input id="email" type="email" autocomplete="email" required>
+<button type="submit" id="send">Enviar link de recuperação</button>
+</form></div>
+<div id="change" hidden>
+<h1>Definir nova senha</h1>
+<p>Seu link de recuperação foi validado. Escolha uma nova senha exclusiva para esta conta.</p>
+<form id="change-form">
+<label for="password">Nova senha (12 caracteres ou mais)</label><input id="password" type="password" autocomplete="new-password" minlength="12" required>
+<label for="confirmation">Confirmar nova senha</label><input id="confirmation" type="password" autocomplete="new-password" minlength="12" required>
+<button type="submit" id="change-btn">Salvar nova senha</button>
+</form></div>
+<div id="notice" hidden role="status" aria-live="polite" class="notice"></div>
+<div class="small"><a href="./">Voltar à área administrativa</a></div>
+</div></main>
+<script src="./config.js"></script>
+<script type="module">
+const by=id=>document.getElementById(id), cfg=window.STAGIO_AUTH||{};
+function info(message,isError=false){const v=by('notice');v.textContent=message;v.hidden=false;v.classList.toggle('error',isError)}
+const initHash=location.hash;
+const initQuery=location.search;
+const wasRecoveryLink=/type=recovery/i.test(initHash)||/([?&])code=/.test(initQuery);
+if(!cfg.url||!cfg.publishableKey){info('Configuração de autenticação indisponível. Consulte a administração.',true)}
+else{
+ try{
+ const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+ const supabase=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+ // The same callback accepts both PKCE ?code=... and recovery hash tokens.
+ // Recovery requires a valid session established from the emailed link, never an unchecked URL parameter.
+ let recoveryConfirmed=false;
+ supabase.auth.onAuthStateChange((event,session)=>{
+   if(event==='PASSWORD_RECOVERY' && session){recoveryConfirmed=true;by('request').hidden=true;by('change').hidden=false;by('notice').hidden=true}
+ });
+ const {data:{session},error:sessionError}=await supabase.auth.getSession();
+ if(sessionError){info('Não foi possível validar o link. Solicite outro e-mail de recuperação.',true)}
+ else if(wasRecoveryLink && session){
+   recoveryConfirmed=true;by('request').hidden=true;by('change').hidden=false;
+ }
+ else if(wasRecoveryLink&&!session){info('Este link é inválido ou expirou. Solicite um novo link de recuperação.',true)}
+ by('request-form').addEventListener('submit',async ev=>{
+  ev.preventDefault();
+  const button=by('send');button.disabled=true;by('notice').hidden=true;
+  try{
+    const email=by('email').value.trim();
+    const redirectTo='https://henriquebovolopes-svg.github.io/stagio-360/admin/reset.html';
+    const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo});
+    if(error)throw error;
+    info('Se o e-mail estiver cadastrado, você receberá as instruções de recuperação. Confira a caixa de entrada e o spam. O link pode expirar.');
+  }catch(e){info('Não foi possível solicitar a recuperação: '+(e?.message||'erro desconhecido')+'. Verifique a configuração de URLs e o limite de e-mails do Supabase.',true)}
+  finally{button.disabled=false}
+ });
+ by('change-form').addEventListener('submit',async ev=>{
+  ev.preventDefault();const button=by('change-btn');button.disabled=true;
+  const pwd=by('password').value, confirm=by('confirmation').value;
+  if(pwd.length<12||pwd!==confirm){info('Confira as duas senhas. Elas devem ser iguais e ter pelo menos 12 caracteres.',true);button.disabled=false;return}
+  if(!recoveryConfirmed){info('Recuperação não validada. Abra o link enviado por e-mail.',true);button.disabled=false;return}
+  try{const {error}=await supabase.auth.updateUser({password:pwd});if(error)throw error;
+      by('password').value='';by('confirmation').value='';
+      info('Senha alterada. Você já pode entrar novamente no STAGIO 360.');
+      by('change').hidden=true;by('request').hidden=true;
+      await supabase.auth.signOut({scope:'local'});
+  }catch(e){info('Falha ao alterar a senha: '+(e?.message||'erro desconhecido'),true)}
+  finally{button.disabled=false}
+ });
+ }catch(e){info('Falha na conexão com a autenticação: '+e.message,true)}
+}
+</script></body></html>
