@@ -72,6 +72,14 @@ nav a.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a
 nav .nav-secondary-label{margin:15px 10px 1px;padding:12px 5px 4px;border-top:1px solid #ffffff38;color:#9cc4ee;font-size:10px;font-weight:850;letter-spacing:.105em;text-transform:uppercase}
 nav .nav-secondary{opacity:.87;font-weight:650;font-size:12px;padding:9px 15px}
 nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a94e5;color:#fff;box-shadow:0 7px 18px #00162a66}
+
+/* Passo 3: somente cinco entradas; acesso sensível contextual ao recorte selecionado. */
+.stage-access{margin:12px 0 20px;padding:16px 18px;border:1px solid #b9d0ee;border-radius:14px;background:#f5f9ff;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.stage-access-copy{min-width:0}
+.stage-access-copy strong{display:block;color:#0b3976;font-size:14px}
+.stage-access-copy p{font-size:12px;color:#557094;margin:5px 0 0}
+.stage-access .textlink{white-space:nowrap;background:#e7f2ff;flex-shrink:0}
+@media(max-width:760px){.stage-access{display:block}.stage-access .textlink{margin-top:12px}}
 </style></head>
 <body><div class="shell"><aside><a class="sidebar-brand" href="./painel.html" aria-label="STAGIO Academy — início"><img src="./assets/stagio-academy-logo.svg" alt="STAGIO Academy — Ensinar, aprender e transformar"></a>
 <nav aria-label="Navegação institucional">
@@ -80,12 +88,6 @@ nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg
 <a class="nav-main admin-private" href="./admin/planejamento.html"><span class="navicon">▥</span>Planejamento docente</a>
 <a class="nav-main admin-private" href="./admin/funcionarios.html"><span class="navicon">♧</span>Funcionários · privado</a>
 <a class="nav-main admin-private" href="./admin/integracao.html"><span class="navicon">◫</span>Painel Administrativo</a>
-<div class="nav-secondary-label">Acessos complementares</div>
-<a class="nav-secondary" href="#historico"><span class="navicon">▤</span>Séries históricas</a>
-<a class="nav-secondary" href="#fontes"><span class="navicon">ⓘ</span>Fontes e método</a>
-<a class="nav-secondary" href="#segmentos"><span class="navicon">▣</span>Gestão e acessos</a>
-<a class="nav-secondary admin-private" href="./admin/governanca.html"><span class="navicon">♙</span>Gestão restrita</a>
-<a class="nav-secondary admin-private" href="./admin/infantil.html"><span class="navicon">◌</span>Educação Infantil · restrito</a>
 </nav><div class="aside-foot"><strong>Inteligência pedagógica</strong>Gestão por evidências · Colégio Stagio<br>Plataforma institucional 2026</div></aside>
 <div class="workspace"><header class="hero"><div class="hero-content"><div class="kicker">PLATAFORMA INSTITUCIONAL</div><img class="hero-logo" src="./assets/stagio360-logo-oficial.svg" alt="STAGIO 360 — logotipo oficial"><p>Governança, avaliação e desenvolvimento institucional</p><div class="hero-label">Colégio Stagio · Educação Infantil ao Ensino Médio</div></div>
 <label class="year-control"><span>ANO DE REFERÊNCIA</span><select id="ano" aria-label="Ano de referência"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></label></header>
@@ -93,9 +95,10 @@ nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg
 <section class="toolbar" id="segmentos" aria-label="Filtros"><div class="filter"><label for="etapa">Etapa de ensino</label><select id="etapa"><option value="institutional">Visão geral da escola</option><option value="infantil">Educação Infantil</option><option value="fundamental1">Fundamental I</option><option value="fundamental2">Fundamental II</option><option value="medio">Ensino Médio</option><option value="administrativo">Administrativo e funcionários</option></select></div>
 
 <div class="filter"><label for="ciclo">Ciclo da Avaliação 360</label><select id="ciclo"><option value="M1">M1 · Primeiro módulo</option><option value="M2">M2 · Segundo módulo</option><option value="M3">M3 · Terceiro módulo</option></select></div></section>
+<div class="stage-access" id="stage-access"><div class="stage-access-copy"><strong id="stage-access-title">Área da coordenação</strong><p id="stage-access-description">Os dados individuais e os comentários completos exigem autenticação e autorização para o segmento.</p></div><a id="stage-access-link" class="textlink" href="./admin/governanca.html">Entrar no painel protegido</a></div>
 <section class="cards" id="avaliacao" aria-live="polite"><div class="card kpi"><small>Período consultado</small><strong id="per">2026 · M1</strong><p id="per-sub">Indicadores atualmente disponíveis</p></div><div class="card kpi"><small>NPS · famílias</small><strong id="nps-fam">—</strong><p id="nps-fam-sub">Conforme população da pesquisa</p></div><div class="card kpi"><small>NPS · alunos</small><strong id="nps-alu">—</strong><p id="nps-alu-sub">Quando disponível para o recorte</p></div><div class="card kpi"><small>NPS das famílias · Fundamental I</small><strong id="nps-fi">+72,73</strong><p>2026 · 88 respostas no recorte exclusivo</p></div></section>
 <div class="columns"><section class="card"><h2 id="recorte-titulo">Resultados por público</h2><p class="muted" id="recorte-info">Selecione uma etapa para consultar o recorte.</p><div id="loading" class="muted" role="status">Carregando dados agregados…</div><div id="empty" hidden class="empty"></div><div id="results" hidden><table><thead><tr><th>Público / Recorte</th><th>Respondentes</th><th>NPS</th></tr></thead><tbody id="rows"></tbody></table></div><p class="info" id="scope-note">Cada indicador mantém seu público e denominador próprios. NPS não é a nota de desempenho individual dos professores.</p></section>
-<section class="card" id="historico"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Acesso de gestão</h3><p class="muted">Informações individuais, PDI, avaliações nominais, respostas abertas e homologações exigem login e autorização específica.</p><div class="links"><a class="textlink" href="./admin/governanca.html">Acesso restrito da equipe</a></div></section></div>
+<section class="card" id="historico"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Consulta institucional</h3><p class="muted">O histórico apresenta indicadores agregados. Para consultas individuais, utilize o acesso da coordenação na área Avaliação 360, selecionando sua etapa de ensino.</p></section></div>
 <section class="card" id="fontes" style="margin-top:16px"><h2>O que está disponível nesta versão?</h2><p>Os resultados gerais de satisfação e as séries históricas podem ser consultados neste endereço, sem login. Dados individualizados e respostas sensíveis não são publicados aqui.</p><p class="muted">M1 é o único ciclo da Avaliação 360 com bases parciais importadas em 2026. M2 e M3 permanecem sem importação validada. Para 2023–2025, o histórico disponível é principalmente o NPS de famílias, e não uma avaliação 360 por ciclo.</p><p class="muted">A área administrativa possui pesquisa de funcionários e avaliações docentes. Por serem informações internas, elas não são expostas neste painel compartilhável.</p></section>
 </main><footer>STAGIO 360 · Painel de consulta geral · Dados agregados · Referência 2026 · Atualização por publicação revisada</footer></div></div>
 <script>
@@ -120,9 +123,28 @@ function loadFilters(){for(const id of Object.keys(key))key[id]=$(id).value}
 function showEmpty(message){$('empty').hidden=false;$('empty').textContent=message;$('results').hidden=true}
 function showScores(items){$('rows').replaceChildren();for(const item of items){const tr=document.createElement('tr');for(const val of [audience(item.audience)+(item.population==='nono_ano'?' · 9º ano':item.population==='fii_6a8'?' · 6º ao 8º ano':''),item.n,format(item.nps)]){const cell=document.createElement('td');cell.textContent=String(val);tr.append(cell)}$('rows').append(tr)}$('empty').hidden=true;$('results').hidden=false}
 function addBar(label,value,n){const wrap=document.createElement('div');const cap=document.createElement('p');cap.className='muted';cap.textContent=label+' · NPS '+format(value)+' · '+n+' respostas';const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.className='fill';fill.style.width=Math.max(0,Math.min(100,(value+100)/2))+'%';bar.append(fill);wrap.append(cap,bar);$('hist').append(wrap)}
+
+function updateContextualAccess(stage){
+ const paths={
+  institutional:{href:'./admin/governanca.html',title:'Gestão por etapa · área autenticada',info:'Selecione o segmento e utilize sua conta autorizada. A visão geral pública não mostra registros individuais.'},
+  infantil:{href:'./admin/infantil.html',title:'Educação Infantil · acesso restrito',info:'A consulta de informações internas da Educação Infantil exige login e permissão específica.'},
+  fundamental1:{href:'./admin/index.html',title:'Fundamental I · área da coordenação',info:'Acesse as pesquisas individuais, os textos disponíveis e os registros dos professores conforme seu perfil.'},
+  fundamental2:{href:'./admin/governanca.html',title:'Fundamental II · área da coordenação',info:'Consulte indicadores internos do segmento conforme as permissões; dados individuais dependem de disponibilidade e homologação.'},
+  medio:{href:'./admin/governanca.html',title:'Ensino Médio · área da coordenação',info:'Consulte indicadores internos do segmento conforme as permissões; dados individuais dependem de disponibilidade e homologação.'},
+  administrativo:{href:'./admin/funcionarios.html',title:'Funcionários · área privada',info:'Os resultados da pesquisa interna de funcionários exigem autenticação e não são avaliações nominais.'}
+ };
+ const entry=paths[stage]||paths.institutional;
+ $('stage-access-title').textContent=entry.title;
+ $('stage-access-description').textContent=entry.info;
+ const link=$('stage-access-link');
+ link.href=entry.href;
+ link.textContent=stage==='institutional'?'Acessar gestão por etapa':'Entrar na área restrita';
+}
+
 function render(){
  loadFilters();
  const stage=key.etapa,year=Number(key.ano),cycle=key.ciclo;
+ updateContextualAccess(stage);
  $('per').textContent=year===2026?year+' · '+cycle:String(year);
  $('per-sub').textContent=year===2026?'Ciclo '+cycle:'Histórico de satisfação';
  $('recorte-titulo').textContent=stageNames[stage]+' · '+year;
