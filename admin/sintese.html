@@ -218,7 +218,7 @@ async function start(){
   const {data:{user},error:authError}=await sup.auth.getUser();
   if(authError||!user){setAccessError('Entre na área administrativa para abrir esta síntese. Nenhum dado individual é acessível sem login.');return}
   const {data:member,error:memError}=await sup.from('stg_members').select('role,active').eq('user_id',user.id).limit(1);
-  if(memError||!member||member.length!==1||!member[0].active||!['admin','coordenacao'].includes(member[0].role)){
+  if(memError||!member||member.length!==1||!member[0].active||!['admin','master','coordenacao'].includes(member[0].role)){
     setAccessError('Esta conta não possui autorização ativa para visualizar dados do STAGIO 360.');return
   }
   const [te,sc]=await Promise.all([
