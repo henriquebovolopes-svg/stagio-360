@@ -75,7 +75,7 @@ def check_shared_dashboard():
         return
     html = path.read_text(encoding="utf-8")
     data = json.loads(datafile.read_text(encoding="utf-8"))
-    for token in ("Indicadores gerais da escola", "assets/stagio360-nps-publico-2023-2026.json", 'id="etapa"', 'id="ano"', 'id="ciclo"'):
+    for token in ("Indicadores gerais da escola", "assets/stagio360-nps-publico-2023-2026.json", 'id="etapa"', 'id="ano"', 'id="ciclo"', 'class="shell"', 'class="sidebar-brand"', 'class="hero"', 'class="hero-logo"', 'class="year-control"'):
         if token not in html: ERRORS.append(f"Painel geral sem requisito: {token}")
     for risky in ("service_role", "stg_teacher_scores", "stg_students", "stg_families", "stg_staff_survey_comments", "signInWithPassword"):
         if risky in html: ERRORS.append(f"Painel geral com dado privado/integração proibida: {risky}")
