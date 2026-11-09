@@ -11,7 +11,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 ERRORS = []
 WARNINGS = []
-PAGES = [ROOT / "index.html", *sorted((ROOT / "admin").glob("*.html")), ROOT / "fundamental-1" / "index.html"]
+PAGES = [ROOT / "index.html", ROOT / "painel.html", *sorted((ROOT / "admin").glob("*.html")), ROOT / "fundamental-1" / "index.html"]
 
 class AuditHTML(HTMLParser):
     def __init__(self):
@@ -67,6 +67,9 @@ def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
     datafile = ROOT / "assets/stagio360-nps-publico-2023-2026.json"
+    workflow = (ROOT / ".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+    if "cp painel.html _site/painel.html" not in workflow:
+        ERRORS.append("Fluxo de publicação não inclui painel.html no pacote do GitHub Pages")
     if not path.exists() or not datafile.exists():
         ERRORS.append("Painel geral compartilhável ou dataset agregado ausente")
         return
