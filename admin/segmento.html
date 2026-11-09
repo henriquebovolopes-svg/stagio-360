@@ -103,11 +103,11 @@ function addAction(title,description,href,label){
  if(href){action.className='text-link';action.href=href}else action.className='wait';
  card.append(h,p,action);$('actions').append(card)
 }
-function addBar(label,value,n){
+function addBar(label,value,n,maxScale=5){
  const row=document.createElement('div');row.className='axis-row';
  const name=document.createElement('span');name.textContent=label;
  const track=document.createElement('div');track.className='axis-track';
- const fill=document.createElement('div');fill.className='axis-fill';fill.style.width=Math.max(0,Math.min(100,Number(value)/5*100))+'%';track.append(fill);
+ const fill=document.createElement('div');fill.className='axis-fill';fill.style.width=Math.max(0,Math.min(100,Number(value)/maxScale*100))+'%';track.append(fill);
  const number=document.createElement('b');number.textContent=Number(value).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
  row.append(name,track,number);$('indicators').append(row)
 }
@@ -156,8 +156,8 @@ async function load(){
   notice('metric-source-detail','Escuta institucional · 2026');
   notice('metric-individual','Não disponível');
   notice('metric-individual-detail','Pesquisas nominais docentes não vinculadas nesta base');
-  notice('indicator-note',rows.length?'Indicadores de 2026 na escala da pesquisa original. Não correspondem a uma avaliação individual docente.':'Não há indicadores homologados para esta consulta.');
-  rows.slice(0,10).forEach(x=>addBar(x.label,x.mean_score,x.response_count));
+  notice('indicator-note',rows.length?'Indicadores de 2026 em escala de 1 a 4. Não correspondem a uma avaliação individual docente.':'Não há indicadores homologados para esta consulta.');
+  rows.slice(0,10).forEach(x=>addBar(x.label,x.mean_score,x.response_count,4));
   addAction('Painel da Educação Infantil','Indicadores internos da etapa e leitura institucional da pesquisa.','./infantil.html','Consultar painel da etapa');
   addAction('Planejamento pedagógico','Acompanhamento do planejamento docente da Educação Infantil, conforme permissão.','./planejamento.html#infantil','Consultar planejamento');
   addAction('Pesquisas individuais','Ainda não existe conjunto de registros individuais vinculados à etapa e homologados para exibição.',null,null);
