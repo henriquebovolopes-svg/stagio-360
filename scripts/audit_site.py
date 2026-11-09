@@ -145,6 +145,36 @@ def check_navigation_step5():
     if "test -s _site/admin/segmento.html" not in workflow:
         ERRORS.append("GitHub Pages não valida a inclusão do hub da coordenação")
 
+def check_permissions_step6():
+    """Previne regressoes nas verificacoes de perfil, etapa e revogacao de acesso."""
+    fi = (ROOT / "admin/index.html").read_text(encoding="utf-8")
+    segment = (ROOT / "admin/segmento.html").read_text(encoding="utf-8")
+    migration = ROOT / "supabase/migrations/20261109_stagio360_step6_permissions.sql"
+    for token in (
+        'id="denied" hidden',
+        "'stg_scope_access'",
+        ".eq('stage','fundamental1')",
+        "if(!permitted){show('denied');return}",
+        "role==='admin'||role==='master'",
+        "id=\"switch-account\"",
+    ):
+        if token not in fi:
+            ERRORS.append(f"Passo 6: painel FI sem isolamento de perfil ({token})")
+    for token in ("stg_members", "stg_scope_access", "stages[scope]", "show('denied')"):
+        if token not in segment:
+            ERRORS.append(f"Passo 6: portal por etapa sem bloqueio ({token})")
+    if not migration.exists():
+        ERRORS.append("Passo 6: regras SQL de perfis nao versionadas")
+        return
+    sql = migration.read_text(encoding="utf-8")
+    for token in ("m.active is true", "a.active is true",
+                  "m.role in ('admin', 'master')",
+                  "stg_pdi_institutional_reviews_reviewer_role_check",
+                  "reviewer_role in ('admin', 'master', 'coordenacao')"):
+        if token not in sql:
+            ERRORS.append(f"Passo 6: migracao sem protecao ({token})")
+
+
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
@@ -256,6 +286,7 @@ check_shared_dashboard()
 check_navigation_step3()
 check_stage_access_step4()
 check_navigation_step5()
+check_permissions_step6()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
