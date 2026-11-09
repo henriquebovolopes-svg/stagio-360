@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>STAGIO 360 | Painel institucional</title>
+<meta name="description" content="Painel de indicadores gerais, etapas, ciclos disponíveis e séries históricas do Colégio Stagio.">
+<style>
+:root{--navy:#062147;--deep:#061833;--blue:#0969df;--cyan:#17bde4;--bg:#edf3fc;--ink:#142e55;--muted:#5c7292;--line:#d6e1ef;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}button,select{font:inherit}button,select,a{outline-offset:3px}
+header{background:linear-gradient(108deg,var(--deep),#063b7a 63%,#086bb4);color:#fff;border-bottom:5px solid var(--cyan)}
+.head{max-width:1170px;margin:auto;padding:22px 24px 35px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.logo{width:215px;max-width:60vw;max-height:86px;object-fit:contain}
+.eyebrow{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#9adcf8;font-weight:800}
+h1{font-size:clamp(25px,3vw,38px);line-height:1.18;margin:7px 0 7px}h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:0 0 7px}p{margin:6px 0 12px}.head p{color:#d3e3ff;max-width:700px}
+main{max-width:1170px;margin:auto;padding:25px 24px 65px}
+.toolbar{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:12px;margin:-18px 0 20px;position:relative}
+.filter{background:#fff;border:1px solid var(--line);padding:13px 15px;border-radius:13px;box-shadow:0 7px 22px #142d5210}
+label{display:block;font-size:12px;color:var(--muted);font-weight:750;margin-bottom:5px}
+select{width:100%;padding:9px 10px;border:1px solid #b9cde9;border-radius:7px;background:#f8fbff;color:var(--ink)}
+.columns{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 7px 24px #122b4c08;min-width:0}
+.kpi small{font-size:12px;color:var(--muted);font-weight:700}.kpi strong{display:block;font-size:clamp(25px,3vw,37px);color:#064b9c;line-height:1.15;margin:11px 0 7px}
+.kpi p{font-size:12px;color:var(--muted);margin:0}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e6eef8;font-size:13px;vertical-align:top}th{color:#4d688e;font-size:11px;text-transform:uppercase;letter-spacing:.07em}tbody tr:last-child td{border-bottom:0}
+.flag{display:inline-block;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:750;background:#e8f4fd;color:#145a94}
+.info{background:#f4f8ff;border-left:3px solid #2582d8;padding:12px 14px;border-radius:7px;color:#435d80;font-size:13px;margin-top:15px}
+.empty{background:#fff5e9;color:#775324;border:1px solid #efd9ba;padding:17px;border-radius:12px}
+.muted{color:var(--muted);font-size:13px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}
+.textlink{display:inline-block;border:1px solid #b9d0ef;background:#f6faff;color:#0b4c94;border-radius:7px;padding:10px 13px;font-weight:750;text-decoration:none;font-size:13px}
+.bar{background:#e9f0f8;border-radius:50px;height:10px;overflow:hidden;margin:6px 0 13px}.fill{height:100%;background:#0873d5;border-radius:50px}
+footer{max-width:1170px;margin:0 auto;padding:18px 24px 40px;font-size:12px;color:var(--muted)}
+@media(max-width:760px){.toolbar,.columns,.cards{grid-template-columns:1fr}.head{padding-bottom:36px}.kpi strong{font-size:30px}main{padding:24px 14px 40px}.card{padding:16px}.toolbar{margin-top:-15px}.head{padding-inline:16px}table{display:block;overflow-x:auto}th,td{min-width:105px}}
+</style></head>
+<body><header><div class="head"><div><img class="logo" src="./assets/stagio360-logo-oficial.svg" alt="Logotipo Stagio 360"><div class="eyebrow">Colégio Stagio · Avaliação institucional</div><h1>Indicadores gerais da escola</h1><p>Uma leitura acessível por etapa, ano e ciclo da Avaliação 360. Resultados agregados, sem identificação individual de estudantes, famílias ou profissionais.</p></div></div></header>
+<main>
+<section class="toolbar" aria-label="Filtros"><div class="filter"><label for="etapa">Etapa de ensino</label><select id="etapa"><option value="institutional">Visão geral da escola</option><option value="infantil">Educação Infantil</option><option value="fundamental1">Fundamental I</option><option value="fundamental2">Fundamental II</option><option value="medio">Ensino Médio</option><option value="administrativo">Administrativo e funcionários</option></select></div>
+<div class="filter"><label for="ano">Ano de referência</label><select id="ano"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></div>
+<div class="filter"><label for="ciclo">Ciclo da Avaliação 360</label><select id="ciclo"><option value="M1">M1 · Primeiro módulo</option><option value="M2">M2 · Segundo módulo</option><option value="M3">M3 · Terceiro módulo</option></select></div></section>
+<section class="cards" aria-live="polite"><div class="card kpi"><small>Período consultado</small><strong id="per">2026 · M1</strong><p id="per-sub">Indicadores atualmente disponíveis</p></div><div class="card kpi"><small>NPS · famílias</small><strong id="nps-fam">—</strong><p id="nps-fam-sub">Conforme população da pesquisa</p></div><div class="card kpi"><small>NPS · alunos</small><strong id="nps-alu">—</strong><p id="nps-alu-sub">Quando disponível para o recorte</p></div></section>
+<div class="columns"><section class="card"><h2 id="recorte-titulo">Resultados por público</h2><p class="muted" id="recorte-info">Selecione uma etapa para consultar o recorte.</p><div id="loading" class="muted" role="status">Carregando dados agregados…</div><div id="empty" hidden class="empty"></div><div id="results" hidden><table><thead><tr><th>Público / Recorte</th><th>Respondentes</th><th>NPS</th></tr></thead><tbody id="rows"></tbody></table></div><p class="info" id="scope-note">Cada indicador mantém seu público e denominador próprios. NPS não é a nota de desempenho individual dos professores.</p></section>
+<section class="card"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Acesso de gestão</h3><p class="muted">Informações individuais, PDI, avaliações nominais, respostas abertas e homologações exigem login e autorização específica.</p><div class="links"><a class="textlink" href="./admin/governanca.html">Acesso restrito da equipe</a></div></section></div>
+<section class="card" style="margin-top:16px"><h2>O que está disponível nesta versão?</h2><p>Os resultados gerais de satisfação e as séries históricas podem ser consultados neste endereço, sem login. Dados individualizados e respostas sensíveis não são publicados aqui.</p><p class="muted">M1 é o único ciclo da Avaliação 360 com bases parciais importadas em 2026. M2 e M3 permanecem sem importação validada. Para 2023–2025, o histórico disponível é principalmente o NPS de famílias, e não uma avaliação 360 por ciclo.</p><p class="muted">A área administrativa possui pesquisa de funcionários e avaliações docentes. Por serem informações internas, elas não são expostas neste painel compartilhável.</p></section>
+</main><footer>STAGIO 360 · Painel de consulta geral · Dados agregados · Referência 2026 · Atualização por publicação revisada</footer>
+<script>
+(async function(){
+'use strict';
+const $=id=>document.getElementById(id), stageNames={institutional:'Visão geral da escola',infantil:'Educação Infantil',fundamental1:'Fundamental I',fundamental2:'Fundamental II',medio:'Ensino Médio',administrativo:'Administrativo e funcionários'};
+const key={etapa:'institutional',ano:'2026',ciclo:'M1'};
+let rows=[];
+const format=v=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2,minimumFractionDigits:1}).format(v);
+const audience=a=>a==='familias'?'Famílias':a==='alunos'?'Alunos':a==='misto'?'Famílias e alunos (misto)':a;
+function loadFilters(){for(const id of Object.keys(key))key[id]=$(id).value}
+function showEmpty(message){$('empty').hidden=false;$('empty').textContent=message;$('results').hidden=true}
+function showScores(items){$('rows').replaceChildren();for(const item of items){const tr=document.createElement('tr');for(const val of [audience(item.audience)+(item.population==='nono_ano'?' · 9º ano':item.population==='fii_6a8'?' · 6º ao 8º ano':''),item.n,format(item.nps)]){const cell=document.createElement('td');cell.textContent=String(val);tr.append(cell)}$('rows').append(tr)}$('empty').hidden=true;$('results').hidden=false}
+function addBar(label,value,n){const wrap=document.createElement('div');const cap=document.createElement('p');cap.className='muted';cap.textContent=label+' · NPS '+format(value)+' · '+n+' respostas';const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('div');fill.className='fill';fill.style.width=Math.max(0,Math.min(100,(value+100)/2))+'%';bar.append(fill);wrap.append(cap,bar);$('hist').append(wrap)}
+function render(){
+ loadFilters();
+ const stage=key.etapa,year=Number(key.ano),cycle=key.ciclo;
+ $('per').textContent=year===2026?year+' · '+cycle:String(year);
+ $('per-sub').textContent=year===2026?'Ciclo '+cycle:'Histórico de satisfação';
+ $('recorte-titulo').textContent=stageNames[stage]+' · '+year;
+ $('recorte-info').textContent=stage==='administrativo'?'Pesquisa de funcionários: acesso interno por perfil.':'Resultados agregados de satisfação, sem identificação de pessoas.';
+ $('nps-fam').textContent='—';$('nps-alu').textContent='—';
+ $('nps-fam-sub').textContent='Sem resultado para o recorte';$('nps-alu-sub').textContent='Sem resultado para o recorte';
+ const stageRows=rows.filter(r=>r.year===year&&r.stage===stage);
+ const parents=stageRows.find(r=>r.audience==='familias'), pupils=stageRows.filter(r=>r.audience==='alunos');
+ if(stage==='administrativo')showEmpty('Os dados da pesquisa administrativa e dos funcionários estão no painel restrito. Não são publicados no acesso geral.');
+ else if(year===2026&&cycle!=='M1')showEmpty('O '+cycle+' de 2026 ainda não foi importado e homologado. Nenhum resultado foi gerado artificialmente para este ciclo.');
+ else if(year<2026&&cycle!=='M1')showEmpty('Os anos históricos disponíveis contêm NPS de famílias, sem divisão validada por módulos M1, M2 ou M3. Selecione M1 para ver o histórico geral; ele não representa um M1 histórico.');
+ else if(!stageRows.length)showEmpty('Não há resultados agregados para este recorte.');
+ else {
+ const ordered=[...stageRows].sort((a,b)=>({familias:0,alunos:1,misto:2}[a.audience]??3)-({familias:0,alunos:1,misto:2}[b.audience]??3));showScores(ordered);
+ if(parents){$('nps-fam').textContent=format(parents.nps);$('nps-fam-sub').textContent=parents.n+' respostas de famílias'}
+ if(pupils.length===1){$('nps-alu').textContent=format(pupils[0].nps);$('nps-alu-sub').textContent=pupils[0].n+' respostas de alunos'}
+ if(pupils.length>1){$('nps-alu').textContent='Por grupo';$('nps-alu-sub').textContent='Confira as subamostras na tabela'}
+ }
+ const infos={institutional:'2026 contém famílias e alunos, inclusive NPS misto (408 respostas). O NPS misto não deve ser comparado ao histórico exclusivo de famílias.',infantil:'O histórico 2023–2025 inclui Infantil + 1º ano; 2026 contempla somente Educação Infantil. Não comparar diretamente.',fundamental1:'O NPS FI 2026 usa 88 famílias exclusivas. Ele não equivale aos 127 formulários FI/M1 com vínculos multietapa.',fundamental2:'2026 tem NPS de famílias e subamostras distintas de alunos 6º–8º e 9º ano.',medio:'O NPS de famílias 2026 tem apenas 19 participantes. É uma amostra pequena.',administrativo:'Pesquisa de funcionários é institucional e anônima, e não mede desempenho individual.'};
+ $('scope-note').textContent=infos[stage];
+ $('hist').replaceChildren();
+ const history=rows.filter(r=>r.stage===stage&&r.audience==='familias'&&r.year>=2023&&r.year<=2025).sort((a,b)=>a.year-b.year);
+ if(history.length){for(const item of history)addBar(item.year,item.nps,item.n)}
+ else $('hist').textContent='Sem série histórica pública comparável para este recorte.';
+ $('history-note').textContent=stage==='infantil'?'NPS histórico (Infantil + 1º ano), 2023 a 2025.':'NPS de famílias · 2023 a 2025, disponível quando há base.';
+ $('hist-caution').textContent=infos[stage];
+}
+try{
+ const response=await fetch('./assets/stagio360-nps-publico-2023-2026.json',{cache:'no-store'});
+ if(!response.ok)throw Error('arquivo de dados indisponível');
+ const doc=await response.json();if(!doc.rows||!Array.isArray(doc.rows))throw Error('estrutura de dados inválida');
+ rows=doc.rows;
+ $('loading').hidden=true;
+ for(const id of Object.keys(key))$(id).addEventListener('change',render);
+ render();
+}catch(err){$('loading').textContent='Não foi possível carregar a base agregada. Confira a conexão e tente atualizar a página.'}
+})();
+</script></body></html>
