@@ -16,7 +16,7 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 ## Situação de homologação
 **Entregue no repositório:** portal, navegação, NPS agregados de 2023–2026 (distinguidos por público), gráficos por segmento, Fundamental I, rubricas agregadas da coordenação 2026 em rota autenticada e escopo de acesso por etapa no Supabase.
 
-**Ainda pendente:** importação integral das avaliações individuais 360 de alunos, famílias, professores e coordenadores do Fundamental II, Médio e Infantil; contas reais de Giovanna e Márcia; testes ponta a ponta de cada perfil e confirmação visual do GitHub Pages. Os NPS agregados de 2026 e os quatro eixos de rubrica docente exclusivos por etapa já foram incorporados. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
+**Ainda pendente:** importação integral das avaliações individuais 360 de alunos, famílias, professores e coordenadores do Fundamental II, Médio e Infantil; contas pessoais de Márcia e Patrícia; testes ponta a ponta de cada perfil e confirmação visual do GitHub Pages. Os NPS agregados de 2026 e os quatro eixos de rubrica docente exclusivos por etapa já foram incorporados. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
 
 **Privacidade:** não publicar resultados individuais, nomes de estudantes, respostas abertas, planilhas originais com identificadores ou senhas no repositório público.
 
@@ -68,11 +68,20 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - `/admin/funcionarios.html`: painel autenticado de pesquisa institucional interna, alimentado pelo arquivo privado `Typeform_ADM.xlsx` (2026).
 - 17 respondentes, 27 questões objetivas, 6 dimensões. Respostas abertas e endereços de e-mail não foram publicados nem copiados ao novo banco.
 - Os itens formulados negativamente (excesso de demandas sem contexto, mudanças de orientação e dependência de pessoas específicas) são recodificados na escala favorável 1–5; médias originais permanecem disponíveis na tabela restrita para auditoria.
-- Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. Somente a conta confirmada de Henrique foi vinculada. A conta de Márcia ainda precisa ser criada e vinculada após verificação de sua identidade.
-- Testes SQL de RLS: Henrique recebe 27 questões; Érica e Giovanna recebem zero; requisições anônimas sem privilégio SELECT.
+- Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. As contas existentes de Henrique e Giovanna estão vinculadas. Márcia precisa de uma conta pessoal autenticada e conferência de identidade.
+- Testes SQL de RLS: Henrique e Giovanna recebem 27 questões; Érica recebe zero; requisições anônimas sem privilégio SELECT.
 - Os gráficos do módulo não devem ser interpretados como notas individuais de desempenho.
 
 ### Respostas abertas na Escuta dos Funcionários
-- 149 respostas originais de nove perguntas dissertativas de `Typeform_ADM.xlsx` foram importadas exclusivamente para `public.stg_staff_survey_comments` com RLS restrita à allowlist privada Henrique/Márcia.
+- 149 respostas originais de nove perguntas dissertativas de `Typeform_ADM.xlsx` foram importadas exclusivamente para `public.stg_staff_survey_comments` com RLS restrita à lista privada de autorização Henrique/Giovanna/Márcia.
 - As perguntas são expansíveis (`<details>`) em `/admin/funcionarios.html`, com exibição integral das respostas apenas após autenticação. Campos originais de e-mail, token, área e data não foram importados ao módulo.
 - Os textos podem conter situações autodescritivas capazes de identificar participantes; portanto, continuam confidenciais. O código-fonte público não armazena os textos.
+
+## Educação Infantil e acompanhamento docente — 09/11/2026
+- `/admin/infantil.html`: painel autenticado para Patrícia e perfis institucionais; inclui NPS das famílias de 2026 (+75,0; 36 respostas), **10 indicadores objetivos confirmados na síntese executiva** (base de 42 respostas, escala 1–4) e três frentes de ação institucional. O 1º ano aparece no agrupamento de planejamento do formulário, mas **não deve ser confundido com a população do NPS de Educação Infantil**.
+- `/admin/planejamento.html`: painel reservado com filtros de etapa, professor e turma; fotografia de **336 registros** da base original de planejamento de 2026 e **32 pares professor-etapa** em `stg_planning_teacher_summary`, incluindo contagens por campo e última entrega registrada.
+- `stg_planning_reviews`: acompanhamento persistente, com status de análise e notas de devolutiva. Uma coordenação só pode consultar e registrar devolutiva na própria etapa; perfis `admin` e `master` abrangem todas as etapas.
+- Henrique mantém `admin`, Giovanna possui `master` ativo e Márcia será `master` após criação e identificação da conta. Patrícia será `coordenacao` com acesso exclusivo à etapa `infantil`. Érica mantém `fundamental1`. A regra é checada no banco, não apenas por elementos da interface.
+- A conta de Patrícia **ainda não existe** na autenticação. Depois de criada, um administrador deverá confirmar seu identificador de Auth, associá-la a `stg_members` como `coordenacao` e criar somente o vínculo `stg_scope_access(stage='infantil')`. Para Márcia, associar `stg_members(role='master')` e criar a autorização específica para Escuta dos Funcionários em `private.stg_staff_access`. Não conceder permissões a nomes textuais ou endereços de e-mail não confirmados.
+- Fonte de planejamento: arquivo original Excel do formulário, com data de fotografia (não é sincronização automática). A pasta no Drive `PLANOS DE AULA` foi localizada; os documentos na pasta dependem das permissões próprias do Google Drive, e a revisão de conteúdo individual permanece distinta da contagem de envios.
+- Segurança testada com transações reversíveis: Henrique e Giovanna podem registrar status EI; Érica é impedida de registrar acompanhamento EI. A publicação do GitHub Pages e testes de login em navegador real ainda exigem confirmação.
