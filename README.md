@@ -23,7 +23,15 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - `/admin/pesquisas-2026.html`: consulta confidencial de formulários, notas, texto, turma, questão, tipo de resposta e docente **na fonte**, acessível em Minha área e Integração 360.
 - Validação RLS: direção/administração veem 423 formulários/19.016 itens/38 blocos, coordenação EI/FI e conta desconhecida veem zero. A resposta livre não integra o site estático público.
 - Relatório completo: [Reconciliação integral das pesquisas](RECONCILIACAO_INTEGRAL_PESQUISAS_2026_11_09.md).
-- **Pendências mantidas:** homologar chaves canônicas, fontes multietapa de famílias, demais ciclos M2/M3, divergências históricas acadêmicas Geekie/ENEM e autenticação de navegação real. Fotografias importadas não significam atualização automática de novas coletas do Typeform.
+- **Atualizações posteriores:** famílias multietapa agora possuem leituras exclusiva e inclusiva protegidas (236 formulários válidos / 283 menções); 7 vínculos FI confirmados por regência/turma (116 planos); 249 resultados Geekie/ENEM históricos integrados em fonte acadêmica própria, sem mistura com a Avaliação 360. **Pendem:** 25 outros vínculos docente-etapa, 51 planos classificados na origem como Infantil embora se refiram ao 1º ano, M2/M3 sem fonte comprovada e homologação de login real. Fotografias importadas não significam atualização automática de novas coletas.
+
+## Integração complementar — famílias, identidades e resultados acadêmicos (09/11/2026)
+- A página protegida `/admin/pesquisas-2026.html` passou a mostrar **NPS por etapa exclusivo** (36 EI, 88 FI, 93 FII e 19 Médio; 236 famílias distintas) **e inclusivo** (42 EI, 127 FI, 93 FII e 21 Médio; 283 menções não somáveis). O critério exclusivo conserva os NPS homologados de 2026, com ordem de atribuição FII → Médio → EI → FI, reconstruída pela conciliação de notas da fonte original.
+- Dos 32 pares docente-etapa em planejamento, **7 vínculos FI** passaram por checagem de nome único, identidade existente, regência confirmada e turma compatível: **116 planejamentos** agora associados corretamente. Os outros 25 continuam sem vínculo confirmado.
+- O painel `/admin/infantil.html` diferencia **190 planos classificados Infantil pela fonte**, sendo **51 do 1º ano ainda pendentes de etapa** e **139 dos outros agrupamentos EI**; não migra automaticamente esses 51 planos para FI.
+- História acadêmica individualizada por aplicação/área (não por aluno): **172 resultados Geekie** e **77 ENEM oficial** importados à tabela `stg_360_academic_results`, com RLS admin/master e consulta em `/admin/academico.html`. Onze linhas desalinhadas da origem Geekie foram excluídas. Os dados são resultados escolares agregados por área, distintos do NPS e da avaliação docente.
+- Arquivo de reconciliação limpa: [Base acadêmica no Drive](https://docs.google.com/spreadsheets/d/1TZzyw8EsqyGykn9T7b9OzTLe-sy1S6Ct/edit) (XLSX). A matriz original de 96 abas não foi alterada.
+- Registro de critérios, discrepâncias, validações e itens ainda pendentes: [Auditoria complementar](RECONCILIACAO_FAMILIAS_DOCENTES_ACADEMICO_2026_11_09.md).
 
 ## Passo 7 — Navegação contextual por perfil (09/11/2026)
 - Página de acesso: https://henriquebovolopes-svg.github.io/stagio-360/admin/minha-area.html
