@@ -233,7 +233,7 @@ def check_visual_step8():
     admin_pages = ("index.html", "sintese.html", "pdi.html", "revisao.html",
                    "segmento.html", "infantil.html", "planejamento.html",
                    "governanca.html", "integracao.html", "funcionarios.html",
-                   "minha-area.html", "reset.html", "import.html", "coord-fii-em.html")
+                   "minha-area.html", "reset.html", "import.html", "coord-fii-em.html", "pesquisas-2026.html")
     for rel in main_pages + tuple("admin/" + x for x in admin_pages):
         source = (ROOT / rel).read_text(encoding="utf-8")
         href = "../assets/stagio360-unified.css?v=8" if "/" in rel else "./assets/stagio360-unified.css?v=8"
@@ -279,6 +279,49 @@ def check_coord_fiiem_granular():
     for rel in ("admin/minha-area.html", "admin/integracao.html"):
         if "./coord-fii-em.html" not in (ROOT / rel).read_text(encoding="utf-8"):
             ERRORS.append(f"Link da rubrica FII/EM ausente em {rel}")
+
+
+def check_2026_survey_reconciliation():
+    """Os NPS agregados publicos devem refletir os formularios brutos: NPS ausente != 0."""
+    import json
+    data = json.loads((ROOT / "assets/stagio360-2026-agregados.json").read_text(encoding="utf-8"))
+    by = {g["id"]:g for g in data["groups"]}
+    expected = {
+       "fii6a8":(96,41,35,20,21.88),
+       "medio_alunos":(36,13,16,7,16.67),
+       "alunos":(172,60,77,35,14.53),
+       "institucional":(408,219,136,53,40.69),
+    }
+    for key,(n,p,pa,d,nps) in expected.items():
+        rec=by.get(key,{})
+        if any(rec.get(col)!=value for col,value in
+           (("respondents",n),("promoters",p),("passives",pa),
+            ("detractors",d),("nps",nps))):
+            ERRORS.append("NPS 2026 sem a conciliacao dos formularios brutos: "+key)
+    page=ROOT / "admin/pesquisas-2026.html"
+    if not page.exists():
+        ERRORS.append("Consulta protegida de pesquisas 2026 ausente")
+        return
+    html=page.read_text(encoding="utf-8")
+    for token in ("stg_360_survey_forms","stg_members","['admin','master']",
+                  "nps_value","declared_segments","textContent",
+                  'id="dashboard"','id="signin"','id="denied"',
+                  'href="./minha-area.html"'):
+        if token not in html: ERRORS.append("Pesquisa 2026 sem recurso de seguranca: "+token)
+    for file in ("admin/minha-area.html","admin/integracao.html"):
+        if "./pesquisas-2026.html" not in (ROOT / file).read_text(encoding="utf-8"):
+            ERRORS.append("Atalho da pesquisa 2026 ausente em "+file)
+    public = json.loads((ROOT / "assets/stagio360-nps-publico-2023-2026.json").read_text(encoding="utf-8"))
+    values = {(r["year"],r["stage"],r["audience"],r["population"]):(r["n"],r["nps"]) for r in public["rows"]}
+    required = {
+       (2026,"fundamental2","alunos","fii_6a8"):(96,21.88),
+       (2026,"medio","alunos","medio_alunos"):(36,16.67),
+       (2026,"institutional","alunos","alunos_escola"):(172,14.53),
+       (2026,"institutional","misto","escola_familias_e_alunos"):(408,40.69)
+    }
+    for k,v in required.items():
+        if values.get(k)!=v:ERRORS.append("JSON publico NPS desatualizado: "+str(k))
+    print("NPS 2026: denominadores corrigidos e painel privado vinculado")
 
 
 def check_shared_dashboard():
@@ -396,6 +439,7 @@ check_permissions_step6()
 check_contextual_step7()
 check_visual_step8()
 check_coord_fiiem_granular()
+check_2026_survey_reconciliation()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
