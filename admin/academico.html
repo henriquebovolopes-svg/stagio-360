@@ -1,0 +1,135 @@
+<!doctype html><html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>STAGIO 360 | Resultados acadêmicos históricos</title>
+<style>
+:root{--blue:#076bd8;--ink:#183c65;--muted:#667f9e;--line:#d6e5f4;--bg:#eff4fb}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(115deg,#071d45,#0759ac 60%,#1088cb);padding:18px max(20px,calc((100% - 1170px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:4px solid #12bde5;color:white}
+header img{width:218px;max-height:65px;object-fit:contain;max-width:55vw}header strong{font-size:12px}
+main{max-width:1160px;margin:0 auto;padding:28px 18px 80px}
+h1{font-size:clamp(26px,3vw,36px);margin:5px 0;color:#15457b}h2{font-size:19px;margin:0 0 8px}
+p{margin:8px 0 15px}.muted{color:var(--muted);font-size:12px}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:.13em;color:#0b65c1;text-transform:uppercase}
+.card{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 5px 17px #0e38600b;padding:20px;margin:16px 0}
+.auth{max-width:520px;margin:36px auto}.auth label{display:block;font-size:12px;font-weight:800;margin:12px 0 5px}
+.auth input{box-sizing:border-box;font:inherit;padding:11px;width:100%;border:1px solid #b6cee9;border-radius:9px}
+.btn{border:1px solid #076bd8;border-radius:9px;padding:10px 16px;min-height:43px;background:#0868d7;color:#fff;font-weight:800;font:inherit;cursor:pointer}
+.btn.alt{background:#fff;border-color:#b3ceec;color:#1758a0}
+.actions{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:13px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{border:1px solid #d7e8fb;background:#f3f9ff;padding:16px;border-radius:13px}
+.kpi span{display:block;font-size:11px;color:#51789d;font-weight:800}
+.kpi strong{font-size:28px;color:#0b65bd;display:block;font-variant-numeric:tabular-nums}
+.kpi small{font-size:11px;color:#748da7}
+.filters{display:flex;gap:12px;flex-wrap:wrap;margin:17px 0}
+.filters label{display:grid;gap:5px;min-width:130px;flex:1;font-size:12px;font-weight:800;color:#3a6189}
+.filters select{border-radius:9px;border:1px solid #b7cfe9;background:white;padding:10px;color:#204970;max-width:100%;font:inherit;min-height:42px}
+.tablewrap{max-width:100%;overflow-x:auto}
+table{width:100%;min-width:920px;border-collapse:collapse;font-size:12px}
+td,th{border-bottom:1px solid #e2ebf5;text-align:left;vertical-align:top;padding:10px 9px}
+th{background:#f4f8fd;color:#457097}
+.tag{display:inline-block;font-size:11px;font-weight:800;color:#1263ae;background:#e5f2ff;padding:4px 9px;border-radius:20px}
+.tag.official{color:#216a47;background:#e5f6e8}
+.note{border-left:4px solid #0e80c8;background:#eff8ff;color:#39658c;padding:13px;border-radius:0 9px 9px 0;font-size:12px}
+.note.warn{border-left-color:#c28a32;background:#fff9ec}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+footer{font-size:11px;color:#758aab;margin-top:26px}
+@media(max-width:770px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:500px){header img{width:160px}.card{padding:14px}.kpi{padding:12px}.kpi strong{font-size:23px}}
+</style><link rel="stylesheet" href="../assets/stagio360-unified.css?v=8"></head>
+<body class="s360-harmonized">
+<header><a href="../" aria-label="Stagio 360 início"><img src="../assets/stagio360-logo-oficial.svg" alt="STAGIO 360"></a><strong>ACERVO HISTÓRICO<br>RESULTADOS ACADÊMICOS · PROTEGIDO</strong></header>
+<nav class="s360-quick-nav" aria-label="Navegação contextual"><a href="./minha-area.html">Minha área</a><a href="./integracao.html">Integração 360</a><a href="./pesquisas-2026.html">Pesquisas 2026</a><span aria-current="page">Resultados acadêmicos</span></nav>
+<main>
+<div class="eyebrow">Análise institucional · séries históricas</div>
+<h1>Resultados acadêmicos — Geekie e ENEM</h1>
+<p class="muted">Comparações entre resultados de simulados Geekie e resultados oficiais do ENEM devem respeitar as escalas, o ano, a aplicação e a população avaliada. As duas fontes estão armazenadas em registros separados e rastreáveis.</p>
+<section class="card auth" id="loading" role="status"><h2>Validando seu acesso</h2><p class="muted">Conferindo perfil institucional antes de consultar o banco.</p></section>
+<section class="card auth" id="signin" hidden><h2>Entrar — Direção e administração</h2><form id="login"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required><div class="actions"><button class="btn" type="submit">Entrar</button><a href="./reset.html">Recuperar senha</a></div><p class="muted" id="login-error" role="status"></p></form></section>
+<section class="card auth" id="denied" hidden><h2>Sem autorização</h2><p id="denied-error">Os resultados históricos detalhados são restritos à administração e Direção Master.</p><button class="btn alt" id="switch-account" type="button">Trocar conta</button></section>
+<section id="dashboard" hidden>
+<div class="note warn"><strong>Importante:</strong> cada linha representa uma área/série/aplicação/ano, não um aluno distinto. As médias Geekie e os indicadores oficiais do ENEM não devem ser misturados nem interpretados como nota da Avaliação 360 docente. A ausência do ano 2023 no arquivo não é resultado zero.</div>
+<div class="card">
+<div class="actions"><h2>Inventário da base acadêmica</h2><button type="button" class="btn alt" id="logout">Sair</button></div>
+<div class="kpis">
+<div class="kpi"><span>Registros acadêmicos</span><strong id="total">—</strong><small>Áreas, séries e aplicações</small></div>
+<div class="kpi"><span>Simulados Geekie</span><strong id="geekie-count">—</strong><small>2021, 2022, 2024 e 2025</small></div>
+<div class="kpi"><span>ENEM oficial</span><strong id="enem-count">—</strong><small>2013–2022 e 2024</small></div>
+<div class="kpi"><span>Anos com registros</span><strong id="years-count">—</strong><small>Sem imputar anos ausentes</small></div>
+</div></div>
+<div class="card">
+<h2>Detalhamento por fonte</h2>
+<div class="filters">
+<label for="source">Fonte<select id="source"><option value="all">Ambas — sem agregar médias</option><option value="geekie">Simulado Geekie</option><option value="enem_oficial">ENEM oficial</option></select></label>
+<label for="year">Ano<select id="year"><option value="all">Todos os anos disponíveis</option></select></label>
+<label for="series">Série<select id="series"><option value="all">Todas as séries</option></select></label>
+<label for="area">Área<select id="area"><option value="all">Todas as áreas</option></select></label>
+<label for="application">Aplicação<select id="application"><option value="all">Todas as aplicações</option></select></label>
+</div>
+<p id="result-count" class="muted" role="status"></p>
+<div class="tablewrap"><table><thead><tr><th>Fonte</th><th>Ano</th><th>Aplicação</th><th>Série</th><th>Área</th><th>Alunos*</th><th>Média Stagio</th><th>Média referência</th><th>Diferença</th><th>Ranking / classificação</th></tr></thead><tbody id="results"></tbody></table></div>
+<div class="actions"><button class="btn alt" id="more" type="button" hidden>Mostrar mais resultados</button></div>
+<p class="muted">* Contagem de participantes informada apenas nos simulados quando disponível. Não somar entre disciplinas e aplicações, pois um mesmo estudante pode aparecer em várias linhas.</p>
+</div>
+<div class="note">Fonte rastreada à planilha histórica oficial da escola. Foram conciliadas 172 linhas Geekie e 77 linhas ENEM oficial. Onze linhas desalinhadas da transformação Geekie foram excluídas da importação; seus valores não foram reclassificados nem transformados em avaliações novas.</div>
+</section>
+<footer>STAGIO 360 · Histórico acadêmico com RLS · Somente acesso institucional autorizado</footer>
+</main><script src="./config.js"></script>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/+esm';
+const $=id=>document.getElementById(id),cfg=window.STAGIO_AUTH||{},sourceLabels={geekie:'Simulado Geekie',enem_oficial:'ENEM oficial'};
+let api=null,rows=[],limit=70,filtered=[];
+function screen(id){for(const x of ['loading','signin','denied','dashboard'])$(x).hidden=x!==id}
+function makeEl(tag,value){const x=document.createElement(tag);x.textContent=String(value??'');return x}
+function cell(value){return makeEl('td',value)}
+function formatScore(x){return x===null||x===undefined?'—':Number(x).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2})}
+function options(id,values){const control=$(id),selected=control.value;control.replaceChildren();const all=document.createElement('option');all.value='all';all.textContent='Todos'+(id==='year'?' os anos':'');control.append(all);for(const value of values){const opt=document.createElement('option');opt.value=String(value);opt.textContent=String(value);control.append(opt)}if([...control.options].some(x=>x.value===selected))control.value=selected}
+function render(){
+ const provider=$('source').value,year=$('year').value,grade=$('series').value,area=$('area').value,application=$('application').value;
+ filtered=rows.filter(r=>(provider==='all'||r.provider===provider)&&(year==='all'||String(r.school_year)===year)&&(grade==='all'||r.grade_label===grade)&&(area==='all'||r.academic_area===area)&&(application==='all'||r.application===application));
+ $('result-count').textContent=filtered.length+' registro(s) no recorte; nenhuma média foi agregada entre aplicações.';
+ const body=$('results');body.replaceChildren();
+ for(const r of filtered.slice(0,limit)){
+  const tr=document.createElement('tr'),a=document.createElement('td'),tag=makeEl('span',sourceLabels[r.provider]||r.provider);tag.className='tag'+(r.provider==='enem_oficial'?' official':'');a.append(tag);tr.append(a,cell(r.school_year),cell(r.application),cell(r.grade_label),cell(r.academic_area),cell(r.students_count??'—'),cell(formatScore(r.stagio_mean)),cell(formatScore(r.reference_mean)),cell(r.provider==='geekie'?formatScore(r.difference_from_reference):'—'));
+  let rank=r.provider==='geekie'?(r.ranking_text||'Sem ranking declarado'):('Ranking da cidade: '+(r.rank_city??'não informado'));
+  if(r.category)rank+=' · '+r.category;
+  tr.append(cell(rank));body.append(tr);
+ }
+ $('more').hidden=filtered.length<=limit;
+}
+function updateOptions(){
+ const provider=$('source').value,subset=rows.filter(r=>provider==='all'||r.provider===provider);
+ options('year',[...new Set(subset.map(r=>r.school_year))].sort((a,b)=>b-a));
+ options('series',[...new Set(subset.map(r=>r.grade_label))].sort());
+ options('area',[...new Set(subset.map(r=>r.academic_area))].sort());
+ options('application',[...new Set(subset.map(r=>r.application))].sort());
+ limit=70;render();
+}
+function prepare(){
+ $('total').textContent=rows.length;
+ $('geekie-count').textContent=rows.filter(r=>r.provider==='geekie').length;
+ $('enem-count').textContent=rows.filter(r=>r.provider==='enem_oficial').length;
+ $('years-count').textContent=new Set(rows.map(r=>r.school_year)).size;
+ updateOptions();screen('dashboard');
+}
+async function boot(){
+ screen('loading');
+ try{
+  if(!cfg.url||!cfg.publishableKey)throw Error('Configuração de autenticação ausente');
+  if(!api)api=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
+  const {data:{user},error:authError}=await api.auth.getUser();
+  if(authError||!user){screen('signin');return}
+  const {data:member,error:memberError}=await api.from('stg_members').select('active,role').eq('user_id',user.id).maybeSingle();
+  if(memberError||!member?.active||!['admin','master'].includes(member.role)){screen('denied');return}
+  const {data,error}=await api.from('stg_360_academic_results').select('source_key,provider,school_year,application,grade_label,academic_area,students_count,stagio_mean,reference_mean,difference_from_reference,ranking_text,rank_city,category').order('school_year',{ascending:false}).limit(500);
+  if(error)throw error;rows=data||[];
+  if(rows.length!==249){$('denied-error').textContent='Base acadêmica incompleta: '+rows.length+' de 249 registros. Solicite revisão da importação.';screen('denied');return}
+  prepare();
+ }catch(e){$('denied-error').textContent='Consulta acadêmica indisponível: '+(e.message||'falha desconhecida');screen('denied')}
+}
+$('login').addEventListener('submit',async ev=>{ev.preventDefault();$('login-error').textContent='Autenticando…';try{if(!api)api=createClient(cfg.url,cfg.publishableKey);const {error}=await api.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';$('login-error').textContent='';await boot()}catch(e){$('login-error').textContent='Não foi possível autenticar; confira usuário e senha.'}});
+async function exit(){rows=[];filtered=[];$('results').replaceChildren();if(api)await api.auth.signOut();$('password').value='';screen('signin')}
+$('logout').addEventListener('click',exit);$('switch-account').addEventListener('click',exit);
+$('source').addEventListener('change',updateOptions);for(const id of ['year','series','area','application'])$(id).addEventListener('change',()=>{limit=70;render()});
+$('more').addEventListener('click',()=>{limit+=70;render()});
+boot();
+</script></body></html>
