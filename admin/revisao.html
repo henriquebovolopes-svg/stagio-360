@@ -34,13 +34,17 @@ button:disabled{opacity:.5;cursor:default}
 @media(max-width:830px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.card{padding:16px}}
 @media print{body{background:#fff}.card,.summary-item{box-shadow:none;break-inside:avoid}.no-print,button,#form-card{display:none!important}header{background:#fff;color:var(--ink)}header a,header small{color:var(--ink)}main{padding:9px}}
 </style>
-</head>
-<body>
-<header><div><small>STAGIO 360 · INTELIGÊNCIA PEDAGÓGICA</small>
-<h1>Pré-revisão institucional do PDI</h1><div class="tiny">Fundamental I · Módulo 1 / 2026 · Pareceres internos</div></div>
-<div class="tiny"><a href="./pdi.html">← PDI piloto</a> &nbsp; · &nbsp; <a href="./">Área administrativa</a></div>
-</header>
-<main>
+<link rel="stylesheet" href="../assets/stagio360-theme.css?v=2"></head>
+<body class="s360 s360-aux s360-revisao"><div class="s360-shell"><aside class="s360-sidebar" aria-label="Navegação do STAGIO 360"><a class="s360-logo" href="../" aria-label="STAGIO Academy"><img src="../assets/stagio-academy-logo.svg" alt="STAGIO Academy — Ensinar, aprender e transformar"></a><nav class="s360-sidenav" aria-label="Páginas do painel">
+<a class="s360-navlink" href="../"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Visão institucional</span></a>
+<a class="s360-navlink" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4h18v16H3Z"/><path d="M7 9h10M7 13h6"/><path d="m15 17 2-2 2 2"/></svg><span>Painel da coordenação</span></a>
+<a class="s360-navlink " href="./sintese.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M15 3v5h4M9 13h7M9 17h7"/></svg><span>Síntese pedagógica</span></a>
+<a class="s360-navlink " href="./pdi.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4h18v16H3Z"/><path d="M7 9h10M7 13h6"/><path d="m15 17 2-2 2 2"/></svg><span>PDI piloto</span></a>
+<a class="s360-navlink active" href="./revisao.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M15 3v5h4M9 13h7M9 17h7"/></svg><span>Pré-revisão institucional</span></a>
+<a class="s360-navlink " href="./import.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Importação protegida</span></a>
+</nav><div class="s360-sidebar-spacer"></div><div class="s360-sidebar-foot"><div class="s360-mark"><em>[S</em>360<em>]</em></div><strong>STAGIO 360</strong><small>Inteligência pedagógica<br>Fundamental I · M1/2026<br>Acesso individual e protegido</small></div></aside><div class="s360-workspace">
+<header class="s360-hero"><div class="s360-hero-content"><div class="s360-hero-kicker"><span>[S360]</span>Projeto</div><h1>STAGIO 360</h1><div class="s360-hero-sub">Fundamental I &nbsp; | &nbsp; Pareceres internos de apoio ao desenvolvimento docente.</div></div></header>
+<main class="s360-main"><div class="s360-toolbar"><div>Dashboard / <strong>Pré-revisão institucional</strong> · M1/2026</div><a href="./pdi.html">← PDI piloto</a></div><div class="s360-statusbar"><div><b>AMBIENTE PROTEGIDO</b> · Acesso individual e dados confidenciais</div><span>ÁREA RESTRITA</span></div><div class="s360-intro"><div class="s360-eyebrow">STAGIO 360 · Módulo 1 / 2026</div><h2>Pré-revisão institucional</h2><p>Pareceres internos de apoio ao desenvolvimento docente.</p></div>
 <section id="gate" class="card"><h2>Validando o acesso</h2><p id="gate-message" class="muted">Consultando as permissões do STAGIO 360…</p><a href="./">Entrar na área administrativa</a></section>
 <section id="app" hidden>
 <div class="card">
@@ -107,7 +111,7 @@ button:disabled{opacity:.5;cursor:default}
 <p class="muted">A gestão pode utilizar os pareceres para distinguir decisões já viáveis de propostas que exigem recursos, autorização ou reformulação. A passagem do PDI para “Para revisão” deve resultar da leitura crítica desse material, não de uma aprovação automática do sistema.</p>
 <p class="tiny muted">O planejamento com a professora somente deve ser registrado como pactuação depois de uma conversa efetivamente realizada, com escuta, ressalvas e responsabilidades documentadas.</p>
 </div>
-</section></main>
+</section></main></div></div>
 <script src="./config.js"></script>
 <script type="module">
 const $=id=>document.getElementById(id);
