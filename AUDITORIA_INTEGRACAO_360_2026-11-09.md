@@ -80,3 +80,10 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - A tela `admin/integracao.html` destaca as sugestões na lista da direção, sem pré-selecionar identidade nem gravar vínculo; a confirmação exige escolha, justificativa e autenticação master/admin.
 - RLS confirmada em consultas simuladas: Henrique e Giovanna veem 20 propostas; Érica vê 0. Todas as 32 linhas de `stg_360_planning_crosswalk` continuam sem homologação.
 - A verificação externa do GitHub Pages/Actions ainda falhou por indisponibilidade de acesso do ambiente de consulta; portanto não há confirmação de publicação visual.
+
+## Continuação — cadastro canônico pendente (09/11/2026)
+- `stg_360_teacher_registry_pending`: criada fila de **13 registros com nome abreviado no planejamento e sem sugestão no cadastro docente M1**: 7 da Educação Infantil, 1 do Fundamental II e 5 do Médio, associados a 143 envios de plano. São registros de origem, **não 13 pessoas de identidade comprovadamente distintas**.
+- Campos de conferência: nome completo verificado, situação, origem/fonte da conferência, responsável autenticado e data. O status `ready_for_canonical` exige nome completo e justificativa. Essa etapa **não cria automaticamente professor em `stg_teachers`, não vincula avaliações nem resolve homônimos**.
+- `admin/integracao.html` agora permite que direção e administração consultem e registrem a verificação, com turmas do arquivo original. A fila é isolada via RLS: Henrique/Giovanna visualizaram 13 registros e puderam atualizar em transação reversível; Érica visualizou zero e não conseguiu atualizar.
+- Verificada sintaxe do JavaScript e ausência de IDs duplicados da página. Não foi estabelecida verificação ponta a ponta do GitHub Pages publicado em navegador autenticado.
+- Pendência seguinte: transformar os nomes completos conferidos em identidades canônicas com documentação institucional e ligar ao crosswalk, sem confundir cadastro de planejamento e identidade FI/M1.
