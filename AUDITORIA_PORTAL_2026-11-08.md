@@ -100,3 +100,14 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Pipeline do GitHub Pages agora empacota somente `index.html`, `assets/`, `admin/`, `fundamental-1/` em `_site/`, evitando publicar scripts e arquivos internos de auditoria como artefato do Pages.
 - Após o deploy, o workflow deverá testar HTTP das rotas inicial, Fundamental I e governança restrita com `curl`. Sua efetiva execução precisa ser conferida em GitHub Actions.
 - **Atenção:** a execução do workflow não foi observada e o site ao vivo não pôde ser alcançado pelos acessos externos disponíveis nesta sessão. Implementação do teste automatizado não é confirmação de sucesso.
+
+## 09/11/2026 — Avaliação dos funcionários: novo módulo privado
+- Base identificada: `Typeform_ADM.xlsx`, 17 respondentes, 27 questões objetivas em escala 1–5, 6 dimensões de análise. É uma **escuta institucional dos funcionários**, não uma avaliação individual de desempenho.
+- Dimensões: Clareza e decisões; Processos e rotina; Comunicação entre setores; Cultura e relações; Atendimento às famílias; Gestão administrativa.
+- Nova página `admin/funcionarios.html` recebe dados **exclusivamente em consulta autenticada** pelo Supabase; o HTML público contém apenas layout e consultas, sem números sigilosos, e-mails ou comentários.
+- Nova tabela `public.stg_staff_survey_items` com 27 médias por pergunta e `public.stg_staff_survey_cycles` com os metadados da pesquisa; RLS habilitada. Não foram transferidas as respostas textuais livres nem identificadores dos participantes.
+- Três perguntas em formulação negativa foram recodificadas (6−nota) para a leitura favorável; médias brutas e recodificadas ficam na tabela privada para conferência.
+- Allowlist privada `private.stg_staff_access`: conta Henrique registrada; Márcia não consta em `auth.users` e não recebeu acesso ainda, aguardando conta autenticada e verificação. Nenhuma outra pessoa, incluindo Érica e Giovanna, é autorizada.
+- Teste de acesso no banco, simulando sessões `authenticated`: Henrique vê 27 questões; Érica e Giovanna recebem 0 questões. Tentativa `anon` falhou por `permission denied`, como esperado.
+- Auditoria de scripts: `admin/funcionarios.html` e `index.html` passaram na análise sintática JavaScript.
+- Validação ponta a ponta em navegador real e implantação no GitHub Pages continuam não comprovadas; o arquivo e a atualização do portal estão confirmados no repositório.
