@@ -49,14 +49,41 @@ button:disabled{opacity:.5;cursor:default}
 .empty{padding:32px 18px;text-align:center;border:1px dashed #c7dade;border-radius:12px;color:var(--muted);background:#f8fbfc}
 [hidden]{display:none!important}
 @media(max-width:800px){header{padding:20px 16px}.cols,.twocol,.grid,.theme-grid,.dash-half{grid-template-columns:1fr}.dash-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.authcard{margin:22px auto}.scroller{max-height:none}}
-</style></head><body>
-<header><div><small>STAGIO 360 · INTELIGÊNCIA PEDAGÓGICA</small><h1>Perfis e evidências</h1><div style="font-size:12px;color:#bfdae0">Fundamental I · Evidências e avaliações individuais</div></div><div><a href="../">← Painel institucional</a> <button id="logout" class="ghost" hidden>Sair</button></div></header>
-<main>
+</style><link rel="stylesheet" href="../assets/stagio360-theme.css?v=2"></head><body class="s360 s360-admin">
+<div class="s360-shell">
+<aside class="s360-sidebar" aria-label="Navegação da coordenação">
+<a class="s360-logo" href="../" aria-label="STAGIO Academy, painel institucional"><img src="../assets/stagio-academy-logo.svg" alt="STAGIO Academy — Ensinar, aprender e transformar"></a>
+<div class="s360-sidenav"><a class="s360-navlink" href="../"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Visão institucional</span></a></div>
+<nav class="nav s360-sidenav s360-secure-nav" id="tabs" aria-label="Navegação do painel restrito">
+<button type="button" data-tab="teachers" class="active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4h18v16H3Z"/><path d="M7 9h10M7 13h6"/><path d="m15 17 2-2 2 2"/></svg><span>Perfis docentes</span></button>
+<button type="button" data-tab="erica"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2c0-4 3-6 8-6s8 2 8 6v2"/><path d="m17 13 2 2 3-4"/></svg><span>Avaliação da coordenação</span></button>
+<button type="button" data-tab="students"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 5l9 5.5-9 5.5-9-5.5Z"/><path d="M6 13v5c4 3 8 3 12 0v-5"/></svg><span>Alunos por turma</span></button>
+<button type="button" data-tab="families"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="18" cy="9" r="2.5"/><path d="M2 20v-2c0-3 2.5-5 7-5 4.5 0 7 2 7 5v2M16 14c3.5 0 6 2 6 5v1"/></svg><span>Famílias</span></button>
+<button type="button" data-tab="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><span>Busca e temas</span></button>
+<a class="s360-navlink" href="./sintese.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Síntese pedagógica</span></a>
+</nav>
+<div class="s360-sidebar-spacer"></div>
+<div class="s360-sidebar-foot"><div class="s360-mark"><em>[S</em>360<em>]</em></div><strong>STAGIO 360</strong><small>Inteligência pedagógica<br>Fundamental I · M1/2026<br>Acesso individual e protegido</small></div>
+</aside>
+<div class="s360-workspace">
+<header class="s360-hero"><div class="s360-hero-content"><div class="s360-hero-kicker"><span>[S360]</span>Projeto</div><h1>STAGIO 360</h1><div class="s360-hero-sub">Perfis, indicadores e evidências &nbsp; | &nbsp; Área da coordenação</div></div><button id="logout" class="ghost" hidden>Sair da conta</button></header>
+<main class="s360-main">
+<div class="s360-toolbar"><div>Dashboard / <strong>Coordenação</strong> · M1/2026</div><a href="../">Voltar à visão institucional</a></div>
+<div class="s360-statusbar"><div><b>AMBIENTE PROTEGIDO</b> · Avaliações individuais e evidências acessíveis apenas a contas autorizadas</div><span>ACESSO RESTRITO</span></div>
 <section id="setup"><div class="card authcard"><span class="pill">Acesso bloqueado por padrão</span><h2 style="margin-top:16px">Não foi possível abrir o acesso restrito</h2><p>A autenticação já está configurada, mas esta sessão não conseguiu iniciar corretamente. Confira a conexão ou tente novamente pelo link de acesso abaixo.</p><div class="warning"><strong>Nenhum registro individual foi publicado aqui.</strong> A interface não possui senha de demonstração nem banco sensível embutido.</div><p class="small muted">Configuração: execute a migração em <code>supabase/migrations/</code>, crie e autorize as contas no backend e preencha <code>admin/config.js</code> com URL e chave pública.</p><a href="https://github.com/henriquebovolopes-svg/stagio-360/blob/main/DEPLOY_ADMIN.md">Consultar instruções de ativação</a></div></section>
 <section id="signin" hidden><div class="card authcard"><span class="pill">Ambiente restrito</span><h2 style="margin-top:15px">Entrar no STAGIO 360</h2><p class="muted">Acesso permitido apenas a profissionais autorizados. Não existe cadastro público.</p><form id="login-form"><div class="field"><label for="email">E-mail institucional</label><input id="email" type="email" required autocomplete="username" placeholder="seu.email@colegio..." /></div><div class="field"><label for="pw">Senha</label><input id="pw" type="password" required autocomplete="current-password"/></div><button id="login-btn" type="submit">Entrar</button></form><p style="font-size:13px;margin-top:15px"><a href="./reset.html" style="color:#237e88;font-weight:750">Esqueci minha senha</a></p><p id="auth-error" class="small" role="alert"></p></div></section>
-<section id="app" hidden><div class="topbar card"><div><span class="pill">Sessão autorizada · M1/2026</span><h2 style="margin-top:8px">Painel de avaliação docente</h2><p class="muted small">25 profissionais registrados · Critérios, notas e escuta qualitativa · Acesso restrito</p></div><div class="small"><strong id="signedname"></strong><br/><span id="signedrole" class="muted"></span></div></div>
+<section id="app" hidden>
+<div class="s360-intro"><div class="s360-eyebrow">Painel da coordenação · M1/2026</div><h2>Panorama de avaliação e evidências</h2><p>Indicadores protegidos e leituras individuais das quatro fontes do Fundamental I.</p></div>
+<div class="topbar card"><div><span class="pill">Sessão autorizada · M1/2026</span><h2 style="margin-top:8px">Avaliações e desenvolvimento docente</h2><p class="muted small">Perfis, critérios, notas e escuta qualitativa em área protegida</p></div><div class="small"><strong id="signedname"></strong><br/><span id="signedrole" class="muted"></span></div></div>
+<div class="kpis s360-admin-kpis" aria-label="Acervo de avaliações da primeira janela de 2026">
+<div class="card kpi"><span>Profissionais cadastrados</span><strong>25</strong><span>7 regentes homologadas</span></div>
+<div class="card kpi"><span>Avaliações docentes</span><strong>629</strong><span>Registros por critério</span></div>
+<div class="card kpi"><span>Alunos respondentes</span><strong>159</strong><span>8 turmas do Fundamental I</span></div>
+<div class="card kpi"><span>Famílias respondentes</span><strong>127</strong><span>88 FI + 39 multissegmento</span></div>
+<div class="card kpi"><span>Evidências qualitativas</span><strong>1.400</strong><span>Trechos nas quatro fontes</span></div>
+</div>
 <div class="card" style="padding:13px 18px;background:#eef8f6"><strong>Explorar a avaliação</strong><p class="small" style="margin-top:4px">Selecione os perfis individuais abaixo ou abra a <a href="./sintese.html" class="subtle-link">síntese pedagógica por eixos</a>.</p></div>
-<div class="nav" id="tabs"><button data-tab="teachers" class="active">Perfis docentes</button><button data-tab="erica">Avaliação da coordenação</button><button data-tab="students">Alunos</button><button data-tab="families">Famílias</button><button data-tab="search">Busca e temas</button></div>
+
 <div id="app-error" role="alert" class="warning" hidden></div>
 <section id="teachers"><div class="cols"><div class="card"><h3>Profissionais avaliados</h3><p class="small muted">Regentes e demais profissionais cadastrados. Selecione para consultar o perfil individual.</p><div class="field"><label for="teacher-filter">Localizar profissional ou turma</label><input id="teacher-filter" type="search" placeholder="Nome, turma ou atuação" autocomplete="off"/></div><p id="teacher-count" class="selector-note"></p><div id="teacher-list" class="scroller"></div></div><div class="card"><div id="teacher-view" class="empty">Selecione um profissional para consultar notas, critérios e evidências de cada fonte.</div></div></div></section>
 <section id="erica" hidden><div class="card"><h2>Avaliação da coordenação</h2><p class="muted">Registros da coordenação pedagógica, organizados por profissional e critério. Notas e textos permanecem em contexto; campos em branco não são preenchidos automaticamente.</p><div class="field"><label for="erica-select">Profissional avaliado</label><select id="erica-select"></select></div><div id="erica-view"></div></div></section>
@@ -76,13 +103,14 @@ button:disabled{opacity:.5;cursor:default}
 <details id="utilities" class="utility" hidden><summary>Manutenção e módulos complementares</summary><p class="small muted">Ferramentas administrativas fora do fluxo principal de leitura.</p><p><a href="./import.html" id="maintenance-import" hidden>Importar base protegida</a><a href="./pdi.html">PDI piloto</a><a href="./revisao.html">Pré-revisão institucional</a></p></details>
 </section>
 </main>
+</div></div>
 <script src="./config.js"></script>
 <script type="module">
 const $=id=>document.getElementById(id);
 let sup=null,teacherList=[],studentList=[],familyList=[],selectedTeacherId=null;
 let studentAliases=new Map(),familyAliases=new Map(),allEvidenceCache=null;
 const config=window.STAGIO_AUTH||{};
-const show=(id)=>{['setup','signin','app'].forEach(x=>$(x).hidden=x!==id)};
+const show=(id)=>{['setup','signin','app'].forEach(x=>$(x).hidden=x!==id);document.body.classList.toggle('s360-authorized',id==='app')};
 function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text??'');if(cls)n.className=cls;return n}
 function append(parent,...children){children.forEach(c=>parent.append(c));return parent}
 function clear(id){const x=typeof id==='string'?$(id):id;x.replaceChildren();return x}
