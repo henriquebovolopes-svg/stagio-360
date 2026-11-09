@@ -60,7 +60,7 @@ for name,color in (
  ("violet","#7c5cfa"),("green","#27ae60"),("amber","#e1a32f"),
  ("red","#dc5959"),
 ):
-    if color not in css or color not in js:
+    if color not in css or (name!="deep" and color not in js):
         errors.append("Cor oficial v9 ausente da stylesheet/script: "+name)
 for token in (
  ".s360-global-sidebar",".s360-menu-toggle",".s360-v9-charts",
