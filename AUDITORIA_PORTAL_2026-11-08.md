@@ -120,3 +120,14 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Teste de RLS simulando contas autenticadas: Henrique vê 149 respostas; Érica e Giovanna veem 0. A autorização de Márcia depende de conta pessoal verificada.
 - Releitura da página no GitHub: sintaxe do script válida, IDs não duplicados e nenhum texto dissertativo embutido no arquivo público.
 - Publicação efetiva do Pages e teste E2E no navegador não confirmados nesta sessão.
+
+## Continuação — homologação do acompanhamento docente e da Educação Infantil (09/11/2026)
+- A fonte original `PLANO DE AULA | Colégio Stagio (respostas).xlsx` foi conferida em 336 registros: Educação Infantil 190, Fundamental I 119, Fundamental II 13 e Médio 14. São **envios de formulários** e não necessariamente aulas executadas ou documentos revisados.
+- A tabela `stg_planning_teacher_summary` contém 32 combinações únicas professor/etapa com contagem de registros, última data e indicadores de campos preenchidos, além de turmas declaradas. O painel oferece filtro de etapa, turma e professor.
+- A tabela `stg_planning_reviews` permite acompanhamento e devolutiva com estados **não analisado, em análise, devolutiva enviada, acompanhamento validado**; controle de leitura e gravação por etapa no Supabase. Não equivale à aprovação individual de cada um dos 336 planos.
+- Teste de RLS em transações revertidas: Henrique (admin) e Giovanna (master) conseguiram consultar EI e gravar status; Érica recebeu bloqueio na tentativa de gravar avaliação de professora da EI.
+- A síntese executiva de Educação Infantil comprovou dez critérios objetivos com médias e a separação de universos: 36 famílias no NPS e 42 respostas nos itens objetivos. Foram eliminados três indicadores não sustentados explicitamente pelo relatório em consulta, restando **10 indicadores verificados** na tabela restrita.
+- O cadastro de Giovanna como `master` está ativo. Márcia e Patrícia ainda não têm identidades de Auth verificadas. Não foram provisionadas por nome ou e-mail presumido; quando criadas, Patrícia receberá somente `infantil` e Márcia `master`.
+- Conferidos os scripts de `index.html`, `admin/governanca.html`, `admin/infantil.html` e `admin/planejamento.html`: sem erros sintáticos ou IDs duplicados.
+- Auditor de segurança do Supabase mantém um aviso de proteção de senhas vazadas desabilitada e um aviso informativo sobre tabela privada com RLS sem política; nenhum novo erro crítico foi comunicado.
+- Pendente: verificação de GitHub Pages e login em navegador com contas reais; conferência de metas de planejamento e vinculação de cada plano documental à devolutiva.
