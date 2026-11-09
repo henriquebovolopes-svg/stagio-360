@@ -175,6 +175,42 @@ def check_permissions_step6():
             ERRORS.append(f"Passo 6: migracao sem protecao ({token})")
 
 
+def check_contextual_step7():
+    """Minha área depende de Auth e RLS, e nunca mostra links restritos por texto de nome."""
+    path = ROOT / "admin/minha-area.html"
+    if not path.exists():
+        ERRORS.append("Passo 7: página Minha área ausente")
+        return
+    code = path.read_text(encoding="utf-8")
+    required = (
+        'id="dashboard" hidden', 'id="stage-cards"', 'id="institutional-section"',
+        "auth.getUser()", "signInWithPassword", "stg_members", "stg_scope_access",
+        "member?.active", "Object.hasOwn(ROLE_NAMES,member.role)",
+        "const privileged=member.role==='admin'||member.role==='master'",
+        "stg_staff_survey_cycles", "if(!staff.error&&(staff.count||0)>0)",
+        "./segmento.html?etapa=infantil", "./segmento.html?etapa=fundamental1",
+        "./segmento.html?etapa=fundamental2", "./segmento.html?etapa=medio",
+        "./planejamento.html#fundamental1",
+    )
+    for token in required:
+        if token not in code:
+            ERRORS.append(f"Passo 7: Minha área sem requisito ({token})")
+    for rel in ("index.html", "painel.html"):
+        public = (ROOT / rel).read_text(encoding="utf-8")
+        if 'id="my-area-link"' not in public or 'href="./admin/minha-area.html"' not in public:
+            ERRORS.append(f"Passo 7: {rel} sem acesso a Minha área")
+    segment = (ROOT / "admin/segmento.html").read_text(encoding="utf-8")
+    if 'href="./minha-area.html"' not in segment:
+        ERRORS.append("Passo 7: coordenação sem retorno à Minha área")
+    for rel in ("admin/pdi.html", "admin/revisao.html"):
+        fi = (ROOT / rel).read_text(encoding="utf-8")
+        if "!['admin','master','coordenacao'].includes(members[0].role)" not in fi:
+            ERRORS.append(f"Passo 7: {rel} não reconhece a direção master")
+    workflow = (ROOT / ".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+    if "test -s _site/admin/minha-area.html" not in workflow:
+        ERRORS.append("Passo 7: GitHub Pages não valida a Minha área")
+
+
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
@@ -287,6 +323,7 @@ check_navigation_step3()
 check_stage_access_step4()
 check_navigation_step5()
 check_permissions_step6()
+check_contextual_step7()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
