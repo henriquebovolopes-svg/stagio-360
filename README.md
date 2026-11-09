@@ -71,3 +71,8 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. Somente a conta confirmada de Henrique foi vinculada. A conta de Márcia ainda precisa ser criada e vinculada após verificação de sua identidade.
 - Testes SQL de RLS: Henrique recebe 27 questões; Érica e Giovanna recebem zero; requisições anônimas sem privilégio SELECT.
 - Os gráficos do módulo não devem ser interpretados como notas individuais de desempenho.
+
+### Respostas abertas na Escuta dos Funcionários
+- 149 respostas originais de nove perguntas dissertativas de `Typeform_ADM.xlsx` foram importadas exclusivamente para `public.stg_staff_survey_comments` com RLS restrita à allowlist privada Henrique/Márcia.
+- As perguntas são expansíveis (`<details>`) em `/admin/funcionarios.html`, com exibição integral das respostas apenas após autenticação. Campos originais de e-mail, token, área e data não foram importados ao módulo.
+- Os textos podem conter situações autodescritivas capazes de identificar participantes; portanto, continuam confidenciais. O código-fonte público não armazena os textos.
