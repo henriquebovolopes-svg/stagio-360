@@ -7,11 +7,22 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 ## Estrutura atual
 - `/` — governança, NPS institucional, históricos 2023–2025 e navegação por segmento.
 - `/fundamental-1/` — protótipo validado da Avaliação 360 2026 (2º–5º ano), preservado.
+- `/admin/minha-area.html` — entrada autenticada por perfil: cada coordenação vê apenas seus segmentos autorizados, e direção/administração vê as etapas e os módulos institucionais permitidos.
 - `/admin/` — área administrativa autenticada, com dados individuais protegidos por Supabase e RLS.
 - `/assets/stagio360-historico.json` — indicadores históricos de satisfação calculados por segmento, 2023–2025.
 - `/assets/stagio360-2026-agregados.json` — NPS 2026 de famílias e alunos por etapa, com denominadores e critérios objetivos.
 - `/admin/governanca.html` — rubricas agregadas de docentes do Fundamental II e Ensino Médio, autenticadas por etapa no Supabase.
 - `AUDITORIA_PORTAL_2026-11-08.md` — trilha de verificação, problemas encontrados, correções e pendências.
+
+## Passo 7 — Navegação contextual por perfil (09/11/2026)
+- Página de acesso: https://henriquebovolopes-svg.github.io/stagio-360/admin/minha-area.html
+- O login consulta `stg_members` e, para coordenação, `stg_scope_access`. Contas inativas ou sem etapa autorizada são bloqueadas.
+- Coordenação vê exclusivamente as etapas autorizadas e links para módulos compatíveis: Infantil (indicadores e planejamento), Fundamental I (acervo docente, pesquisas, PDI e planejamento), Fundamental II e Médio (rubricas agregadas e planejamento).
+- Direção `master` e administração `admin` visualizam todas as etapas, além da integração institucional. A Escuta de Funcionários só é oferecida depois de leitura autorizada no Supabase com RLS específica.
+- A tela `admin/segmento.html` passa a permitir voltar a Minha área, inclusive quando uma etapa não está autorizada; os portais públicos incluem um acesso permanente no quadro de cada etapa.
+- PDI piloto e Pré-revisão reconhecem a Direção Master; edição do plano continua exclusiva à administração e pareceres mantêm validação no servidor.
+- A página somente organiza links: **a autorização real continua sendo aplicada pelo Supabase**, não pela exibição ou ocultação de botões.
+- Contas de Márcia e Patrícia continuam dependendo de provisionamento e autenticação própria. Homologação do login no navegador e do deploy externo ainda requer confirmação.
 
 ## Situação de homologação
 **Entregue no repositório:** portal, navegação, NPS agregados de 2023–2026 (distinguidos por público), gráficos por segmento, Fundamental I, rubricas agregadas da coordenação 2026 em rota autenticada e escopo de acesso por etapa no Supabase.
