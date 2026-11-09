@@ -133,3 +133,6 @@ A seção master/admin em `admin/integracao.html` consulta `stg_360_operational_
 - **Gestão por etapa (login de equipe e restrição por perfil):** https://henriquebovolopes-svg.github.io/stagio-360/admin/governanca.html
 - **Governança e homologação (master/admin):** https://henriquebovolopes-svg.github.io/stagio-360/admin/integracao.html
 O painel público não disponibiliza escuta de funcionários, textos, PDI, dados individuais nem avaliação nominal. Resultados inexistentes em M2/M3 são identificados como não importados. A publicação real e o login autenticado requerem confirmação externa.
+
+### Identidade visual oficial do acesso geral — 09/11/2026
+O painel compartilhável `/painel.html` reutiliza a identidade visual aprovada da página inicial `/index.html`: menu lateral azul-marinho, logo oficial branco, hero azul em degradê com círculo, cartões de indicadores e leitura adaptada a celular. Mantém consulta agregada por etapa/ano/ciclo sem login, enquanto os módulos de gestão continuam autenticados. O preflight testa a presença dos elementos de marca e do arquivo no pacote do GitHub Pages.
