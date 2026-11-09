@@ -71,6 +71,7 @@ def check_integration_routes():
             "stg_360_teacher_registry_pending",
             "stg_360_autoeval_reconciliation",
             "stg_360_teacher_profile",
+            "stg_360_operational_readiness",
         ),
         "admin/planejamento.html": (
             "stg_planning_entries",
