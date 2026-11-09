@@ -123,3 +123,6 @@ O fluxo `stg_360_integrate_autoeval` integra exatamente 21 notas de uma fonte do
 
 ### Prontidão operacional ao vivo
 A seção master/admin em `admin/integracao.html` consulta `stg_360_operational_readiness`, view `security_invoker` com filtro institucional explícito. Mostra planos, pontuações, respostas pendentes, vínculos homologados e estado real M1/M2/M3; preserva distinção entre dados vivos e fotografias do inventário. Os testes de RLS garantiram ausência de linhas para a coordenação limitada ao Fundamental I.
+
+### Matriz transversal homologável por público, etapa e unidade de análise
+`admin/integracao.html` conecta em uma matriz institucional as cinco perspectivas — famílias, alunos, professores, coordenação e funcionários — e explicita 23 leituras dinâmicas de 2026. `stg_360_audience_coverage`, `stg_360_fi_class_context` e `stg_360_fi_grade_context` operam em RLS master/admin, com 8 turmas FI e quatro séries de contexto seguro. São proibidas imputação de resposta de aluno/família ao docente por regência, comparação de NPS com questionários heterogêneos, atribuição de clima institucional anônimo a funcionário e mistura de etapas/ciclos não importados.
