@@ -97,3 +97,12 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - **Testes:** promoção de identidade fictícia executada com sucesso em transação revertida; verificados registro de auditoria, vínculo e perfil sem avaliações anteriores. Verificações de RLS: Henrique e Giovanna consultam os 25 perfis e os 13 registros de conferência; Érica não acessa essas estruturas master. Scripts de duas páginas passaram na validação de sintaxe JS e IDs únicos.
 - **Situação real ao final:** 25 identidades originais; 13 nomes aguardando conferência; **0 promovidos, 0 vínculos homologados, 0 prontos para promoção**. Não há autorização metodológica para presumir identidade dos docentes com base apenas em primeiro nome.
 - **Pendente:** cadastro documental real de cada professor, publicação/verificação no GitHub Pages e integração dos ciclos M2/M3 quando houver dados adequados.
+
+## Continuação — enriquecimento da conferência com Typeform_PROFS (09/11/2026)
+- Localizada a fonte `Typeform_PROFS.xlsx` no Drive (`1tX-f-PToiQf6P5jeLS0-yPHjMARXsS4V`), com **36 envios** e **30 nomes completos distintos** (a fonte contém múltiplas respostas de alguns docentes). Não confundir envios com pessoas.
+- Extraídos apenas nome completo e segmento autodeclarado para sugestão, **sem importar e-mails, tokens ou respostas dissertativas** para o mapa de integração.
+- `stg_360_name_evidence` preserva sete sugestões para registros sem correspondência do cadastro M1: cinco EI (Roseli, Lígia, Ana Paula, Ilci, Daniela) e duas EM (Samantha, Renata). Classificação `self_report_unverified`; todas permanecem dependentes de documento institucional para homologação.
+- No painel `admin/integracao.html`, os nomes autodeclarados são mostrados como sugestão e podem ser copiados para rascunho, passando a estado `in_verification` — **não** para `ready_for_canonical` nem para cadastro 360 definitivo.
+- Outras seis entradas da fila (Carla, Letícia, Caio, Alessandro, Karina, Rozy) ainda não apresentaram sugestão nessa fonte; isso não prova ausência no quadro de funcionários.
+- As avaliações do `Typeform_PROFS` devem ser conciliadas com as pontuações AUTO M1 antes de qualquer importação para evitar respostas contadas duas vezes.
+- Controle RLS confirmado: Henrique/Giovanna leem sete sugestões; Érica lê zero. JavaScript da página validado e IDs sem duplicidade. Consulta externa ao GitHub Pages não confirmou acessibilidade devido à limitação do mecanismo de leitura web.
