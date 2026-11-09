@@ -93,3 +93,10 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Workflow de validação e publicação configurados no GitHub, mas **execução/estado do Pages não confirmados**: o provedor conectado retorna código e commits, não lista os resultados de execução de workflows de push.
 - O repositório é público: nenhuma resposta aberta identificável, senha individual ou chave de serviço deve ser publicada.
 - Conclusão correta: navegação, código, indicadores e proteção por etapa continuam avançando; o fechamento da versão oficial depende de login real, validação do Pages e carga integral das avaliações dos demais segmentos.
+
+## 09/11/2026 — reforço de entrega e QA
+- Adicionada conciliação cruzada ao `scripts/audit_site.py`: valores de famílias + alunos devem igualar o total institucional, e as quatro etapas das famílias e os três subgrupos de alunos devem coincidir com os totais e com as classes NPS.
+- Tabela indicativa de NPS de **famílias** 2023–2026 implantada no painel histórico para instituição, Fundamental II e Ensino Médio. Infantil e Fundamental I excluídos desse comparativo conjunto por divergência de abrangência das séries.
+- Pipeline do GitHub Pages agora empacota somente `index.html`, `assets/`, `admin/`, `fundamental-1/` em `_site/`, evitando publicar scripts e arquivos internos de auditoria como artefato do Pages.
+- Após o deploy, o workflow deverá testar HTTP das rotas inicial, Fundamental I e governança restrita com `curl`. Sua efetiva execução precisa ser conferida em GitHub Actions.
+- **Atenção:** a execução do workflow não foi observada e o site ao vivo não pôde ser alcançado pelos acessos externos disponíveis nesta sessão. Implementação do teste automatizado não é confirmação de sucesso.
