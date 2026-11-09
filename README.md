@@ -111,3 +111,6 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 
 ### Promoção canônica protegida
 A página `admin/integracao.html` permite, depois de conferir nome completo e origem documental, promover o registro a identidade canônica independente. A operação auditável é executada por função Supabase para `master/admin`, sem herdar notas M1 e sem inventar correspondência com cadastro antigo; a coluna “Vínculo 360” em `admin/planejamento.html` informa o estado de homologação. Nenhum registro real foi promovido antes da conferência.
+
+### Sugestões de identidade por fonte de autoavaliação
+O cadastro pendente oferece sete sugestões de nome completo autodeclarado no `Typeform_PROFS.xlsx`. As sugestões são guardadas em `stg_360_name_evidence`, acessível só à administração/master, sem e-mail ou token. Elas não substituem a validação documental nem associam avaliações automaticamente.
