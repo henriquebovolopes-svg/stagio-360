@@ -48,6 +48,7 @@ jobs:
           test -s _site/admin/config.js
           test -s _site/fundamental-1/index.html
           test -s _site/assets/stagio360-logo-oficial.svg
+          test -s _site/assets/stagio360-unified.css
       - name: Preparar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Publicar arquivos estáticos
@@ -88,4 +89,9 @@ jobs:
           grep -q "STAGIO_AUTH" /tmp/stagio360-auth-config.js
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/fundamental-1/" -o /tmp/stagio360-f1.html
           test -s /tmp/stagio360-f1.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/assets/stagio360-unified.css" -o /tmp/stagio360-theme-v8.css
+          grep -q -- "--s360ui-blue" /tmp/stagio360-theme-v8.css
+          grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-home.html
+          grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-minha-area.html
+          grep -q 's360-quick-nav' /tmp/stagio360-planejamento.html
           echo "Site publicado e rotas principais acessíveis."
