@@ -50,19 +50,23 @@ if(error||!data||!data.active){screen('denied');return}
 member=data;
 $('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Administração Geral':data.role==='master'?'Direção Master':'Coordenação');
 const select=$('stage');
-for(const option of select.options) option.disabled=false;
+const requested=new URLSearchParams(location.search).get('etapa');
+for(const option of select.options)option.disabled=false;
 if(!['admin','master'].includes(data.role)){
  const granted=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
  if(granted.error){screen('denied');return}
  const allowed=new Set((granted.data||[]).map(x=>x.stage));
  if(allowed.has('fundamental1') && !allowed.has('fundamental2') && !allowed.has('medio')){
-   window.location.replace('./index.html');
+   window.location.replace('./index.html?tab=teachers');
    return;
  }
  for(const option of select.options) option.disabled=!allowed.has(option.value);
  const available=[...select.options].find(o=>!o.disabled);
  if(!available){screen('denied');return}
- select.value=available.value;
+ select.value=([ ...select.options].some(o=>o.value===requested&&!o.disabled)?requested:available.value);
+}else{
+ // A primeira opção é Fundamental I; nunca redirecionar a direção para FI por padrão.
+ select.value=['fundamental2','medio'].includes(requested)?requested:'fundamental2';
 }
 await load()
 }
