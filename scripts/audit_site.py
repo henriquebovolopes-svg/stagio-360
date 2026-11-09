@@ -233,7 +233,7 @@ def check_visual_step8():
     admin_pages = ("index.html", "sintese.html", "pdi.html", "revisao.html",
                    "segmento.html", "infantil.html", "planejamento.html",
                    "governanca.html", "integracao.html", "funcionarios.html",
-                   "minha-area.html", "reset.html", "import.html", "coord-fii-em.html", "pesquisas-2026.html")
+                   "minha-area.html", "reset.html", "import.html", "coord-fii-em.html", "pesquisas-2026.html", "academico.html")
     for rel in main_pages + tuple("admin/" + x for x in admin_pages):
         source = (ROOT / rel).read_text(encoding="utf-8")
         href = "../assets/stagio360-unified.css?v=8" if "/" in rel else "./assets/stagio360-unified.css?v=8"
@@ -326,6 +326,30 @@ def check_2026_survey_reconciliation():
     for k,v in required.items():
         if values.get(k)!=v:ERRORS.append("JSON publico NPS desatualizado: "+str(k))
     print("NPS 2026: denominadores corrigidos e painel privado vinculado")
+
+
+def check_academic_history_and_family_partition():
+    """Audita o isolamento das series historicas e duas leituras de familia (exclusiva/inclusiva)."""
+    academic=ROOT/"admin/academico.html"
+    if not academic.exists():
+        ERRORS.append("Acervo academico protegido ausente")
+        return
+    source=academic.read_text(encoding="utf-8")
+    for token in ("stg_360_academic_results","stg_members","['admin','master']",
+                  "reference_mean","grade_label","academic_area",
+                  "stagio360-logo-oficial.svg",'id="dashboard"',
+                  'id="signin"','id="denied"'):
+        if token not in source:ERRORS.append("Acervo academico sem requisito: "+token)
+    for path in ("admin/minha-area.html","admin/integracao.html"):
+        if "./academico.html" not in (ROOT/path).read_text(encoding="utf-8"):
+            ERRORS.append("Link do acervo academico ausente em "+path)
+    for rel in ("supabase/migrations/20261109_stagio360_academic_history_secure.sql",
+                "supabase/migrations/20261109_stagio360_family_stage_coverage_invoker.sql"):
+        if not (ROOT/rel).exists():ERRORS.append("Migracao de governanca ausente: "+rel)
+    survey=(ROOT/"admin/pesquisas-2026.html").read_text(encoding="utf-8")
+    for token in ("stg_360_family_stage_coverage","nps_exclusive_value","nps_inclusive_value",
+                  "family-stage-coverage"):
+        if token not in survey:ERRORS.append("Painel de familias sem comparativo seguro: "+token)
 
 
 def check_shared_dashboard():
@@ -444,6 +468,7 @@ check_contextual_step7()
 check_visual_step8()
 check_coord_fiiem_granular()
 check_2026_survey_reconciliation()
+check_academic_history_and_family_partition()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
