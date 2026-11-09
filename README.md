@@ -126,3 +126,10 @@ A seção master/admin em `admin/integracao.html` consulta `stg_360_operational_
 
 ### Matriz transversal homologável por público, etapa e unidade de análise
 `admin/integracao.html` conecta em uma matriz institucional as cinco perspectivas — famílias, alunos, professores, coordenação e funcionários — e explicita 23 leituras dinâmicas de 2026. `stg_360_audience_coverage`, `stg_360_fi_class_context` e `stg_360_fi_grade_context` operam em RLS master/admin, com 8 turmas FI e quatro séries de contexto seguro. São proibidas imputação de resposta de aluno/família ao docente por regência, comparação de NPS com questionários heterogêneos, atribuição de clima institucional anônimo a funcionário e mistura de etapas/ciclos não importados.
+
+### Acessos oficiais · 2026
+- **Painel geral para compartilhar (sem login, somente agregados):** https://henriquebovolopes-svg.github.io/stagio-360/painel.html
+- **Visão histórica ampliada:** https://henriquebovolopes-svg.github.io/stagio-360/
+- **Gestão por etapa (login de equipe e restrição por perfil):** https://henriquebovolopes-svg.github.io/stagio-360/admin/governanca.html
+- **Governança e homologação (master/admin):** https://henriquebovolopes-svg.github.io/stagio-360/admin/integracao.html
+O painel público não disponibiliza escuta de funcionários, textos, PDI, dados individuais nem avaliação nominal. Resultados inexistentes em M2/M3 são identificados como não importados. A publicação real e o login autenticado requerem confirmação externa.
