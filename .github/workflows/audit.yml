@@ -25,15 +25,15 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import re, subprocess
-          for path in [Path('index.html'), Path('fundamental-1/index.html'), *Path('admin').glob('*.html')]:
+          for path in [Path('index.html'), Path('painel.html'), Path('fundamental-1/index.html'), *Path('admin').glob('*.html')]:
               content=path.read_text(encoding='utf-8')
-              for i, code in enumerate(re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>',content,re.I)):
+              for i, match in enumerate(re.finditer(r'<script([^>]*)>([\\s\\S]*?)</script>',content,re.I)):
+                  attrs,code=match.group(1),match.group(2)
                   if not code.strip():
                       continue
-                  if 'type="module"' in content:
-                      # syntax check as module for files that use import() dynamically
-                      pass
-                  result=subprocess.run(['node','--check','-'], input=code, text=True, capture_output=True)
+                  is_module='type="module"' in attrs or "type='module'" in attrs
+                  args=['node','--input-type=module' if is_module else '--input-type=commonjs','--check','-']
+                  result=subprocess.run(args, input=code, text=True, capture_output=True)
                   if result.returncode:
                       raise SystemExit(f'{path} bloco {i}: {result.stderr}')
           print('JavaScript: sintaxe validada')
