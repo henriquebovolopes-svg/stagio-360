@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
+          cp painel.html _site/painel.html
           cp -R assets admin fundamental-1 _site/
           touch _site/.nojekyll
           test -s _site/index.html
