@@ -114,6 +114,37 @@ def check_stage_access_step4():
             if f"./admin/segmento.html?etapa={route}" not in page_text:
                 ERRORS.append(f"{public}: não direciona acesso protegido a {route}")
 
+def check_navigation_step5():
+    """As quatro seções devem ser navegáveis sem publicar dados individuais."""
+    for rel in ("index.html", "painel.html"):
+        html = (ROOT / rel).read_text(encoding="utf-8")
+        for token in (
+            'aria-label="Seções da Avaliação 360"',
+            'id="pesquisas-agregadas"',
+            'id="eval-professores"',
+            'id="eval-pdis"',
+            "admin/segmento.html?etapa=",
+            "'&aba='+section",
+            "const eligible=['infantil','fundamental1','fundamental2','medio'].includes(stage)",
+        ):
+            if token not in html:
+                ERRORS.append(f"{rel}: navegação da Avaliação 360 incompleta ({token})")
+    hub = ROOT / "admin/segmento.html"
+    if not hub.exists():
+        ERRORS.append("Área de coordenação ausente no passo 5")
+        return
+    source = hub.read_text(encoding="utf-8")
+    for tab in ("visao", "pesquisas", "professores", "pdis"):
+        for token in (f'id="tab-{tab}"', f'id="panel-{tab}"', f'id="actions-{tab}"' if tab != "visao" else 'id="indicators"'):
+            if token not in source:
+                ERRORS.append(f"Hub da coordenação sem navegação {tab}: {token}")
+    for token in ("role=\"tablist\"", "aria-selected", "activateTab(", "history.replaceState", "show('app')"):
+        if token not in source:
+            ERRORS.append(f"Hub sem recurso de navegação acessível: {token}")
+    workflow = (ROOT / ".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+    if "test -s _site/admin/segmento.html" not in workflow:
+        ERRORS.append("GitHub Pages não valida a inclusão do hub da coordenação")
+
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
@@ -224,6 +255,7 @@ check_integration_routes()
 check_shared_dashboard()
 check_navigation_step3()
 check_stage_access_step4()
+check_navigation_step5()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
