@@ -80,10 +80,30 @@ def check_nps(path):
             ERRORS.append(f"{path.name}: NPS inconsistente ({calc:.2f} versus {item['nps']})")
     print(f"{path.relative_to(ROOT)}: {len(groups)} recortes NPS reconciliados")
 
+def check_2026_reconciliation(path):
+    data = json.loads(path.read_text(encoding="utf-8"))
+    groups = {g["id"]: g for g in data["groups"]}
+    expected = {
+        "institucional": ["familias", "alunos"],
+        "familias": ["infantil", "fundamental1", "fundamental2", "medio"],
+        "alunos": ["fii6a8", "nono", "medio_alunos"],
+    }
+    for parent, children in expected.items():
+        for key in ("respondents", "promoters", "passives", "detractors"):
+            observed = sum(groups[child][key] for child in children)
+            if observed != groups[parent][key]:
+                ERRORS.append(f"{path.name}: {parent}.{key}: {observed} nas etapas, {groups[parent][key]} no total")
+    if data.get("year") != 2026:
+        ERRORS.append("Base 2026 com ano incorreto")
+    if groups["medio"]["respondents"] < 30:
+        WARNINGS.append("Ensino Médio: NPS de famílias com amostra pequena (n<30); manter ressalva")
+    print("Reconciliação institucional 2026: famílias + alunos, etapas e classes verificadas")
+
 for page in PAGES:
     verify_html(page)
 for path in (ROOT/"assets/stagio360-historico.json", ROOT/"assets/stagio360-2026-agregados.json"):
     check_nps(path)
+check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
