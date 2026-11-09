@@ -54,6 +54,7 @@ footer{font-size:11px;color:#7086a4;margin-top:28px}
 <div class="kpi"><span>Envios sem NPS</span><strong id="nps-missing">—</strong><small>Não entram no denominador</small></div></div>
 </div>
 <div class="card"><h2>Reconciliação por fonte</h2><div class="tablewrap"><table><thead><tr><th>Fonte</th><th>Formulários</th><th>Itens</th><th>NPS válido</th><th>Sem NPS</th><th>Resultado NPS</th></tr></thead><tbody id="coverage"></tbody></table></div></div>
+<div class="card"><h2>Famílias multietapa · duas leituras, sem duplicar pessoas</h2><p class="muted">Exclusiva: cada família entra em exatamente uma etapa, reproduzindo o NPS publicado em 2026. Inclusiva: contabiliza cada etapa mencionada, mesmo quando a família tem filhos em duas ou mais etapas. As contagens inclusivas não são somáveis entre etapas.</p><div class="tablewrap"><table><thead><tr><th>Etapa</th><th>Famílias exclusivas</th><th>NPS exclusivo (oficial)</th><th>Famílias que mencionam a etapa</th><th>NPS inclusivo (exploratório)</th></tr></thead><tbody id="family-stage-coverage"></tbody></table></div><p class="muted">A regra exclusiva reconstruída da base de 2026 é: Fundamental II → Ensino Médio → Infantil → Fundamental I. A leitura inclusiva é somente analítica e não substitui o indicador oficial.</p></div>
 <div class="card"><h2>Explorar respostas preservadas</h2><p class="muted">As respostas qualitativas são abertas individualmente. As turmas e os segmentos constam como declarados no formulário; vínculos profissionais não foram inferidos.</p>
 <div class="filters"><label for="cohort">Fonte<select id="cohort"><option value="all">Todas as fontes</option><option value="fii_6a8">Fundamental II · 6º–8º</option><option value="fii_9ano">Fundamental II · 9º</option><option value="em">Ensino Médio</option><option value="families">Famílias multietapa</option></select></label>
 <label for="kind">Tipo de resposta<select id="kind"><option value="all">Todos</option><option value="open_text">Respostas abertas</option><option value="rating_1to5">Escala numérica 1–5</option><option value="rating_categorical">Escala categórica</option><option value="nps">NPS 0–10</option><option value="choice">Outras escolhas</option></select></label>
@@ -66,7 +67,7 @@ footer{font-size:11px;color:#7086a4;margin-top:28px}
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/+esm';
 const $=id=>document.getElementById(id),cfg=window.STAGIO_AUTH||{},labels={fii_6a8:'Fundamental II · 6º–8º',fii_9ano:'Fundamental II · 9º',em:'Ensino Médio',families:'Famílias · multietapa'};
-let client=null,forms=[],blocks=[],flat=[],visible=[],limit=70;
+let client=null,forms=[],blocks=[],familyCoverage=[],flat=[],visible=[],limit=70;
 function screen(active){for(const id of ['loading','signin','denied','dashboard'])$(id).hidden=id!==active}
 function textNode(tag,value){const t=document.createElement(tag);t.textContent=String(value??'');return t}
 function td(value){return textNode('td',value)}
@@ -83,6 +84,16 @@ function groupRows(){
   body.append(tr);
  }
 }
+function renderFamilyCoverage(){
+ const body=$('family-stage-coverage');body.replaceChildren();
+ const stages=['infantil','fundamental1','fundamental2','medio'],labels={infantil:'Educação Infantil',fundamental1:'Fundamental I',fundamental2:'Fundamental II',medio:'Ensino Médio'};
+ for(const stage of stages){
+  const f=familyCoverage.find(x=>x.stage===stage);if(!f)continue;
+  const tr=document.createElement('tr');
+  for(const value of [labels[stage],f.nps_exclusive,String(f.nps_exclusive_value).replace('.',','),f.nps_inclusive,String(f.nps_inclusive_value).replace('.',',')])tr.append(td(value));
+  body.append(tr);
+ }
+}
 function flatten(){
  flat=[];
  for(const f of forms)for(const a of f.answers||[]){
@@ -93,7 +104,7 @@ function flatten(){
  $('items-total').textContent=flat.length.toLocaleString('pt-BR');
  $('nps-valid').textContent=forms.filter(f=>f.nps_value!==null).length.toLocaleString('pt-BR');
  $('nps-missing').textContent=forms.filter(f=>f.nps_value===null).length.toLocaleString('pt-BR');
- groupRows();limit=70;render();
+ groupRows();renderFamilyCoverage();limit=70;render();
 }
 function render(){
  const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR'),teacher=$('teacher').value.trim().toLocaleLowerCase('pt-BR');
@@ -127,6 +138,9 @@ async function boot(){
   const {data:blockData,error:blockError}=await client.from('stg_360_survey_teacher_blocks').select('cohort,first_source_column,last_source_column,source_teacher_id,teacher_source_label').limit(100);
   if(blockError)throw blockError;blocks=blockData||[];
   if(blocks.length!==38){$('error-reason').textContent='Mapa de blocos docentes incompleto ('+blocks.length+'/38).';screen('denied');return}
+  const {data:familyData,error:familyError}=await client.from('stg_360_family_stage_coverage').select('stage,nps_exclusive,nps_exclusive_value,nps_inclusive,nps_inclusive_value').limit(10);
+  if(familyError)throw familyError;familyCoverage=familyData||[];
+  if(familyCoverage.length!==4){$('error-reason').textContent='Conciliação de etapas das famílias não disponível.';screen('denied');return}
   if(forms.length!==423){$('error-reason').textContent='Importação incompleta: '+forms.length+' de 423 formulários. Solicite revisão do banco.';screen('denied');return}
   flatten();
   if(flat.length!==19016){$('error-reason').textContent='Reconciliação de itens inconsistente: '+flat.length+' de 19.016.';screen('denied');return}
@@ -138,7 +152,7 @@ $('login').addEventListener('submit',async event=>{
  try{if(!client)client=createClient(cfg.url,cfg.publishableKey);const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';$('login-message').textContent='';await boot()}
  catch(e){$('login-message').textContent='Falha no acesso. Confira seu e-mail e sua senha.'}
 });
-async function logout(){forms=[];blocks=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
+async function logout(){forms=[];blocks=[];familyCoverage=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
 $('logout').addEventListener('click',logout);$('switch-account').addEventListener('click',logout);
 for(const id of ['cohort','kind','search','cohort-class','teacher'])$(id).addEventListener(id==='cohort'||id==='kind'?'change':'input',()=>{limit=70;render()});
 $('more').addEventListener('click',()=>{limit+=70;render()});
