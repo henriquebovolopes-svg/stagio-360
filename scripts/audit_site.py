@@ -74,12 +74,12 @@ def check_navigation_step3():
     ]
     for rel in ("index.html", "painel.html"):
         html = (ROOT / rel).read_text(encoding="utf-8")
-        nav_match = re.search(r'<nav aria-label="Navegação institucional">([\\s\\S]*?)</nav>', html)
+        nav_match = re.search(r'<nav aria-label="Navegação institucional">(.*?)</nav>', html, re.S)
         if not nav_match:
             ERRORS.append(f"{rel}: menu institucional ausente")
             continue
         nav = nav_match.group(1)
-        entries = re.findall(r'<a\\s+[^>]*href="([^"]+)"[^>]*>([\\s\\S]*?)</a>', nav)
+        entries = re.findall(r'<a\s+[^>]*href="([^"]+)"[^>]*>(.*?)</a>', nav, re.S)
         actual = [(href, re.sub(r'<[^>]+>', '', label).strip().lstrip('◫◎▥♧').strip()) for href, label in entries]
         if actual != expected:
             ERRORS.append(f"{rel}: barra lateral não possui exatamente os cinco acessos principais")
