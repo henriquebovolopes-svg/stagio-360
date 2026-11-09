@@ -117,3 +117,6 @@ O cadastro pendente oferece sete sugestões de nome completo autodeclarado no `T
 
 ### Conciliação Typeform_PROFS com AUTO M1
 Auditadas as 36 respostas da fonte docente contra os 21 critérios AUTO M1: 22 respostas já presentes (462 notas integralmente iguais), oito respostas completas pendentes (168 notas em staging privado) e seis incompletas excluídas dos indicadores. `stg_360_autoeval_reconciliation` e `stg_360_autoeval_pending_scores` têm RLS institucional master/admin; `admin/integracao.html` apresenta os resultados somente após login. Nenhum registro foi reimportado para `stg_teacher_scores`.
+
+### Integração auditável de autoavaliações M1 pendentes
+O fluxo `stg_360_integrate_autoeval` integra exatamente 21 notas de uma fonte do Typeform PROFS após a homologação de identidade e etapa, com confirmação e justificativa explícitas de `master/admin`, ledger e restrições contra dupla importação. As novas notas são separadas em `stg_360_identity_autoeval_scores` e entram na view `stg_360_teacher_profile` com origem declarada. Nenhuma das oito fontes pendentes foi efetivamente integrada antes da validação humana.
