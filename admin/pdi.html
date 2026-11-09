@@ -186,7 +186,7 @@ function setWriteAccess(){
  for(const id of ['save','review-btn','template'])$(id).disabled=!editable;
  $('pactuate').disabled=!editable||currentPlan?.status!=='para_revisao';
  const readOnly=$('read-only');readOnly.hidden=editable;
- readOnly.textContent=role!=='admin'?'A coordenação pode consultar o PDI e seu histórico, mas somente a administração pode editá-los.':'Pactuação registrada e congelada. Esta versão não pode ser editada; o registro permanece disponível para consulta e impressão.';
+ readOnly.textContent=role!=='admin'?'Direção e coordenação podem consultar o PDI e seu histórico, mas somente a administração pode editá-los.':'Pactuação registrada e congelada. Esta versão não pode ser editada; o registro permanece disponível para consulta e impressão.';
 }
 function renderPlan(){
  if(!selected)return;
@@ -360,7 +360,7 @@ async function boot(){
   const resp=await sup.auth.getUser();if(resp.error||!resp.data.user)throw Error('Entre primeiro na área administrativa com uma conta autorizada.');
   user=resp.data.user;
   const {data:members,error:memberError}=await sup.from('stg_members').select('role,active').eq('user_id',user.id).limit(1);
-  if(memberError||!members?.[0]?.active||!['admin','coordenacao'].includes(members[0].role))throw Error('Seu perfil não está autorizado a acessar o PDI.');
+  if(memberError||!members?.[0]?.active||!['admin','master','coordenacao'].includes(members[0].role))throw Error('Seu perfil não está autorizado a acessar o PDI.');
   role=members[0].role;
   const {data,error}=await sup.from('stg_teachers').select('id,name,classes,scope,role_label').eq('scope','REGENTE CONFIRMADA').order('name').limit(15);
   if(error)throw error;if(data?.length!==7)throw Error('O conjunto de regentes homologadas foi alterado. Confira a base antes de elaborar um PDI.');
