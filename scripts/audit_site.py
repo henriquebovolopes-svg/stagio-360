@@ -63,7 +63,28 @@ def verify_html(path):
     if not re.search("stagio360-logo-oficial.svg", code):
         WARNINGS.append(f"{path.relative_to(ROOT)}: não usa o logotipo oficial")
 
-def check_integration_routes():
+def check_shared_dashboard():
+    """O acesso comum deve ser só de agregados e não depender de identidade docente."""
+    path = ROOT / "painel.html"
+    datafile = ROOT / "assets/stagio360-nps-publico-2023-2026.json"
+    if not path.exists() or not datafile.exists():
+        ERRORS.append("Painel geral compartilhável ou dataset agregado ausente")
+        return
+    html = path.read_text(encoding="utf-8")
+    data = json.loads(datafile.read_text(encoding="utf-8"))
+    for token in ("Indicadores gerais da escola", "assets/stagio360-nps-publico-2023-2026.json", 'id="etapa"', 'id="ano"', 'id="ciclo"'):
+        if token not in html: ERRORS.append(f"Painel geral sem requisito: {token}")
+    for risky in ("service_role", "stg_teacher_scores", "stg_students", "stg_families", "stg_staff_survey_comments", "signInWithPassword"):
+        if risky in html: ERRORS.append(f"Painel geral com dado privado/integração proibida: {risky}")
+    rows = data.get("rows", [])
+    if len(rows) != 25: ERRORS.append("O dataset público não possui 25 registros agregados de NPS auditados")
+    for item in rows:
+        if set(item) != {"year","stage","audience","population","n","nps","comparable"}:
+            ERRORS.append("Dataset público contém chaves não homologadas para divulgação")
+            break
+
+def check_integration_routes()
+check_shared_dashboard():
     """Preflight: authenticated modules must ship together with config and integrations."""
     routes = {
         "admin/integracao.html": (
