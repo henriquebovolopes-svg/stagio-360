@@ -36,7 +36,7 @@ function drawAutoReconciliation(){
  $('autoeval-invalid').textContent=totals.incomplete_excluded;
  $('autoeval-staged').textContent=pendingScoresCount-linkedIds.size*21;
  const root=$('autoeval-pending-rows');root.replaceChildren();
- const normalize=v=>(v||'').trim().toLocaleLowerCase('pt-BR').replace(/\\s+/g,' ');
+ const normalize=v=>(v||'').trim().toLocaleLowerCase('pt-BR').replace(/\s+/g,' ');
  for(const rec of autoevalRows.filter(x=>x.reconciliation_status==='complete_not_imported').sort((a,b)=>a.display_name.localeCompare(b.display_name,'pt-BR'))){
   const tr=elem('tr');
   for(const v of [rec.display_name,rec.declared_segments,rec.valid_score_count+' de 21'])tr.append(elem('td',v));
