@@ -177,7 +177,7 @@ function renderHistory(){
   const row=E('div',undefined,'history-entry');
   const head=E('div',undefined,'history-heading');
   head.append(E('strong',labels[r.area]||r.area),E('span',statuses[r.feasibility]||r.feasibility,'badge'));
-  row.append(head,E('div',(r.reviewer_display_name||'Conta autorizada')+' · '+(r.reviewer_role==='admin'?'Administração':'Coordenação')+' · '+dateText(r.created_at),'tiny muted'));
+  row.append(head,E('div',(r.reviewer_display_name||'Conta autorizada')+' · '+(r.reviewer_role==='admin'?'Administração':r.reviewer_role==='master'?'Direção Master':'Coordenação')+' · '+dateText(r.created_at),'tiny muted'));
   row.append(profile('Análise registrada',r.observations));
   if(r.proposed_adjustment)row.append(profile('Ajuste sugerido, não aprovado',r.proposed_adjustment));
   if(r.potential_owner)row.append(profile('Responsável sugerido, ainda não designado',r.potential_owner));
@@ -206,8 +206,8 @@ async function boot(){
   if(result.error||!result.data.user)throw new Error('Faça login pela área administrativa antes de abrir esta página.');
   user=result.data.user;
   const {data:members,error:membershipError}=await sup.from('stg_members').select('role,display_name,active').eq('user_id',user.id).limit(1);
-  if(membershipError||!members?.[0]?.active||!['admin','coordenacao'].includes(members[0].role))throw new Error('Conta não autorizada para a pré-revisão.');
-  member=members[0];$('member').textContent=member.display_name+' · '+(member.role==='admin'?'Administração':'Coordenação');
+  if(membershipError||!members?.[0]?.active||!['admin','master','coordenacao'].includes(members[0].role))throw new Error('Conta não autorizada para a pré-revisão.');
+  member=members[0];$('member').textContent=member.display_name+' · '+(member.role==='admin'?'Administração':member.role==='master'?'Direção Master':'Coordenação');
   const [teachersResponse,plansResponse]=await Promise.all([
    sup.from('stg_teachers').select('id,name,scope').eq('scope','REGENTE CONFIRMADA').limit(20),
    sup.from('stg_pdi_plans').select('id,teacher_id,focus_source,focus_axis,context_notes,objective,actions,support_needed,evidence_indicator,responsible,next_review,status,module').eq('module','M1').limit(30)
