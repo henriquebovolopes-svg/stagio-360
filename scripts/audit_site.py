@@ -233,7 +233,7 @@ def check_visual_step8():
     admin_pages = ("index.html", "sintese.html", "pdi.html", "revisao.html",
                    "segmento.html", "infantil.html", "planejamento.html",
                    "governanca.html", "integracao.html", "funcionarios.html",
-                   "minha-area.html", "reset.html", "import.html")
+                   "minha-area.html", "reset.html", "import.html", "coord-fii-em.html")
     for rel in main_pages + tuple("admin/" + x for x in admin_pages):
         source = (ROOT / rel).read_text(encoding="utf-8")
         href = "../assets/stagio360-unified.css?v=8" if "/" in rel else "./assets/stagio360-unified.css?v=8"
@@ -259,6 +259,26 @@ def check_visual_step8():
         href = '../admin/minha-area.html' if rel.startswith("fundamental-1/") else './minha-area.html'
         if f'href="{href}"' not in source:
             ERRORS.append(f"Passo 8: {rel} sem acesso lateral à Minha área")
+
+
+def check_coord_fiiem_granular():
+    """O detalhe confidencial deve ser por sessão master/admin e nunca integrar o portal público."""
+    path = ROOT / "admin/coord-fii-em.html"
+    if not path.is_file():
+        ERRORS.append("Rubrica detalhada FII/EM não publicada")
+        return
+    code = path.read_text(encoding="utf-8")
+    for token in ("stg_members", "'admin','master'", "stg_360_coord_fiiem_items",
+                  "source_teacher_id", "response_text", "declared_stage",
+                  "renderRows()", 'id="signin"', 'id="denied"',
+                  "stagio360-logo-oficial.svg"):
+        if token not in code:
+            ERRORS.append(f"Rubrica confidencial FII/EM sem requisito: {token}")
+    if "service_role" in code or "sb_secret_" in code:
+        ERRORS.append("Rubrica FII/EM com credencial privilegiada")
+    for rel in ("admin/minha-area.html", "admin/integracao.html"):
+        if "./coord-fii-em.html" not in (ROOT / rel).read_text(encoding="utf-8"):
+            ERRORS.append(f"Link da rubrica FII/EM ausente em {rel}")
 
 
 def check_shared_dashboard():
@@ -375,6 +395,7 @@ check_navigation_step5()
 check_permissions_step6()
 check_contextual_step7()
 check_visual_step8()
+check_coord_fiiem_granular()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
