@@ -71,3 +71,12 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - Testes de RLS feitos em contexto autenticado: Henrique/Giovanna visualizam 336; Érica somente os 119 de FI. Não foram encontradas divergências por professor entre os resumos e os planos individuais.
 - Verificação adicional cruzou 20 amostras da extração estruturada com o Excel original (professor/turma); não houve discrepância nessas amostras.
 - **Pendente:** homologação de identidades canônicas, atribuição de 1º ano à coordenação correta, reconciliação com o conteúdo dos arquivos `Plano_Oficial_*.docx` e incorporação dos dados efetivos M2/M3 quando existirem. GitHub Pages ao vivo não confirmado nesta rodada.
+
+## Continuação — triagem dos vínculos docentes (09/11/2026)
+- Criada `public.stg_360_identity_candidates`: sugestões confidenciais e **não homologadas** de correspondência entre nome abreviado do planejamento e primeiro nome de cadastro docente M1.
+- 20 registros de candidatura distribuídos em 19 combinações de etapa/professor, entre 32 combinações totais. Treze combinações permanecem sem correspondência textual; Aline (Infantil) tem duas candidatas distintas, de modo que o primeiro nome não resolve a identidade.
+- Das nove combinações de Fundamental I, todas possuem uma candidatura. Seis têm informação de regência FI homologada no cadastro, mas suas associações ao planejamento **continuam pendentes**, até checagem de turma e identidade pela direção.
+- Docentes que aparecem em várias etapas ou têm cadastro FI não homologado recebem alerta na fila. Não usar apenas coincidência do primeiro nome para afirmar mesma pessoa; por exemplo, o cadastro M1 `Henrique Cucolo Monteiro` não prova identidade do Henrique do planejamento FII.
+- A tela `admin/integracao.html` destaca as sugestões na lista da direção, sem pré-selecionar identidade nem gravar vínculo; a confirmação exige escolha, justificativa e autenticação master/admin.
+- RLS confirmada em consultas simuladas: Henrique e Giovanna veem 20 propostas; Érica vê 0. Todas as 32 linhas de `stg_360_planning_crosswalk` continuam sem homologação.
+- A verificação externa do GitHub Pages/Actions ainda falhou por indisponibilidade de acesso do ambiente de consulta; portanto não há confirmação de publicação visual.
