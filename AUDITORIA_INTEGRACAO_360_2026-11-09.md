@@ -58,3 +58,16 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - JS do painel validado em análise sintática, nenhum ID HTML duplicado e nenhum token secreto detectado nos arquivos inspecionados.
 - Supabase security advisor: aviso já existente de proteção contra senhas vazadas desativada e um informe sobre RLS sem política.
 - **Ainda não é integração 360 completa**: faltam matrizes M2/M3, demais perspectivas individuais das etapas e importação dos 336 planos por linha. Não verificado GitHub Pages ao vivo; somente arquivos e operações do backend foram confirmados.
+
+
+## Continuação — importação granular dos planejamentos (09/11/2026)
+- Os 336 registros de origem foram importados e consultáveis via `stg_planning_entries`. Fonte: Excel original privado, não texto CSV extraído sem validação.
+- Os 336 IDs únicos se conciliam com `stg_planning_teacher_summary` sem desvios em nenhum dos 32 pares professor/etapa.
+- Campos importados: professor, etapa declarada no formulário, turma, disciplina, data de envio, data da aula quando informada, intencionalidade, habilidades, evidências, reflexão e proveniência.
+- No painel `admin/planejamento.html`, o botão `Ver aulas` consulta e apresenta a documentação integral por professor, com expansão individual, escapamento seguro via `textContent` e sem escrever respostas na hospedagem pública.
+- **51 de 190 registros classificados na origem como Infantil identificam turma 1º ano**, com flag `first_year_scope_pending`; a direção deve conferir o pertencimento para fins de controle de acesso e análise de etapa. O painel EI explicita essa diferença.
+- **Uma data de aula 2016** em registro enviado em 2026 foi preservada com flag `date_requires_review`, sem correção sem fonte.
+- A fonte passou a constar como granular anual na tabela `stg_360_source_coverage`, sem inferir equivalência a um ciclo de avaliação M1/M2/M3.
+- Testes de RLS feitos em contexto autenticado: Henrique/Giovanna visualizam 336; Érica somente os 119 de FI. Não foram encontradas divergências por professor entre os resumos e os planos individuais.
+- Verificação adicional cruzou 20 amostras da extração estruturada com o Excel original (professor/turma); não houve discrepância nessas amostras.
+- **Pendente:** homologação de identidades canônicas, atribuição de 1º ano à coordenação correta, reconciliação com o conteúdo dos arquivos `Plano_Oficial_*.docx` e incorporação dos dados efetivos M2/M3 quando existirem. GitHub Pages ao vivo não confirmado nesta rodada.
