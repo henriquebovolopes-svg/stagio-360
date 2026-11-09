@@ -220,6 +220,16 @@ body.s360-v9 .s360-quick-nav a{
 }
 body.s360-v9 .s360-quick-nav a:hover{background:#eaf3ff}
 body.s360-v9 .s360-quick-nav [aria-current="page"]{color:#0f4b92}
+/* O portal da Minha área reaproveita o hero oficial com o logo branco. */
+body.s360-v9 .shell .hero .s360-v9-hero-logo{
+ display:block;width:min(270px,90%);max-height:84px;object-fit:contain;
+ object-position:left center;margin:10px 0 3px;
+}
+body.s360-v9 .shell > aside .brand img{
+ display:block;width:100%;max-width:205px;max-height:100px;object-fit:contain;
+}
+body.s360-v9 .shell > aside nav a{font-size:12px;line-height:1.35;min-height:41px}
+body.s360-v9 .shell > aside nav a:hover{background:#214d87;color:white}
 /* Cards KPI com quadros vivos e hierarquia numérica. */
 body.s360-v9 :is(.kpis,.cards) > :is(.kpi,.metric,.card.kpi){
  position:relative;overflow:hidden;border:1px solid var(--s360-v9-line);
