@@ -63,3 +63,11 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - `.github/workflows/audit.yml` executa esses testes e confere a sintaxe JavaScript em pushes e pull requests.
 - `.github/workflows/deploy-pages.yml` tenta publicar automaticamente a branch `main` depois da validação.
 - Em **Settings > Pages**, a fonte precisa estar configurada como **GitHub Actions**. O estado externo do Pages não foi confirmado pela integração disponível. O workflow sozinho não garante que o site já esteja no ar.
+
+## Escuta dos Funcionários — confidencial
+- `/admin/funcionarios.html`: painel autenticado de pesquisa institucional interna, alimentado pelo arquivo privado `Typeform_ADM.xlsx` (2026).
+- 17 respondentes, 27 questões objetivas, 6 dimensões. Respostas abertas e endereços de e-mail não foram publicados nem copiados ao novo banco.
+- Os itens formulados negativamente (excesso de demandas sem contexto, mudanças de orientação e dependência de pessoas específicas) são recodificados na escala favorável 1–5; médias originais permanecem disponíveis na tabela restrita para auditoria.
+- Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. Somente a conta confirmada de Henrique foi vinculada. A conta de Márcia ainda precisa ser criada e vinculada após verificação de sua identidade.
+- Testes SQL de RLS: Henrique recebe 27 questões; Érica e Giovanna recebem zero; requisições anônimas sem privilégio SELECT.
+- Os gráficos do módulo não devem ser interpretados como notas individuais de desempenho.
