@@ -130,3 +130,38 @@ body.s360-admin .s360-admin-kpis .kpi{min-height:115px}
 body.s360 .s360-dashboard-grid-bottom{margin-top:13px}
 body.s360 .s360-dashboard-grid-bottom .card{min-height:170px}
 @media(max-width:900px){body.s360-aux .s360-main{min-height:0}body.s360-aux.s360-reset .s360-main>.card{margin:18px auto}}
+
+
+/* Refino da Visão Geral: resultados legíveis, colunas alinhadas e números sem cortes. */
+body.s360-public #panorama,
+body.s360-public #panorama .card,
+body.s360-public #panorama .section-head,
+body.s360-public #panorama .section-head > div{min-width:0}
+body.s360-public #panorama .s360-kpi-row{align-items:stretch}
+body.s360-public #panorama .s360-kpi-row > .kpi{display:flex;flex-direction:column;min-width:0}
+body.s360-public #panorama .s360-kpi-row > .kpi span:first-child{min-height:2.7em;line-height:1.35;overflow-wrap:break-word}
+body.s360-public #panorama .s360-kpi-row > .kpi strong{margin:7px 0 8px;line-height:1.08;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:clamp(25px,2.15vw,36px)}
+body.s360-public #panorama .s360-kpi-row > .kpi span:last-child{line-height:1.4;overflow-wrap:break-word}
+body.s360-public #panorama .s360-dashboard-grid:not(.s360-dashboard-grid-bottom) > .card{display:flex;flex-direction:column;align-items:stretch;min-width:0}
+body.s360-public #panorama .s360-dashboard-grid:not(.s360-dashboard-grid-bottom) > .card > .btn{align-self:flex-start;margin-top:auto;margin-bottom:0}
+body.s360-public #panorama .s360-dashboard-grid:not(.s360-dashboard-grid-bottom) > .card > .s360-mini-stat{margin:14px 0}
+body.s360-public #panorama .section-head{align-items:flex-start}
+body.s360-public #panorama .section-head .tag{flex-shrink:0;margin-top:2px}
+body.s360-public #panorama .barrow{display:grid;grid-template-columns:minmax(0,1fr) max-content;grid-template-rows:auto 9px;grid-template-areas:"label value" "track track";align-items:center;column-gap:12px;row-gap:7px;min-width:0;max-width:100%;width:100%;padding:10px 0;overflow:visible}
+body.s360-public #panorama .barrow .barlabel{grid-area:label;min-width:0;line-height:1.35;font-size:12px;white-space:normal;overflow-wrap:break-word}
+body.s360-public #panorama .barrow .percent{grid-area:value;justify-self:end;min-width:0;white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums}
+body.s360-public #panorama .barrow .track{grid-area:track;display:block;width:100%;height:9px;min-width:0;max-width:100%}
+body.s360-public #panorama .barrow .track .fill{display:block;height:100%}
+body.s360-public #panorama .s360-dashboard-grid .card > small{display:block;min-height:1.5em;line-height:1.45;color:#62799d}
+body.s360-public #panorama .s360-dashboard-grid-bottom .card{display:flex;flex-direction:column;gap:7px}
+body.s360-public #panorama .s360-dashboard-grid-bottom .card > button.s360-panel-link,
+body.s360-public #panorama .s360-dashboard-grid-bottom .card > a.s360-panel-link{align-self:flex-start;margin-top:auto}
+body.s360-public #panorama .s360-dashboard-grid-bottom .card p{line-height:1.5;font-size:13px}
+body.s360-public #panorama .s360-mini-stat strong{font-variant-numeric:tabular-nums}
+@media(max-width:700px){
+ body.s360-public #panorama .s360-kpi-row > .kpi strong{font-size:clamp(24px,6vw,32px)}
+ body.s360-public #panorama .s360-dashboard-grid:not(.s360-dashboard-grid-bottom){grid-template-columns:1fr}
+ body.s360-public #panorama .s360-dashboard-grid:not(.s360-dashboard-grid-bottom) > .card:first-child{grid-column:auto}
+ body.s360-public #panorama .s360-dashboard-grid-bottom{grid-template-columns:1fr}
+ body.s360-public #panorama .s360-dashboard-grid-bottom > .card:first-child{grid-column:auto}
+}
