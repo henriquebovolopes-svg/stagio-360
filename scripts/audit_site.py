@@ -72,6 +72,9 @@ def check_integration_routes():
             "stg_360_autoeval_reconciliation",
             "stg_360_teacher_profile",
             "stg_360_operational_readiness",
+            "stg_360_audience_coverage",
+            "stg_360_fi_class_context",
+            "stg_360_fi_grade_context",
         ),
         "admin/planejamento.html": (
             "stg_planning_entries",
