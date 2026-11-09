@@ -45,7 +45,7 @@ member=data;
 $('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Administração Geral':data.role==='master'?'Direção Master':'Coordenação');
 const select=$('stage');
 for(const option of select.options) option.disabled=false;
-if(data.role!=='admin'){
+if(!['admin','master'].includes(data.role)){
  const granted=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
  if(granted.error){screen('denied');return}
  const allowed=new Set((granted.data||[]).map(x=>x.stage));
