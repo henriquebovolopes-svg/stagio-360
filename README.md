@@ -24,6 +24,16 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - A página somente organiza links: **a autorização real continua sendo aplicada pelo Supabase**, não pela exibição ou ocultação de botões.
 - Contas de Márcia e Patrícia ativadas no Supabase em 09/11/2026, com e-mails de Auth confirmados e políticas RLS testadas. Testes reais de entrada no navegador e confirmação do deploy externo ainda são necessários.
 
+## Passo 8 — Padronização de painéis e experiência visual (09/11/2026)
+- **Tema comum:** `assets/stagio360-unified.css`, aplicado em 16 páginas por `body.s360-harmonized`. A folha contém apenas estilo: não altera autenticação, consultas, armazenamento, resultados nem permissões.
+- **Identidade preservada:** cores azuis do design aprovado, contraste branco/ciano, tipografia consistente, cantos e bordas de cartões, hierarquia de títulos, KPIs numéricos e logotipo oficial `stagio360-logo-oficial.svg`.
+- **Abrangência:** `index.html`, `painel.html`, `fundamental-1/index.html`, `admin/index.html`, `admin/minha-area.html`, `admin/segmento.html`, `admin/infantil.html`, `admin/planejamento.html`, `admin/governanca.html`, `admin/integracao.html`, `admin/funcionarios.html`, `admin/sintese.html`, `admin/pdi.html`, `admin/revisao.html`, `admin/import.html` e `admin/reset.html`.
+- **Navegação consistente:** links Minha área e Visão institucional no topo dos cinco módulos de cabeçalho próprio; link Minha área nos menus dos módulos auxiliares FI e do protótipo público FI.
+- **Marca oficial:** os cabeçalhos de Síntese Pedagógica, PDI e Pré-revisão agora apresentam o logotipo oficial em vez de somente texto digitado; `h1` permanece presente para acessibilidade.
+- **Responsividade/acessibilidade:** controles de foco visível, quebra de texto em cards, contagem tabular, tabelas roláveis e respeito a `prefers-reduced-motion`.
+- **Validação contínua:** `scripts/audit_site.py` verifica referência ao tema, classes de ativação, marca e navegação; o workflow de publicação testa o download da nova folha e seu carregamento nas páginas.
+- **Homologação visual pendente:** comparar as telas publicadas em desktop/mobile e os estados autenticado, negado e carregando. A publicação do GitHub Pages ainda não foi comprovada externamente nesta sessão.
+
 ## Ativação de Márcia e Patrícia — 09/11/2026
 - **Márcia:** identidade confirmada no Supabase Auth; papel `master` ativo, acesso a Infantil, Fundamental I, Fundamental II, Médio, integração e planejamento, além da Escuta dos Funcionários mediante autorização privada.
 - **Patrícia:** identidade confirmada no Supabase Auth; papel `coordenacao` ativo, somente `infantil`; acesso aos 10 indicadores disponíveis e aos registros de planejamento da etapa, sem acesso a outras etapas nem à Escuta dos Funcionários.
