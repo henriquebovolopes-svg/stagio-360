@@ -114,3 +114,6 @@ A página `admin/integracao.html` permite, depois de conferir nome completo e or
 
 ### Sugestões de identidade por fonte de autoavaliação
 O cadastro pendente oferece sete sugestões de nome completo autodeclarado no `Typeform_PROFS.xlsx`. As sugestões são guardadas em `stg_360_name_evidence`, acessível só à administração/master, sem e-mail ou token. Elas não substituem a validação documental nem associam avaliações automaticamente.
+
+### Conciliação Typeform_PROFS com AUTO M1
+Auditadas as 36 respostas da fonte docente contra os 21 critérios AUTO M1: 22 respostas já presentes (462 notas integralmente iguais), oito respostas completas pendentes (168 notas em staging privado) e seis incompletas excluídas dos indicadores. `stg_360_autoeval_reconciliation` e `stg_360_autoeval_pending_scores` têm RLS institucional master/admin; `admin/integracao.html` apresenta os resultados somente após login. Nenhum registro foi reimportado para `stg_teacher_scores`.
