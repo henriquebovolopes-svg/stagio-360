@@ -94,4 +94,18 @@ jobs:
           grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-home.html
           grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-minha-area.html
           grep -q 's360-quick-nav' /tmp/stagio360-planejamento.html
-          echo "Site publicado e rotas principais acessíveis."
+          # Passo 9: conferência HTTP da totalidade das 16 páginas publicadas,
+          # não apenas dos pontos de entrada. Não requer nem expõe credenciais.
+          for route in \
+            index.html painel.html fundamental-1/ \
+            admin/index.html admin/minha-area.html admin/segmento.html \
+            admin/infantil.html admin/planejamento.html admin/governanca.html \
+            admin/integracao.html admin/funcionarios.html admin/sintese.html \
+            admin/pdi.html admin/revisao.html admin/import.html admin/reset.html; do
+            curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "${BASE}/${route}" -o /tmp/stagio360-checked-route.html
+            grep -qi "STAGIO 360" /tmp/stagio360-checked-route.html
+            grep -q 's360-harmonized' /tmp/stagio360-checked-route.html
+            grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-checked-route.html
+            echo "Rota validada: ${route}"
+          done
+          echo "Site publicado e 16 rotas principais acessíveis."
