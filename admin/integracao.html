@@ -56,7 +56,7 @@ function drawAutoReconciliation(){
     const note=document.createElement('textarea');note.rows=2;note.maxLength=1000;note.placeholder='Justificativa da homologação (documento consultado)';note.style.cssText='width:100%;min-width:180px;padding:7px';note.setAttribute('aria-label','Justificativa de integração de '+rec.display_name);
     const checkLabel=elem('label');checkLabel.style.cssText='font-size:11px;display:block;margin:6px 0';const check=document.createElement('input');check.type='checkbox';
     checkLabel.append(check,document.createTextNode(' Confirmo que esta é a resposta desta identidade e autorizo integrar 21 notas.'));
-    const run=elem('button','Integrar 21 notas','btn');run.type='button';run.disabled=true;
+    const run=elem('button','Integrar 21 notas');run.className='btn';run.type='button';run.disabled=true;
     check.addEventListener('change',()=>{run.disabled=!check.checked});
     run.addEventListener('click',async()=>{
      if(!check.checked||note.value.trim().length<12){note.focus();return}
