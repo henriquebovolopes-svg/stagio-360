@@ -1,0 +1,154 @@
+/*
+ * STAGIO 360 | Passo 8 — padronização da experiência visual
+ * Camada transversal, aplicada por body.s360-harmonized.
+ * Não contém dados, credenciais, consultas, regras de acesso ou scripts.
+ * Preserva o logotipo oficial, a estrutura e a cor azul aprovada.
+ */
+:root{
+  --s360ui-deep:#061a3b;
+  --s360ui-navy:#082b60;
+  --s360ui-blue:#0869dc;
+  --s360ui-cyan:#18bce5;
+  --s360ui-ink:#142f58;
+  --s360ui-muted:#5e7596;
+  --s360ui-bg:#edf3fc;
+  --s360ui-line:#d2e0f1;
+  --s360ui-soft:#f4f9ff;
+  --s360ui-shadow:0 6px 22px rgba(11,45,94,.055);
+}
+body.s360-harmonized{
+  color:var(--s360ui-ink);
+  background:var(--s360ui-bg);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.52;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+body.s360-harmonized *,
+body.s360-harmonized *::before,
+body.s360-harmonized *::after{box-sizing:border-box}
+body.s360-harmonized [hidden]{display:none!important}
+body.s360-harmonized a:focus-visible,
+body.s360-harmonized button:focus-visible,
+body.s360-harmonized select:focus-visible,
+body.s360-harmonized input:focus-visible,
+body.s360-harmonized textarea:focus-visible,
+body.s360-harmonized summary:focus-visible{outline:3px solid var(--s360ui-cyan);outline-offset:3px}
+body.s360-harmonized :is(main,.workspace,.s360-workspace,.s360-main,.card,.panel,.metric,.kpi,.grid,.cards,.columns,.tablewrap){min-width:0}
+body.s360-harmonized :is(h1,h2,h3){letter-spacing:-.024em;overflow-wrap:break-word}
+body.s360-harmonized :is(.muted,.site-sub,.stage-access-copy p){color:var(--s360ui-muted)}
+body.s360-harmonized :is(.eyebrow,.kicker){letter-spacing:.12em;text-transform:uppercase}
+body.s360-harmonized :is(.metric strong,.kpi strong,.s360-mini-stat strong){font-variant-numeric:tabular-nums}
+body.s360-harmonized :is(table){max-width:100%;border-collapse:collapse}
+body.s360-harmonized :is(th){font-weight:800}
+body.s360-harmonized :is(th,td){vertical-align:top;line-height:1.45}
+body.s360-harmonized .tablewrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+body.s360-harmonized :is(input,select,textarea){max-width:100%;accent-color:var(--s360ui-blue)}
+body.s360-harmonized :is(button,.btn,.primary,.secondary,.text-link,.button-link,.textlink){transition:background-color .14s ease,border-color .14s ease,box-shadow .14s ease}
+body.s360-harmonized :is(button,.btn,.primary,.secondary){min-height:40px}
+body.s360-harmonized :is(.card,.panel){box-shadow:var(--s360ui-shadow)}
+body.s360-harmonized :is(.card,.panel,.metric,.kpi){border-color:var(--s360ui-line)}
+body.s360-harmonized :is(.card,.panel){border-radius:15px}
+body.s360-harmonized :is(.metric,.kpi){min-width:0;border-radius:13px}
+body.s360-harmonized :is(.card h2,.panel h2){color:#0c3976}
+body.s360-harmonized :is(.card p,.panel p){overflow-wrap:break-word}
+body.s360-harmonized :is(.chip,.pill,.tag){font-weight:750}
+body.s360-harmonized :is(.notice,.note,.callout,.hint){border-radius:11px}
+body.s360-harmonized :is(.breadcrumb,.crumb){font-size:12px;color:var(--s360ui-muted)}
+
+/* Páginas com cabeçalho e conteúdo próprios: mesma identidade, sem alterar a lógica. */
+body.s360-harmonized:not(.s360) > header,
+body.s360-harmonized:not(.s360) header.top,
+body.s360-harmonized:not(.s360) header.hero{
+  background:linear-gradient(112deg,#082857 0%,#0751a1 56%,#087fca 100%);
+  color:white;
+  border-bottom:4px solid var(--s360ui-cyan);
+}
+body.s360-harmonized:not(.s360) header img[src*="stagio360-logo-oficial"]{object-fit:contain}
+body.s360-harmonized:not(.s360) :is(main,.workspace) h1{color:#103c7d}
+body.s360-harmonized:not(.s360) header h1{color:white}
+body.s360-harmonized:not(.s360) :is(.eyebrow,.breadcrumb strong,.crumb strong){color:var(--s360ui-blue)}
+body.s360-harmonized:not(.s360) :is(.btn,.primary,.button-link):not(.alt):not(.outline){
+  background:var(--s360ui-blue);
+  border-color:var(--s360ui-blue);
+  color:white;
+  border-radius:9px;
+}
+body.s360-harmonized:not(.s360) :is(.btn,.primary,.button-link):not(.alt):not(.outline):hover{background:#0755af;border-color:#0755af}
+body.s360-harmonized:not(.s360) :is(.secondary,.btn.alt,.btn.outline,.text-link){border-radius:9px}
+body.s360-harmonized:not(.s360) :is(.metric,.kpi){background:#fff}
+body.s360-harmonized:not(.s360) :is(.metric strong,.kpi strong){color:#0756ba}
+
+/* Portal e Minha área: manter a estrutura de navegação existente. */
+body.s360-harmonized .shell > aside{
+  background:linear-gradient(180deg,#092e64,#061d43);
+  border-right:1px solid rgba(255,255,255,.09);
+}
+body.s360-harmonized .shell > aside a:focus-visible{outline-offset:2px}
+body.s360-harmonized .shell .workspace > header.hero{
+  background:linear-gradient(112deg,#082857,#0751a1 54%,#087fca);
+  border-bottom:4px solid var(--s360ui-cyan);
+}
+body.s360-harmonized .shell .workspace > header.hero h1{color:white}
+body.s360-harmonized .shell .workspace > header.hero .hero-logo{object-fit:contain}
+body.s360-harmonized .shell .stage-access{
+  border-color:#b9d0ee;
+  background:#f5f9ff;
+  border-radius:14px;
+}
+body.s360-harmonized .shell .stage-access .stage-access-links{max-width:100%}
+
+/* Painel original do Fundamental I e seus anexos: reforçar somente acabamento. */
+body.s360.s360-harmonized .s360-shell{min-width:0}
+body.s360.s360-harmonized .s360-shell :is(.card,.kpi){border-radius:15px}
+body.s360.s360-harmonized .s360-sidebar{background:linear-gradient(180deg,#092c60,#061e43)}
+body.s360.s360-harmonized header.s360-hero{
+  background:linear-gradient(112deg,#082857,#0751a1 54%,#087fca);
+  border-bottom:4px solid var(--s360ui-cyan);
+}
+body.s360.s360-harmonized .s360-statusbar{border-radius:10px}
+body.s360.s360-harmonized :is(.s360-sidenav a,.s360-sidenav button){border-radius:9px}
+
+/* Barra de retorno consistente entre módulos com cabeçalhos independentes. */
+body.s360-harmonized .s360-quick-nav{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex-wrap:wrap;
+  max-width:1200px;
+  margin:0 auto;
+  padding:11px 18px 0;
+  color:var(--s360ui-muted);
+  font-size:12px;
+}
+body.s360-harmonized .s360-quick-nav a{
+  display:inline-flex;
+  align-items:center;
+  min-height:33px;
+  border:1px solid #c8dcf4;
+  border-radius:9px;
+  background:#fff;
+  padding:5px 12px;
+  color:#0953a5;
+  font-weight:800;
+  text-decoration:none;
+}
+body.s360-harmonized .s360-quick-nav a:hover{background:#e7f2ff}
+body.s360-harmonized .s360-quick-nav a[aria-current="page"]{background:#e7f2ff;border-color:#9fc5f1}
+body.s360-harmonized .s360-quick-nav + main{padding-top:14px}
+@media(max-width:820px){
+  body.s360-harmonized .s360-quick-nav{padding:10px 14px 0}
+  body.s360-harmonized :is(.card,.panel){overflow-wrap:break-word}
+}
+@media(max-width:580px){
+  body.s360-harmonized .s360-quick-nav{gap:6px}
+  body.s360-harmonized .s360-quick-nav a{padding:6px 9px}
+  body.s360-harmonized .stage-access-links{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  body.s360-harmonized :is(button,a,input,select,textarea){transition:none!important}
+}
+@media print{
+  body.s360-harmonized .s360-quick-nav{display:none!important}
+  body.s360-harmonized :is(.card,.panel){box-shadow:none}
+}
