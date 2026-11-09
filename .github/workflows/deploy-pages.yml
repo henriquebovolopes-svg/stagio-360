@@ -36,6 +36,8 @@ jobs:
           cp -R assets admin fundamental-1 _site/
           touch _site/.nojekyll
           test -s _site/index.html
+          test -s _site/painel.html
+          test -s _site/assets/stagio360-nps-publico-2023-2026.json
           test -s _site/admin/governanca.html
           test -s _site/admin/integracao.html
           test -s _site/admin/planejamento.html
@@ -60,6 +62,10 @@ jobs:
           BASE="${SITE_URL%/}"
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/" -o /tmp/stagio360-home.html
           grep -qi "STAGIO 360" /tmp/stagio360-home.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/painel.html" -o /tmp/stagio360-painel.html
+          grep -q "Indicadores gerais da escola" /tmp/stagio360-painel.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/assets/stagio360-nps-publico-2023-2026.json" -o /tmp/stagio360-publico-nps.json
+          python3 -c 'import json; d=json.load(open("/tmp/stagio360-publico-nps.json")); assert len(d["rows"])>=25; assert all("respondent_code" not in r and "email" not in r for r in d["rows"])'
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/governanca.html" -o /tmp/stagio360-governanca.html
           grep -qi "Gestão por etapa" /tmp/stagio360-governanca.html
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/integracao.html" -o /tmp/stagio360-integracao.html
