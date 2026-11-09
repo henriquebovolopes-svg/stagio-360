@@ -63,6 +63,47 @@ def verify_html(path):
     if not re.search("stagio360-logo-oficial.svg", code):
         WARNINGS.append(f"{path.relative_to(ROOT)}: não usa o logotipo oficial")
 
+def check_integration_routes():
+    """Preflight: authenticated modules must ship together with config and integrations."""
+    routes = {
+        "admin/integracao.html": (
+            "stg_360_integrate_autoeval",
+            "stg_360_teacher_registry_pending",
+            "stg_360_autoeval_reconciliation",
+            "stg_360_teacher_profile",
+            "admin/route-placeholder-not-present",
+        ),
+        "admin/planejamento.html": (
+            "stg_planning_entries",
+            "stg_360_planning_crosswalk",
+        ),
+        "admin/infantil.html": (
+            "stg_planning_entries",
+        ),
+    }
+    for rel, required in routes.items():
+        path = ROOT / rel
+        if not path.exists():
+            ERRORS.append(f"Rota essencial de integração ausente: {rel}")
+            continue
+        code = path.read_text(encoding="utf-8")
+        for token in required:
+            if token == "admin/route-placeholder-not-present":
+                continue
+            if token not in code:
+                ERRORS.append(f"{rel}: integração obrigatória ausente ({token})")
+        if not re.search(r'<script[^>]+src=["\\\']\\./config\\.js["\\\']', code):
+            ERRORS.append(f"{rel}: cliente Supabase sem configuração autenticada")
+    config = ROOT / "admin/config.js"
+    if not config.exists():
+        ERRORS.append("Configuração pública do cliente Supabase ausente")
+    else:
+        code = config.read_text(encoding="utf-8")
+        if "publishableKey" not in code or "STAGIO_AUTH" not in code:
+            ERRORS.append("Configuração pública do Supabase inválida")
+        if re.search(r"sb_secret_|service_role|sk_live_", code, re.I):
+            ERRORS.append("Credencial privilegiada em configuração pública")
+
 def check_nps(path):
     doc = json.loads(path.read_text(encoding="utf-8"))
     groups = []
@@ -104,6 +145,7 @@ for page in PAGES:
 for path in (ROOT/"assets/stagio360-historico.json", ROOT/"assets/stagio360-2026-agregados.json"):
     check_nps(path)
 check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
+check_integration_routes()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
