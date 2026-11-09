@@ -60,8 +60,8 @@ def verify_html(path):
             ERRORS.append(f"{path.relative_to(ROOT)}: referência quebrada: {ref}")
     if re.search(r"sb_secret_|service_role|sk_live_", code, re.I):
         ERRORS.append(f"{path.relative_to(ROOT)}: token/identificador de credencial privilegiada")
-    body = re.search(r'<body\\b[^>]*>', code, re.I)
-    theme_classes = re.findall(r'\\bs360-harmonized\\b', body.group(0)) if body else []
+    body = re.search(r'<body\b[^>]*>', code, re.I)
+    theme_classes = re.findall(r'\bs360-harmonized\b', body.group(0)) if body else []
     if len(theme_classes) != 1:
         ERRORS.append(f"{path.relative_to(ROOT)}: a classe do tema deve aparecer exatamente uma vez no body")
     if not re.search("stagio360-logo-oficial.svg", code):
