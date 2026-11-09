@@ -4,6 +4,17 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 
 **Acesso ao portal:** https://henriquebovolopes-svg.github.io/stagio-360/
 
+## Design System v9 — padronização integral de interface (09/11/2026)
+
+- **Referência oficial:** captura da home com sidebar marinho, logotipo STAGIO 360 em branco no hero azul/ciano, cards executivos e barras/gráficos multicores.
+- **Etapa 1:** design tokens, tipografia, cards, filtros, formulários de login/reset, botões, tabelas e responsividade compartilhados em `assets/stagio360-visual-v9.css`. Mantido `stagio360-unified.css?v=8` como base de compatibilidade.
+- **Etapa 2:** as **19 rotas** principais carregam a camada `v9` e o script `assets/stagio360-visual-v9.js`; as páginas com sidebar existente a preservam e os demais módulos recebem menu lateral contextual. Logo oficial presente em todas as telas, inclusive Minha área.
+- **Etapa 3:** home/painel com rosca de NPS (promotores, neutros, detratores), barras comparativas das etapas e série histórica colorida. Barras e KPIs dos módulos têm acentos coerentes por série e alerta sem alterar percentuais.
+- Os três gráficos dinâmicos do painel público usam somente os arquivos agregados de 2026/histórico e aparecem somente no recorte 2026 M1. Nenhum dado individual é publicado.
+- **Auditoria automatizada:** `python scripts/audit_visual_v9.py`, `node --check assets/stagio360-visual-v9.js`, além de `scripts/audit_site.py` e teste HTTP das 19 rotas e do CSS/JS implantados.
+- **Segurança preservada:** mudanças de estilo e navegação não modificam Supabase Auth, RLS, perfis nem o conteúdo dos dados; a UI privada do painel administrativo do serviço Supabase é externa ao site e não está sendo tematizada.
+- [Relatório técnico e ressalvas da auditoria visual v9](AUDITORIA_VISUAL_STAGIO360_V9_2026-11-09.md).
+
 ## Estrutura atual
 - `/` — governança, NPS institucional, históricos 2023–2025 e navegação por segmento.
 - `/fundamental-1/` — protótipo validado da Avaliação 360 2026 (2º–5º ano), preservado.
