@@ -202,9 +202,10 @@ def check_contextual_step7():
     segment = (ROOT / "admin/segmento.html").read_text(encoding="utf-8")
     if 'href="./minha-area.html"' not in segment:
         ERRORS.append("Passo 7: coordenação sem retorno à Minha área")
-    for rel in ("admin/pdi.html", "admin/revisao.html"):
+    for rel in ("admin/pdi.html", "admin/revisao.html", "admin/sintese.html"):
         fi = (ROOT / rel).read_text(encoding="utf-8")
-        if "!['admin','master','coordenacao'].includes(members[0].role)" not in fi:
+        variable = "members[0].role" if rel != "admin/sintese.html" else "member[0].role"
+        if f"!['admin','master','coordenacao'].includes({variable})" not in fi:
             ERRORS.append(f"Passo 7: {rel} não reconhece a direção master")
     workflow = (ROOT / ".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
     if "test -s _site/admin/minha-area.html" not in workflow:
