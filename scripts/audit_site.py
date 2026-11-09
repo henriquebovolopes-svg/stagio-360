@@ -83,8 +83,7 @@ def check_shared_dashboard():
             ERRORS.append("Dataset público contém chaves não homologadas para divulgação")
             break
 
-def check_integration_routes()
-check_shared_dashboard():
+def check_integration_routes():
     """Preflight: authenticated modules must ship together with config and integrations."""
     routes = {
         "admin/integracao.html": (
@@ -168,6 +167,7 @@ for path in (ROOT/"assets/stagio360-historico.json", ROOT/"assets/stagio360-2026
     check_nps(path)
 check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
 check_integration_routes()
+check_shared_dashboard()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
