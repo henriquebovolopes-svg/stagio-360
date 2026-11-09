@@ -40,11 +40,12 @@ function buildSidebar(){
   {label:'Integração de dados',href:root+'admin/integracao.html',icon:'◇',page:'integracao.html'}
  ];
  var current=location.pathname.split('/').pop()||'';
+ var logicalPage=({'segmento.html':'governanca.html','infantil.html':'governanca.html','coord-fii-em.html':'governanca.html'})[current]||current;
  links.forEach(function(item){
   var a=node('a');a.href=item.href;
   var glyph=node('span',item.icon,'s360-nav-icon');glyph.setAttribute('aria-hidden','true');
   appendChildren(a,[glyph,node('span',item.label)]);
-  if(current===item.page)a.setAttribute('aria-current','page');
+  if(logicalPage===item.page)a.setAttribute('aria-current','page');
   nav.appendChild(a);
  });
  sidebar.appendChild(nav);
