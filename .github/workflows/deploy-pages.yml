@@ -39,6 +39,7 @@ jobs:
           test -s _site/index.html
           test -s _site/painel.html
           test -s _site/assets/stagio360-nps-publico-2023-2026.json
+          test -s _site/admin/minha-area.html
           test -s _site/admin/segmento.html
           test -s _site/admin/governanca.html
           test -s _site/admin/integracao.html
@@ -68,6 +69,9 @@ jobs:
           grep -q "Indicadores gerais da escola" /tmp/stagio360-painel.html
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/assets/stagio360-nps-publico-2023-2026.json" -o /tmp/stagio360-publico-nps.json
           python3 -c 'import json; d=json.load(open("/tmp/stagio360-publico-nps.json")); assert len(d["rows"])>=25; assert all("respondent_code" not in r and "email" not in r for r in d["rows"])'
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/minha-area.html" -o /tmp/stagio360-minha-area.html
+          grep -q 'id="stage-cards"' /tmp/stagio360-minha-area.html
+          grep -q "stg_scope_access" /tmp/stagio360-minha-area.html
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/governanca.html" -o /tmp/stagio360-governanca.html
           grep -qi "Gestão por etapa" /tmp/stagio360-governanca.html
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/segmento.html?etapa=fundamental1&aba=pesquisas" -o /tmp/stagio360-segmento.html
