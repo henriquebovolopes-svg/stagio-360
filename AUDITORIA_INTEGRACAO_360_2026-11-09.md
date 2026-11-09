@@ -148,3 +148,12 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - Verificação de fonte dos arquivos no GitHub: todos os módulos e marcadores esperados presentes; configuração `./config.js` presente nas três páginas. O resultado do GitHub Actions após a alteração ainda precisa ser observado; não foi possível confirmar o job publicado.
 - Estado real do Supabase novamente auditado: **25** identidades canônicas existentes; **0** cadastros prontos para promoção; **0** vínculos homologados; **0** autoavaliações novas integradas; **168** notas em staging de oito respostas completas; **462** notas AUTO M1 existentes. Nenhuma aprovação por aproximação de nomes.
 - Próxima ação operacional: concluir conferência documental de professor/etapa na fila master e revisar execução de Actions para confirmar publicação (sem confundir status de CI com teste funcional autenticado).
+
+## Painel de prontidão operacional (09/11/2026)
+
+- Criada a view `public.stg_360_operational_readiness` com `security_invoker=true` para compilar dados **ao vivo** dos módulos oficiais: 336 planejamentos, 462 notas AUTO M1 legado, 167 notas de coordenação, 168 notas em staging, 25 identidades canônicas, 32 vínculos de origem e três estados de ciclos (M1 parcial, M2 e M3 não importados).
+- Um teste revelou que uma view baseada apenas em contagens poderia devolver uma linha vazia a usuários fora do escopo. **Corrigido** aplicando filtro explícito `private.stg_scope_authorized('institutional')` na view. Resultados comprovados: Henrique/Giovanna visualizam os totais; Érica recebe zero linhas.
+- O painel `admin/integracao.html` ganhou seção `Prontidão operacional`, consultada após autenticação master/admin, com dados obtidos do banco no carregamento da página e aviso separado sobre a última fotografia do inventário `stg_360_source_coverage`. Não confunde ausência de dados de M2/M3 com desempenho zero.
+- `scripts/audit_site.py` passou a exigir a referência a `stg_360_operational_readiness`, para evitar retirada acidental do módulo no deploy.
+- A publicação real via GitHub Pages não foi validada: a ferramenta pública de consulta não acessou os URLs; uma tentativa alternativa falhou por DNS do ambiente. O conector GitHub disponível não lista execuções push do workflow por ID desconhecido. **Não afirmar deploy aprovado ou login testado.**
+- A view é dinâmica, mas o inventário `stg_360_source_coverage` continua representando fotografias históricas e não é recalculado automaticamente.
