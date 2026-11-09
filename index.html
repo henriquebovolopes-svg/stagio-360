@@ -176,6 +176,8 @@ try{
  if(!response.ok)throw Error('arquivo de dados indisponível');
  const doc=await response.json();if(!doc.rows||!Array.isArray(doc.rows))throw Error('estrutura de dados inválida');
  rows=doc.rows;
+ const routeStage=new URLSearchParams(location.search).get('etapa');
+ if(Object.hasOwn(stageNames,routeStage))$('etapa').value=routeStage;
  $('loading').hidden=true;
  for(const id of Object.keys(key))$(id).addEventListener('change',render);
  render();
