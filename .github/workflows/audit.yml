@@ -1,0 +1,40 @@
+name: Auditoria STAGIO 360
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Auditar arquivos e indicadores
+        run: python scripts/audit_site.py
+      - name: Verificar sintaxe dos scripts inline
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re, subprocess
+          for path in [Path('index.html'), Path('fundamental-1/index.html'), *Path('admin').glob('*.html')]:
+              content=path.read_text(encoding='utf-8')
+              for i, code in enumerate(re.findall(r'<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>',content,re.I)):
+                  if not code.strip():
+                      continue
+                  if 'type="module"' in content:
+                      # syntax check as module for files that use import() dynamically
+                      pass
+                  result=subprocess.run(['node','--check','-'], input=code, text=True, capture_output=True)
+                  if result.returncode:
+                      raise SystemExit(f'{path} bloco {i}: {result.stderr}')
+          print('JavaScript: sintaxe validada')
+          PY
