@@ -131,3 +131,17 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Conferidos os scripts de `index.html`, `admin/governanca.html`, `admin/infantil.html` e `admin/planejamento.html`: sem erros sintáticos ou IDs duplicados.
 - Auditor de segurança do Supabase mantém um aviso de proteção de senhas vazadas desabilitada e um aviso informativo sobre tabela privada com RLS sem política; nenhum novo erro crítico foi comunicado.
 - Pendente: verificação de GitHub Pages e login em navegador com contas reais; conferência de metas de planejamento e vinculação de cada plano documental à devolutiva.
+
+
+## Adendo de ativação de acessos — 09/11/2026
+
+As pendências de contas nominais descritas nas seções acima referem-se ao estado da auditoria em 08/11 e **foram resolvidas**:
+- Duas contas recém-criadas foram identificadas em Supabase Auth, com e-mail confirmado, senha cadastrada e identidade individual verificada pela correspondência exata do Auth.
+- Márcia: `stg_members(role='master',active=true)`; autorização particular na lista `private.stg_staff_access` com `access_label='Márcia'`.
+- Patrícia: `stg_members(role='coordenacao',active=true)`; único vínculo `stg_scope_access(stage='infantil')`. Sem permissão à pesquisa confidencial, Fundamental I, Fundamental II, Médio nem área institucional.
+- Testes RLS com `SET LOCAL ROLE authenticated` e `request.jwt.claim.sub`: Márcia acessa todas as quatro etapas, mapa institucional e 27 itens da Escuta; Patrícia acessa 10 indicadores EI e 10 pares docente-etapa de planejamento EI, mas zero itens da Escuta e zero resumos FI.
+- Érica segue restrita ao Fundamental I; Henrique e Giovanna mantêm acesso institucional previsto.
+- Os testes foram consultas transacionais reversíveis; nenhum conteúdo individual foi publicado e nenhum registro pedagógico foi alterado.
+- Atualizadas a Síntese Pedagógica para reconhecer `master` e a documentação/atalhos de `Minha área`.
+- A ativação em banco **não substitui** testes reais de entrada, recuperação de senha, logout e navegação publicados no GitHub Pages, ainda pendentes de confirmação por cada usuária.
+
