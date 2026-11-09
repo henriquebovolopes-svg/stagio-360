@@ -203,7 +203,12 @@ $('login-form').addEventListener('submit',async event=>{
 });
 $('logout').addEventListener('click',async()=>{if(client)await client.auth.signOut({scope:'local'});show('signin')});
 $('switch-account').addEventListener('click',async()=>{if(client)await client.auth.signOut({scope:'local'});show('signin')});
-if(scope){$('page-title').textContent='Coordenação · '+stages[scope].label;$('crumb-stage').textContent=stages[scope].label}
+if(scope){
+ $('page-title').textContent='Coordenação · '+stages[scope].label;
+ $('crumb-stage').textContent=stages[scope].label;
+ const back='../index.html?etapa='+encodeURIComponent(scope)+'#segmentos';
+ for(const anchor of document.querySelectorAll('a[href="../index.html#segmentos"]'))anchor.href=back;
+}
 enter();
 </script>
 </body></html>
