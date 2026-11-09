@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | Rubrica da coordenação — FII e Médio</title>
+<style>
+:root{--navy:#062953;--blue:#0866cf;--cyan:#18bce5;--ink:#1a375b;--soft:#f1f6fd;--line:#d4e1f1;--muted:#617997}
+body{margin:0;font:14px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#edf3fc;color:var(--ink)}
+header{padding:19px max(20px,calc((100% - 1160px)/2));display:flex;gap:18px;justify-content:space-between;align-items:center;background:linear-gradient(100deg,#061e48,#0967b7);color:white;border-bottom:4px solid var(--cyan)}
+header img{width:220px;max-width:50vw;max-height:73px;object-fit:contain}header strong{font-size:12px}
+main{max-width:1170px;margin:0 auto;padding:27px 18px 80px}
+h1{font-size:clamp(25px,3vw,36px);color:#103f7b;line-height:1.2;margin:6px 0 8px}h2{font-size:19px;color:#12467f;margin:0 0 9px}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:.12em;color:#0c69ba}
+p{margin:8px 0 14px}.muted{font-size:12px;color:#577391}
+.card{background:white;border:1px solid var(--line);border-radius:15px;padding:22px;margin:17px 0;box-shadow:0 5px 18px #0c375c0a}
+.auth{max-width:505px;margin:35px auto}.auth label{display:block;font-weight:750;margin:12px 0 5px}.auth input{padding:12px;border-radius:9px;border:1px solid #b9cfe9;width:100%;max-width:100%;font:inherit}
+.btn{background:#0969d7;border:1px solid #0969d7;color:white;font:inherit;font-weight:800;padding:10px 16px;border-radius:9px;cursor:pointer;min-height:43px}
+.btn.secondary{color:#145599;background:white;border:1px solid #bdd3ec}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:16px 0}
+.filters label{font-size:12px;font-weight:750;color:#375b84;display:grid;gap:4px}
+.filters select{min-height:39px;border:1px solid #bdcfe5;border-radius:9px;padding:8px;background:white;color:#204568;max-width:220px;min-width:140px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.kpi{background:#f5f9ff;border:1px solid #d3e2f7;border-radius:13px;padding:17px}.kpi span{display:block;font-size:12px;font-weight:760;color:#5d7496}.kpi strong{font-size:28px;color:#1166bc;display:block;font-variant-numeric:tabular-nums}.kpi small{font-size:11px;color:#647e9b}
+.notice{border-left:4px solid #0787c7;background:#f0f7ff;padding:14px;border-radius:0 12px 12px 0;font-size:12px;color:#345c83}
+.notice.warn{border-left-color:#b98331;background:#fff9ed}
+.tablewrap{max-width:100%;overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:780px;font-size:12px}th,td{text-align:left;padding:10px 9px;border-bottom:1px solid #e1eaf5;vertical-align:top}th{background:#f4f8fe;font-weight:850;color:#3b658f}
+.stage-badge{display:inline-block;border-radius:15px;padding:4px 8px;background:#e9f3ff;color:#115bb1;font-weight:780;font-size:11px}
+.stage-badge.shared{background:#fff0d8;color:#88591c}details{max-width:560px}summary{cursor:pointer;font-weight:770;color:#086ac0}
+.note-text{white-space:pre-wrap;overflow-wrap:anywhere;border-left:2px solid #bed5ed;padding:8px 10px;background:#f7fbff;border-radius:6px;margin-top:8px;max-height:310px;overflow:auto}
+.empty{padding:20px;text-align:center;color:#667b92}
+.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:15px}footer{font-size:11px;color:#7b8ea8;margin-top:27px}
+@media(max-width:800px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}header img{width:170px}}
+@media(max-width:520px){.card{padding:16px}.kpis{grid-template-columns:1fr 1fr}.kpi{padding:12px}.kpi strong{font-size:23px}header strong{font-size:10px}}
+</style>
+<link rel="stylesheet" href="../assets/stagio360-unified.css?v=8">
+</head>
+<body class="s360-harmonized">
+<header><a href="../" aria-label="Voltar ao Stagio 360"><img src="../assets/stagio360-logo-oficial.svg" alt="STAGIO 360"></a><strong>RUBRICA DA COORDENAÇÃO<br>FUNDAMENTAL II E ENSINO MÉDIO · M1/2026</strong></header>
+<nav class="s360-quick-nav" aria-label="Navegação contextual"><a href="./minha-area.html">Minha área</a><a href="./integracao.html">Integração 360</a><a href="./governanca.html">Gestão por etapa</a><span aria-current="page">Rubrica FII / EM</span></nav>
+<main>
+<div class="eyebrow">FONTE ORIGINÁRIA CONFERIDA · TYPEFORM_COORD_FIIEM.XLSX</div>
+<h1>Leitura detalhada da coordenação</h1>
+<p class="muted">Resultado granular do primeiro ciclo de 2026. Os registros são classificados pela atuação declarada de cada docente. A categoria compartilhada não é distribuída entre Fundamental II e Médio sem nova homologação.</p>
+<section id="loading" class="card auth" role="status"><h2>Verificando autorização</h2><p class="muted">Consultando sua identidade e as permissões registradas no Supabase.</p></section>
+<section id="signin" class="card auth" hidden><h2>Acesso restrito à direção</h2><p class="muted">Entre com sua própria conta de administração ou Direção Master.</p><form id="login"><label for="email">E-mail institucional</label><input id="email" type="email" autocomplete="username" required><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required><div class="actions"><button class="btn" type="submit">Entrar</button><a href="./reset.html">Recuperar senha</a></div><p id="login-error" class="muted" role="status"></p></form></section>
+<section id="denied" class="card auth" hidden><h2>Acesso não autorizado</h2><p id="denied-reason">Seu perfil não permite consultar os registros individuais desta rubrica.</p><button type="button" id="change-account" class="btn secondary">Trocar de conta</button></section>
+<section id="dashboard" hidden>
+<div class="notice warn"><strong>Atenção metodológica:</strong> os nomes e códigos vêm da configuração do formulário, não representam vínculo canônico homologado com o perfil 360. Não somar resultados compartilhados duas vezes; nem deduzir que uma nota mista foi dada em uma etapa específica.</div>
+<div class="card">
+<div class="actions" style="justify-content:space-between"><strong>Resumo da fonte M1/2026</strong><button type="button" id="logout" class="btn secondary">Sair da conta</button></div>
+<div class="kpis">
+<div class="kpi"><span>Registros tratados</span><strong id="total">—</strong><small>Notas e comentários</small></div>
+<div class="kpi"><span>Notas objetivas</span><strong id="scores">—</strong><small>Escala da fonte 1 a 5</small></div>
+<div class="kpi"><span>Respostas qualitativas</span><strong id="comments">—</strong><small>Texto protegido no banco</small></div>
+<div class="kpi"><span>Docentes com resposta</span><strong id="teachers">—</strong><small>Identificador de origem</small></div>
+</div>
+</div>
+<div class="card"><h2>Cobertura por etapa e tipo de resposta</h2><div class="tablewrap"><table><thead><tr><th>Etapa declarada do professor</th><th>Notas objetivas</th><th>Comentários</th><th>Docentes com resposta</th></tr></thead><tbody id="coverage-body"></tbody></table></div></div>
+<div class="card">
+<h2>Consultar registros originais</h2><p class="muted">Selecione o segmento de atuação do docente, o eixo, o tipo de resposta ou o identificador de origem. Comentários são exibidos individualmente sob demanda.</p>
+<div class="filters">
+<label for="stage">Atuação declarada<select id="stage"><option value="all">Todas as atuações</option><option value="fundamental2">Somente Fundamental II</option><option value="medio">Somente Ensino Médio</option><option value="shared">FII + EM (compartilhado)</option></select></label>
+<label for="axis">Eixo da rubrica<select id="axis"><option value="all">Todos os eixos</option><option>Planejamento</option><option>Condução de aula</option><option>Cultura profissional</option><option>Formação continuada</option></select></label>
+<label for="kind">Tipo de resposta<select id="kind"><option value="all">Objetivas e qualitativas</option><option value="objective">Somente notas</option><option value="qualitative">Somente comentários</option></select></label>
+<label for="teacher">Professor na fonte<select id="teacher"><option value="all">Todos</option></select></label>
+</div>
+<p id="result-count" class="muted" role="status"></p>
+<div class="tablewrap"><table><thead><tr><th>Atuação</th><th>Professor na fonte</th><th>Eixo</th><th>Questão</th><th>Resposta</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="actions"><button id="more" type="button" class="btn secondary" hidden>Mostrar mais registros</button></div>
+</div>
+</section>
+<footer>STAGIO 360 · Pesquisa de coordenação · Acesso com RLS por papel ativo · Não publicar respostas individuais</footer>
+</main>
+<script src="./config.js"></script>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/+esm';
+const $=id=>document.getElementById(id), cfg=window.STAGIO_AUTH||{};
+let api=null,items=[],visible=[],limit=80;
+const labels={fundamental2:'Fundamental II',medio:'Ensino Médio',shared:'FII + EM · compartilhado'};
+function screen(active){for(const name of ['loading','signin','denied','dashboard'])$(name).hidden=name!==active}
+function cell(text){const x=document.createElement('td');x.textContent=String(text??'');return x}
+function badge(stage){const span=document.createElement('span');span.className='stage-badge'+(stage==='shared'?' shared':'');span.textContent=labels[stage]||stage;return span}
+function renderCoverage(){
+ const tbody=$('coverage-body');tbody.replaceChildren();
+ for(const stage of ['fundamental2','medio','shared']){
+  const data=items.filter(x=>x.declared_stage===stage),tr=document.createElement('tr');
+  tr.append(cell(labels[stage]),cell(data.filter(x=>x.response_kind==='objective').length),cell(data.filter(x=>x.response_kind==='qualitative').length),cell(new Set(data.map(x=>x.source_teacher_id)).size));tbody.append(tr);
+ }
+}
+function renderRows(){
+ const stage=$('stage').value,axis=$('axis').value,kind=$('kind').value,teacher=$('teacher').value;
+ visible=items.filter(x=>(stage==='all'||x.declared_stage===stage)&&(axis==='all'||x.assessment_axis===axis)&&(kind==='all'||x.response_kind===kind)&&(teacher==='all'||x.source_teacher_id===teacher));
+ $('result-count').textContent=visible.length+' registro(s) neste recorte. Os comentários só são exibidos ao abrir cada item.';
+ const tbody=$('rows');tbody.replaceChildren();
+ for(const x of visible.slice(0,limit)){
+   const tr=document.createElement('tr'),st=document.createElement('td');st.append(badge(x.declared_stage));tr.append(st,cell(x.teacher_label+' · '+x.source_teacher_id),cell(x.assessment_axis),cell(x.question_label));
+   const result=document.createElement('td');
+   if(x.response_kind==='objective'){result.textContent=String(x.score)+' / 5'}
+   else{const details=document.createElement('details'),summary=document.createElement('summary'),paragraph=document.createElement('div');summary.textContent='Mostrar comentário confidencial';paragraph.className='note-text';paragraph.textContent=x.response_text||'';details.append(summary,paragraph);result.append(details)}
+   tr.append(result);tbody.append(tr);
+ }
+ $('more').hidden=visible.length<=limit;
+}
+function populate(){
+ $('total').textContent=items.length;
+ $('scores').textContent=items.filter(x=>x.response_kind==='objective').length;
+ $('comments').textContent=items.filter(x=>x.response_kind==='qualitative').length;
+ $('teachers').textContent=new Set(items.map(x=>x.source_teacher_id)).size;
+ const options=[...new Map(items.map(x=>[x.source_teacher_id,x.teacher_label])).entries()].sort((a,b)=>a[1].localeCompare(b[1],'pt-BR'));
+ const select=$('teacher');select.replaceChildren();const all=document.createElement('option');all.value='all';all.textContent='Todos';select.append(all);
+ for(const [id,name] of options){const opt=document.createElement('option');opt.value=id;opt.textContent=name+' · '+id;select.append(opt)}
+ renderCoverage();limit=80;renderRows();screen('dashboard');
+}
+async function initialize(){
+ screen('loading');
+ try{
+  if(!cfg.url||!cfg.publishableKey)throw new Error('Configuração de autenticação indisponível.');
+  if(!api)api=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  const {data:{user},error:userError}=await api.auth.getUser();
+  if(userError||!user){screen('signin');return}
+  const {data:member,error:memberError}=await api.from('stg_members').select('role,active').eq('user_id',user.id).maybeSingle();
+  if(memberError||!member?.active||!['admin','master'].includes(member.role)){screen('denied');return}
+  const {data,error}=await api.from('stg_360_coord_fiiem_items').select('source_key,source_block,source_offset,source_teacher_id,teacher_label,declared_stage,assessment_axis,question_label,response_kind,score,response_text').eq('school_year',2026).eq('module','M1').order('source_block').order('source_offset').limit(500);
+  if(error)throw error;
+  items=data||[];
+  if(items.length!==297){$('denied-reason').textContent='A reconciliação da fonte está incompleta: '+items.length+' de 297 registros. Solicite auditoria do banco.';screen('denied');return}
+  populate();
+ }catch(e){$('denied-reason').textContent='Não foi possível consultar a fonte protegida: '+(e.message||'erro de consulta');screen('denied')}
+}
+$('login').addEventListener('submit',async ev=>{ev.preventDefault();$('login-error').textContent='Autenticando…';try{if(!api)api=createClient(cfg.url,cfg.publishableKey);const {error}=await api.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';$('login-error').textContent='';await initialize()}catch(e){$('login-error').textContent='Não foi possível entrar. Confira o e-mail e a senha.'}});
+async function exitAccount(){items=[];visible=[];$('rows').replaceChildren();if(api)await api.auth.signOut();$('password').value='';screen('signin')}
+$('logout').addEventListener('click',exitAccount);$('change-account').addEventListener('click',exitAccount);
+for(const key of ['stage','axis','kind','teacher'])$(key).addEventListener('change',()=>{limit=80;renderRows()});
+$('more').addEventListener('click',()=>{limit+=80;renderRows()});
+initialize();
+</script>
+</body></html>
