@@ -212,6 +212,44 @@ def check_contextual_step7():
         ERRORS.append("Passo 7: GitHub Pages não valida a Minha área")
 
 
+def check_visual_step8():
+    """Verifica o mesmo design system nas rotas sem interferir no Auth/RLS."""
+    css_path = ROOT / "assets/stagio360-unified.css"
+    if not css_path.exists():
+        ERRORS.append("Passo 8: folha visual compartilhada ausente")
+        return
+    css = css_path.read_text(encoding="utf-8")
+    for token in ("--s360ui-blue", "--s360ui-cyan", "body.s360-harmonized",
+                  ".s360-quick-nav", "prefers-reduced-motion", "@media(max-width:580px)"):
+        if token not in css:
+            ERRORS.append(f"Passo 8: estilo sem requisito ({token})")
+    if any(x in css.lower() for x in ("url(http", "service_role", "api_key", "data:image")):
+        ERRORS.append("Passo 8: estilos não devem incluir recursos remotos ou segredos")
+    main_pages = ("index.html", "painel.html", "fundamental-1/index.html")
+    admin_pages = ("index.html", "sintese.html", "pdi.html", "revisao.html",
+                   "segmento.html", "infantil.html", "planejamento.html",
+                   "governanca.html", "integracao.html", "funcionarios.html",
+                   "minha-area.html", "reset.html", "import.html")
+    for rel in main_pages + tuple("admin/" + x for x in admin_pages):
+        source = (ROOT / rel).read_text(encoding="utf-8")
+        href = "../assets/stagio360-unified.css?v=8" if "/" in rel else "./assets/stagio360-unified.css?v=8"
+        if f'href="{href}"' not in source:
+            ERRORS.append(f"Passo 8: visual não carregado em {rel}")
+        if not re.search(r'<body[^>]*class="[^"]*s360-harmonized', source):
+            ERRORS.append(f"Passo 8: {rel} não adota o design system")
+    for rel in ("infantil.html", "planejamento.html", "governanca.html",
+                "integracao.html", "funcionarios.html"):
+        source = (ROOT / "admin" / rel).read_text(encoding="utf-8")
+        for token in ('class="s360-quick-nav"', 'href="./minha-area.html"',
+                      'href="../painel.html"'):
+            if token not in source:
+                ERRORS.append(f"Passo 8: navegação não padronizada em admin/{rel}")
+    for rel in ("index.html", "painel.html", "admin/minha-area.html"):
+        source = (ROOT / rel).read_text(encoding="utf-8")
+        if "stagio360-logo-oficial.svg" not in source:
+            ERRORS.append(f"Passo 8: marca aprovada ausente de {rel}")
+
+
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
@@ -325,6 +363,7 @@ check_stage_access_step4()
 check_navigation_step5()
 check_permissions_step6()
 check_contextual_step7()
+check_visual_step8()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
