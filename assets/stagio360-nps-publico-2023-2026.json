@@ -1,5 +1,5 @@
 {
-  "purpose": "Dados agregados já presentes no portal institucional Stagio 360, sem identificadores individuais; NÃO são notas individuais de professores.",
+  "purpose": "Dados agregados já presentes no portal institucional Stagio 360, sem identificadores individuais; NÃO são notas individuais de professores. Snapshot 2026 corrigido por reconciliação dos Typeform brutos: ausências NPS excluídas e 2 formulários válidos FII recuperados.",
   "updated": "2026-11-09",
   "rows": [
     {
@@ -151,8 +151,8 @@
       "stage": "fundamental2",
       "audience": "alunos",
       "population": "fii_6a8",
-      "n": 94,
-      "nps": 22.34,
+      "n": 96,
+      "nps": 21.88,
       "comparable": null
     },
     {
@@ -188,7 +188,7 @@
       "audience": "alunos",
       "population": "alunos_escola",
       "n": 172,
-      "nps": 13.37,
+      "nps": 14.53,
       "comparable": null
     },
     {
@@ -206,7 +206,7 @@
       "audience": "misto",
       "population": "escola_familias_e_alunos",
       "n": 408,
-      "nps": 40.2,
+      "nps": 40.69,
       "comparable": null
     },
     {
@@ -214,8 +214,8 @@
       "stage": "medio",
       "audience": "alunos",
       "population": "medio_alunos",
-      "n": 38,
-      "nps": 10.53,
+      "n": 36,
+      "nps": 16.67,
       "comparable": null
     },
     {
