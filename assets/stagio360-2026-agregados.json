@@ -1,0 +1,173 @@
+{
+  "year": 2026,
+  "module": "M1",
+  "basis": "Pesquisa institucional 2026; NPS_COMPARATIVO da planilha Arquitetura do Sistema; relatórios executivos EFAF e Educação Infantil; NPS por público, não misturar com outras métricas de avaliação docente.",
+  "groups": [
+    {
+      "id": "institucional",
+      "label": "Colégio Stagio · todos os públicos",
+      "respondents": 408,
+      "promoters": 219,
+      "passives": 134,
+      "detractors": 55,
+      "nps": 40.2
+    },
+    {
+      "id": "familias",
+      "label": "Famílias · toda a escola",
+      "respondents": 236,
+      "promoters": 159,
+      "passives": 59,
+      "detractors": 18,
+      "nps": 59.75
+    },
+    {
+      "id": "alunos",
+      "label": "Alunos · total 6º ano ao Médio",
+      "respondents": 172,
+      "promoters": 60,
+      "passives": 75,
+      "detractors": 37,
+      "nps": 13.37
+    },
+    {
+      "id": "infantil",
+      "label": "Educação Infantil · famílias",
+      "respondents": 36,
+      "promoters": 27,
+      "passives": 9,
+      "detractors": 0,
+      "nps": 75
+    },
+    {
+      "id": "fundamental1",
+      "label": "Fundamental I · famílias",
+      "respondents": 88,
+      "promoters": 65,
+      "passives": 22,
+      "detractors": 1,
+      "nps": 72.73
+    },
+    {
+      "id": "fundamental2",
+      "label": "Fundamental II · famílias",
+      "respondents": 93,
+      "promoters": 53,
+      "passives": 23,
+      "detractors": 17,
+      "nps": 38.71
+    },
+    {
+      "id": "fii6a8",
+      "label": "6º ao 8º ano · alunos",
+      "respondents": 94,
+      "promoters": 41,
+      "passives": 33,
+      "detractors": 20,
+      "nps": 22.34
+    },
+    {
+      "id": "nono",
+      "label": "9º ano · alunos",
+      "respondents": 40,
+      "promoters": 6,
+      "passives": 26,
+      "detractors": 8,
+      "nps": -5
+    },
+    {
+      "id": "medio",
+      "label": "Ensino Médio · famílias",
+      "respondents": 19,
+      "promoters": 14,
+      "passives": 5,
+      "detractors": 0,
+      "nps": 73.68
+    },
+    {
+      "id": "medio_alunos",
+      "label": "Ensino Médio · alunos",
+      "respondents": 38,
+      "promoters": 13,
+      "passives": 16,
+      "detractors": 9,
+      "nps": 10.53
+    }
+  ],
+  "ratings": {
+    "familiesAll": [
+      {
+        "label": "Interesse em vir à escola",
+        "mean": 3.63,
+        "n": 236
+      },
+      {
+        "label": "Comunicação clara",
+        "mean": 3.24,
+        "n": 236
+      },
+      {
+        "label": "Aprendizagem consistente",
+        "mean": 3.31,
+        "n": 236
+      },
+      {
+        "label": "Confiança na escola",
+        "mean": 3.58,
+        "n": 236
+      }
+    ],
+    "familiesFII": [
+      {
+        "label": "Interesse em vir à escola",
+        "mean": 3.45
+      },
+      {
+        "label": "Segurança e organização",
+        "mean": 3.43
+      },
+      {
+        "label": "Aprendizagem consistente",
+        "mean": 2.99
+      },
+      {
+        "label": "Comunicação clara",
+        "mean": 2.97
+      },
+      {
+        "label": "Coerência entre discurso e prática",
+        "mean": 3.15
+      }
+    ],
+    "familiesInfantil": [
+      {
+        "label": "Desenvolvimento pessoal",
+        "mean": 3.83,
+        "n": 42
+      },
+      {
+        "label": "Acolhimento e limites",
+        "mean": 3.83,
+        "n": 42
+      },
+      {
+        "label": "Confiança na escola",
+        "mean": 3.79,
+        "n": 42
+      },
+      {
+        "label": "Comunicação clara",
+        "mean": 3.48,
+        "n": 42
+      }
+    ]
+  },
+  "limitations": [
+    "NPS geral 2026 combina 236 famílias e 172 alunos: não comparável diretamente ao NPS histórico de famílias 2023–2025.",
+    "Os 127 cadastros de famílias vinculadas ao Fundamental I no outro painel incluem 39 vínculos multietapa; o NPS exclusivo usa 88 famílias.",
+    "No Fundamental II, 94 respostas são dos alunos 6º ao 8º ano e 40 do 9º ano; a reunião desses subgrupos totaliza 134, mas o NPS 9º é negativo.",
+    "Educação Infantil: 36 respostas de NPS; médias de perguntas podem conter N=42. Os denominadores diferem.",
+    "Ensino Médio: apenas 19 respostas de famílias; destacar a incerteza da amostra.",
+    "Nenhuma resposta aberta, nome ou registro individual deve estar no repositório público."
+  ]
+}
