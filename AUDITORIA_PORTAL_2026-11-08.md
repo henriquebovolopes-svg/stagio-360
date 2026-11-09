@@ -84,3 +84,12 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Confirmados no repositório os arquivos de todas as rotas principais, logo e configuração do cliente; os nove HTML inspecionados não tinham IDs duplicados.
 - No Supabase, perfil da coordenação atual aparece com autorização **apenas Fundamental I**. Rubricas FII e Médio seguem restritas. O administrador tem privilégio institucional previsto pela política.
 - **Verificação externa ainda pendente:** o ambiente de consulta web não conseguiu abrir os endereços do GitHub Pages e a integração GitHub disponível não retornou o estado efetivo do Pages. O workflow pode precisar de `Settings > Pages > Build and deployment > GitHub Actions` para entrar em operação. Não alegar sucesso de deploy sem execução confirmada.
+
+## 09/11/2026 — continuidade e controle de qualidade
+- Revisadas as nove páginas HTML do portal, Fundamental I e administração: nenhum `id` duplicado nos arquivos inspecionados.
+- Confirmada a existência dos arquivos usados pelas rotas internas (logotipo, CSS, scripts de configuração e páginas protegidas).
+- Correção do histórico de navegação: seções e etapas passam a ter links diretos (`#etapa/...`) com suporte ao botão Voltar do navegador.
+- Corrigida a área `admin/governanca.html` para obter as etapas concedidas em `stg_scope_access`, desabilitar opções não autorizadas na interface e manter fiscalização definitiva no RLS do Supabase. Não cria permissões automaticamente.
+- Workflow de validação e publicação configurados no GitHub, mas **execução/estado do Pages não confirmados**: o provedor conectado retorna código e commits, não lista os resultados de execução de workflows de push.
+- O repositório é público: nenhuma resposta aberta identificável, senha individual ou chave de serviço deve ser publicada.
+- Conclusão correta: navegação, código, indicadores e proteção por etapa continuam avançando; o fechamento da versão oficial depende de login real, validação do Pages e carga integral das avaliações dos demais segmentos.
