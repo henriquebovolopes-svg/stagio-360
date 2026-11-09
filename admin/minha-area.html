@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | Minha área</title>
+<style>
+:root{--deep:#061833;--navy:#06295c;--blue:#0969df;--cyan:#17bde4;--bg:#edf3fc;--ink:#142e55;--muted:#5c7292;--line:#d6e1ef}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:#0758ba}button,input{font:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.shell{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}
+aside{background:linear-gradient(180deg,#092e64,#061d43);color:white;padding:22px 15px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{border-bottom:1px solid #ffffff32;display:flex;justify-content:center;padding:13px 4px 25px}
+.brand img{width:205px;max-width:100%;height:80px;object-fit:contain}
+aside nav{display:grid;gap:8px;margin-top:23px}
+aside nav a{border-radius:10px;text-decoration:none;padding:12px 13px;color:#daeaff;font-size:13px;font-weight:760}
+aside nav a:hover,aside nav a:focus-visible{background:#165494}
+aside nav a.active{background:linear-gradient(110deg,#0c83f6,#0759ca);color:#fff}
+.side-note{border-top:1px solid #ffffff3c;color:#bcd4f0;font-size:12px;padding:15px 10px;margin-top:auto}
+.workspace{min-width:0}
+.hero{background:linear-gradient(112deg,#082857,#0751a1 54%,#087fca);color:white;padding:33px clamp(20px,3.5vw,56px);border-bottom:4px solid var(--cyan)}
+.hero .kicker{font-size:11px;font-weight:850;letter-spacing:.15em;color:#bfeeff}
+.hero h1{font-size:clamp(27px,3.2vw,37px);letter-spacing:-.04em;line-height:1.18;margin:9px 0 8px}
+.hero p{margin:0;color:#daebff;font-size:14px}
+main{max-width:1180px;margin:auto;padding:27px 27px 75px}
+.eyebrow{font-size:11px;color:#086ad8;letter-spacing:.13em;font-weight:850;text-transform:uppercase}
+h2{font-size:21px;letter-spacing:-.018em;margin:4px 0 7px}
+h3{font-size:16px;margin:0 0 7px}
+p{margin:8px 0 13px}
+.muted{font-size:13px;color:var(--muted)}
+.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:24px;margin-bottom:18px;box-shadow:0 7px 24px #122b4c08}
+.auth{max-width:515px;margin:35px auto}
+.field{display:grid;gap:5px;margin-top:13px}
+.field label{font-weight:750;font-size:12px}
+.field input{padding:12px 13px;border:1px solid #b7cae3;border-radius:9px;width:100%;background:#fff;color:var(--ink)}
+.primary{border:0;border-radius:9px;padding:11px 16px;background:#0763cf;color:#fff;text-decoration:none;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:44px}
+.primary:hover{background:#0553af}
+.secondary{border:1px solid #b7d0ed;border-radius:9px;background:white;color:#12529b;padding:10px 15px;text-decoration:none;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;min-height:44px}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.chip{border-radius:30px;background:#e8f4fd;color:#075aad;font-size:11px;font-weight:850;padding:5px 11px;display:inline-block}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.stage-card{border:1px solid #cfdff2;border-radius:13px;background:#fbfdff;padding:19px;min-width:0}
+.stage-card small{font-size:11px;color:#547b9f;font-weight:850;letter-spacing:.07em}
+.stage-card h3{margin:7px 0;color:#0b417e;font-size:20px}
+.stage-card p{font-size:12px;color:#60799c;min-height:41px}
+.linkline{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.linkline a{text-decoration:none;padding:9px 12px;border:1px solid #bdd6f3;border-radius:9px;font-size:12px;font-weight:770;background:#eff7ff;color:#0758ac}
+.linkline a:first-child{background:#0868d8;border-color:#0868d8;color:white}
+.linkline a:hover{text-decoration:underline}
+.shortcut-card{background:#f5f9ff;border:1px solid #d8e5f4;border-radius:12px;padding:18px;margin:12px 0}
+.shortcut-card strong{display:block;margin-bottom:6px;color:#12457f}
+.shortcut-card .muted{margin:3px 0}
+.status{font-size:13px;color:#963d37;min-height:19px}
+.hint{border-left:3px solid #099fd6;padding:12px 15px;background:#eef7ff;color:#42688b;font-size:12px;margin:18px 0}
+footer{color:#7489a5;font-size:11px;padding:12px 0}
+@media(max-width:950px){.shell{grid-template-columns:1fr}aside{height:auto;position:static;padding:13px 20px;flex-direction:row;justify-content:space-between;align-items:center}.brand{border:0;padding:0}.brand img{height:52px;width:150px}aside nav{display:flex;margin:0}.side-note{display:none}}
+@media(max-width:650px){main{padding:20px 14px 55px}.cards{grid-template-columns:1fr}.panel{padding:18px}.hero{padding:26px 18px}aside{align-items:flex-start;flex-wrap:wrap;gap:6px}aside nav a{padding:8px 9px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside>
+<a class="brand" href="../" aria-label="Voltar ao Stagio 360"><img src="../assets/stagio360-logo-oficial.svg" alt="STAGIO 360"></a>
+<nav aria-label="Navegação">
+<a class="active" href="./minha-area.html" aria-current="page">Minha área</a>
+<a href="../painel.html">Visão geral</a>
+</nav>
+<div class="side-note">Acesso contextual por perfil<br>Dados individuais protegidos por Supabase e RLS</div>
+</aside>
+<div class="workspace">
+<header class="hero">
+<div class="kicker">STAGIO 360 · ÁREA AUTENTICADA</div>
+<h1>Minha área</h1>
+<p>Seus acessos institucionais, organizados pela etapa e pela função que você exerce.</p>
+</header>
+<main>
+<section id="loading" class="panel auth" role="status"><h2>Verificando sua conta</h2><p class="muted">Consultando o vínculo ativo e as permissões no servidor.</p></section>
+<section id="signin" class="panel auth" hidden>
+<div class="eyebrow">Acesso individual</div><h2>Entrar no Stagio 360</h2><p class="muted">Use a mesma conta já autorizada. Não há cadastro aberto nem acesso por senha compartilhada.</p>
+<form id="login-form">
+<div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="username" required></div>
+<div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" required></div>
+<p><button id="login-button" type="submit" class="primary">Acessar minha área</button></p><p class="status" id="login-status" role="status"></p>
+</form><p class="muted"><a href="./reset.html">Redefinir senha</a></p>
+</section>
+<section id="denied" class="panel auth" hidden>
+<h2>Não há um perfil habilitado</h2><p id="denied-reason" class="muted">Sua conta não possui autorização ativa.</p>
+<div class="linkline"><a href="../painel.html">Ver indicadores públicos</a><button id="switch-account" class="secondary" type="button">Trocar de conta</button></div>
+</section>
+<section id="dashboard" hidden>
+<div class="panel">
+<div class="actions">
+<div><span class="eyebrow">SESSÃO INSTITUCIONAL</span><h2 id="welcome">Acessos autorizados</h2><p class="muted" id="profile-description">—</p></div>
+<div><span class="chip" id="profile-role">—</span> <button id="logout" class="secondary" type="button">Sair</button></div>
+</div>
+</div>
+<section class="panel" aria-labelledby="stages-heading">
+<div class="eyebrow">ETAPAS AUTORIZADAS</div><h2 id="stages-heading">Sua navegação pedagógica</h2>
+<p class="muted" id="stage-summary">Os links abaixo correspondem exclusivamente às etapas autorizadas para esta conta.</p>
+<div class="cards" id="stage-cards"></div>
+</section>
+<section class="panel" id="institutional-section" aria-labelledby="institutional-heading" hidden>
+<div class="eyebrow">GESTÃO INSTITUCIONAL</div><h2 id="institutional-heading">Ferramentas da direção e administração</h2>
+<div class="cards" id="institutional-cards"></div>
+</section>
+<div class="hint">Esta página organiza os caminhos disponíveis. A autorização efetiva é verificada novamente no banco de dados sempre que um módulo protegido é aberto. O painel público não mostra respostas individuais.</div>
+</section>
+<footer>STAGIO 360 · Colégio Stagio · Acesso por perfil, sem divulgação de dados pessoais</footer>
+</main>
+</div></div>
+<script src="./config.js"></script>
+<script type="module">
+const $=id=>document.getElementById(id);
+const cfg=window.STAGIO_AUTH||{};
+const STAGES={
+ infantil:{title:'Educação Infantil',short:'EI',description:'Indicadores internos de 2026 e acompanhamento de planejamento; avaliações docentes individuais ainda não homologadas.',links:[
+  ['Abrir a etapa','./segmento.html?etapa=infantil'],['Indicadores EI','./infantil.html'],['Planejamentos','./planejamento.html#infantil']]},
+ fundamental1:{title:'Fundamental I',short:'FI',description:'Perfis docentes, pesquisas por turma, avaliações da coordenação, PDIs e planejamento.',links:[
+  ['Abrir a etapa','./segmento.html?etapa=fundamental1'],['Professores e pesquisas','./index.html?tab=teachers'],['PDIs','./pdi.html'],['Planejamentos','./planejamento.html#fundamental1']]},
+ fundamental2:{title:'Fundamental II',short:'FII',description:'Rubricas agregadas da coordenação M1/2026 e planejamento; resultados individuais ainda não homologados.',links:[
+  ['Abrir a etapa','./segmento.html?etapa=fundamental2'],['Rubricas da etapa','./governanca.html?etapa=fundamental2'],['Planejamentos','./planejamento.html#fundamental2']]},
+ medio:{title:'Ensino Médio',short:'EM',description:'Rubricas agregadas da coordenação M1/2026 e planejamento; resultados individuais ainda não homologados.',links:[
+  ['Abrir a etapa','./segmento.html?etapa=medio'],['Rubricas da etapa','./governanca.html?etapa=medio'],['Planejamentos','./planejamento.html#medio']]}
+};
+const ROLE_NAMES={admin:'Administração',master:'Direção Master',coordenacao:'Coordenação'};
+let client=null;
+function screen(name){for(const id of ['loading','signin','denied','dashboard'])$(id).hidden=id!==name}
+function setText(id,value){$(id).textContent=String(value)}
+function linkNode(label,href){const node=document.createElement('a');node.href=href;node.textContent=label;return node}
+function buildCard(title,description,links,short){
+ const card=document.createElement('article');card.className='stage-card';
+ const tag=document.createElement('small');tag.textContent=short||'ACESSO AUTORIZADO';
+ const h=document.createElement('h3');h.textContent=title;
+ const p=document.createElement('p');p.textContent=description;
+ const actions=document.createElement('div');actions.className='linkline';
+ for(const [label,href] of links)actions.append(linkNode(label,href));
+ card.append(tag,h,p,actions);return card
+}
+function deny(reason){setText('denied-reason',reason);screen('denied')}
+async function display(user){
+ const memberResponse=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();
+ if(memberResponse.error)throw new Error('Não foi possível consultar o cadastro institucional.');
+ const member=memberResponse.data;
+ if(!member?.active||!Object.hasOwn(ROLE_NAMES,member.role)){
+  deny('Não há vínculo institucional ativo para esta conta. Solicite a conferência das permissões à administração.');return;
+ }
+ const privileged=member.role==='admin'||member.role==='master';
+ let stages;
+ if(privileged){stages=Object.keys(STAGES)}
+ else{
+  const response=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
+  if(response.error)throw new Error('Não foi possível conferir as etapas autorizadas.');
+  stages=[...new Set((response.data||[]).map(item=>item.stage))].filter(stage=>Object.hasOwn(STAGES,stage));
+ }
+ if(!stages.length){deny('Seu perfil está ativo, mas ainda não possui uma etapa de ensino autorizada.');return}
+ setText('welcome','Área de '+member.display_name);
+ setText('profile-role',ROLE_NAMES[member.role]);
+ setText('profile-description',privileged?'Visão da direção e administração: todas as etapas, com ferramentas institucionais protegidas.':'Coordenação: acesso somente às etapas associadas à sua conta.');
+ setText('stage-summary',privileged?'Você pode escolher a etapa para analisar os dados disponíveis.':'Estas são as únicas etapas habilitadas para seu perfil.');
+ $('stage-cards').replaceChildren();
+ for(const stage of stages){
+  const item=STAGES[stage];
+  $('stage-cards').append(buildCard(item.title,item.description,item.links,item.short+' · Acesso autorizado'));
+ }
+ const institutional=$('institutional-section');
+ institutional.hidden=!privileged;
+ $('institutional-cards').replaceChildren();
+ if(privileged){
+  $('institutional-cards').append(buildCard('Integração 360','Fontes, abrangência, vínculos docentes e validação institucional.',[['Abrir integração','./integracao.html']], 'GOVERNANÇA'));
+  $('institutional-cards').append(buildCard('Gestão dos planejamentos','Acompanhe os registros e as devolutivas de todas as etapas.',[['Abrir planejamento','./planejamento.html']], 'PLANEJAMENTO'));
+  const staff=await client.from('stg_staff_survey_cycles').select('cycle_year',{count:'exact',head:true}).eq('cycle_year',2026);
+  if(!staff.error&&(staff.count||0)>0){
+   $('institutional-cards').append(buildCard('Escuta dos funcionários','Pesquisa institucional confidencial. Acesso validado por autorização específica, além do perfil de direção.',[['Abrir pesquisa interna','./funcionarios.html']], 'ESCUTA RESTRITA'));
+  }
+ }
+ screen('dashboard');
+}
+async function init(){
+ if(!cfg.url||!cfg.publishableKey){deny('A configuração de autenticação ainda não está disponível.');return}
+ try{
+  const lib=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+  client=lib.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  const {data,error}=await client.auth.getUser();
+  if(error||!data.user){screen('signin');return}
+  await display(data.user);
+ }catch(err){deny('Não foi possível validar o acesso. Verifique sua conexão e tente novamente.')}
+}
+$('login-form').addEventListener('submit',async event=>{
+ event.preventDefault();if(!client)return;
+ const button=$('login-button');button.disabled=true;
+ setText('login-status','Validando credenciais…');
+ try{
+  const response=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  if(response.error)throw response.error;
+  $('password').value='';setText('login-status','');
+  await display(response.data.user);
+ }catch(err){setText('login-status','Não foi possível autenticar ou autorizar esta conta. Confira suas credenciais.')}
+ finally{button.disabled=false}
+});
+async function logout(){if(client)await client.auth.signOut({scope:'local'});$('stage-cards').replaceChildren();$('institutional-cards').replaceChildren();screen('signin')}
+$('logout').addEventListener('click',logout);
+$('switch-account').addEventListener('click',logout);
+init();
+</script>
+</body></html>
