@@ -42,7 +42,7 @@ async function authorize(user){
 const {data,error}=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();
 if(error||!data||!data.active){screen('denied');return}
 member=data;
-$('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Direção/Administração':'Coordenação');
+$('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Administração Geral':data.role==='master'?'Direção Master':'Coordenação');
 const select=$('stage');
 for(const option of select.options) option.disabled=false;
 if(data.role!=='admin'){
