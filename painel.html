@@ -30,17 +30,64 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10p
 .bar{background:#e9f0f8;border-radius:50px;height:10px;overflow:hidden;margin:6px 0 13px}.fill{height:100%;background:#0873d5;border-radius:50px}
 footer{max-width:1170px;margin:0 auto;padding:18px 24px 40px;font-size:12px;color:var(--muted)}
 @media(max-width:760px){.toolbar,.columns,.cards{grid-template-columns:1fr}.head{padding-bottom:36px}.kpi strong{font-size:30px}main{padding:24px 14px 40px}.card{padding:16px}.toolbar{margin-top:-15px}.head{padding-inline:16px}table{display:block;overflow-x:auto}th,td{min-width:105px}}
+
+/* Identidade visual oficial da página inicial STAGIO 360 — mesma base da captura. */
+.shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
+aside{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#092e64,#061d43);border-right:1px solid #19538d;color:white;display:flex;flex-direction:column;padding:21px 13px}
+.sidebar-brand{display:flex;justify-content:center;align-items:center;border-bottom:1px solid #ffffff32;padding:17px 7px 25px;margin-bottom:18px}
+.sidebar-brand img{width:205px;max-width:100%;height:75px;object-fit:contain}
+nav{display:grid;gap:7px}nav button,nav a{display:flex;align-items:center;gap:12px;width:100%;color:#e5f0ff;text-align:left;background:none;text-decoration:none;border:1px solid transparent;padding:12px 15px;border-radius:11px;font-size:13px;font-weight:750}
+nav button:hover,nav a:hover{background:#164b88}nav button.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a94e5;color:#fff;box-shadow:0 7px 18px #00162a66}
+.navicon{width:24px;text-align:center;color:#7de5ff;font-size:17px}
+.aside-foot{margin-top:auto;border-top:1px solid #ffffff38;padding:17px 12px 4px;font-size:12px;color:#c2d6f0}.aside-foot strong{display:block;color:white;font-size:14px}
+.workspace{min-width:0}.hero{position:relative;overflow:hidden;min-height:215px;background:linear-gradient(112deg,#082857 0%,#0751a1 54%,#087fca 100%);padding:31px clamp(20px,3.2vw,55px);color:white;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.hero:after{content:"";position:absolute;right:-6%;top:-175px;width:64%;height:480px;border:2px solid #ffffff30;border-radius:50%;transform:rotate(-15deg);pointer-events:none}
+.hero-content{position:relative;z-index:1}.kicker{font-size:11px;letter-spacing:.19em;font-weight:850;text-transform:uppercase;color:#bcefff}.hero-logo{display:block;width:320px;max-width:73vw;height:110px;object-fit:contain;object-position:left center;margin:-10px 0 -4px}.hero p{margin:0;color:#d5ecff;font-size:14px}.hero-label{color:#ceefff;font-size:12px;margin:7px 0 0;letter-spacing:.04em}
+.year-control{z-index:1;position:relative;display:flex;align-items:center;gap:12px;border:1px solid #ffffff4a;border-radius:12px;padding:11px 16px;background:#ffffff18;font-weight:700;font-size:13px}
+.year-control select{background:#ffffff;color:#17365f;border:0;border-radius:7px;padding:7px 10px;font-weight:800}
+main{padding:22px clamp(18px,2.7vw,43px) 65px;max-width:1660px;margin:auto}
+.hero-logo{width:320px;height:110px}.hero .hero-content{min-width:0}
+.hero .year-control{margin-left:auto}.hero .year-control select{min-width:135px}
+.workspace main{max-width:1660px;margin:0 auto;padding:22px clamp(18px,2.7vw,43px) 65px}
+.crumb{display:flex;align-items:center;justify-content:space-between;gap:15px;color:#4c709c;font-size:12px;margin:0 0 22px;flex-wrap:wrap}
+.crumb strong{color:#124683}
+.toolbar{margin:0 0 20px;grid-template-columns:repeat(2,minmax(180px,1fr));position:static}
+.cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+.kpi{border-radius:15px;padding:20px}
+.kpi strong{font-size:clamp(28px,3vw,40px);color:#0753b0}
+.kpi:nth-child(2){background:#effcf6}.kpi:nth-child(2) strong{color:#087746}
+.kpi:nth-child(3){background:#fff8ef}.kpi:nth-child(3) strong{color:#bc6322}
+.shell .card{border-radius:16px}
+.shell .columns{grid-template-columns:1.25fr 1fr}
+.shell .textlink{background:#eef6ff}
+nav a.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a94e5;color:#fff;box-shadow:0 7px 18px #00162a66}
+.site-main-title{font-size:30px;font-weight:850;letter-spacing:-.04em;margin:3px 0 9px}
+.site-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+.admin-private{opacity:.88}
+@media(max-width:1160px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.shell .columns{grid-template-columns:1fr}}
+@media(max-width:800px){.shell{grid-template-columns:1fr}aside{height:auto;position:relative;padding:12px}.sidebar-brand{padding:6px 4px 12px;margin-bottom:7px}.sidebar-brand img{height:55px}nav{display:flex;overflow-x:auto;gap:4px;padding-bottom:8px}nav a{width:auto;white-space:nowrap;padding:10px 12px}.aside-foot{display:none}.hero{min-height:190px;flex-wrap:wrap;gap:6px;padding:22px 18px}.hero-logo{height:88px;width:245px}.hero .year-control{margin-left:0}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:510px){.cards,.toolbar{grid-template-columns:1fr}.hero{min-height:auto}.hero-logo{height:80px}.hero .year-control{width:100%;justify-content:space-between}.workspace main{padding:20px 13px 45px}}
 </style></head>
-<body><header><div class="head"><div><img class="logo" src="./assets/stagio360-logo-oficial.svg" alt="Logotipo Stagio 360"><div class="eyebrow">Colégio Stagio · Avaliação institucional</div><h1>Indicadores gerais da escola</h1><p>Uma leitura acessível por etapa, ano e ciclo da Avaliação 360. Resultados agregados, sem identificação individual de estudantes, famílias ou profissionais.</p></div></div></header>
-<main>
-<section class="toolbar" aria-label="Filtros"><div class="filter"><label for="etapa">Etapa de ensino</label><select id="etapa"><option value="institutional">Visão geral da escola</option><option value="infantil">Educação Infantil</option><option value="fundamental1">Fundamental I</option><option value="fundamental2">Fundamental II</option><option value="medio">Ensino Médio</option><option value="administrativo">Administrativo e funcionários</option></select></div>
-<div class="filter"><label for="ano">Ano de referência</label><select id="ano"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></div>
+<body><div class="shell"><aside><a class="sidebar-brand" href="./painel.html" aria-label="STAGIO 360 — início"><img src="./assets/stagio360-logo-oficial.svg" alt="STAGIO 360"></a>
+<nav aria-label="Navegação institucional">
+<a class="active" href="#inicio"><span class="navicon">◫</span>Visão geral</a>
+<a href="#avaliacao"><span class="navicon">◎</span>Avaliação 360</a>
+<a href="#historico"><span class="navicon">▤</span>Séries históricas</a>
+<a href="#segmentos"><span class="navicon">▣</span>Etapas e ciclos</a>
+<a class="admin-private" href="./admin/governanca.html"><span class="navicon">♙</span>Gestão restrita</a>
+<a class="admin-private" href="./admin/integracao.html"><span class="navicon">◫</span>Governança administrativa</a>
+</nav><div class="aside-foot"><strong>Inteligência pedagógica</strong>Gestão por evidências · Colégio Stagio<br>Plataforma institucional 2026</div></aside>
+<div class="workspace"><header class="hero"><div class="hero-content"><div class="kicker">PLATAFORMA INSTITUCIONAL</div><img class="hero-logo" src="./assets/stagio360-logo-oficial.svg" alt="STAGIO 360 — logotipo oficial"><p>Governança, avaliação e desenvolvimento institucional</p><div class="hero-label">Colégio Stagio · Educação Infantil ao Ensino Médio</div></div>
+<label class="year-control"><span>ANO DE REFERÊNCIA</span><select id="ano" aria-label="Ano de referência"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></label></header>
+<main id="inicio"><div class="crumb"><div>STAGIO 360 / <strong>Visão geral</strong></div><span>2026 · Indicadores disponíveis</span></div><div class="eyebrow" style="color:#086add">GESTÃO E GOVERNANÇA ESCOLAR</div><h1 class="site-main-title">Visão executiva</h1><p class="site-sub">Painel de consulta geral da Avaliação 360 por etapa, público, ano e ciclo. Dados agregados, com histórico e limites de comparação preservados.</p>
+<section class="toolbar" id="segmentos" aria-label="Filtros"><div class="filter"><label for="etapa">Etapa de ensino</label><select id="etapa"><option value="institutional">Visão geral da escola</option><option value="infantil">Educação Infantil</option><option value="fundamental1">Fundamental I</option><option value="fundamental2">Fundamental II</option><option value="medio">Ensino Médio</option><option value="administrativo">Administrativo e funcionários</option></select></div>
+
 <div class="filter"><label for="ciclo">Ciclo da Avaliação 360</label><select id="ciclo"><option value="M1">M1 · Primeiro módulo</option><option value="M2">M2 · Segundo módulo</option><option value="M3">M3 · Terceiro módulo</option></select></div></section>
-<section class="cards" aria-live="polite"><div class="card kpi"><small>Período consultado</small><strong id="per">2026 · M1</strong><p id="per-sub">Indicadores atualmente disponíveis</p></div><div class="card kpi"><small>NPS · famílias</small><strong id="nps-fam">—</strong><p id="nps-fam-sub">Conforme população da pesquisa</p></div><div class="card kpi"><small>NPS · alunos</small><strong id="nps-alu">—</strong><p id="nps-alu-sub">Quando disponível para o recorte</p></div></section>
+<section class="cards" id="avaliacao" aria-live="polite"><div class="card kpi"><small>Período consultado</small><strong id="per">2026 · M1</strong><p id="per-sub">Indicadores atualmente disponíveis</p></div><div class="card kpi"><small>NPS · famílias</small><strong id="nps-fam">—</strong><p id="nps-fam-sub">Conforme população da pesquisa</p></div><div class="card kpi"><small>NPS · alunos</small><strong id="nps-alu">—</strong><p id="nps-alu-sub">Quando disponível para o recorte</p></div><div class="card kpi"><small>NPS das famílias · Fundamental I</small><strong id="nps-fi">+72,73</strong><p>2026 · 88 respostas no recorte exclusivo</p></div></section>
 <div class="columns"><section class="card"><h2 id="recorte-titulo">Resultados por público</h2><p class="muted" id="recorte-info">Selecione uma etapa para consultar o recorte.</p><div id="loading" class="muted" role="status">Carregando dados agregados…</div><div id="empty" hidden class="empty"></div><div id="results" hidden><table><thead><tr><th>Público / Recorte</th><th>Respondentes</th><th>NPS</th></tr></thead><tbody id="rows"></tbody></table></div><p class="info" id="scope-note">Cada indicador mantém seu público e denominador próprios. NPS não é a nota de desempenho individual dos professores.</p></section>
-<section class="card"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Acesso de gestão</h3><p class="muted">Informações individuais, PDI, avaliações nominais, respostas abertas e homologações exigem login e autorização específica.</p><div class="links"><a class="textlink" href="./admin/governanca.html">Acesso restrito da equipe</a></div></section></div>
+<section class="card" id="historico"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Acesso de gestão</h3><p class="muted">Informações individuais, PDI, avaliações nominais, respostas abertas e homologações exigem login e autorização específica.</p><div class="links"><a class="textlink" href="./admin/governanca.html">Acesso restrito da equipe</a></div></section></div>
 <section class="card" style="margin-top:16px"><h2>O que está disponível nesta versão?</h2><p>Os resultados gerais de satisfação e as séries históricas podem ser consultados neste endereço, sem login. Dados individualizados e respostas sensíveis não são publicados aqui.</p><p class="muted">M1 é o único ciclo da Avaliação 360 com bases parciais importadas em 2026. M2 e M3 permanecem sem importação validada. Para 2023–2025, o histórico disponível é principalmente o NPS de famílias, e não uma avaliação 360 por ciclo.</p><p class="muted">A área administrativa possui pesquisa de funcionários e avaliações docentes. Por serem informações internas, elas não são expostas neste painel compartilhável.</p></section>
-</main><footer>STAGIO 360 · Painel de consulta geral · Dados agregados · Referência 2026 · Atualização por publicação revisada</footer>
+</main><footer>STAGIO 360 · Painel de consulta geral · Dados agregados · Referência 2026 · Atualização por publicação revisada</footer></div></div>
 <script>
 (async function(){
 'use strict';
