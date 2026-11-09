@@ -45,7 +45,7 @@ footer{font-size:11px;color:#7086a4;margin-top:28px}
 <section class="card auth" id="signin" hidden><h2>Acesso da direção</h2><p class="muted">Entre com uma conta de administração ou Direção Master.</p><form id="login"><label for="email">E-mail</label><input id="email" autocomplete="username" type="email" required><label for="password">Senha</label><input id="password" autocomplete="current-password" type="password" required><div class="actions"><button type="submit" class="btn">Entrar</button><a href="./reset.html">Esqueci minha senha</a></div><p id="login-message" class="muted" role="status"></p></form></section>
 <section class="card auth" id="denied" hidden><h2>Acesso não autorizado</h2><p id="error-reason">Este módulo contém respostas individuais e requer autorização institucional.</p><button type="button" class="btn secondary" id="switch-account">Trocar de conta</button></section>
 <section id="dashboard" hidden>
-<div class="notice warn"><strong>Critério de contagem:</strong> formulários são diferentes de itens respondidos. Nota NPS ausente não é zero. Famílias com filhos em mais de uma etapa permanecem em um único formulário; a atribuição exclusiva a uma etapa requer regra institucional explícita. Respostas de alunos não são atribuídas automaticamente a professores.</div>
+<div class="notice warn"><strong>Critério de contagem:</strong> formulários são diferentes de itens respondidos. Nota NPS ausente não é zero. Famílias com filhos em mais de uma etapa permanecem em um único formulário; a atribuição exclusiva a uma etapa requer regra institucional explícita. Os blocos docentes foram mapeados pela configuração do Typeform, mas seus códigos não estão homologados como identidades canônicas do Stagio 360.</div>
 <div class="card">
 <div class="actions" style="justify-content:space-between"><strong>Leitura da base bruta conciliada</strong><button type="button" id="logout" class="btn secondary">Sair</button></div>
 <div class="kpis"><div class="kpi"><span>Formulários captados</span><strong id="forms-total">—</strong><small>Inclui envios sem NPS</small></div>
@@ -56,17 +56,17 @@ footer{font-size:11px;color:#7086a4;margin-top:28px}
 <div class="card"><h2>Reconciliação por fonte</h2><div class="tablewrap"><table><thead><tr><th>Fonte</th><th>Formulários</th><th>Itens</th><th>NPS válido</th><th>Sem NPS</th><th>Resultado NPS</th></tr></thead><tbody id="coverage"></tbody></table></div></div>
 <div class="card"><h2>Explorar respostas preservadas</h2><p class="muted">As respostas qualitativas são abertas individualmente. As turmas e os segmentos constam como declarados no formulário; vínculos profissionais não foram inferidos.</p>
 <div class="filters"><label for="cohort">Fonte<select id="cohort"><option value="all">Todas as fontes</option><option value="fii_6a8">Fundamental II · 6º–8º</option><option value="fii_9ano">Fundamental II · 9º</option><option value="em">Ensino Médio</option><option value="families">Famílias multietapa</option></select></label>
-<label for="kind">Tipo de resposta<select id="kind"><option value="all">Todos</option><option value="open_text">Respostas abertas</option><option value="rating_1to5">Escala 1–5</option><option value="nps">NPS 0–10</option><option value="choice">Outras escolhas</option></select></label>
+<label for="kind">Tipo de resposta<select id="kind"><option value="all">Todos</option><option value="open_text">Respostas abertas</option><option value="rating_1to5">Escala numérica 1–5</option><option value="rating_categorical">Escala categórica</option><option value="nps">NPS 0–10</option><option value="choice">Outras escolhas</option></select></label>
 <label for="search">Pergunta (buscar)<input id="search" type="search" placeholder="Ex.: comunicação, professor"></label>
-<label for="cohort-class">Turma ou segmento<input id="cohort-class" type="search" placeholder="Ex.: 9º A, Médio, Infantil"></label>
-</div><p id="results-count" class="muted" role="status"></p><div class="tablewrap"><table><thead><tr><th>Origem</th><th>Registro</th><th>Turma/segmento</th><th>Pergunta</th><th>Resposta</th></tr></thead><tbody id="items"></tbody></table></div><div class="actions"><button type="button" id="more" class="btn secondary" hidden>Mostrar mais</button></div>
+<label for="cohort-class">Turma ou segmento<input id="cohort-class" type="search" placeholder="Ex.: 9º A, Médio, Infantil"></label><label for="teacher">Docente na fonte<input id="teacher" type="search" placeholder="Nome ou código de origem"></label>
+</div><p id="results-count" class="muted" role="status"></p><div class="tablewrap"><table><thead><tr><th>Origem</th><th>Registro</th><th>Turma/segmento</th><th>Docente na fonte</th><th>Pergunta</th><th>Resposta</th></tr></thead><tbody id="items"></tbody></table></div><div class="actions"><button type="button" id="more" class="btn secondary" hidden>Mostrar mais</button></div>
 </div>
 </section><footer>STAGIO 360 · Área protegida com RLS · M1/2026 · Dados de menores e famílias sujeitos a sigilo</footer>
 </main><script src="./config.js"></script>
 <script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/+esm';
 const $=id=>document.getElementById(id),cfg=window.STAGIO_AUTH||{},labels={fii_6a8:'Fundamental II · 6º–8º',fii_9ano:'Fundamental II · 9º',em:'Ensino Médio',families:'Famílias · multietapa'};
-let client=null,forms=[],flat=[],visible=[],limit=70;
+let client=null,forms=[],blocks=[],flat=[],visible=[],limit=70;
 function screen(active){for(const id of ['loading','signin','denied','dashboard'])$(id).hidden=id!==active}
 function textNode(tag,value){const t=document.createElement(tag);t.textContent=String(value??'');return t}
 function td(value){return textNode('td',value)}
@@ -86,7 +86,8 @@ function groupRows(){
 function flatten(){
  flat=[];
  for(const f of forms)for(const a of f.answers||[]){
-  flat.push({cohort:f.cohort,source:f.source_key,context:f.cohort==='families'?(f.declared_segments||'Não declarado'):(f.class_or_series||'Não declarado'),question:a.question||'',kind:a.kind||'',value:a.value||'',column:a.column});
+  const block=blocks.find(b=>b.cohort===f.cohort&&a.column>=b.first_source_column&&a.column<=b.last_source_column);
+  flat.push({cohort:f.cohort,source:f.source_key,context:f.cohort==='families'?(f.declared_segments||'Não declarado'):(f.class_or_series||'Não declarado'),teacher:block?(block.teacher_source_label+' · '+block.source_teacher_id):'Não se aplica',question:a.question||'',kind:a.kind||'',value:a.value||'',column:a.column});
  }
  $('forms-total').textContent=forms.length.toLocaleString('pt-BR');
  $('items-total').textContent=flat.length.toLocaleString('pt-BR');
@@ -95,12 +96,12 @@ function flatten(){
  groupRows();limit=70;render();
 }
 function render(){
- const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR');
- visible=flat.filter(x=>(cohort==='all'||x.cohort===cohort)&&(kind==='all'||x.kind===kind)&&(!q||x.question.toLocaleLowerCase('pt-BR').includes(q))&&(!cls||x.context.toLocaleLowerCase('pt-BR').includes(cls)));
+ const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR'),teacher=$('teacher').value.trim().toLocaleLowerCase('pt-BR');
+ visible=flat.filter(x=>(cohort==='all'||x.cohort===cohort)&&(kind==='all'||x.kind===kind)&&(!q||x.question.toLocaleLowerCase('pt-BR').includes(q))&&(!cls||x.context.toLocaleLowerCase('pt-BR').includes(cls))&&(!teacher||x.teacher.toLocaleLowerCase('pt-BR').includes(teacher)));
  $('results-count').textContent=visible.length.toLocaleString('pt-BR')+' resposta(s) selecionada(s). Exibindo no máximo '+Math.min(limit,visible.length).toLocaleString('pt-BR')+'.';
  const body=$('items');body.replaceChildren();
  for(const x of visible.slice(0,limit)){
-  const tr=document.createElement('tr'),first=document.createElement('td');first.append(textNode('strong',labels[x.cohort]||x.cohort));tr.append(first,td(x.source.replace(/^.*_r/,'Linha ')),td(x.context),td(x.question));
+  const tr=document.createElement('tr'),first=document.createElement('td');first.append(textNode('strong',labels[x.cohort]||x.cohort));tr.append(first,td(x.source.replace(/^.*_r/,'Linha ')),td(x.context),td(x.teacher),td(x.question));
   const result=document.createElement('td');
   if(x.kind==='open_text'||x.value.length>110){
    const details=document.createElement('details'),summary=textNode('summary','Abrir resposta confidencial'),v=textNode('div',x.value);v.className='response';details.append(summary,v);result.append(details);
@@ -123,6 +124,9 @@ async function boot(){
    const {data,error}=await client.from('stg_360_survey_forms').select('source_key,cohort,stage,audience,class_or_series,declared_segments,nps_value,answers,answers_count').eq('school_year',2026).eq('cohort',cohort).order('source_row').limit(400);
    if(error)throw error;forms.push(...(data||[]));
   }
+  const {data:blockData,error:blockError}=await client.from('stg_360_survey_teacher_blocks').select('cohort,first_source_column,last_source_column,source_teacher_id,teacher_source_label').limit(100);
+  if(blockError)throw blockError;blocks=blockData||[];
+  if(blocks.length!==38){$('error-reason').textContent='Mapa de blocos docentes incompleto ('+blocks.length+'/38).';screen('denied');return}
   if(forms.length!==423){$('error-reason').textContent='Importação incompleta: '+forms.length+' de 423 formulários. Solicite revisão do banco.';screen('denied');return}
   flatten();
   if(flat.length!==19016){$('error-reason').textContent='Reconciliação de itens inconsistente: '+flat.length+' de 19.016.';screen('denied');return}
@@ -134,9 +138,9 @@ $('login').addEventListener('submit',async event=>{
  try{if(!client)client=createClient(cfg.url,cfg.publishableKey);const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';$('login-message').textContent='';await boot()}
  catch(e){$('login-message').textContent='Falha no acesso. Confira seu e-mail e sua senha.'}
 });
-async function logout(){forms=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
+async function logout(){forms=[];blocks=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
 $('logout').addEventListener('click',logout);$('switch-account').addEventListener('click',logout);
-for(const id of ['cohort','kind','search','cohort-class'])$(id).addEventListener(id==='cohort'||id==='kind'?'change':'input',()=>{limit=70;render()});
+for(const id of ['cohort','kind','search','cohort-class','teacher'])$(id).addEventListener(id==='cohort'||id==='kind'?'change':'input',()=>{limit=70;render()});
 $('more').addEventListener('click',()=>{limit+=70;render()});
 boot();
 </script></body></html>
