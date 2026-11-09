@@ -1,0 +1,196 @@
+{
+  "description": "NPS: série institucional do comparativo 2023–2025 e planilhas originais 2024/2025; valores consolidados, sem dados individuais",
+  "years": [
+    2023,
+    2024,
+    2025
+  ],
+  "segments": [
+    {
+      "id": "total",
+      "label": "Colégio Stagio",
+      "points": [
+        {
+          "year": 2023,
+          "eligible": 644,
+          "respondents": 308,
+          "promoters": 194,
+          "passives": 68,
+          "detractors": 46,
+          "nps": 48.1,
+          "participation": 47.8
+        },
+        {
+          "year": 2024,
+          "eligible": 619,
+          "respondents": 240,
+          "promoters": 160,
+          "passives": 51,
+          "detractors": 29,
+          "nps": 54.6,
+          "participation": 38.8
+        },
+        {
+          "year": 2025,
+          "eligible": 615,
+          "respondents": 258,
+          "promoters": 182,
+          "passives": 56,
+          "detractors": 20,
+          "nps": 62.8,
+          "participation": 42
+        }
+      ]
+    },
+    {
+      "id": "infantil",
+      "label": "Infantil e 1º ano",
+      "points": [
+        {
+          "year": 2023,
+          "eligible": 120,
+          "respondents": 63,
+          "promoters": 42,
+          "passives": 14,
+          "detractors": 7,
+          "nps": 55.6,
+          "participation": 52.5
+        },
+        {
+          "year": 2024,
+          "eligible": 98,
+          "respondents": 71,
+          "promoters": 49,
+          "passives": 13,
+          "detractors": 9,
+          "nps": 56.3,
+          "participation": 72.4
+        },
+        {
+          "year": 2025,
+          "eligible": 132,
+          "respondents": 56,
+          "promoters": 46,
+          "passives": 10,
+          "detractors": 0,
+          "nps": 82.1,
+          "participation": 42.4
+        }
+      ]
+    },
+    {
+      "id": "fundamental1",
+      "label": "Fundamental I",
+      "points": [
+        {
+          "year": 2023,
+          "eligible": 234,
+          "respondents": 110,
+          "promoters": 68,
+          "passives": 21,
+          "detractors": 21,
+          "nps": 42.7,
+          "participation": 47
+        },
+        {
+          "year": 2024,
+          "eligible": 247,
+          "respondents": 78,
+          "promoters": 45,
+          "passives": 21,
+          "detractors": 12,
+          "nps": 42.3,
+          "participation": 31.6
+        },
+        {
+          "year": 2025,
+          "eligible": 217,
+          "respondents": 106,
+          "promoters": 76,
+          "passives": 19,
+          "detractors": 11,
+          "nps": 61.3,
+          "participation": 48.8
+        }
+      ]
+    },
+    {
+      "id": "fundamental2",
+      "label": "Fundamental II",
+      "points": [
+        {
+          "year": 2023,
+          "eligible": 267,
+          "respondents": 126,
+          "promoters": 67,
+          "passives": 36,
+          "detractors": 23,
+          "nps": 34.9,
+          "participation": 47.2
+        },
+        {
+          "year": 2024,
+          "eligible": 246,
+          "respondents": 94,
+          "promoters": 63,
+          "passives": 19,
+          "detractors": 12,
+          "nps": 54.3,
+          "participation": 38.2
+        },
+        {
+          "year": 2025,
+          "eligible": 260,
+          "respondents": 113,
+          "promoters": 74,
+          "passives": 27,
+          "detractors": 12,
+          "nps": 54.9,
+          "participation": 43.5
+        }
+      ]
+    },
+    {
+      "id": "medio",
+      "label": "Ensino Médio",
+      "points": [
+        {
+          "year": 2023,
+          "eligible": 126,
+          "respondents": 55,
+          "promoters": 43,
+          "passives": 7,
+          "detractors": 5,
+          "nps": 69.1,
+          "participation": 43.7
+        },
+        {
+          "year": 2024,
+          "eligible": 112,
+          "respondents": 32,
+          "promoters": 22,
+          "passives": 10,
+          "detractors": 0,
+          "nps": 68.8,
+          "participation": 28.6
+        },
+        {
+          "year": 2025,
+          "eligible": 90,
+          "respondents": 28,
+          "promoters": 19,
+          "passives": 7,
+          "detractors": 2,
+          "nps": 60.7,
+          "participation": 31.1
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "2023 é uma série histórica consolidada e arredondada na planilha fonte; NPS é calculado aqui pelas contagens de promotores e detratores, garantindo consistência aritmética.",
+    "2025: a linha do Fundamental I no comparativo 23–25 traz o rótulo EFAI - 2024, embora os números componham o ciclo de 2025. Identificação por posição e conciliação de totais; conferir rótulo na origem.",
+    "Os universos de etapas podem conter classificações sobrepostas entre ciclos/anos escolares: não somar denominadores segmentados como se fossem disjuntos.",
+    "Dados históricos NPS de famílias não devem ser confundidos com Avaliação 360 pedagógica de alunos e professores em 2026."
+  ]
+}
