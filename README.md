@@ -8,13 +8,15 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - `/` — governança, NPS institucional, históricos 2023–2025 e navegação por segmento.
 - `/fundamental-1/` — protótipo validado da Avaliação 360 2026 (2º–5º ano), preservado.
 - `/admin/` — área administrativa autenticada, com dados individuais protegidos por Supabase e RLS.
-- `/assets/stagio360-historico.json` — indicadores agregados calculados por segmento para 2023–2025.
+- `/assets/stagio360-historico.json` — indicadores históricos de satisfação calculados por segmento, 2023–2025.
+- `/assets/stagio360-2026-agregados.json` — NPS 2026 de famílias e alunos por etapa, com denominadores e critérios objetivos.
+- `/admin/governanca.html` — rubricas agregadas de docentes do Fundamental II e Ensino Médio, autenticadas por etapa no Supabase.
 - `AUDITORIA_PORTAL_2026-11-08.md` — trilha de verificação, problemas encontrados, correções e pendências.
 
 ## Situação de homologação
-**Entregue no repositório:** portal, navegação, indicadores históricos agregados, séries gráficas por segmento, Fund. I, acesso segmentado por etapa no Supabase.
+**Entregue no repositório:** portal, navegação, NPS agregados de 2023–2026 (distinguidos por público), gráficos por segmento, Fundamental I, rubricas agregadas da coordenação 2026 em rota autenticada e escopo de acesso por etapa no Supabase.
 
-**Ainda pendente:** importação e homologação da Avaliação 360 pedagógica 2026 do Fundamental II, Médio e Infantil; criação de contas reais para Giovanna e Márcia; teste ponta a ponta em navegador real e confirmação do GitHub Pages. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
+**Ainda pendente:** importação integral das avaliações individuais 360 de alunos, famílias, professores e coordenadores do Fundamental II, Médio e Infantil; contas reais de Giovanna e Márcia; testes ponta a ponta de cada perfil e confirmação visual do GitHub Pages. Os NPS agregados de 2026 e os quatro eixos de rubrica docente exclusivos por etapa já foram incorporados. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
 
 **Privacidade:** não publicar resultados individuais, nomes de estudantes, respostas abertas, planilhas originais com identificadores ou senhas no repositório público.
 
