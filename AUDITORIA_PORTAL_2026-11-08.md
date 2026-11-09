@@ -75,3 +75,12 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Interface revisada para substituir etiquetas “fontes em validação” incorretas nas etapas cujo NPS 2026 já está publicado.
 - Revisão estática do código, integridade de JSON e existência dos arquivos GitHub. Ainda falta teste E2E do ambiente publicado, inclusive de sessões reais de cada perfil.
 - **Status correto: entrega de portal funcional em código, com relatórios NPS e rubricas agregadas; plataforma de avaliação individual 360 multietapa ainda NÃO integralmente homologada.** Não divulgar o portal como pronto para acesso a informações individuais de todas as etapas.
+
+## Continuação 09/11/2026 — roteamento, CI e publicação
+- Ajustado o portal para URLs diretas `#etapa/infantil`, `#etapa/fundamental2`, `#etapa/medio`, com suporte a voltar/avançar no navegador.
+- Adicionado `scripts/audit_site.py` para detectar referências internas inexistentes, IDs HTML duplicados, padrões de segredos, NPS inconsistentes e ausência do logo oficial.
+- Adicionado `.github/workflows/audit.yml` para executar auditoria e validação de sintaxe JavaScript a cada push/PR em `main`.
+- Adicionado `.github/workflows/deploy-pages.yml` para validar e publicar o portal via GitHub Pages.
+- Confirmados no repositório os arquivos de todas as rotas principais, logo e configuração do cliente; os nove HTML inspecionados não tinham IDs duplicados.
+- No Supabase, perfil da coordenação atual aparece com autorização **apenas Fundamental I**. Rubricas FII e Médio seguem restritas. O administrador tem privilégio institucional previsto pela política.
+- **Verificação externa ainda pendente:** o ambiente de consulta web não conseguiu abrir os endereços do GitHub Pages e a integração GitHub disponível não retornou o estado efetivo do Pages. O workflow pode precisar de `Settings > Pages > Build and deployment > GitHub Actions` para entrar em operação. Não alegar sucesso de deploy sem execução confirmada.
