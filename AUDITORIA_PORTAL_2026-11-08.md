@@ -46,3 +46,32 @@ Fórmula: NPS = 100 × (promotores − detratores) / respondentes. Validação a
 4. Configurar gestão de mudanças e revisão a cada janela de avaliação (março, junho, novembro).
 
 Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter a plataforma integralmente pronta ainda depende das fontes 2026 e do provisionamento de acessos.
+
+## Ampliação após a primeira auditoria — dados de 2026
+- Fonte principal: planilha particular **Arquitetura do Sistema** e relatórios executivos de famílias, EFAF e Infantil. Dados pessoais e transcrições integrais **não** foram enviados ao repositório público.
+- NPS institucional 2026: 408 respostas = 236 famílias + 172 alunos; 219 promotores, 134 neutros, 55 detratores => **+40,20**.
+- Famílias 2026: 236; 159 promotores, 59 neutros, 18 detratores => **+59,75**.
+- Alunos 2026: 172; 60 promotores, 75 neutros, 37 detratores => **+13,37**.
+- Educação Infantil (famílias) 36 respostas, NPS **+75,00**; médias de itens com até 42 respostas, não confundir denominadores.
+- Fundamental I (famílias no recorte NPS) 88 respostas, NPS **+72,73**; são diferentes dos 127 registros de famílias do painel FI.
+- Fundamental II (famílias) 93 respostas, NPS **+38,71**; 6º–8º (alunos) 94 respostas, NPS **+22,34**; 9º (alunos) 40, NPS **−5,00**.
+- Ensino Médio (famílias) 19 respostas, NPS **+73,68**; alunos 38 respostas, NPS **+10,53**. A amostra familiar é pequena.
+- Há um registro de família marcado como FII mas com série “Infantil II”, registrado como pendência de categorização na própria fonte.
+- Arquivo agregado publicado: `assets/stagio360-2026-agregados.json`; painéis por etapa populados com contagens e médias NPS de 2026. Os recortes do NPS incluem populações diferentes dos registros individuais históricos e do banco de FI.
+- A série histórica 2023–2025 é principalmente familiar. **O NPS geral 2026 mistura famílias e alunos**, portanto não deve ser calculada variação anual direta com o NPS histórico geral.
+
+## Dados docentes exclusivos, autenticação e escopo
+- Projeto Supabase: stagio-360; todas as tabelas de dados de avaliação com RLS habilitada.
+- Migração `stagio360_stage_scoped_access_20261108` cria matriz de autorização de etapas para coordenações, preserva acesso atual da coordenação de FI e permite à administração acesso geral.
+- Migração `stagio360_stage_rubric_secure_20261108` cria `public.stg_stage_rubric_aggregates` com **somente médias agregadas dos quatro eixos** da coordenação e políticas SELECT por etapa no servidor.
+- FII: Planejamento 3,900 (30 respostas), Condução 3,852 (27), Cultura 4,333 (27), Formação 4,222 (27). Registro apenas de profissionais exclusivamente classificados FII.
+- EM: Planejamento 3,889 (9), Condução 2,778 (9), Cultura 3,778 (9), Formação 4,111 (9). Registro apenas de profissionais exclusivamente classificados EM.
+- Profissionais com atuação simultânea em FII e EM foram excluídos dos grupos exclusivos para evitar duplicação de média; sem inferência para subgrupos com identificação.
+- `/admin/governanca.html` é nova página autenticada com consulta RLS; senha não aparece em código. `/admin/` original FI preservado.
+- Giovanna e Márcia ainda necessitam **identidades individuais verificadas e convites/credenciais pessoais** antes de receber acesso. NÃO atribuir permissões por nome textual sem vinculação a autenticação real.
+- Auditor Supabase segurança: aviso de "Leaked Password Protection Disabled" exige ativação na configuração de Auth. Documentação: https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection.
+
+## Auditoria pós-expansão
+- Interface revisada para substituir etiquetas “fontes em validação” incorretas nas etapas cujo NPS 2026 já está publicado.
+- Revisão estática do código, integridade de JSON e existência dos arquivos GitHub. Ainda falta teste E2E do ambiente publicado, inclusive de sessões reais de cada perfil.
+- **Status correto: entrega de portal funcional em código, com relatórios NPS e rubricas agregadas; plataforma de avaliação individual 360 multietapa ainda NÃO integralmente homologada.** Não divulgar o portal como pronto para acesso a informações individuais de todas as etapas.
