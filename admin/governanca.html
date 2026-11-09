@@ -55,6 +55,10 @@ if(!['admin','master'].includes(data.role)){
  const granted=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
  if(granted.error){screen('denied');return}
  const allowed=new Set((granted.data||[]).map(x=>x.stage));
+ if(allowed.has('fundamental1') && !allowed.has('fundamental2') && !allowed.has('medio')){
+   window.location.replace('./index.html');
+   return;
+ }
  for(const option of select.options) option.disabled=!allowed.has(option.value);
  const available=[...select.options].find(o=>!o.disabled);
  if(!available){screen('denied');return}
