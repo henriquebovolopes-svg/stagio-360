@@ -108,3 +108,6 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - Direção/master encontra em `/admin/integracao.html` uma fila de 13 registros de docentes ainda sem correspondência no cadastro M1. Pode informar nome completo, situação, referência documental e salvar a conferência, com atribuição de usuário.
 - Esses 13 registros são identificadores de origem por etapa, não equivalem necessariamente a 13 pessoas únicas. Nenhum foi unido automaticamente a avaliações ou a outro registro de planejamento.
 - Novos campos são armazenados em `stg_360_teacher_registry_pending` sob RLS de direção/admin. Confirmação do nome **não** promove automaticamente a identidade global nem homologa a relação com avaliação.
+
+### Promoção canônica protegida
+A página `admin/integracao.html` permite, depois de conferir nome completo e origem documental, promover o registro a identidade canônica independente. A operação auditável é executada por função Supabase para `master/admin`, sem herdar notas M1 e sem inventar correspondência com cadastro antigo; a coluna “Vínculo 360” em `admin/planejamento.html` informa o estado de homologação. Nenhum registro real foi promovido antes da conferência.
