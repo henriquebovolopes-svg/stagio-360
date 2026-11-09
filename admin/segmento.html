@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>STAGIO 360 | Área da coordenação</title>
+<style>
+:root{--navy:#062147;--deep:#061833;--blue:#0969df;--cyan:#17bde4;--bg:#edf3fc;--ink:#142e55;--muted:#5c7292;--line:#d6e1ef}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:#075cb6}button,input{font:inherit}button{cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #15bceb;outline-offset:3px}
+.top{background:linear-gradient(112deg,#082857,#0751a1 54%,#087fca);color:#fff;min-height:185px;display:flex;align-items:center;gap:35px;justify-content:space-between;padding:23px max(20px,calc((100% - 1180px)/2))}
+.top img{width:275px;max-width:100%;height:90px;object-fit:contain;object-position:left}
+.top .kicker{font-size:11px;font-weight:850;letter-spacing:.14em;color:#c8f3ff;text-transform:uppercase}
+.top p{margin:4px 0 0;font-size:13px;color:#d4ebff}
+.top a{color:#fff;font-weight:750;text-decoration:none}
+main{max-width:1180px;margin:auto;padding:22px 20px 72px}
+.breadcrumb{font-size:12px;color:#607696;margin-bottom:20px}
+.breadcrumb a{text-decoration:none}
+h1{font-size:clamp(25px,3vw,34px);letter-spacing:-.035em;margin:6px 0}
+h2{font-size:19px;margin:0 0 10px}
+p{margin:7px 0 12px}.muted{color:var(--muted);font-size:13px}
+.eyebrow{font-size:11px;font-weight:850;color:#0969df;letter-spacing:.13em;text-transform:uppercase}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:23px;margin-top:16px;box-shadow:0 5px 16px #142d540a}
+.card[hidden],section[hidden]{display:none!important}
+button.primary,.button-link{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;background:#075fc9;color:#fff;text-decoration:none;font-weight:800;padding:11px 17px;min-height:44px}
+button.secondary,.text-link{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b7d2f0;border-radius:9px;background:#f2f8ff;color:#0752a3;text-decoration:none;font-weight:750;padding:10px 14px}
+.row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:17px}
+.kpi{border-radius:14px;background:#fff;border:1px solid var(--line);padding:19px;min-width:0}
+.kpi span{display:block;font-size:12px;color:#597293;font-weight:750}
+.kpi strong{font-size:27px;line-height:1.35;color:#0753b0;display:block;margin:8px 0}
+.kpi small{color:#66809c;font-size:11px}
+.callout{padding:13px 16px;background:#eaf3ff;border:1px solid #c4dcfb;border-radius:12px;color:#244c80;font-size:13px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.action{border:1px solid #dae5f2;border-radius:13px;padding:18px;min-width:0}
+.action h3{font-size:16px;margin:0 0 7px}
+.action p{font-size:12px;color:var(--muted);min-height:38px}
+.action a{font-size:12px}
+.action .wait{display:inline-block;font-size:11px;font-weight:800;color:#895c26;background:#fff4e6;border-radius:20px;padding:6px 10px}
+.axis-row{display:grid;grid-template-columns:minmax(150px,1fr) minmax(100px,1.4fr) 65px;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #edf1f8;font-size:13px}
+.axis-track{background:#e7edf7;height:11px;border-radius:20px;overflow:hidden}
+.axis-fill{height:100%;background:linear-gradient(90deg,#0969df,#17bde4);border-radius:20px}
+.axis-row b{text-align:right;color:#0753b0}
+.field{margin:14px 0}
+.field label{font-size:12px;font-weight:800;color:#31557d;display:block;margin-bottom:6px}
+.field input{border:1px solid #b9cce5;padding:12px 13px;border-radius:9px;width:100%;max-width:420px;background:#fff;color:var(--ink)}
+.status{min-height:19px;color:#8a3d31;font-size:13px}
+.profile{color:#dff4ff;font-size:12px}
+footer{padding:20px;text-align:center;color:#7187a2;font-size:11px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top{padding:18px 20px}.actions{grid-template-columns:1fr}}
+@media(max-width:580px){.top{display:block}.top img{width:210px;height:75px}.grid{grid-template-columns:1fr}.axis-row{grid-template-columns:1fr 1.2fr 48px;gap:6px}.card{padding:17px}.top .profile{margin-top:15px}}
+</style>
+</head>
+<body>
+<header class="top"><div><div class="kicker">PLATAFORMA INSTITUCIONAL · ACESSO AUTENTICADO</div><img src="../assets/stagio360-logo-oficial.svg" alt="STAGIO 360"><p>Gestão por evidências · Acesso contextual por etapa de ensino</p></div><div class="profile"><div id="logged-as">Coordenação e direção</div><a href="../index.html#segmentos">Voltar à Avaliação 360</a></div></header>
+<main>
+<div class="breadcrumb"><a href="../index.html#segmentos">Stagio 360</a> / Avaliação 360 / <strong id="crumb-stage">Etapa selecionada</strong></div>
+<div class="eyebrow">ÁREA RESTRITA DA COORDENAÇÃO</div><h1 id="page-title">Área do segmento</h1>
+<p class="muted">Dados individuais protegidos por login e autorização. Os conteúdos abaixo correspondem exclusivamente às bases disponíveis e homologadas para esta etapa.</p>
+<section id="loading" class="card" role="status"><h2>Verificando acesso</h2><p>Conferindo sua sessão e as permissões do segmento no Supabase.</p></section>
+<section id="signin" class="card" hidden><h2>Entrar na área da coordenação</h2><p class="muted">Utilize sua conta do Stagio 360. A autorização é conferida para a etapa selecionada.</p>
+<form id="login-form"><div class="field"><label for="email">E-mail</label><input type="email" id="email" autocomplete="username" required></div><div class="field"><label for="password">Senha</label><input type="password" id="password" autocomplete="current-password" required></div><button class="primary" type="submit">Acessar meu segmento</button><p class="status" id="login-status" role="status"></p></form><p><a href="./reset.html">Esqueci minha senha</a></p></section>
+<section id="denied" class="card" hidden><h2>Acesso não autorizado para este segmento</h2><p id="denied-reason" class="muted">Sua conta não possui autorização ativa para consultar esta etapa.</p><p><a class="text-link" href="../index.html#segmentos">Voltar à Avaliação 360</a></p><button class="secondary" id="switch-account" type="button">Entrar com outra conta</button></section>
+<section id="app" hidden>
+<div class="row"><div class="callout" id="permission-info">Acesso validado por etapa. Os registros individuais não são publicados na página geral.</div><button id="logout" class="secondary" type="button">Sair</button></div>
+<div class="grid">
+ <div class="kpi"><span>Etapa autorizada</span><strong id="metric-stage">—</strong><small>Conforme seu perfil institucional</small></div>
+ <div class="kpi"><span>Base disponível</span><strong id="metric-source">—</strong><small id="metric-source-detail">Módulo M1 / 2026</small></div>
+ <div class="kpi"><span>Documentação individual</span><strong id="metric-individual">—</strong><small id="metric-individual-detail">Somente dados comprovadamente disponíveis</small></div>
+</div>
+<div class="card"><h2>Indicadores da etapa</h2><p class="muted" id="indicator-note">Carregando dados institucionais autorizados…</p><div id="indicators"></div></div>
+<div class="card"><h2>Acessos da coordenação</h2><p class="muted">Os botões abaixo levam aos módulos protegidos existentes. Nenhum conteúdo individual é liberado sem o controle de acesso correspondente.</p>
+ <div class="actions" id="actions"></div>
+</div>
+<div class="card"><h2>Disponibilidade dos registros</h2><p class="muted" id="availability-note">Esta área informa os limites da base do segmento, sem atribuir pesquisas a profissionais sem vínculo validado.</p>
+ <a class="text-link" href="../index.html#segmentos">Consultar visão geral e histórico</a></div>
+</section>
+</main><footer>STAGIO 360 · Ambiente autenticado · Dados sensíveis não são publicados no painel público</footer>
+<script src="./config.js"></script>
+<script type="module">
+const $=id=>document.getElementById(id);
+const params=new URLSearchParams(location.search);
+const requested=params.get('etapa');
+const stages={
+ infantil:{label:'Educação Infantil',abbr:'Infantil',kind:'infantil'},
+ fundamental1:{label:'Fundamental I',abbr:'Fund. I',kind:'fi'},
+ fundamental2:{label:'Fundamental II',abbr:'Fund. II',kind:'rubric'},
+ medio:{label:'Ensino Médio',abbr:'Ens. Médio',kind:'rubric'}
+};
+const scope=Object.hasOwn(stages,requested)?requested:null;
+const cfg=window.STAGIO_AUTH||{};
+let client=null;
+function show(id){for(const k of ['loading','signin','denied','app'])$(k).hidden=k!==id}
+function notice(id,text){$(id).textContent=text}
+function addAction(title,description,href,label){
+ const card=document.createElement('div');card.className='action';
+ const h=document.createElement('h3');h.textContent=title;
+ const p=document.createElement('p');p.textContent=description;
+ const action=document.createElement(href?'a':'span');action.textContent=href?label:'Aguardando base homologada';
+ if(href){action.className='text-link';action.href=href}else action.className='wait';
+ card.append(h,p,action);$('actions').append(card)
+}
+function addBar(label,value,n){
+ const row=document.createElement('div');row.className='axis-row';
+ const name=document.createElement('span');name.textContent=label;
+ const track=document.createElement('div');track.className='axis-track';
+ const fill=document.createElement('div');fill.className='axis-fill';fill.style.width=Math.max(0,Math.min(100,Number(value)/5*100))+'%';track.append(fill);
+ const number=document.createElement('b');number.textContent=Number(value).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+ row.append(name,track,number);$('indicators').append(row)
+}
+async function requireStage(user){
+ const m=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();
+ if(m.error)throw new Error('Falha ao consultar o perfil autorizado.');
+ if(!m.data?.active){notice('denied-reason','Sua conta não possui vínculo ativo no Stagio 360.');show('denied');return}
+ if(!['admin','master'].includes(m.data.role)){
+  const access=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
+  if(access.error)throw new Error('Falha ao consultar as permissões por etapa.');
+  if(!(access.data||[]).some(x=>x.stage===scope)){
+   notice('denied-reason','Seu perfil está ativo, mas não possui autorização para '+stages[scope].label+'. Consulte a administração para revisão do vínculo.');
+   show('denied');return
+  }
+ }
+ notice('logged-as',m.data.display_name+' · '+(m.data.role==='coordenacao'?'Coordenação':m.data.role==='admin'?'Administração':'Direção'));
+ notice('metric-stage',stages[scope].abbr);
+ notice('permission-info','Acesso validado: '+stages[scope].label+'. Registros de outros segmentos não são apresentados.');
+ await load();
+}
+async function load(){
+ $('actions').replaceChildren();$('indicators').replaceChildren();
+ const stage=stages[scope];
+ if(stage.kind==='fi'){
+  const [teachers,pdis]=await Promise.all([
+   client.from('stg_teachers').select('id',{count:'exact',head:true}),
+   client.from('stg_pdi_plans').select('id',{count:'exact',head:true})
+  ]);
+  if(teachers.error||pdis.error)throw new Error('Não foi possível consultar o acervo individual do Fundamental I.');
+  notice('metric-source',(teachers.count??0)+' registros');
+  notice('metric-source-detail','Cadastro de profissionais no acervo do Fundamental I');
+  notice('metric-individual',(pdis.count??0)+' PDI');
+  notice('metric-individual-detail','Planos registrados; alguns podem estar em elaboração');
+  notice('indicator-note','O acervo do Fundamental I oferece perfis docentes, avaliações, comentários das pesquisas e relatórios por turma, mediante login.');
+  notice('indicators','As leituras detalhadas estão organizadas nos módulos abaixo. Use o painel docente para consultar os resultados por profissional.');
+  addAction('Professores e avaliações','Perfis docentes, autoavaliação e avaliação da coordenação, com as evidências vinculadas.','./index.html?tab=teachers','Abrir perfis docentes');
+  addAction('Respostas escritas na íntegra','Busca de textos disponíveis de professores, alunos e famílias, conforme os vínculos comprovados.','./index.html?tab=search','Consultar respostas abertas');
+  addAction('Alunos e famílias','Leituras por turma, comparações e respostas individuais disponíveis no acervo.','./index.html?tab=students','Abrir pesquisas por turma');
+  addAction('PDI e acompanhamento','Planos individuais do módulo M1, incluindo documentos em rascunho, sem tratá-los como concluídos.','./pdi.html','Consultar PDIs');
+  notice('availability-note','Fundamental I: acervo individual em uso. As atribuições professor/turma e os vínculos de respostas devem respeitar a homologação existente. A visão pública continua exclusivamente agregada.');
+ }else if(stage.kind==='infantil'){
+  const result=await client.from('stg_infantil_indicators').select('label,mean_score,response_count').eq('cycle_year',2026).order('mean_score',{ascending:false});
+  if(result.error)throw new Error('Não foi possível consultar os indicadores da Educação Infantil.');
+  const rows=result.data||[];
+  notice('metric-source',rows.length+' indicadores');
+  notice('metric-source-detail','Escuta institucional · 2026');
+  notice('metric-individual','Não disponível');
+  notice('metric-individual-detail','Pesquisas nominais docentes não vinculadas nesta base');
+  notice('indicator-note',rows.length?'Indicadores de 2026 na escala da pesquisa original. Não correspondem a uma avaliação individual docente.':'Não há indicadores homologados para esta consulta.');
+  rows.slice(0,10).forEach(x=>addBar(x.label,x.mean_score,x.response_count));
+  addAction('Painel da Educação Infantil','Indicadores internos da etapa e leitura institucional da pesquisa.','./infantil.html','Consultar painel da etapa');
+  addAction('Planejamento pedagógico','Acompanhamento do planejamento docente da Educação Infantil, conforme permissão.','./planejamento.html#infantil','Consultar planejamento');
+  addAction('Pesquisas individuais','Ainda não existe conjunto de registros individuais vinculados à etapa e homologados para exibição.',null,null);
+  addAction('PDIs docentes','Não há PDI individual validado para esta etapa na base atual.',null,null);
+  notice('availability-note','Educação Infantil: os indicadores internos e o planejamento estão disponíveis. Não apresentar como nominal o que foi coletado de forma agregada ou anônima.');
+ }else{
+  const result=await client.from('stg_stage_rubric_aggregates').select('axis,mean_score,answer_count,teacher_count').eq('stage',scope).eq('cycle_year',2026).eq('module','M1').order('axis');
+  if(result.error)throw new Error('Não foi possível consultar a rubrica da etapa.');
+  const rows=result.data||[];
+  notice('metric-source',rows.length+' eixos');
+  notice('metric-source-detail','Rubrica de coordenação · M1/2026');
+  notice('metric-individual','Não importado');
+  notice('metric-individual-detail','Atribuições individuais ainda não homologadas');
+  notice('indicator-note',rows.length?'Resultados agregados de coordenação da etapa. São médias da rubrica; não atribuem respostas a professores específicos.':'Sem dados de rubrica para esta etapa e módulo.');
+  rows.forEach(x=>addBar(x.axis,x.mean_score,x.answer_count));
+  addAction('Rubrica da coordenação','Indicadores protegidos por etapa e dimensão.','./governanca.html?etapa='+encodeURIComponent(scope),'Abrir análise da rubrica');
+  addAction('Pesquisas individuais','Sem importação validada de respostas individuais vinculadas a professores nesta etapa.',null,null);
+  addAction('Textos integrais','Sem textos individuais homologados para exibição nesta etapa. Não reutilizamos indevidamente textos de outro segmento.',null,null);
+  addAction('PDI por professor','Sem vinculação docente e PDI individual homologado para esta etapa.',null,null);
+  notice('availability-note',stage.label+': a rubrica agregada do M1 pode ser consultada. Os nomes, textos completos e PDIs somente serão apresentados após integração e homologação das respectivas fontes.');
+ }
+ show('app')
+}
+async function enter(){
+ if(!scope){notice('denied-reason','Etapa inválida ou não informada. Selecione uma etapa na página inicial.');show('denied');return}
+ if(!cfg.url||!cfg.publishableKey){notice('loading','Serviço de autenticação ainda não configurado.');return}
+ try{
+  const module=await import('https://esm.sh/@supabase/supabase-js@2.95.0');
+  client=module.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  const result=await client.auth.getUser();
+  if(result.error||!result.data?.user){show('signin');return}
+  await requireStage(result.data.user)
+ }catch(err){notice('denied-reason','Erro ao verificar autorização: '+err.message);show('denied')}
+}
+$('login-form').addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(!client)return;
+ notice('login-status','Verificando acesso…');
+ const result=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ if(result.error){notice('login-status','Não foi possível autenticar: '+result.error.message);return}
+ $('password').value='';notice('login-status','');
+ try{await requireStage(result.data.user)}catch(err){notice('denied-reason',err.message);show('denied')}
+});
+$('logout').addEventListener('click',async()=>{if(client)await client.auth.signOut({scope:'local'});show('signin')});
+$('switch-account').addEventListener('click',async()=>{if(client)await client.auth.signOut({scope:'local'});show('signin')});
+if(scope){$('page-title').textContent='Coordenação · '+stages[scope].label;$('crumb-stage').textContent=stages[scope].label}
+enter();
+</script>
+</body></html>
