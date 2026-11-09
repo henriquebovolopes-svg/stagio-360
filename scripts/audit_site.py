@@ -63,6 +63,32 @@ def verify_html(path):
     if not re.search("stagio360-logo-oficial.svg", code):
         WARNINGS.append(f"{path.relative_to(ROOT)}: não usa o logotipo oficial")
 
+def check_navigation_step3():
+    """Mantém o menu principal enxuto e preserva o caminho protegido por etapa."""
+    expected = [
+        ('#inicio', 'Governança'),
+        ('#segmentos', 'Avaliação 360'),
+        ('./admin/planejamento.html', 'Planejamento docente'),
+        ('./admin/funcionarios.html', 'Funcionários · privado'),
+        ('./admin/integracao.html', 'Painel Administrativo')
+    ]
+    for rel in ("index.html", "painel.html"):
+        html = (ROOT / rel).read_text(encoding="utf-8")
+        nav_match = re.search(r'<nav aria-label="Navegação institucional">([\\s\\S]*?)</nav>', html)
+        if not nav_match:
+            ERRORS.append(f"{rel}: menu institucional ausente")
+            continue
+        nav = nav_match.group(1)
+        entries = re.findall(r'<a\\s+[^>]*href="([^"]+)"[^>]*>([\\s\\S]*?)</a>', nav)
+        actual = [(href, re.sub(r'<[^>]+>', '', label).strip().lstrip('◫◎▥♧').strip()) for href, label in entries]
+        if actual != expected:
+            ERRORS.append(f"{rel}: barra lateral não possui exatamente os cinco acessos principais")
+        if "Gestão restrita" in nav or "Educação Infantil · restrito" in nav or "Acessos complementares" in nav:
+            ERRORS.append(f"{rel}: barra lateral contém itens redundantes")
+        for token in ('id="historico"', 'id="fontes"', 'id="stage-access-link"', "updateContextualAccess(stage)", "fundamental1:{href:'./admin/index.html'", "infantil:{href:'./admin/infantil.html'"):
+            if token not in html:
+                ERRORS.append(f"{rel}: destino preservado da etapa ou histórico ausente ({token})")
+
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
     path = ROOT / "painel.html"
@@ -171,6 +197,7 @@ for path in (ROOT/"assets/stagio360-historico.json", ROOT/"assets/stagio360-2026
 check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
 check_integration_routes()
 check_shared_dashboard()
+check_navigation_step3()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
