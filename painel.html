@@ -81,6 +81,16 @@ nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg
 .stage-access .textlink{white-space:nowrap;background:#e7f2ff;flex-shrink:0}
 .stage-access .textlink[hidden]{display:none!important}
 @media(max-width:760px){.stage-access{display:block}.stage-access .textlink{margin-top:12px}}
+
+/* Passo 5: navegação interna da Avaliação 360 — sem expor registros restritos. */
+.eval-path{margin:14px 0 12px;padding:6px;border:1px solid #cbdcf3;background:#e5effc;border-radius:15px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.eval-path a{min-width:0;display:flex;flex-direction:column;justify-content:center;min-height:59px;padding:9px 12px;border-radius:11px;text-decoration:none;color:#174d87;font-size:13px;font-weight:850;background:#f8fbff;border:1px solid transparent}
+.eval-path a:hover,.eval-path a:focus-visible{background:white;border-color:#88b8eb}
+.eval-path a:first-child{border-color:#b2d2f3;background:white}
+.eval-path small{font-size:10px;font-weight:650;color:#6180a5;margin-top:2px}
+.eval-path a.needs-stage{background:#f4f6fa;color:#6d7e96}
+.eval-path a.needs-stage small{color:#7a8798}
+@media(max-width:760px){.eval-path{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style></head>
 <body><div class="shell"><aside><a class="sidebar-brand" href="./painel.html" aria-label="STAGIO Academy — início"><img src="./assets/stagio-academy-logo.svg" alt="STAGIO Academy — Ensinar, aprender e transformar"></a>
 <nav aria-label="Navegação institucional">
@@ -96,9 +106,15 @@ nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg
 <section class="toolbar" id="segmentos" aria-label="Filtros"><div class="filter"><label for="etapa">Etapa de ensino</label><select id="etapa"><option value="institutional">Visão geral da escola</option><option value="infantil">Educação Infantil</option><option value="fundamental1">Fundamental I</option><option value="fundamental2">Fundamental II</option><option value="medio">Ensino Médio</option><option value="administrativo">Administrativo e funcionários</option></select></div>
 
 <div class="filter"><label for="ciclo">Ciclo da Avaliação 360</label><select id="ciclo"><option value="M1">M1 · Primeiro módulo</option><option value="M2">M2 · Segundo módulo</option><option value="M3">M3 · Terceiro módulo</option></select></div></section>
+<nav class="eval-path" aria-label="Seções da Avaliação 360">
+<a href="#avaliacao"><span>Visão geral</span><small>Indicadores e histórico</small></a>
+<a href="#pesquisas-agregadas"><span>Pesquisas</span><small>Resultados agregados</small></a>
+<a id="eval-professores" href="#segmentos" class="needs-stage"><span>Professores</span><small id="eval-professores-hint">Escolha uma etapa</small></a>
+<a id="eval-pdis" href="#segmentos" class="needs-stage"><span>PDIs</span><small id="eval-pdis-hint">Escolha uma etapa</small></a>
+</nav>
 <div class="stage-access" id="stage-access"><div class="stage-access-copy"><strong id="stage-access-title">Área da coordenação</strong><p id="stage-access-description">Os dados individuais e os comentários completos exigem autenticação e autorização para o segmento.</p></div><a id="stage-access-link" class="textlink" href="./admin/governanca.html">Entrar no painel protegido</a></div>
 <section class="cards" id="avaliacao" aria-live="polite"><div class="card kpi"><small>Período consultado</small><strong id="per">2026 · M1</strong><p id="per-sub">Indicadores atualmente disponíveis</p></div><div class="card kpi"><small>NPS · famílias</small><strong id="nps-fam">—</strong><p id="nps-fam-sub">Conforme população da pesquisa</p></div><div class="card kpi"><small>NPS · alunos</small><strong id="nps-alu">—</strong><p id="nps-alu-sub">Quando disponível para o recorte</p></div><div class="card kpi"><small>NPS das famílias · Fundamental I</small><strong id="nps-fi">+72,73</strong><p>2026 · 88 respostas no recorte exclusivo</p></div></section>
-<div class="columns"><section class="card"><h2 id="recorte-titulo">Resultados por público</h2><p class="muted" id="recorte-info">Selecione uma etapa para consultar o recorte.</p><div id="loading" class="muted" role="status">Carregando dados agregados…</div><div id="empty" hidden class="empty"></div><div id="results" hidden><table><thead><tr><th>Público / Recorte</th><th>Respondentes</th><th>NPS</th></tr></thead><tbody id="rows"></tbody></table></div><p class="info" id="scope-note">Cada indicador mantém seu público e denominador próprios. NPS não é a nota de desempenho individual dos professores.</p></section>
+<div class="columns"><section class="card" id="pesquisas-agregadas"><h2 id="recorte-titulo">Resultados por público</h2><p class="muted" id="recorte-info">Selecione uma etapa para consultar o recorte.</p><div id="loading" class="muted" role="status">Carregando dados agregados…</div><div id="empty" hidden class="empty"></div><div id="results" hidden><table><thead><tr><th>Público / Recorte</th><th>Respondentes</th><th>NPS</th></tr></thead><tbody id="rows"></tbody></table></div><p class="info" id="scope-note">Cada indicador mantém seu público e denominador próprios. NPS não é a nota de desempenho individual dos professores.</p></section>
 <section class="card" id="historico"><h2>Histórico institucional</h2><p class="muted" id="history-note">NPS de famílias por ano, quando comparável.</p><div id="hist"></div><div class="info" id="hist-caution">O NPS de 2026 por etapa pode ter escopo diferente do histórico. Comparações são indicativas.</div><h3 style="margin-top:20px">Consulta institucional</h3><p class="muted">O histórico apresenta indicadores agregados. Para consultas individuais, utilize o acesso da coordenação na área Avaliação 360, selecionando sua etapa de ensino.</p></section></div>
 <section class="card" id="fontes" style="margin-top:16px"><h2>O que está disponível nesta versão?</h2><p>Os resultados gerais de satisfação e as séries históricas podem ser consultados neste endereço, sem login. Dados individualizados e respostas sensíveis não são publicados aqui.</p><p class="muted">M1 é o único ciclo da Avaliação 360 com bases parciais importadas em 2026. M2 e M3 permanecem sem importação validada. Para 2023–2025, o histórico disponível é principalmente o NPS de famílias, e não uma avaliação 360 por ciclo.</p><p class="muted">A área administrativa possui pesquisa de funcionários e avaliações docentes. Por serem informações internas, elas não são expostas neste painel compartilhável.</p></section>
 </main><footer>STAGIO 360 · Painel de consulta geral · Dados agregados · Referência 2026 · Atualização por publicação revisada</footer></div></div>
@@ -140,6 +156,15 @@ function updateContextualAccess(stage){
  const link=$('stage-access-link');
  link.hidden=!entry.href;
  if(entry.href){link.href=entry.href;link.textContent=stage==='administrativo'?'Entrar na pesquisa de funcionários':'Acessar área restrita da coordenação'}
+ const eligible=['infantil','fundamental1','fundamental2','medio'].includes(stage);
+ for(const section of ['professores','pdis']){
+  const anchor=$('eval-'+section);
+  const hint=$('eval-'+section+'-hint');
+  anchor.href=eligible?'./admin/segmento.html?etapa='+encodeURIComponent(stage)+'&aba='+section:'#segmentos';
+  anchor.classList.toggle('needs-stage',!eligible);
+  hint.textContent=eligible?'Acesso autenticado':'Escolha uma etapa';
+  anchor.title=eligible?'Requer login e permissão para '+stageNames[stage]:'Selecione uma etapa de ensino para prosseguir';
+ }
 }
 function render(){
  loadFilters();
