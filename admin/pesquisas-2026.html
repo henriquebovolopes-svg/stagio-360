@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>STAGIO 360 | Pesquisas 2026 — fontes integrais</title>
+<style>
+:root{--navy:#08275c;--blue:#0966d5;--ink:#163960;--muted:#607c9d;--line:#cfdded;--soft:#f2f7ff}
+body{margin:0;background:#edf3fc;color:var(--ink);font:14px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(112deg,#082857,#0751a1 54%,#087fca);color:white;border-bottom:4px solid #18bce5;padding:17px max(18px,calc((100% - 1150px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}
+header img{width:212px;max-width:54vw;max-height:70px;object-fit:contain}header strong{font-size:12px;line-height:1.5}
+main{max-width:1180px;margin:auto;padding:26px 18px 75px}h1{font-size:clamp(25px,3vw,35px);margin:5px 0 12px;color:#123e7b}h2{margin:0 0 10px;font-size:19px;color:#104680}
+.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:850;color:#086acb}p{margin:8px 0 14px}
+.muted{font-size:12px;color:var(--muted)}.card{border:1px solid var(--line);border-radius:14px;background:white;padding:20px;margin:16px 0;box-shadow:0 6px 18px #0f39660b}
+.auth{max-width:510px;margin:38px auto}.auth label{display:block;font-weight:800;margin:14px 0 6px}.auth input{width:100%;box-sizing:border-box;border:1px solid #b8cfea;border-radius:8px;padding:11px;font:inherit}
+.btn{border:1px solid #086bd7;border-radius:9px;background:#086bd7;color:white;min-height:42px;padding:9px 14px;font:inherit;font-weight:800;cursor:pointer}
+.btn.secondary{color:#1258ad;border-color:#b8d3f0;background:white}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{background:#f2f8ff;border:1px solid #d5e5f7;border-radius:12px;padding:16px}
+.kpi span{font-size:12px;font-weight:770;color:#537ca3}.kpi strong{font-size:28px;color:#085ebc;display:block;font-variant-numeric:tabular-nums;margin:4px 0}
+.kpi small{color:#6e87a5;font-size:11px}
+.notice{border-left:4px solid #0c83c1;background:#edf7ff;border-radius:0 9px 9px 0;padding:12px 15px;font-size:12px}
+.notice.warn{border-left-color:#bf8633;background:#fff8ee}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:17px 0}
+.filters label{display:grid;gap:6px;font-size:12px;font-weight:800;color:#41638b;flex:1;min-width:150px}
+.filters select,.filters input{font:inherit;border:1px solid #b9d0ea;background:#fff;padding:9px;border-radius:9px;min-height:40px;box-sizing:border-box;max-width:100%}
+.tablewrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+table{border-collapse:collapse;width:100%;min-width:690px;font-size:12px}
+th,td{vertical-align:top;text-align:left;border-bottom:1px solid #e0eaf7;padding:10px 9px}th{background:#f3f8fe;color:#456a96}
+.pill{font-size:11px;font-weight:750;border-radius:15px;padding:3px 9px;background:#e6f1ff;color:#0857ab}
+.pill.warn{background:#fff0da;color:#8f611b}
+details{max-width:470px}summary{cursor:pointer;color:#0961b5;font-weight:750}
+.response{background:#f5f9ff;border-left:2px solid #bfd8f0;margin-top:9px;padding:10px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:350px;overflow:auto}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:16px}
+.empty{color:#6e809b;padding:16px}
+footer{font-size:11px;color:#7086a4;margin-top:28px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.filters label{min-width:135px}}
+@media(max-width:500px){header img{width:155px}.card{padding:15px}.kpi{padding:12px}.kpi strong{font-size:23px}}
+</style><link rel="stylesheet" href="../assets/stagio360-unified.css?v=8"></head>
+<body class="s360-harmonized">
+<header><a href="../" aria-label="Voltar à visão geral"><img src="../assets/stagio360-logo-oficial.svg" alt="STAGIO 360"></a><strong>INTELIGÊNCIA PEDAGÓGICA<br>FONTES PRIVADAS · 2026</strong></header>
+<nav class="s360-quick-nav" aria-label="Navegação contextual"><a href="./minha-area.html">Minha área</a><a href="./integracao.html">Mapa de integração</a><a href="./coord-fii-em.html">Coordenação FII/EM</a><span aria-current="page">Pesquisas 2026</span></nav>
+<main>
+<div class="eyebrow">CONCILIAÇÃO · QUESTIONÁRIOS ORIGINAIS</div>
+<h1>Alunos e famílias — fonte integral</h1>
+<p class="muted">Pesquisas de 6º–8º ano, 9º ano, Ensino Médio e famílias. A fonte bruta foi importada sem nome, e-mail ou token de identificação. Os comentários permanecem confidenciais e podem incluir autodescrições identificáveis.</p>
+<section class="card auth" id="loading" role="status"><h2>Verificando seu acesso</h2><p class="muted">Consultando sua identidade e as permissões do Supabase.</p></section>
+<section class="card auth" id="signin" hidden><h2>Acesso da direção</h2><p class="muted">Entre com uma conta de administração ou Direção Master.</p><form id="login"><label for="email">E-mail</label><input id="email" autocomplete="username" type="email" required><label for="password">Senha</label><input id="password" autocomplete="current-password" type="password" required><div class="actions"><button type="submit" class="btn">Entrar</button><a href="./reset.html">Esqueci minha senha</a></div><p id="login-message" class="muted" role="status"></p></form></section>
+<section class="card auth" id="denied" hidden><h2>Acesso não autorizado</h2><p id="error-reason">Este módulo contém respostas individuais e requer autorização institucional.</p><button type="button" class="btn secondary" id="switch-account">Trocar de conta</button></section>
+<section id="dashboard" hidden>
+<div class="notice warn"><strong>Critério de contagem:</strong> formulários são diferentes de itens respondidos. Nota NPS ausente não é zero. Famílias com filhos em mais de uma etapa permanecem em um único formulário; a atribuição exclusiva a uma etapa requer regra institucional explícita. Respostas de alunos não são atribuídas automaticamente a professores.</div>
+<div class="card">
+<div class="actions" style="justify-content:space-between"><strong>Leitura da base bruta conciliada</strong><button type="button" id="logout" class="btn secondary">Sair</button></div>
+<div class="kpis"><div class="kpi"><span>Formulários captados</span><strong id="forms-total">—</strong><small>Inclui envios sem NPS</small></div>
+<div class="kpi"><span>Itens respondidos</span><strong id="items-total">—</strong><small>Questões, não pessoas</small></div>
+<div class="kpi"><span>Notas NPS válidas</span><strong id="nps-valid">—</strong><small>Respostas de 0 a 10</small></div>
+<div class="kpi"><span>Envios sem NPS</span><strong id="nps-missing">—</strong><small>Não entram no denominador</small></div></div>
+</div>
+<div class="card"><h2>Reconciliação por fonte</h2><div class="tablewrap"><table><thead><tr><th>Fonte</th><th>Formulários</th><th>Itens</th><th>NPS válido</th><th>Sem NPS</th><th>Resultado NPS</th></tr></thead><tbody id="coverage"></tbody></table></div></div>
+<div class="card"><h2>Explorar respostas preservadas</h2><p class="muted">As respostas qualitativas são abertas individualmente. As turmas e os segmentos constam como declarados no formulário; vínculos profissionais não foram inferidos.</p>
+<div class="filters"><label for="cohort">Fonte<select id="cohort"><option value="all">Todas as fontes</option><option value="fii_6a8">Fundamental II · 6º–8º</option><option value="fii_9ano">Fundamental II · 9º</option><option value="em">Ensino Médio</option><option value="families">Famílias multietapa</option></select></label>
+<label for="kind">Tipo de resposta<select id="kind"><option value="all">Todos</option><option value="open_text">Respostas abertas</option><option value="rating_1to5">Escala 1–5</option><option value="nps">NPS 0–10</option><option value="choice">Outras escolhas</option></select></label>
+<label for="search">Pergunta (buscar)<input id="search" type="search" placeholder="Ex.: comunicação, professor"></label>
+<label for="cohort-class">Turma ou segmento<input id="cohort-class" type="search" placeholder="Ex.: 9º A, Médio, Infantil"></label>
+</div><p id="results-count" class="muted" role="status"></p><div class="tablewrap"><table><thead><tr><th>Origem</th><th>Registro</th><th>Turma/segmento</th><th>Pergunta</th><th>Resposta</th></tr></thead><tbody id="items"></tbody></table></div><div class="actions"><button type="button" id="more" class="btn secondary" hidden>Mostrar mais</button></div>
+</div>
+</section><footer>STAGIO 360 · Área protegida com RLS · M1/2026 · Dados de menores e famílias sujeitos a sigilo</footer>
+</main><script src="./config.js"></script>
+<script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.95.0/+esm';
+const $=id=>document.getElementById(id),cfg=window.STAGIO_AUTH||{},labels={fii_6a8:'Fundamental II · 6º–8º',fii_9ano:'Fundamental II · 9º',em:'Ensino Médio',families:'Famílias · multietapa'};
+let client=null,forms=[],flat=[],visible=[],limit=70;
+function screen(active){for(const id of ['loading','signin','denied','dashboard'])$(id).hidden=id!==active}
+function textNode(tag,value){const t=document.createElement(tag);t.textContent=String(value??'');return t}
+function td(value){return textNode('td',value)}
+function sortedOrder(){return ['fii_6a8','fii_9ano','em','families']}
+function groupRows(){
+ const body=$('coverage');body.replaceChildren();
+ for(const cohort of sortedOrder()){
+  const arr=forms.filter(f=>f.cohort===cohort);if(!arr.length)continue;
+  const valid=arr.filter(f=>f.nps_value!==null);
+  const promoters=valid.filter(f=>f.nps_value>=9).length,detractors=valid.filter(f=>f.nps_value<=6).length;
+  const nps=valid.length?((promoters-detractors)*100/valid.length).toFixed(2):'—';
+  const tr=document.createElement('tr');
+  for(const value of [labels[cohort],arr.length,arr.reduce((s,f)=>s+f.answers_count,0),valid.length,arr.length-valid.length,nps==='—'?nps:nps.replace('.',',')])tr.append(td(value));
+  body.append(tr);
+ }
+}
+function flatten(){
+ flat=[];
+ for(const f of forms)for(const a of f.answers||[]){
+  flat.push({cohort:f.cohort,source:f.source_key,context:f.cohort==='families'?(f.declared_segments||'Não declarado'):(f.class_or_series||'Não declarado'),question:a.question||'',kind:a.kind||'',value:a.value||'',column:a.column});
+ }
+ $('forms-total').textContent=forms.length.toLocaleString('pt-BR');
+ $('items-total').textContent=flat.length.toLocaleString('pt-BR');
+ $('nps-valid').textContent=forms.filter(f=>f.nps_value!==null).length.toLocaleString('pt-BR');
+ $('nps-missing').textContent=forms.filter(f=>f.nps_value===null).length.toLocaleString('pt-BR');
+ groupRows();limit=70;render();
+}
+function render(){
+ const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR');
+ visible=flat.filter(x=>(cohort==='all'||x.cohort===cohort)&&(kind==='all'||x.kind===kind)&&(!q||x.question.toLocaleLowerCase('pt-BR').includes(q))&&(!cls||x.context.toLocaleLowerCase('pt-BR').includes(cls)));
+ $('results-count').textContent=visible.length.toLocaleString('pt-BR')+' resposta(s) selecionada(s). Exibindo no máximo '+Math.min(limit,visible.length).toLocaleString('pt-BR')+'.';
+ const body=$('items');body.replaceChildren();
+ for(const x of visible.slice(0,limit)){
+  const tr=document.createElement('tr'),first=document.createElement('td');first.append(textNode('strong',labels[x.cohort]||x.cohort));tr.append(first,td(x.source.replace(/^.*_r/,'Linha ')),td(x.context),td(x.question));
+  const result=document.createElement('td');
+  if(x.kind==='open_text'||x.value.length>110){
+   const details=document.createElement('details'),summary=textNode('summary','Abrir resposta confidencial'),v=textNode('div',x.value);v.className='response';details.append(summary,v);result.append(details);
+  }else result.textContent=x.value;
+  tr.append(result);body.append(tr);
+ }
+ $('more').hidden=visible.length<=limit;
+}
+async function boot(){
+ screen('loading');
+ try{
+  if(!cfg.url||!cfg.publishableKey)throw Error('Configuração ausente');
+  if(!client)client=createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true}});
+  const {data:{user},error:ue}=await client.auth.getUser();
+  if(ue||!user){screen('signin');return}
+  const {data:member,error:me}=await client.from('stg_members').select('role,active').eq('user_id',user.id).maybeSingle();
+  if(me||!member?.active||!['admin','master'].includes(member.role)){screen('denied');return}
+  forms=[];
+  for(const cohort of sortedOrder()){
+   const {data,error}=await client.from('stg_360_survey_forms').select('source_key,cohort,stage,audience,class_or_series,declared_segments,nps_value,answers,answers_count').eq('school_year',2026).eq('cohort',cohort).order('source_row').limit(400);
+   if(error)throw error;forms.push(...(data||[]));
+  }
+  if(forms.length!==423){$('error-reason').textContent='Importação incompleta: '+forms.length+' de 423 formulários. Solicite revisão do banco.';screen('denied');return}
+  flatten();
+  if(flat.length!==19016){$('error-reason').textContent='Reconciliação de itens inconsistente: '+flat.length+' de 19.016.';screen('denied');return}
+  screen('dashboard');
+ }catch(e){$('error-reason').textContent='Falha na consulta segura: '+(e.message||'erro desconhecido');screen('denied')}
+}
+$('login').addEventListener('submit',async event=>{
+ event.preventDefault();$('login-message').textContent='Autenticando…';
+ try{if(!client)client=createClient(cfg.url,cfg.publishableKey);const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;$('password').value='';$('login-message').textContent='';await boot()}
+ catch(e){$('login-message').textContent='Falha no acesso. Confira seu e-mail e sua senha.'}
+});
+async function logout(){forms=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
+$('logout').addEventListener('click',logout);$('switch-account').addEventListener('click',logout);
+for(const id of ['cohort','kind','search','cohort-class'])$(id).addEventListener(id==='cohort'||id==='kind'?'change':'input',()=>{limit=70;render()});
+$('more').addEventListener('click',()=>{limit+=70;render()});
+boot();
+</script></body></html>
