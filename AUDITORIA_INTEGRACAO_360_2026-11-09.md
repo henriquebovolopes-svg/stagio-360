@@ -139,3 +139,12 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - RLS: Henrique/Giovanna acessam 25 perfis e 36 linhas de conciliação; Érica acessa zero e sua tentativa de executar a função foi negada.
 - **Status real depois dos testes:** 0 integrações novas, 0 registros em `stg_360_identity_autoeval_scores`, 8 respostas completas preservadas com 168 notas em staging, 462 notas AUTO legadas inalteradas, 25 perfis canônicos existentes, 0 vínculos homologados. Não afirmar que a ampliação de M1 foi realizada antes da conferência documental.
 - O site no GitHub Pages ainda não foi validado com login em navegador; testes são de banco, RLS e análise estática de código.
+
+## Continuação — pré-implantação e verificação automatizada (09/11/2026)
+
+- Auditoria do ambiente externo: URLs oficiais `/stagio-360/`, `/admin/integracao.html` e `/admin/planejamento.html` não puderam ser abertas pelo mecanismo externo utilizado. **Isso não prova queda do site** e não equivale a homologação do GitHub Pages.
+- Fortalecido `scripts/audit_site.py`: checa existência dos módulos de integração, planejamento e Infantil; exige consulta às tabelas pertinentes; exige carregamento local de `admin/config.js` e rejeita credenciais privilegiadas na configuração. É um preflight estático, não um teste de login.
+- Fortalecido `.github/workflows/deploy-pages.yml`: exige presença física dos três módulos e da configuração no artefato. Após publicação, faz HTTP GET das rotas, testa marcadores funcionais esperados e valida a configuração pública de login.
+- Verificação de fonte dos arquivos no GitHub: todos os módulos e marcadores esperados presentes; configuração `./config.js` presente nas três páginas. O resultado do GitHub Actions após a alteração ainda precisa ser observado; não foi possível confirmar o job publicado.
+- Estado real do Supabase novamente auditado: **25** identidades canônicas existentes; **0** cadastros prontos para promoção; **0** vínculos homologados; **0** autoavaliações novas integradas; **168** notas em staging de oito respostas completas; **462** notas AUTO M1 existentes. Nenhuma aprovação por aproximação de nomes.
+- Próxima ação operacional: concluir conferência documental de professor/etapa na fila master e revisar execução de Actions para confirmar publicação (sem confundir status de CI com teste funcional autenticado).
