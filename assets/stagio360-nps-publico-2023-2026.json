@@ -1,0 +1,231 @@
+{
+  "purpose": "Dados agregados já presentes no portal institucional Stagio 360, sem identificadores individuais; NÃO são notas individuais de professores.",
+  "updated": "2026-11-09",
+  "rows": [
+    {
+      "year": 2023,
+      "stage": "fundamental1",
+      "audience": "familias",
+      "population": "fundamental1_historico",
+      "n": 110,
+      "nps": 42.7,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2023,
+      "stage": "fundamental2",
+      "audience": "familias",
+      "population": "fundamental2_historico",
+      "n": 126,
+      "nps": 34.9,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2023,
+      "stage": "infantil",
+      "audience": "familias",
+      "population": "infantil_mais_primeiro_ano",
+      "n": 63,
+      "nps": 55.6,
+      "comparable": "familias_infantil_primeiro_ano"
+    },
+    {
+      "year": 2023,
+      "stage": "institutional",
+      "audience": "familias",
+      "population": "familias_escola",
+      "n": 308,
+      "nps": 48.1,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2023,
+      "stage": "medio",
+      "audience": "familias",
+      "population": "medio_historico",
+      "n": 55,
+      "nps": 69.1,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2024,
+      "stage": "fundamental1",
+      "audience": "familias",
+      "population": "fundamental1_historico",
+      "n": 78,
+      "nps": 42.3,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2024,
+      "stage": "fundamental2",
+      "audience": "familias",
+      "population": "fundamental2_historico",
+      "n": 94,
+      "nps": 54.3,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2024,
+      "stage": "infantil",
+      "audience": "familias",
+      "population": "infantil_mais_primeiro_ano",
+      "n": 71,
+      "nps": 56.3,
+      "comparable": "familias_infantil_primeiro_ano"
+    },
+    {
+      "year": 2024,
+      "stage": "institutional",
+      "audience": "familias",
+      "population": "familias_escola",
+      "n": 240,
+      "nps": 54.6,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2024,
+      "stage": "medio",
+      "audience": "familias",
+      "population": "medio_historico",
+      "n": 32,
+      "nps": 68.8,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2025,
+      "stage": "fundamental1",
+      "audience": "familias",
+      "population": "fundamental1_historico",
+      "n": 106,
+      "nps": 61.3,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2025,
+      "stage": "fundamental2",
+      "audience": "familias",
+      "population": "fundamental2_historico",
+      "n": 113,
+      "nps": 54.9,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2025,
+      "stage": "infantil",
+      "audience": "familias",
+      "population": "infantil_mais_primeiro_ano",
+      "n": 56,
+      "nps": 82.1,
+      "comparable": "familias_infantil_primeiro_ano"
+    },
+    {
+      "year": 2025,
+      "stage": "institutional",
+      "audience": "familias",
+      "population": "familias_escola",
+      "n": 258,
+      "nps": 62.8,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2025,
+      "stage": "medio",
+      "audience": "familias",
+      "population": "medio_historico",
+      "n": 28,
+      "nps": 60.7,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2026,
+      "stage": "fundamental1",
+      "audience": "familias",
+      "population": "fundamental1_2026_exclusivo",
+      "n": 88,
+      "nps": 72.73,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "fundamental2",
+      "audience": "alunos",
+      "population": "fii_6a8",
+      "n": 94,
+      "nps": 22.34,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "fundamental2",
+      "audience": "alunos",
+      "population": "nono_ano",
+      "n": 40,
+      "nps": -5,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "fundamental2",
+      "audience": "familias",
+      "population": "fundamental2_2026",
+      "n": 93,
+      "nps": 38.71,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2026,
+      "stage": "infantil",
+      "audience": "familias",
+      "population": "infantil_exclusivo",
+      "n": 36,
+      "nps": 75,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "institutional",
+      "audience": "alunos",
+      "population": "alunos_escola",
+      "n": 172,
+      "nps": 13.37,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "institutional",
+      "audience": "familias",
+      "population": "familias_escola",
+      "n": 236,
+      "nps": 59.75,
+      "comparable": "familias_historico"
+    },
+    {
+      "year": 2026,
+      "stage": "institutional",
+      "audience": "misto",
+      "population": "escola_familias_e_alunos",
+      "n": 408,
+      "nps": 40.2,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "medio",
+      "audience": "alunos",
+      "population": "medio_alunos",
+      "n": 38,
+      "nps": 10.53,
+      "comparable": null
+    },
+    {
+      "year": 2026,
+      "stage": "medio",
+      "audience": "familias",
+      "population": "medio_2026",
+      "n": 19,
+      "nps": 73.68,
+      "comparable": null
+    }
+  ]
+}
