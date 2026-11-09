@@ -106,3 +106,25 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - Outras seis entradas da fila (Carla, Letícia, Caio, Alessandro, Karina, Rozy) ainda não apresentaram sugestão nessa fonte; isso não prova ausência no quadro de funcionários.
 - As avaliações do `Typeform_PROFS` devem ser conciliadas com as pontuações AUTO M1 antes de qualquer importação para evitar respostas contadas duas vezes.
 - Controle RLS confirmado: Henrique/Giovanna leem sete sugestões; Érica lê zero. JavaScript da página validado e IDs sem duplicidade. Consulta externa ao GitHub Pages não confirmou acessibilidade devido à limitação do mecanismo de leitura web.
+
+## Conciliação do Typeform_PROFS com a AUTO M1 — 09/11/2026
+
+### Procedimento
+- Fonte original do Drive: `Typeform_PROFS.xlsx` (`1tX-f-PToiQf6P5jeLS0-yPHjMARXsS4V`), 36 linhas, 30 nomes distintos, 21 critérios pontuados por resposta completa. Extração CSV com interpretação de campos entre aspas e quebras de linha; validação estrutural de 38 colunas.
+- As pontuações existentes em `stg_teacher_scores`, fonte AUTO/M1 (462 valores = 22 professores × 21 critérios), foram comparadas **critério a critério**, com normalização de caixa/espaçamento/acentos no nome completo. A seleção de escores foi verificada somente contra campos numéricos válidos da escala 1 a 4.
+- **22 respostas completas idênticas:** 462/462 valores coincidiram, sem discrepâncias. Portanto não houve reimportação, alteração nem duplicação em `stg_teacher_scores`.
+- **8 respostas completas ainda não presentes** na AUTO M1: Roseli Finessi Silva de Souza, Ligia Tamião Cazetta da Silva, Samantha Sagioro, Ana Paula de Mesquita Pontes, Ilcicleia Bezerra Silva, Daniela Xavier Sabariego Alves, Renata Daniela Silva Miranda e Gabriela Alves Venzol. Total de 168 notas preservadas isoladamente. A correspondência com identidade canônica deve ser homologada antes de incorporá-las ao núcleo longitudinal.
+- **6 linhas incompletas** (sem pontuações válidas nos 21 critérios): três de Helen Sisina Dilser, duas de Aline da Silva Manelli e uma de Gabriela Alves Venzol. Excluídas dos indicadores. Os envios válidos dessas docentes não foram descartados nem somados duas vezes.
+- Integridade verificada: 36 linhas conciliadas (22 exatas, 8 completas não importadas, 6 incompletas), 168 notas em staging (8×21), 21 critérios distintos, nenhuma resposta pendente com quantidade diferente de 21 itens.
+
+### Implementação
+- `stg_360_autoeval_reconciliation`: 36 registros confidenciais com nome de origem, segmento autodeclarado, linha da fonte, status, número de critérios válidos, autor da fonte e UUID do docente **apenas** quando as 21 notas coincidem integralmente.
+- `stg_360_autoeval_pending_scores`: 168 notas completas, confidenciais, destinadas à integração futura **depois** da homologação. Não armazena e-mail, token do Typeform nem respostas dissertativas.
+- A tabela `stg_360_source_coverage` ganhou dois itens de inventário, com 36 registros de conciliação e 168 notas em staging; esses totais **não são participantes adicionais**.
+- `admin/integracao.html` mostra, para admin/master, resumo 22/8/6, 168 notas em staging e lista nominal das oito respostas completas aguardando vínculo. Dados obtidos por consultas ao banco após login e RLS.
+
+### Testes
+- `stg_teacher_scores` permaneceu com 462 AUTO + 167 coordenação; nenhuma gravação nesta tabela.
+- RLS: Henrique e Giovanna podem ler os 36 registros e 168 notas; Érica lê zero de ambas as tabelas.
+- JavaScript sintaticamente válido; nenhum ID HTML duplicado; nenhuma nota ou nome privado inserido no código estático de integração.
+- A verificação externa do GitHub Pages não foi possível pelo mecanismo de consulta web. Não afirmar que houve teste ponta a ponta de login no navegador.
