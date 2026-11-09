@@ -120,3 +120,6 @@ Auditadas as 36 respostas da fonte docente contra os 21 critérios AUTO M1: 22 r
 
 ### Integração auditável de autoavaliações M1 pendentes
 O fluxo `stg_360_integrate_autoeval` integra exatamente 21 notas de uma fonte do Typeform PROFS após a homologação de identidade e etapa, com confirmação e justificativa explícitas de `master/admin`, ledger e restrições contra dupla importação. As novas notas são separadas em `stg_360_identity_autoeval_scores` e entram na view `stg_360_teacher_profile` com origem declarada. Nenhuma das oito fontes pendentes foi efetivamente integrada antes da validação humana.
+
+### Prontidão operacional ao vivo
+A seção master/admin em `admin/integracao.html` consulta `stg_360_operational_readiness`, view `security_invoker` com filtro institucional explícito. Mostra planos, pontuações, respostas pendentes, vínculos homologados e estado real M1/M2/M3; preserva distinção entre dados vivos e fotografias do inventário. Os testes de RLS garantiram ausência de linhas para a coordenação limitada ao Fundamental I.
