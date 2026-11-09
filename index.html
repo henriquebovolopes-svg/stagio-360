@@ -67,19 +67,25 @@ nav a.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a
 @media(max-width:1160px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.shell .columns{grid-template-columns:1fr}}
 @media(max-width:800px){.shell{grid-template-columns:1fr}aside{height:auto;position:relative;padding:12px}.sidebar-brand{padding:6px 4px 12px;margin-bottom:7px}.sidebar-brand img{height:55px}nav{display:flex;overflow-x:auto;gap:4px;padding-bottom:8px}nav a{width:auto;white-space:nowrap;padding:10px 12px}.aside-foot{display:none}.hero{min-height:190px;flex-wrap:wrap;gap:6px;padding:22px 18px}.hero-logo{height:88px;width:245px}.hero .year-control{margin-left:0}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:510px){.cards,.toolbar{grid-template-columns:1fr}.hero{min-height:auto}.hero-logo{height:80px}.hero .year-control{width:100%;justify-content:space-between}.workspace main{padding:20px 13px 45px}}
+
+/* Menu lateral organizado por prioridade de uso — passo 2. */
+nav .nav-secondary-label{margin:15px 10px 1px;padding:12px 5px 4px;border-top:1px solid #ffffff38;color:#9cc4ee;font-size:10px;font-weight:850;letter-spacing:.105em;text-transform:uppercase}
+nav .nav-secondary{opacity:.87;font-weight:650;font-size:12px;padding:9px 15px}
+nav .nav-main.active,nav .nav-secondary.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a94e5;color:#fff;box-shadow:0 7px 18px #00162a66}
 </style></head>
 <body><div class="shell"><aside><a class="sidebar-brand" href="./painel.html" aria-label="STAGIO Academy — início"><img src="./assets/stagio-academy-logo.svg" alt="STAGIO Academy — Ensinar, aprender e transformar"></a>
 <nav aria-label="Navegação institucional">
-<a class="active" href="#inicio"><span class="navicon">◫</span>Governança</a>
-<a href="#avaliacao"><span class="navicon">◎</span>Avaliação 360</a>
-<a href="#historico"><span class="navicon">▤</span>Séries históricas</a>
-<a href="#segmentos"><span class="navicon">▣</span>Gestão e acessos</a>
-<a href="#fontes"><span class="navicon">ⓘ</span>Fontes e método</a>
-<a class="admin-private" href="./admin/governanca.html"><span class="navicon">♙</span>Gestão restrita</a>
-<a class="admin-private" href="./admin/funcionarios.html"><span class="navicon">♧</span>Funcionários · privado</a>
-<a class="admin-private" href="./admin/infantil.html"><span class="navicon">◌</span>Educação Infantil · restrito</a>
-<a class="admin-private" href="./admin/planejamento.html"><span class="navicon">▥</span>Planejamento docente</a>
-<a class="admin-private" href="./admin/integracao.html"><span class="navicon">◫</span>Governança administrativa</a>
+<a class="nav-main active" href="#inicio" aria-current="page"><span class="navicon">◫</span>Governança</a>
+<a class="nav-main" href="#segmentos"><span class="navicon">◎</span>Avaliação 360</a>
+<a class="nav-main admin-private" href="./admin/planejamento.html"><span class="navicon">▥</span>Planejamento docente</a>
+<a class="nav-main admin-private" href="./admin/funcionarios.html"><span class="navicon">♧</span>Funcionários · privado</a>
+<a class="nav-main admin-private" href="./admin/integracao.html"><span class="navicon">◫</span>Painel Administrativo</a>
+<div class="nav-secondary-label">Acessos complementares</div>
+<a class="nav-secondary" href="#historico"><span class="navicon">▤</span>Séries históricas</a>
+<a class="nav-secondary" href="#fontes"><span class="navicon">ⓘ</span>Fontes e método</a>
+<a class="nav-secondary" href="#segmentos"><span class="navicon">▣</span>Gestão e acessos</a>
+<a class="nav-secondary admin-private" href="./admin/governanca.html"><span class="navicon">♙</span>Gestão restrita</a>
+<a class="nav-secondary admin-private" href="./admin/infantil.html"><span class="navicon">◌</span>Educação Infantil · restrito</a>
 </nav><div class="aside-foot"><strong>Inteligência pedagógica</strong>Gestão por evidências · Colégio Stagio<br>Plataforma institucional 2026</div></aside>
 <div class="workspace"><header class="hero"><div class="hero-content"><div class="kicker">PLATAFORMA INSTITUCIONAL</div><img class="hero-logo" src="./assets/stagio360-logo-oficial.svg" alt="STAGIO 360 — logotipo oficial"><p>Governança, avaliação e desenvolvimento institucional</p><div class="hero-label">Colégio Stagio · Educação Infantil ao Ensino Médio</div></div>
 <label class="year-control"><span>ANO DE REFERÊNCIA</span><select id="ano" aria-label="Ano de referência"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option></select></label></header>
@@ -97,6 +103,16 @@ nav a.active{background:linear-gradient(110deg,#0c83f6,#0759ca);border-color:#3a
 'use strict';
 const $=id=>document.getElementById(id), stageNames={institutional:'Visão geral da escola',infantil:'Educação Infantil',fundamental1:'Fundamental I',fundamental2:'Fundamental II',medio:'Ensino Médio',administrativo:'Administrativo e funcionários'};
 const key={etapa:'institutional',ano:'2026',ciclo:'M1'};
+
+const navAnchors=[...document.querySelectorAll('nav[aria-label="Navegação institucional"] a[href^="#"]')];
+function syncSideMenu(){
+ const hash=location.hash||'#inicio';
+ const current=navAnchors.find(a=>a.getAttribute('href')===hash)||navAnchors[0];
+ for(const link of navAnchors){const active=link===current;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current')}
+}
+window.addEventListener('hashchange',syncSideMenu);
+syncSideMenu();
+
 let rows=[];
 const format=v=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2,minimumFractionDigits:1}).format(v);
 const audience=a=>a==='familias'?'Famílias':a==='alunos'?'Alunos':a==='misto'?'Famílias e alunos (misto)':a;
