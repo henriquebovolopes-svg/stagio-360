@@ -152,7 +152,8 @@ function updateContextualAccess(stage){
  };
  const entry=paths[stage]||paths.institutional;
  $('stage-access-title').textContent=entry.title;
- $('stage-access-description').textContent=entry.info;
+ const historicalOrLater=$('ano').value!=='2026'||$('ciclo').value!=='M1';
+ $('stage-access-description').textContent=entry.info+(historicalOrLater&&['infantil','fundamental1','fundamental2','medio'].includes(stage)?' Atenção: o acervo restrito atualmente utiliza as bases internas disponíveis de M1/2026; não corresponde automaticamente ao filtro histórico ou a outro ciclo.':'');
  const link=$('stage-access-link');
  link.hidden=!entry.href;
  if(entry.href){link.href=entry.href;link.textContent=stage==='administrativo'?'Entrar na pesquisa de funcionários':'Acessar área restrita da coordenação'}
