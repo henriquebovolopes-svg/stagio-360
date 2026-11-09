@@ -34,3 +34,27 @@ P2. Conectar as perspectivas (auto, coordenação, famílias, estudantes, pares/
 P3. Integrar planejamento por aula e entrega no perfil docente e no PDI, com status de devolutiva separado de notas de qualidade; vincular Drive de modo autorizado.
 P4. Substituir dados fixos em `index.html`/EI por consultas a uma camada única de indicadores agregados, com denominadores e metodologia explícitos.
 P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo e professor; testes de segregação de acesso RLS e testes de interface para Henrique, Giovanna, Márcia, Patrícia e Érica.
+
+## Implementação subsequente — camada canônica (09/11/2026)
+
+### Estruturas adicionadas
+- `stg_360_cycles`: cadastro de ciclos por ano (2026 M1 parcial, M2/M3 não importados).
+- `stg_360_source_coverage`: inventário das 14 fontes de 2026 por etapa, período M1/ANUAL, granularidade, quantidade e condição do vínculo docente. Quantidades de itens, respostas e envios são heterogêneas e não podem ser somadas como pessoas.
+- `stg_360_teacher_identity`: 25 identidades originadas do identificador UUID da base docente FI (sem criar identidade de docente fictícia).
+- `stg_360_planning_crosswalk`: 32 pares professor/etapa/ano aguardando homologação. Nenhum vínculo confirmado automaticamente. Aprovação manual auditável exige conta master/admin, identidade selecionada e justificativa.
+- `stg_360_nps`: 25 registros históricos de 2023 a 2026 com ano, etapa, público, universo e denominador. Fórmulas do NPS conferidas (zero divergências acima de 0,08 ponto); Infantil histórico inclui 1º ano, diferentemente da amostra exclusiva EI 2026.
+- `stg_360_teacher_profile`: visão `security_invoker` que combina por UUID de origem autoavaliação, coordenação, evidências diretamente atribuídas, PDI e planejamentos **somente após homologação**. Não fabrica escore combinado e não atribui o planejamento anual ao ciclo M1.
+
+### Interface
+- `admin/integracao.html`: painel autenticado com filtros de etapa, período, público de NPS, coberturas, estado dos ciclos, fila de homologação e perfis de docentes master.
+- Portal institucional `index.html`: incluída navegação para integração e aviso explícito de M1 parcial/M2-M3 não importados.
+- Nenhum número individual do banco foi inserido no código público; as consultas da nova interface usam Supabase autenticado.
+
+### Verificações
+- A visão de 25 docentes soma 462 respostas AUTO e 167 respostas de coordenação em M1, 288 evidências efetivamente atribuíveis por `teacher_id`, 1 PDI e 0 planos cujo vínculo de identidade foi homologado.
+- A base de 1.400 evidências inclui registros não vinculados diretamente a `teacher_id`: não atribuir esses registros automaticamente.
+- Tests com impersonação de role autenticado e transações revertidas: Henrique/Giovanna leem 14 fontes, 25 identidades, 32 vínculos e 3 ciclos; Érica lê apenas as 6 fontes e 9 vínculos relativos a FI, sem acesso ao cadastro institucional de identidades/ciclos. A nova view retorna 25 linhas a Henrique/Giovanna e zero a Érica.
+- Atualização do crosswalk permitida para Henrique/Giovanna e negada a Érica (transações revertidas).
+- JS do painel validado em análise sintática, nenhum ID HTML duplicado e nenhum token secreto detectado nos arquivos inspecionados.
+- Supabase security advisor: aviso já existente de proteção contra senhas vazadas desativada e um informe sobre RLS sem política.
+- **Ainda não é integração 360 completa**: faltam matrizes M2/M3, demais perspectivas individuais das etapas e importação dos 336 planos por linha. Não verificado GitHub Pages ao vivo; somente arquivos e operações do backend foram confirmados.
