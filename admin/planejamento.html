@@ -37,6 +37,7 @@
   item.append(summary);
   const info=el('p','Enviado em '+(plan.submitted_at||'data não informada').slice(0,10),'muted');item.append(info);
   if(plan.data_quality==='date_requires_review')item.append(el('p','Atenção: data da aula incompatível com o ano de 2026; confirmar na origem.','muted'));
+  if(plan.data_quality==='first_year_scope_pending')item.append(el('p','Recorte de origem: 1º ano enviado no formulário da Educação Infantil. A atribuição institucional da etapa ainda precisa de homologação.','muted'));
   for(const [heading,content] of [['Intencionalidade',plan.intention],['Habilidade / campo de experiência',plan.skill],['Evidências de aprendizagem',plan.evidence],['Reflexão do professor',plan.reflection]]){
     const title=el('h3',heading);title.style.cssText='padding:0 13px;margin:12px 0 4px';
     const paragraph=el('p',content||'Não informado');paragraph.style.whiteSpace='pre-wrap';paragraph.style.overflowWrap='anywhere';
