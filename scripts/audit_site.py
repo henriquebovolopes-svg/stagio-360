@@ -63,8 +63,7 @@ def verify_html(path):
     if not re.search("stagio360-logo-oficial.svg", code):
         WARNINGS.append(f"{path.relative_to(ROOT)}: não usa o logotipo oficial")
 
-def check_navigation_step3()
-check_stage_access_step4():
+def check_navigation_step3():
     """Mantém o menu principal enxuto e preserva o caminho protegido por etapa."""
     expected = [
         ('#inicio', 'Governança'),
@@ -224,6 +223,7 @@ check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
 check_integration_routes()
 check_shared_dashboard()
 check_navigation_step3()
+check_stage_access_step4()
 
 if not (ROOT/"assets/stagio360-logo-oficial.svg").exists():
     ERRORS.append("Logotipo oficial ausente")
