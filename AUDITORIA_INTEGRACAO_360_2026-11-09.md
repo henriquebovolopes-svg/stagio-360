@@ -128,3 +128,14 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - RLS: Henrique e Giovanna podem ler os 36 registros e 168 notas; Érica lê zero de ambas as tabelas.
 - JavaScript sintaticamente válido; nenhum ID HTML duplicado; nenhuma nota ou nome privado inserido no código estático de integração.
 - A verificação externa do GitHub Pages não foi possível pelo mecanismo de consulta web. Não afirmar que houve teste ponta a ponta de login no navegador.
+
+## Integração auditável das oito respostas AUTO M1 (09/11/2026)
+
+- **Implementação concluída sem executar integrações reais:** tabelas restritas `stg_360_identity_autoeval_imports` (histórico de operações) e `stg_360_identity_autoeval_scores` (pontuação por identidade canônica, critério e fonte), com RLS master/admin, PK e restrições de unicidade para impedir duplicação de resposta, docente/ano/critério.
+- Função transacional `public.stg_360_integrate_autoeval(source_file_id,source_row,identity_id,justification)` disponível apenas para usuários ativos `master` ou `admin`. Exige justificativa mínima, fonte conciliada completa em 2026/M1, 21 critérios, nome completo compatível, vínculo previamente confirmado na etapa declarada, identidade canônica com revisão adequada e ausência de AUTO M1 anterior na identidade legado ou canônica. Impossível integrar resposta idêntica duas vezes.
+- A visão `stg_360_teacher_profile` agora lê autoavaliação original e registros canônicos novos, atribuindo `auto_source_m1`: `auto_original_m1`, `typeform_homologado` ou `sem_autoavaliacao`. Nenhum conjunto de escores é atribuído automaticamente pelo nome; a associação exige crosswalk previamente homologado.
+- Em `admin/integracao.html`, cada resposta em staging permite integração manual **somente quando há exatamente uma identidade homóloga com nome completo e segmento homologados**; o usuário precisa preencher justificativa e marcar confirmação. Após integração a tabela é consultada novamente e deixa de contabilizar a resposta como pendente.
+- **Validação:** simulação real de promoção de Renata e integração das 21 pontuações dentro de transação revertida; verificadas as 21 linhas canônicas, visão do professor com 21 AUTO, 0 coordenação e 5 planejamentos, um log de importação, e tentativa duplicada bloqueada. Não restou alteração desse teste no banco.
+- RLS: Henrique/Giovanna acessam 25 perfis e 36 linhas de conciliação; Érica acessa zero e sua tentativa de executar a função foi negada.
+- **Status real depois dos testes:** 0 integrações novas, 0 registros em `stg_360_identity_autoeval_scores`, 8 respostas completas preservadas com 168 notas em staging, 462 notas AUTO legadas inalteradas, 25 perfis canônicos existentes, 0 vínculos homologados. Não afirmar que a ampliação de M1 foi realizada antes da conferência documental.
+- O site no GitHub Pages ainda não foi validado com login em navegador; testes são de banco, RLS e análise estática de código.
