@@ -22,12 +22,20 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - A tela `admin/segmento.html` passa a permitir voltar a Minha área, inclusive quando uma etapa não está autorizada; os portais públicos incluem um acesso permanente no quadro de cada etapa.
 - PDI piloto e Pré-revisão reconhecem a Direção Master; edição do plano continua exclusiva à administração e pareceres mantêm validação no servidor.
 - A página somente organiza links: **a autorização real continua sendo aplicada pelo Supabase**, não pela exibição ou ocultação de botões.
-- Contas de Márcia e Patrícia continuam dependendo de provisionamento e autenticação própria. Homologação do login no navegador e do deploy externo ainda requer confirmação.
+- Contas de Márcia e Patrícia ativadas no Supabase em 09/11/2026, com e-mails de Auth confirmados e políticas RLS testadas. Testes reais de entrada no navegador e confirmação do deploy externo ainda são necessários.
+
+## Ativação de Márcia e Patrícia — 09/11/2026
+- **Márcia:** identidade confirmada no Supabase Auth; papel `master` ativo, acesso a Infantil, Fundamental I, Fundamental II, Médio, integração e planejamento, além da Escuta dos Funcionários mediante autorização privada.
+- **Patrícia:** identidade confirmada no Supabase Auth; papel `coordenacao` ativo, somente `infantil`; acesso aos 10 indicadores disponíveis e aos registros de planejamento da etapa, sem acesso a outras etapas nem à Escuta dos Funcionários.
+- Validação por sessões SQL simuladas com `authenticated`: Márcia acessa indicadores EI e as 27 questões da Escuta; Patrícia acessa indicadores e planejamento EI, mas não FI, FII, Médio, institucional nem pesquisa interna.
+- A página `/admin/minha-area.html` é dinâmica: não precisou de cadastro de usuários por nome no HTML. Perfil e etapas são obtidos via Supabase.
+- As duas contas ainda não têm login de navegador confirmado pelo teste de ponta a ponta; senha pessoal, MFA e funcionamento do deploy devem ser verificados com cada usuária.
+- **Não armazenar** emails pessoais, senhas, UUIDs de Auth ou listas privadas de autorização no código-fonte público.
 
 ## Situação de homologação
 **Entregue no repositório:** portal, navegação, NPS agregados de 2023–2026 (distinguidos por público), gráficos por segmento, Fundamental I, rubricas agregadas da coordenação 2026 em rota autenticada e escopo de acesso por etapa no Supabase.
 
-**Ainda pendente:** importação integral das avaliações individuais 360 de alunos, famílias, professores e coordenadores do Fundamental II, Médio e Infantil; contas pessoais de Márcia e Patrícia; testes ponta a ponta de cada perfil e confirmação visual do GitHub Pages. Os NPS agregados de 2026 e os quatro eixos de rubrica docente exclusivos por etapa já foram incorporados. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
+**Ainda pendente:** importação integral das avaliações individuais 360 de alunos, famílias, professores e coordenadores do Fundamental II, Médio e Infantil; testes ponta a ponta de cada perfil e confirmação visual do GitHub Pages. Os NPS agregados de 2026 e os quatro eixos de rubrica docente exclusivos por etapa já foram incorporados. A plataforma não deve ser descrita como 100% homologada antes dessas etapas.
 
 **Privacidade:** não publicar resultados individuais, nomes de estudantes, respostas abertas, planilhas originais com identificadores ou senhas no repositório público.
 
@@ -79,7 +87,7 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - `/admin/funcionarios.html`: painel autenticado de pesquisa institucional interna, alimentado pelo arquivo privado `Typeform_ADM.xlsx` (2026).
 - 17 respondentes, 27 questões objetivas, 6 dimensões. Respostas abertas e endereços de e-mail não foram publicados nem copiados ao novo banco.
 - Os itens formulados negativamente (excesso de demandas sem contexto, mudanças de orientação e dependência de pessoas específicas) são recodificados na escala favorável 1–5; médias originais permanecem disponíveis na tabela restrita para auditoria.
-- Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. As contas existentes de Henrique e Giovanna estão vinculadas. Márcia precisa de uma conta pessoal autenticada e conferência de identidade.
+- Acesso à tabela `stg_staff_survey_items` e `stg_staff_survey_cycles` definido exclusivamente por `private.stg_staff_access`, **sem privilégio automático para coordenação ou admin genérico**. As contas de Henrique, Giovanna e Márcia estão vinculadas à autorização privada específica. Patrícia e Érica não recebem acesso à Escuta dos Funcionários.
 - Testes SQL de RLS: Henrique e Giovanna recebem 27 questões; Érica recebe zero; requisições anônimas sem privilégio SELECT.
 - Os gráficos do módulo não devem ser interpretados como notas individuais de desempenho.
 
@@ -92,8 +100,8 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - `/admin/infantil.html`: painel autenticado para Patrícia e perfis institucionais; inclui NPS das famílias de 2026 (+75,0; 36 respostas), **10 indicadores objetivos confirmados na síntese executiva** (base de 42 respostas, escala 1–4) e três frentes de ação institucional. O 1º ano aparece no agrupamento de planejamento do formulário, mas **não deve ser confundido com a população do NPS de Educação Infantil**.
 - `/admin/planejamento.html`: painel reservado com filtros de etapa, professor e turma; fotografia de **336 registros** da base original de planejamento de 2026 e **32 pares professor-etapa** em `stg_planning_teacher_summary`, incluindo contagens por campo e última entrega registrada.
 - `stg_planning_reviews`: acompanhamento persistente, com status de análise e notas de devolutiva. Uma coordenação só pode consultar e registrar devolutiva na própria etapa; perfis `admin` e `master` abrangem todas as etapas.
-- Henrique mantém `admin`, Giovanna possui `master` ativo e Márcia será `master` após criação e identificação da conta. Patrícia será `coordenacao` com acesso exclusivo à etapa `infantil`. Érica mantém `fundamental1`. A regra é checada no banco, não apenas por elementos da interface.
-- A conta de Patrícia **ainda não existe** na autenticação. Depois de criada, um administrador deverá confirmar seu identificador de Auth, associá-la a `stg_members` como `coordenacao` e criar somente o vínculo `stg_scope_access(stage='infantil')`. Para Márcia, associar `stg_members(role='master')` e criar a autorização específica para Escuta dos Funcionários em `private.stg_staff_access`. Não conceder permissões a nomes textuais ou endereços de e-mail não confirmados.
+- Henrique mantém `admin`; Giovanna e Márcia possuem `master` ativos. Patrícia possui `coordenacao` com acesso exclusivo a `infantil`, e Érica mantém somente `fundamental1`. A regra é checada no banco, não apenas por elementos da interface.
+- **Ativação nominal concluída em 09/11/2026:** os dois UUIDs foram confirmados contra as contas verificadas no Supabase Auth e associados a `stg_members`. Patrícia recebeu apenas `stg_scope_access(stage='infantil')`; Márcia, `master` e autorização explícita em `private.stg_staff_access`. Nenhuma senha ou UUID pessoal é armazenado neste repositório público.
 - Fonte de planejamento: arquivo original Excel do formulário, com data de fotografia (não é sincronização automática). A pasta no Drive `PLANOS DE AULA` foi localizada; os documentos na pasta dependem das permissões próprias do Google Drive, e a revisão de conteúdo individual permanece distinta da contagem de envios.
 - Segurança testada com transações reversíveis: Henrique e Giovanna podem registrar status EI; Érica é impedida de registrar acompanhamento EI. A publicação do GitHub Pages e testes de login em navegador real ainda exigem confirmação.
 
