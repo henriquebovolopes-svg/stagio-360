@@ -14,6 +14,17 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - `/admin/governanca.html` — rubricas agregadas de docentes do Fundamental II e Ensino Médio, autenticadas por etapa no Supabase.
 - `AUDITORIA_PORTAL_2026-11-08.md` — trilha de verificação, problemas encontrados, correções e pendências.
 
+## Conciliação bruta dos questionários e correção NPS — 09/11/2026
+- **423 formulários Typeform e 19.016 respostas a questões** de alunos (6º–8º, 9º e Ensino Médio) e famílias, integrados à tabela protegida `stg_360_survey_forms` e à view `stg_360_survey_items` (RLS, somente admin/master). **408 notas NPS válidas e 15 envios sem nota NPS**. A fonte preserva dados em JSONB sem importar nome, e-mail ou token da pessoa.
+- Fonte bruta por coorte: FII 6º–8º 96 formulários/7.804 itens, 9º 41/3.360, Médio 38/3.384, famílias 248/4.468. Os 18.046 itens da arquitetura tratada são recorte transformado, não respondentes adicionais.
+- Correção de NPS no Supabase e nos JSONs públicos: alunos 6º–8º **+21,88 (n=96)**; EM **+16,67 (n=36)**; alunos escola **+14,53 (n=172)**; institucional misto **+40,69 (n=408)**. NPS sem resposta permanece ausente, nunca zero.
+- A origem conserva **38 blocos de docentes** identificados por intervalos validados de 7 questões (15 FII 6º–8º, 11 do 9º e 12 EM). **13.332 itens** possuem código de professor **da fonte**, não identidade canônica homologada; os demais 5.684 não possuem vínculo docente direto. Em FII, a planilha antiga de mapeamento com deslocamento de seis colunas foi reconstruída segundo os cabeçalhos do Typeform (seis questões objetivas e uma qualitativa), com checagem do primeiro/último campo por bloco.
+- As escalas categóricas do FII permanecem categorias textuais; **não receberam nota numérica fabricada**. A view `stg_360_survey_items_mapped` permite consulta de referência de origem, não promove automaticamente identidade de docente.
+- `/admin/pesquisas-2026.html`: consulta confidencial de formulários, notas, texto, turma, questão, tipo de resposta e docente **na fonte**, acessível em Minha área e Integração 360.
+- Validação RLS: direção/administração veem 423 formulários/19.016 itens/38 blocos, coordenação EI/FI e conta desconhecida veem zero. A resposta livre não integra o site estático público.
+- Relatório completo: [Reconciliação integral das pesquisas](RECONCILIACAO_INTEGRAL_PESQUISAS_2026_11_09.md).
+- **Pendências mantidas:** homologar chaves canônicas, fontes multietapa de famílias, demais ciclos M2/M3, divergências históricas acadêmicas Geekie/ENEM e autenticação de navegação real. Fotografias importadas não significam atualização automática de novas coletas do Typeform.
+
 ## Passo 7 — Navegação contextual por perfil (09/11/2026)
 - Página de acesso: https://henriquebovolopes-svg.github.io/stagio-360/admin/minha-area.html
 - O login consulta `stg_members` e, para coordenação, `stg_scope_access`. Contas inativas ou sem etapa autorizada são bloqueadas.
