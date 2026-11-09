@@ -173,6 +173,7 @@ async function display(user){
   $('institutional-cards').append(buildCard('Integração 360','Fontes, abrangência, vínculos docentes e validação institucional.',[['Abrir integração','./integracao.html']], 'GOVERNANÇA'));
   $('institutional-cards').append(buildCard('Coordenação · FII e Ensino Médio','297 registros individuais de origem: 212 notas, 85 comentários e grupo de atuação compartilhada, sem duplicação.',[['Abrir rubrica protegida','./coord-fii-em.html']], 'M1 · DIREÇÃO'));
   $('institutional-cards').append(buildCard('Pesquisas 2026 · Alunos e famílias','423 formulários; 19.016 respostas captadas, com NPS válido separado de envios incompletos.',[['Abrir fontes completas','./pesquisas-2026.html']], 'M1 · FONTES PRIVADAS'));
+  $('institutional-cards').append(buildCard('Resultados acadêmicos · Geekie e ENEM','249 registros históricos da escola em série própria, sem misturar simulados, ENEM oficial e avaliação docente.',[['Abrir histórico acadêmico','./academico.html']], 'ACERVO · DIREÇÃO'));
   $('institutional-cards').append(buildCard('Gestão dos planejamentos','Acompanhe os registros e as devolutivas de todas as etapas.',[['Abrir planejamento','./planejamento.html']], 'PLANEJAMENTO'));
   const staff=await client.from('stg_staff_survey_cycles').select('cycle_year',{count:'exact',head:true}).eq('cycle_year',2026);
   if(!staff.error&&(staff.count||0)>0){
