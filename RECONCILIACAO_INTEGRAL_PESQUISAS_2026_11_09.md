@@ -45,6 +45,17 @@ O banco `public.stg_360_nps` também foi corrigido apenas nos quatro recortes ac
 - Migração versionada: `supabase/migrations/20261109_stagio360_survey_forms_2026_secure.sql`.
 - UI de direção/admin: `admin/pesquisas-2026.html`, vinculada a `admin/minha-area.html` e `admin/integracao.html`. Possui filtros por fonte, tipo, turma/segmento e questão. O conteúdo livre é revelado sob demanda.
 
+## Reconstrução auditável dos blocos de professores (etapa adicional)
+
+- O arquivo de alunos do 6º–8º possui **15 grupos de 7 questões**, o do 9º **11 grupos de 7** e o do Médio **12 grupos de 7**. A estrutura de cada grupo foi conferida diretamente com os cabeçalhos dos Typeform: **6 perguntas avaliativas + 1 comentário aberto**.
+- O `MAPA_COLUNAS_FII` original numerava blocos em intervalos de **6 colunas**, sem considerar a sétima coluna de comentário; usá-lo literalmente confundiria os docentes a partir do segundo bloco. Os intervalos foram reconstruídos por ordem de bloco e validados contra todos os 38 cabeçalhos iniciais/finais.
+- Criada a tabela `public.stg_360_survey_teacher_blocks` (38 registros; RLS master/admin), com o código do professor **da fonte** e os intervalos de sete campos. A view `stg_360_survey_items_mapped` usa `security_invoker` e não associa automaticamente nenhum código `P###/B###` às identidades 360 homologadas.
+- **13.332 itens** carregam uma referência ao professor do formulário; **5.684 itens** são institucionais ou de famílias, sem vínculo docente e sem duplicação. Total da view mapeada: 19.016 IDs de questão exclusivos (mesmo total da base sem join).
+- As avaliações dos alunos do 6º–8º usam predominantemente **respostas categóricas textuais**, não escores 1–5. Por isso, os seis campos de cada bloco foram tipados como `rating_categorical`, e a questão aberta final como `open_text`. Não houve recodificação inventada de categorias em notas numéricas. No 9º e no Médio, notas numéricas válidas continuam numéricas; outras categorias são mantidas como `rating_categorical`.
+- A consulta de pesquisas ganhou filtro “Docente na fonte” com nome abreviado e código original, avisando explicitamente que não é a identidade canônica do cadastro.
+- Migração versionada: `supabase/migrations/20261109_stagio360_survey_teacher_source_blocks.sql`.
+- Teste RLS: direção master vê 38 blocos e 19.016 itens mapeados; coordenação FI vê 0 blocos e 0 itens mapeados. Não houve mistura de identidades com as avaliações individualizadas FI/M1.
+
 ## Segurança e testes
 - RLS: administração (Henrique) e Direção Master (Márcia) visualizam 423 formulários e 19.016 itens; coordenadoras FI e EI visualizam 0; identidade autenticada sem vínculo visualiza 0.
 - O GitHub Pages contém somente código-fonte, CSS, NPS agregados e autenticação cliente. Não guarda respostas abertas, nomes de alunos, e-mails ou tokens dos formulários.
