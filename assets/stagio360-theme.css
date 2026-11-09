@@ -70,8 +70,8 @@ body.s360 .track,body.s360 .dash-track{background:#e0e9f7}
 body.s360 .fill,body.s360 .dash-color-primary{background:#0874e8}
 body.s360 .fill.mint,body.s360 .dash-color-four{background:#199353}
 body.s360 .percent{color:#134581}
-body.s360 .btn,body.s360 button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled){background:#0868e1;color:#fff;border-radius:10px}
-body.s360 .btn:hover,body.s360 button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled):hover{background:#0555bd}
+body.s360 .btn,body.s360 .s360-main button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled){background:#0868e1;color:#fff;border-radius:10px}
+body.s360 .btn:hover,body.s360 .s360-main button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled):hover{background:#0555bd}
 body.s360 input,body.s360 select,body.s360 textarea{border:1px solid #bed1ec;border-radius:10px}
 body.s360 .callout,body.s360 .safe{background:#ecf5ff;border-color:#b8d4fa}
 body.s360 .detail,body.s360 .dash-question-detail{background:#f5f9ff;border-color:#d9e6f8}
@@ -105,3 +105,28 @@ body.s360 .nav button:hover:not(.active){color:#fff;background:#174476}
 @media(max-width:900px){body.s360 .s360-shell{display:block}body.s360 .s360-sidebar{position:relative;height:auto;min-height:0;padding:12px 14px;gap:10px}body.s360 .s360-logo{height:65px;justify-content:flex-start;margin:0;padding:0;border:0}body.s360 .s360-logo img{width:190px;max-height:63px}body.s360 .s360-sidebar-spacer,body.s360 .s360-sidebar-foot{display:none}body.s360 .s360-sidenav{flex-direction:row;overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:3px}body.s360 .s360-sidenav .tab,body.s360 .s360-sidenav .s360-navlink,body.s360 .s360-sidenav.nav button{width:auto;flex:0 0 auto;padding:11px 14px;white-space:nowrap;font-size:12px}body.s360 .s360-sidenav svg{width:17px;height:17px;flex-basis:17px}body.s360 header.s360-hero{min-height:120px;padding:23px 20px}body.s360 .s360-main{padding:18px 16px 45px}body.s360 .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:580px){body.s360 .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}body.s360 .s360-dashboard-grid{grid-template-columns:1fr}body.s360 .s360-dashboard-grid>.card:first-child{grid-column:auto}body.s360 header.s360-hero h1{font-size:32px}body.s360 .s360-toolbar{align-items:stretch}body.s360 .s360-statusbar{align-items:flex-start}body.s360 .s360-intro h2{font-size:24px}body.s360 .s360-sidenav{gap:5px}body.s360 .authcard{padding:19px}}
 @media print{body.s360 .s360-sidebar,body.s360 .s360-toolbar{display:none!important}body.s360 .s360-shell{display:block}body.s360 header.s360-hero{background:#fff;color:#112d5b;padding:12px 16px;min-height:0}body.s360 header.s360-hero h1,body.s360 header.s360-hero small{color:#112d5b}body.s360 .s360-main{padding:12px}}
+
+/* Páginas auxiliares e controles reais do painel */
+body.s360 .s360-toolbar-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+body.s360 .s360-toolbar .s360-toolbar-actions svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9}
+body.s360 .s360-unfilled{background:#fff;border:1px solid #c6daf6;border-radius:10px;padding:10px 14px;color:#1158af;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+body.s360 .s360-unfilled:hover{background:#eaf3ff}
+body.s360 .s360-panel-link{border:0;box-shadow:none;background:none;padding:0;text-decoration:none;color:#0562ce}
+body.s360 .s360-panel-link:hover{color:#054c9d;text-decoration:underline}
+body.s360-aux .s360-main{min-height:calc(100vh - 150px)}
+body.s360-aux .s360-main>.card,body.s360-aux .s360-main>section>.card{border-radius:16px}
+body.s360-aux.s360-reset .s360-main>.card{max-width:590px;margin:18px auto 34px}
+body.s360-aux.s360-reset .s360-main>.card h1{font-size:26px;color:#103778}
+body.s360-aux.s360-reset .s360-main>.card p{color:#5b7394}
+body.s360-aux.s360-reset .s360-main>.card button{width:100%}
+body.s360-aux .s360-intro{margin-bottom:21px}
+body.s360-aux .s360-sidenav .s360-navlink.active{background:linear-gradient(115deg,#1685f9,#075bdb);color:white}
+body.s360-aux .notice,body.s360-aux .note{background:#eff6ff;border-color:#cde0f8}
+body.s360-aux .score .fill{background:#086de1}
+body.s360-aux .badge,body.s360-aux .eyebrow{color:#0758b9}
+body.s360-admin .s360-admin-kpis{margin:0 0 17px}
+body.s360-admin .topbar.card{margin-bottom:14px}
+body.s360-admin .s360-admin-kpis .kpi{min-height:115px}
+body.s360 .s360-dashboard-grid-bottom{margin-top:13px}
+body.s360 .s360-dashboard-grid-bottom .card{min-height:170px}
+@media(max-width:900px){body.s360-aux .s360-main{min-height:0}body.s360-aux.s360-reset .s360-main>.card{margin:18px auto}}
