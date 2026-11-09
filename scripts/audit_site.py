@@ -303,14 +303,18 @@ def check_2026_survey_reconciliation():
         ERRORS.append("Consulta protegida de pesquisas 2026 ausente")
         return
     html=page.read_text(encoding="utf-8")
-    for token in ("stg_360_survey_forms","stg_members","['admin','master']",
-                  "nps_value","declared_segments","textContent",
-                  'id="dashboard"','id="signin"','id="denied"',
+    for token in ("stg_360_survey_forms","stg_360_survey_teacher_blocks","stg_members","['admin','master']",
+                  "nps_value","declared_segments","rating_categorical","teacher_source_label",
+                  "textContent", 'id="dashboard"','id="signin"','id="denied"',
                   'href="./minha-area.html"'):
         if token not in html: ERRORS.append("Pesquisa 2026 sem recurso de seguranca: "+token)
     for file in ("admin/minha-area.html","admin/integracao.html"):
         if "./pesquisas-2026.html" not in (ROOT / file).read_text(encoding="utf-8"):
             ERRORS.append("Atalho da pesquisa 2026 ausente em "+file)
+    for rel in ("supabase/migrations/20261109_stagio360_survey_forms_2026_secure.sql",
+                "supabase/migrations/20261109_stagio360_survey_teacher_source_blocks.sql"):
+        if not (ROOT / rel).is_file():
+            ERRORS.append("Migracao protegida das pesquisas 2026 ausente: "+rel)
     public = json.loads((ROOT / "assets/stagio360-nps-publico-2023-2026.json").read_text(encoding="utf-8"))
     values = {(r["year"],r["stage"],r["audience"],r["population"]):(r["n"],r["nps"]) for r in public["rows"]}
     required = {
