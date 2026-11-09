@@ -1,16 +1,16 @@
 {
   "year": 2026,
   "module": "M1",
-  "basis": "Pesquisa institucional 2026; NPS_COMPARATIVO da planilha Arquitetura do Sistema; relatórios executivos EFAF e Educação Infantil; NPS por público, não misturar com outras métricas de avaliação docente.",
+  "basis": "Pesquisa institucional 2026; NPS_COMPARATIVO da planilha Arquitetura do Sistema; relatórios executivos EFAF e Educação Infantil; NPS por público, não misturar com outras métricas de avaliação docente. Reconciliação suplementar 09/11/2026 contra os Typeforms originais; NPS ausente nunca equivale a zero.",
   "groups": [
     {
       "id": "institucional",
       "label": "Colégio Stagio · todos os públicos",
       "respondents": 408,
       "promoters": 219,
-      "passives": 134,
-      "detractors": 55,
-      "nps": 40.2
+      "passives": 136,
+      "detractors": 53,
+      "nps": 40.69
     },
     {
       "id": "familias",
@@ -26,9 +26,9 @@
       "label": "Alunos · total 6º ano ao Médio",
       "respondents": 172,
       "promoters": 60,
-      "passives": 75,
-      "detractors": 37,
-      "nps": 13.37
+      "passives": 77,
+      "detractors": 35,
+      "nps": 14.53
     },
     {
       "id": "infantil",
@@ -60,11 +60,11 @@
     {
       "id": "fii6a8",
       "label": "6º ao 8º ano · alunos",
-      "respondents": 94,
+      "respondents": 96,
       "promoters": 41,
-      "passives": 33,
+      "passives": 35,
       "detractors": 20,
-      "nps": 22.34
+      "nps": 21.88
     },
     {
       "id": "nono",
@@ -87,11 +87,11 @@
     {
       "id": "medio_alunos",
       "label": "Ensino Médio · alunos",
-      "respondents": 38,
+      "respondents": 36,
       "promoters": 13,
       "passives": 16,
-      "detractors": 9,
-      "nps": 10.53
+      "detractors": 7,
+      "nps": 16.67
     }
   ],
   "ratings": {
@@ -165,9 +165,10 @@
   "limitations": [
     "NPS geral 2026 combina 236 famílias e 172 alunos: não comparável diretamente ao NPS histórico de famílias 2023–2025.",
     "Os 127 cadastros de famílias vinculadas ao Fundamental I no outro painel incluem 39 vínculos multietapa; o NPS exclusivo usa 88 famílias.",
-    "No Fundamental II, 94 respostas são dos alunos 6º ao 8º ano e 40 do 9º ano; a reunião desses subgrupos totaliza 134, mas o NPS 9º é negativo.",
+    "No Fundamental II, 96 respostas são dos alunos 6º ao 8º ano e 40 do 9º ano; a reunião desses subgrupos totaliza 134, mas o NPS 9º é negativo.",
     "Educação Infantil: 36 respostas de NPS; médias de perguntas podem conter N=42. Os denominadores diferem.",
     "Ensino Médio: apenas 19 respostas de famílias; destacar a incerteza da amostra.",
-    "Nenhuma resposta aberta, nome ou registro individual deve estar no repositório público."
+    "Nenhuma resposta aberta, nome ou registro individual deve estar no repositório público.",
+    "NPS alunos 2026 corrigido pela auditoria dos formulários brutos: 96 notas válidas no FII 6º-8º; 40 no 9º; 36 no Médio. Os 15 envios sem nota NPS (1 no 9º, 2 no Médio, 12 famílias) permanecem armazenados, mas excluídos do denominador. Não atribuir nota zero a respostas vazias."
   ]
 }
