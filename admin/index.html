@@ -72,6 +72,16 @@ button:disabled{opacity:.5;cursor:default}
 <div class="s360-statusbar"><div><b>AMBIENTE PROTEGIDO</b> · Avaliações individuais e evidências acessíveis apenas a contas autorizadas</div><span>ACESSO RESTRITO</span></div>
 <section id="setup"><div class="card authcard"><span class="pill">Acesso bloqueado por padrão</span><h2 style="margin-top:16px">Não foi possível abrir o acesso restrito</h2><p>A autenticação já está configurada, mas esta sessão não conseguiu iniciar corretamente. Confira a conexão ou tente novamente pelo link de acesso abaixo.</p><div class="warning"><strong>Nenhum registro individual foi publicado aqui.</strong> A interface não possui senha de demonstração nem banco sensível embutido.</div><p class="small muted">Configuração: execute a migração em <code>supabase/migrations/</code>, crie e autorize as contas no backend e preencha <code>admin/config.js</code> com URL e chave pública.</p><a href="https://github.com/henriquebovolopes-svg/stagio-360/blob/main/DEPLOY_ADMIN.md">Consultar instruções de ativação</a></div></section>
 <section id="signin" hidden><div class="card authcard"><span class="pill">Ambiente restrito</span><h2 style="margin-top:15px">Entrar no STAGIO 360</h2><p class="muted">Acesso permitido apenas a profissionais autorizados. Não existe cadastro público.</p><form id="login-form"><div class="field"><label for="email">E-mail institucional</label><input id="email" type="email" required autocomplete="username" placeholder="seu.email@colegio..." /></div><div class="field"><label for="pw">Senha</label><input id="pw" type="password" required autocomplete="current-password"/></div><button id="login-btn" type="submit">Entrar</button></form><p style="font-size:13px;margin-top:15px"><a href="./reset.html" style="color:#237e88;font-weight:750">Esqueci minha senha</a></p><p id="auth-error" class="small" role="alert"></p></div></section>
+<section id="denied" hidden>
+<div class="card authcard" role="alert">
+<span class="pill">Acesso por etapa</span>
+<h2 style="margin-top:15px">Esta área não está autorizada para sua conta</h2>
+<p>Os registros individuais desta página pertencem ao <strong>Fundamental I</strong>.
+A sua conta não possui permissão para consultar essa etapa.</p>
+<p class="muted">O acesso a outros segmentos continua disponível conforme as permissões do seu perfil.</p>
+<p><a class="subtle-link" href="../">Voltar ao portal institucional</a></p>
+<button type="button" id="switch-account" class="secondary">Entrar com outra conta</button>
+</div></section>
 <section id="app" hidden>
 <div class="s360-intro"><div class="s360-eyebrow">Painel da coordenação · M1/2026</div><h2>Panorama de avaliação e evidências</h2><p>Indicadores protegidos e leituras individuais das quatro fontes do Fundamental I.</p></div>
 <div class="topbar card"><div><span class="pill">Sessão autorizada · M1/2026</span><h2 style="margin-top:8px">Avaliações e desenvolvimento docente</h2><p class="muted small">Perfis, critérios, notas e escuta qualitativa em área protegida</p></div><div class="small"><strong id="signedname"></strong><br/><span id="signedrole" class="muted"></span></div></div>
@@ -110,7 +120,7 @@ const $=id=>document.getElementById(id);
 let sup=null,teacherList=[],studentList=[],familyList=[],selectedTeacherId=null;
 let studentAliases=new Map(),familyAliases=new Map(),allEvidenceCache=null;
 const config=window.STAGIO_AUTH||{};
-const show=(id)=>{['setup','signin','app'].forEach(x=>$(x).hidden=x!==id);document.body.classList.toggle('s360-authorized',id==='app')};
+const show=(id)=>{['setup','signin','denied','app'].forEach(x=>$(x).hidden=x!==id);document.body.classList.toggle('s360-authorized',id==='app')};
 function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text??'');if(cls)n.className=cls;return n}
 function append(parent,...children){children.forEach(c=>parent.append(c));return parent}
 function clear(id){const x=typeof id==='string'?$(id):id;x.replaceChildren();return x}
@@ -124,9 +134,17 @@ async function boot(){if(!config.url||!config.publishableKey){show('setup');retu
  try{const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.95.0');sup=createClient(config.url,config.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});const {data:{user},error}=await sup.auth.getUser();if(error||!user){show('signin');return}await authorize(user)}
  catch(e){show('setup');const note=$('setup').querySelector('.warning');note.textContent='Não foi possível iniciar o serviço de autenticação. Confira configuração e conexão: '+e.message}}
 async function authorize(user){const data=await safe(sup.from('stg_members').select('role,display_name,active').eq('user_id',user.id).limit(1));if(!data[0]||!data[0].active){await sup.auth.signOut({scope:'local'});show('signin');$('auth-error').textContent='Conta sem autorização ativa para acessar este painel.';return}
+ const role=data[0].role;
+ let permitted=role==='admin'||role==='master';
+ if(role==='coordenacao'){
+  const scopes=await safe(sup.from('stg_scope_access').select('stage').eq('user_id',user.id).eq('stage','fundamental1').limit(1));
+  permitted=scopes.some(item=>item.stage==='fundamental1');
+ }
+ if(!permitted){show('denied');return}
  $('signedname').textContent=data[0].display_name;
  $('signedrole').textContent=(data[0].role==='admin'?'Administração Geral':data[0].role==='master'?'Direção Master':'Coordenação')+' · '+user.email;
  show('app');$('logout').hidden=false;$('utilities').hidden=false;$('maintenance-import').hidden=data[0].role!=='admin';await loadTeachers();const chosen=new URLSearchParams(location.search).get('tab');if(['teachers','erica','students','families','search'].includes(chosen))tab(chosen);}
+$('switch-account').addEventListener('click',async()=>{await sup.auth.signOut({scope:'local'});show('signin');$('auth-error').textContent='';});
 $('login-form').addEventListener('submit',async e=>{e.preventDefault();if(!sup)return;const btn=$('login-btn');btn.disabled=true;$('auth-error').textContent='Verificando credenciais…';try{const {data,error}=await sup.auth.signInWithPassword({email:$('email').value.trim(),password:$('pw').value});if(error)throw error;$('pw').value='';await authorize(data.user);$('auth-error').textContent=''}catch(e){$('auth-error').textContent='Não foi possível autenticar: '+e.message}finally{btn.disabled=false}});
 $('logout').addEventListener('click',async()=>{if(sup)await sup.auth.signOut({scope:'local'});teacherList=[];studentList=[];familyList=[];allEvidenceCache=null;studentAliases.clear();familyAliases.clear();clear('theme-result');$('utilities').hidden=true;show('signin');$('logout').hidden=true;err('')});
 function tab(id){document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));['teachers','erica','students','families','search'].forEach(t=>$(t).hidden=t!==id);err('');if(id==='students'&&!studentList.length)loadStudents().catch(x=>err(x.message));if(id==='families'&&!familyList.length)loadFamilies().catch(x=>err(x.message))}
