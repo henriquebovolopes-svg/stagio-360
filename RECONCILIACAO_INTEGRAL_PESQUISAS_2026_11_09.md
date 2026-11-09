@@ -72,3 +72,14 @@ O banco `public.stg_360_nps` também foi corrigido apenas nos quatro recortes ac
 6. O dashboard **não recebe automaticamente novas respostas do Typeform**. A fotografia auditada reflete os arquivos de origem acessíveis em 09/11/2026 e deve ser atualizada por novo ciclo de importação/reconciliação.
 
 **Leitura correta:** concluída a integração e reconciliação das quatro pesquisas originais em âmbito confidencial e das correções NPS; não concluída a triangulação docente longitudinal, nem integração acadêmica histórica.
+
+## Adendo de encerramento da mesma data — integrações concluídas posteriormente
+
+As observações de pendência acadêmica, classificação multietapa e vinculação de planejamentos acima registram o **estado anterior** à conciliação complementar; não representam o status final de 09/11/2026.
+
+- Famílias: criada a view `stg_360_family_stage_coverage` com **236 atribuições NPS exclusivas e 283 menções de etapa** (leitura inclusiva não somável). Quatro NPS exclusivos conciliados com o banco.
+- Identidade docente: **7 vínculos FI**, totalizando **116 planos**, confirmados por cadastro de regência, classe e ausência de homônimo no conjunto de regentes verificados. Os outros **25 vínculos** seguem sem confirmação.
+- Infantil/1º ano: **139 planos EI estritos + 51 planos de 1º ano pendentes**, sem reclassificação automática.
+- Histórico acadêmico: **172 resultados Geekie e 77 ENEM oficial**, total 249, já importados à tabela protegida `stg_360_academic_results` e apresentados em `admin/academico.html`.
+- A auditoria e o fluxo HTTP cobrem agora **19 páginas**.
+- A [auditoria complementar de 09/11/2026](RECONCILIACAO_FAMILIAS_DOCENTES_ACADEMICO_2026_11_09.md) contém as evidências e ressalvas atualizadas.
