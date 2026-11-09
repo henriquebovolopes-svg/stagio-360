@@ -126,21 +126,20 @@ function addBar(label,value,n){const wrap=document.createElement('div');const ca
 
 function updateContextualAccess(stage){
  const paths={
-  institutional:{href:'./admin/governanca.html',title:'Gestão por etapa · área autenticada',info:'Selecione o segmento e utilize sua conta autorizada. A visão geral pública não mostra registros individuais.'},
-  infantil:{href:'./admin/infantil.html',title:'Educação Infantil · acesso restrito',info:'A consulta de informações internas da Educação Infantil exige login e permissão específica.'},
-  fundamental1:{href:'./admin/index.html',title:'Fundamental I · área da coordenação',info:'Acesse as pesquisas individuais, os textos disponíveis e os registros dos professores conforme seu perfil.'},
-  fundamental2:{href:'./admin/governanca.html',title:'Fundamental II · área da coordenação',info:'Consulte indicadores internos do segmento conforme as permissões; dados individuais dependem de disponibilidade e homologação.'},
-  medio:{href:'./admin/governanca.html',title:'Ensino Médio · área da coordenação',info:'Consulte indicadores internos do segmento conforme as permissões; dados individuais dependem de disponibilidade e homologação.'},
-  administrativo:{href:'./admin/funcionarios.html',title:'Funcionários · área privada',info:'Os resultados da pesquisa interna de funcionários exigem autenticação e não são avaliações nominais.'}
+  institutional:{href:null,title:'Escolha uma etapa de ensino',info:'Selecione Educação Infantil, Fundamental I, Fundamental II ou Ensino Médio para acessar a área de coordenação da etapa autorizada.'},
+  infantil:{href:'./admin/segmento.html?etapa=infantil',title:'Educação Infantil · área da coordenação',info:'Acesso autenticado aos indicadores e ao planejamento disponíveis na etapa. Dados individuais somente quando homologados.'},
+  fundamental1:{href:'./admin/segmento.html?etapa=fundamental1',title:'Fundamental I · área da coordenação',info:'Acesso autenticado aos perfis docentes, às pesquisas abertas, às turmas e aos PDIs existentes.'},
+  fundamental2:{href:'./admin/segmento.html?etapa=fundamental2',title:'Fundamental II · área da coordenação',info:'Área autenticada com a rubrica por eixo do M1 e indicação dos dados individuais ainda não homologados.'},
+  medio:{href:'./admin/segmento.html?etapa=medio',title:'Ensino Médio · área da coordenação',info:'Área autenticada com a rubrica por eixo do M1 e indicação dos dados individuais ainda não homologados.'},
+  administrativo:{href:'./admin/funcionarios.html',title:'Funcionários · pesquisa interna protegida',info:'Os dados da pesquisa institucional de funcionários são anônimos e não equivalem a avaliações individuais.'}
  };
  const entry=paths[stage]||paths.institutional;
  $('stage-access-title').textContent=entry.title;
  $('stage-access-description').textContent=entry.info;
  const link=$('stage-access-link');
- link.href=entry.href;
- link.textContent=stage==='institutional'?'Acessar gestão por etapa':'Entrar na área restrita';
+ link.hidden=!entry.href;
+ if(entry.href){link.href=entry.href;link.textContent=stage==='administrativo'?'Entrar na pesquisa de funcionários':'Acessar área restrita da coordenação'}
 }
-
 function render(){
  loadFilters();
  const stage=key.etapa,year=Number(key.ano),cycle=key.ciclo;
