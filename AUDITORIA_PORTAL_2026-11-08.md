@@ -111,3 +111,12 @@ Nota: o portal foi atualizado com evidências verificadas, mas o objetivo de ter
 - Teste de acesso no banco, simulando sessões `authenticated`: Henrique vê 27 questões; Érica e Giovanna recebem 0 questões. Tentativa `anon` falhou por `permission denied`, como esperado.
 - Auditoria de scripts: `admin/funcionarios.html` e `index.html` passaram na análise sintática JavaScript.
 - Validação ponta a ponta em navegador real e implantação no GitHub Pages continuam não comprovadas; o arquivo e a atualização do portal estão confirmados no repositório.
+
+## 09/11/2026 — expansão das respostas dissertativas dos funcionários
+- Origem: `Typeform_ADM.xlsx`. Identificadas e importadas 149 respostas escritas de nove perguntas abertas (oito perguntas com 17 respostas; uma com 13).
+- Novo armazenamento: `public.stg_staff_survey_comments`, RLS ativa, sem `INSERT/UPDATE/DELETE` por `authenticated`; `SELECT` exclusivamente mediante `private.stg_staff_allowed()`.
+- A interface `admin/funcionarios.html` apresenta perguntas abertas com controles expansíveis HTML `details/summary`, respostas numeradas, quebras de linha preservadas e inserção via `textContent`, não HTML interpretado.
+- Os campos e-mail, token, data, área e tempo de trabalho não foram copiados. Respostas individuais podem conter pistas de identidade pelo próprio texto: o acesso é estritamente confidencial.
+- Teste de RLS simulando contas autenticadas: Henrique vê 149 respostas; Érica e Giovanna veem 0. A autorização de Márcia depende de conta pessoal verificada.
+- Releitura da página no GitHub: sintaxe do script válida, IDs não duplicados e nenhum texto dissertativo embutido no arquivo público.
+- Publicação efetiva do Pages e teste E2E no navegador não confirmados nesta sessão.
