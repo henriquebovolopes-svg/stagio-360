@@ -93,3 +93,13 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - Identidades antigas da base docente FI preservadas em `stg_360_teacher_identity`; vínculos com `stg_planning_teacher_summary` são homologados manualmente em `stg_360_planning_crosswalk`. Nenhum matching aproximado ganha status confirmado sem validação humana.
 - `stg_360_teacher_profile` é uma visão invoker que cruza indicadores FI M1, PDI e planejamento **somente quando identidade estiver homologada**; acesso reservado a `admin` e `master`.
 - O mapa de integração ainda não é uma análise longitudinal completa: M2/M3 não foram importados, avaliações por múltiplos públicos de todos os segmentos ainda não compartilham chaves canônicas e o painel inicial ainda contém números estáticos de agregados previamente auditados.
+
+
+### Planejamento 2026 — importação individual concluída
+- Foram importados **336 planos individuais** da planilha original `PLANO DE AULA | Colégio Stagio (respostas).xlsx` para `public.stg_planning_entries`. Identificadores estáveis `sheet2026_2` a `sheet2026_337` permitem importação idempotente.
+- Os campos de intencionalidade, habilidade/campo da BNCC, evidências e reflexão ficam **somente no Supabase com RLS por etapa**; nenhum texto pedagógico foi enviado ao repositório público.
+- Em `/admin/planejamento.html`, a coordenação pode clicar em **Ver aulas** para recuperar os planos integrais enviados pelo professor. Há status/devolutiva separados no acompanhamento por docente.
+- Conciliação da base: 190 registros classificados no formulário como Infantil, 119 FI, 13 FII, 14 EM = 336, distribuídos entre 32 pares professor/etapa. Os registros conferem com a base-resumo existente.
+- **Ressalvas:** 51 envios classificados pelo formulário como Infantil têm turma `1º ano`, marcados com `first_year_scope_pending` até homologação; um registro de Ensino Médio informa aula em 2016, marcado `date_requires_review`. Não modificar silenciosamente a data de origem nem transferir os registros para outra etapa.
+- `stg_360_source_coverage` passou a incluir quatro fontes de planos individuais (ano, não M1/M2/M3), que se somam às fontes-resumo. Não somar fontes individuais com seus próprios resumos como se fossem respondentes diferentes.
+- Verificações: 336 IDs únicos; zero divergências por professor entre resumo e registros importados; acesso completo a Henrique e Giovanna, somente FI a Érica; ausência de acesso EI para Érica.
