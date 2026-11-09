@@ -1,0 +1,107 @@
+
+/* STAGIO 360 | Identidade visual [S360] | M1/2026. Camada de apresentação: não altera consultas nem permissões. */
+:root{--s360-navy:#072754;--s360-deep:#062047;--s360-blue:#0869dc;--s360-cyan:#17c7f7;--s360-mint:#14804d;--s360-orange:#d96914;--s360-bg:#ecf3fc;--s360-ink:#102c5a;--s360-stroke:#c9daf4}
+body.s360{--navy:#083168;--teal:#076ce4;--mint:#188a5d;--sea:#0a62cf;--bg:var(--s360-bg);--ink:var(--s360-ink);--muted:#607596;--line:var(--s360-stroke);color:var(--s360-ink);background:var(--s360-bg);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.s360 .s360-shell{display:grid;grid-template-columns:276px minmax(0,1fr);min-height:100vh}
+body.s360 .s360-sidebar{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;min-width:0;padding:24px 12px 18px;background:linear-gradient(180deg,#092c60 0%,#061e43 100%);color:#fff;border-right:1px solid #1c6aa8;z-index:3}
+body.s360 .s360-logo{height:114px;display:flex;align-items:center;justify-content:center;padding:0 8px 18px;margin-bottom:18px;border-bottom:1px solid #ffffff46}
+body.s360 .s360-logo img{display:block;width:100%;max-width:235px;max-height:104px;object-fit:contain}
+body.s360 .s360-sidenav{display:flex;flex-direction:column;gap:7px;min-width:0}
+body.s360 .s360-sidenav .tab,body.s360 .s360-sidenav .s360-navlink,body.s360 .s360-sidenav.nav button{display:flex;align-items:center;gap:15px;width:100%;min-width:0;padding:15px 17px;text-align:left;color:#f3f7ff;border:1px solid transparent;border-radius:12px;background:transparent;font-size:14px;line-height:1.3;font-weight:750;letter-spacing:0;box-shadow:none;text-decoration:none;cursor:pointer;white-space:normal}
+body.s360 .s360-sidenav .tab:hover,body.s360 .s360-sidenav .s360-navlink:hover,body.s360 .s360-sidenav.nav button:hover:not(.active){background:#174476;color:#fff}
+body.s360 .s360-sidenav .tab[aria-selected="true"],body.s360 .s360-sidenav .s360-navlink.active,body.s360 .s360-sidenav.nav button.active{background:linear-gradient(115deg,#1685f9,#075bdb);color:#fff;border-color:#1689fa;box-shadow:0 7px 20px #00172f55}
+body.s360 .s360-sidenav svg{width:21px;height:21px;flex:0 0 21px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+body.s360 .s360-sidebar-spacer{flex:1;min-height:25px}
+body.s360 .s360-sidebar-foot{padding:19px 11px 10px;margin:14px 5px 0;border-top:1px solid #ffffff5e;color:#e3efff}
+body.s360 .s360-sidebar-foot .s360-mark{font-size:23px;letter-spacing:-.05em;font-weight:900;line-height:1;color:#fff}
+body.s360 .s360-mark em{font-style:normal;color:#17caf8}
+body.s360 .s360-sidebar-foot strong{display:block;font-size:20px;letter-spacing:-.04em;margin:5px 0 8px}
+body.s360 .s360-sidebar-foot small{font-size:12px;line-height:1.43;color:#d0e2fc;letter-spacing:0}
+body.s360 .s360-workspace{min-width:0;background:var(--s360-bg)}
+body.s360 header.s360-hero{max-width:none;margin:0;min-height:150px;padding:25px clamp(22px,2.4vw,48px);display:flex;align-items:center;justify-content:space-between;gap:18px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(115deg,#082958 0%,#09519f 48%,#068ee3 100%)}
+body.s360 header.s360-hero::before{content:"";position:absolute;inset:-150px -30% -240px 30%;border:2px solid #ffffff36;border-radius:50%;transform:rotate(-14deg);pointer-events:none}
+body.s360 header.s360-hero::after{content:"";position:absolute;top:40%;right:-12%;width:74%;height:165%;border:2px solid #ffffff77;border-radius:50%;transform:rotate(-11deg);pointer-events:none}
+body.s360 .s360-hero-content{position:relative;z-index:1;min-width:0}
+body.s360 .s360-hero-kicker{font-size:17px;font-weight:800;letter-spacing:-.02em}
+body.s360 .s360-hero-kicker span{color:#0fceff;font-size:21px;margin-right:8px}
+body.s360 header.s360-hero h1{font-size:clamp(30px,3vw,45px);font-weight:850;letter-spacing:-.045em;line-height:1.08;margin:3px 0 5px;color:white}
+body.s360 header.s360-hero small,body.s360 header.s360-hero .s360-hero-sub{font-size:13px;line-height:1.5;color:#eaf6ff;letter-spacing:0}
+body.s360 header.s360-hero a{color:#fff}
+body.s360 header.s360-hero button{position:relative;z-index:2}
+body.s360 .s360-main{max-width:none;margin:0;padding:20px clamp(18px,2.3vw,42px) 55px}
+body.s360 .s360-toolbar{display:flex;gap:15px;justify-content:space-between;align-items:center;margin-bottom:13px;flex-wrap:wrap;font-weight:740;font-size:13px;color:#143a7d}
+body.s360 .s360-toolbar a{display:inline-flex;gap:7px;align-items:center;border:1px solid #c8d9f3;background:#fff;color:#133870;border-radius:10px;padding:10px 14px;text-decoration:none;box-shadow:0 2px 5px #17385e0d}
+body.s360 .s360-toolbar a:hover{background:#eaf2fe}
+body.s360 .s360-statusbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 14px;margin:0 0 18px;border:1px solid #b8d4fa;background:#edf5ff;border-radius:11px;color:#18477f;font-size:12px}
+body.s360 .s360-statusbar b{color:#0753b2}
+body.s360 .s360-statusbar span:last-child{display:inline-block;border-radius:22px;background:#d9eafe;color:#075eb6;padding:3px 10px;font-size:11px;font-weight:800}
+body.s360 .s360-intro{margin:14px 0 17px}
+body.s360 .s360-eyebrow{font-size:11px;letter-spacing:.12em;color:#0866d6;font-weight:900;text-transform:uppercase}
+body.s360 .s360-intro h2{font-size:clamp(24px,2.15vw,32px);font-weight:850;letter-spacing:-.04em;line-height:1.16;margin:3px 0}
+body.s360 .s360-intro p{color:#607696;font-size:13px;margin:3px 0}
+body.s360 .card{border-radius:16px;border:1px solid #cfdef3;background:#fff;box-shadow:0 6px 17px #21487913}
+body.s360 .card h2,body.s360 .card h3{color:#112d5b;letter-spacing:-.02em}
+body.s360 .kpis{grid-template-columns:repeat(5,minmax(0,1fr));gap:11px}
+body.s360 .kpi{position:relative;overflow:hidden;border:0;min-height:137px;padding:17px 16px;background:linear-gradient(145deg,#eff5ff,#dbe8ff)}
+body.s360 .kpi::after,body.s360 .dash-metric::after{content:"";position:absolute;width:114px;height:92px;right:-38px;top:-45px;border-radius:50%;background:#ffffff55;pointer-events:none}
+body.s360 .kpi:nth-child(2),body.s360 .dash-metric:nth-child(2){background:linear-gradient(145deg,#ecfcf3,#d5f4e3)}
+body.s360 .kpi:nth-child(3),body.s360 .dash-metric:nth-child(3){background:linear-gradient(145deg,#fff3e9,#ffe1cb)}
+body.s360 .kpi:nth-child(4),body.s360 .dash-metric:nth-child(4){background:linear-gradient(145deg,#edf4ff,#d6e7ff)}
+body.s360 .kpi:nth-child(5){background:linear-gradient(145deg,#edfcf4,#d6f5e3)}
+body.s360 .kpi strong{font-size:clamp(24px,2.2vw,37px);line-height:1.15;color:#0753b2;margin:10px 0 7px;letter-spacing:-.045em}
+body.s360 .kpi:nth-child(2) strong,body.s360 .kpi:nth-child(5) strong{color:#087339}
+body.s360 .kpi:nth-child(3) strong{color:#bd5917}
+body.s360 .kpi span{display:block;color:#235594;font-weight:650;font-size:12px}
+body.s360 .kpi span:first-child{font-weight:800;font-size:12px}
+body.s360 .kpi:nth-child(2) span,body.s360 .kpi:nth-child(5) span{color:#106d41}
+body.s360 .kpi:nth-child(3) span{color:#a64a10}
+body.s360 .s360-dashboard-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:13px;margin-top:16px}
+body.s360 .s360-dashboard-grid>.card{min-width:0;margin:0}
+body.s360 .s360-dashboard-grid h2{font-size:17px}
+body.s360 .s360-mini-stat{background:#f0f6fe;border:1px solid #d3e3fb;padding:14px;border-radius:12px}
+body.s360 .s360-mini-stat strong{font-size:22px;display:block;color:#0756b7}
+body.s360 .s360-mini-stat span{font-size:11px;color:#526d95}
+body.s360 .s360-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+body.s360 .s360-panel-link{color:#0562ce;font-size:12px;font-weight:800;text-decoration:none}
+body.s360 .s360-panel-link:hover{text-decoration:underline}
+body.s360 .barrow{border-bottom:1px solid #edf2fa}
+body.s360 .barrow:hover{background:#f3f8ff}
+body.s360 .track,body.s360 .dash-track{background:#e0e9f7}
+body.s360 .fill,body.s360 .dash-color-primary{background:#0874e8}
+body.s360 .fill.mint,body.s360 .dash-color-four{background:#199353}
+body.s360 .percent{color:#134581}
+body.s360 .btn,body.s360 button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled){background:#0868e1;color:#fff;border-radius:10px}
+body.s360 .btn:hover,body.s360 button:not(.tab):not(.s360-navlink):not(.pick):not(.theme-chip):not(.ghost):not(.secondary):not(.barrow):not(.s360-unfilled):hover{background:#0555bd}
+body.s360 input,body.s360 select,body.s360 textarea{border:1px solid #bed1ec;border-radius:10px}
+body.s360 .callout,body.s360 .safe{background:#ecf5ff;border-color:#b8d4fa}
+body.s360 .detail,body.s360 .dash-question-detail{background:#f5f9ff;border-color:#d9e6f8}
+body.s360 a{color:#0862c5}
+body.s360 .docente-link{background:#ecf5ff;border-color:#bed8ff;color:#0a56aa!important}
+body.s360 .docente-link small{color:#5c799e}
+body.s360 .footer{color:#6a80a1}
+body.s360 .topbar.card{background:linear-gradient(135deg,#fff,#f2f7ff);border-color:#c7dbf7}
+body.s360 .pill,body.s360 .tag,body.s360 .kpi-mini{background:#e4efff;color:#1457a5}
+body.s360 .dash-metric{position:relative;overflow:hidden;background:linear-gradient(145deg,#e9f2ff,#d9e9ff);border-color:#c8dcf5;border-radius:13px}
+body.s360 .dash-metric strong{color:#0756b6}
+body.s360 .dash-metric:nth-child(2) strong{color:#147a46}
+body.s360 .dash-metric:nth-child(3) strong{color:#bd5a15}
+body.s360 .dash-card{border-color:#cfdef3;border-radius:14px;background:#fafdff}
+body.s360 .dash-color-reference{background:#a0b7d9}
+body.s360 .dash-color-mid{background:#ff9a36}
+body.s360 .dash-color-low{background:#d76664}
+body.s360 .details-panel summary{color:#0b57b0}
+body.s360 .theme-chip.active{background:#0868e1;color:#fff;border-color:#0868e1}
+body.s360 .s360-sidebar a:focus-visible,body.s360 .s360-sidebar button:focus-visible{outline:2px solid #58d1ff;outline-offset:2px}
+body.s360 [hidden]{display:none!important}
+body.s360-admin:not(.s360-authorized) .s360-secure-nav{display:none}
+body.s360 .authcard{margin:26px auto;max-width:580px}
+body.s360-admin .s360-app-note{font-size:12px;color:#d7e8ff}
+body.s360-admin .s360-sidenav.nav{margin:0}
+body.s360-admin .s360-sidenav.nav button{font:inherit;font-size:14px;font-weight:750}
+body.s360-admin .s360-sidenav.nav button.active{background:linear-gradient(115deg,#1685f9,#075bdb);color:#fff}
+body.s360 .nav button:not(.active){background:transparent;color:#eaf4ff;border-color:transparent}
+body.s360 .nav button:hover:not(.active){color:#fff;background:#174476}
+@media(max-width:1200px){body.s360 .s360-shell{grid-template-columns:235px minmax(0,1fr)}body.s360 .s360-sidenav .tab,body.s360 .s360-sidenav.nav button{padding:12px 10px;gap:10px}body.s360 .s360-dashboard-grid{grid-template-columns:1fr 1fr}body.s360 .s360-dashboard-grid>.card:first-child{grid-column:span 2}}
+@media(max-width:900px){body.s360 .s360-shell{display:block}body.s360 .s360-sidebar{position:relative;height:auto;min-height:0;padding:12px 14px;gap:10px}body.s360 .s360-logo{height:65px;justify-content:flex-start;margin:0;padding:0;border:0}body.s360 .s360-logo img{width:190px;max-height:63px}body.s360 .s360-sidebar-spacer,body.s360 .s360-sidebar-foot{display:none}body.s360 .s360-sidenav{flex-direction:row;overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:3px}body.s360 .s360-sidenav .tab,body.s360 .s360-sidenav .s360-navlink,body.s360 .s360-sidenav.nav button{width:auto;flex:0 0 auto;padding:11px 14px;white-space:nowrap;font-size:12px}body.s360 .s360-sidenav svg{width:17px;height:17px;flex-basis:17px}body.s360 header.s360-hero{min-height:120px;padding:23px 20px}body.s360 .s360-main{padding:18px 16px 45px}body.s360 .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:580px){body.s360 .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}body.s360 .s360-dashboard-grid{grid-template-columns:1fr}body.s360 .s360-dashboard-grid>.card:first-child{grid-column:auto}body.s360 header.s360-hero h1{font-size:32px}body.s360 .s360-toolbar{align-items:stretch}body.s360 .s360-statusbar{align-items:flex-start}body.s360 .s360-intro h2{font-size:24px}body.s360 .s360-sidenav{gap:5px}body.s360 .authcard{padding:19px}}
+@media print{body.s360 .s360-sidebar,body.s360 .s360-toolbar{display:none!important}body.s360 .s360-shell{display:block}body.s360 header.s360-hero{background:#fff;color:#112d5b;padding:12px 16px;min-height:0}body.s360 header.s360-hero h1,body.s360 header.s360-hero small{color:#112d5b}body.s360 .s360-main{padding:12px}}
