@@ -71,7 +71,6 @@ def check_integration_routes():
             "stg_360_teacher_registry_pending",
             "stg_360_autoeval_reconciliation",
             "stg_360_teacher_profile",
-            "admin/route-placeholder-not-present",
         ),
         "admin/planejamento.html": (
             "stg_planning_entries",
@@ -88,11 +87,9 @@ def check_integration_routes():
             continue
         code = path.read_text(encoding="utf-8")
         for token in required:
-            if token == "admin/route-placeholder-not-present":
-                continue
             if token not in code:
                 ERRORS.append(f"{rel}: integração obrigatória ausente ({token})")
-        if not re.search(r'<script[^>]+src=["\\\']\\./config\\.js["\\\']', code):
+        if '<script src="./config.js">' not in code:
             ERRORS.append(f"{rel}: cliente Supabase sem configuração autenticada")
     config = ROOT / "admin/config.js"
     if not config.exists():
