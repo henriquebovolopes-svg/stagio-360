@@ -85,3 +85,11 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - A conta de Patrícia **ainda não existe** na autenticação. Depois de criada, um administrador deverá confirmar seu identificador de Auth, associá-la a `stg_members` como `coordenacao` e criar somente o vínculo `stg_scope_access(stage='infantil')`. Para Márcia, associar `stg_members(role='master')` e criar a autorização específica para Escuta dos Funcionários em `private.stg_staff_access`. Não conceder permissões a nomes textuais ou endereços de e-mail não confirmados.
 - Fonte de planejamento: arquivo original Excel do formulário, com data de fotografia (não é sincronização automática). A pasta no Drive `PLANOS DE AULA` foi localizada; os documentos na pasta dependem das permissões próprias do Google Drive, e a revisão de conteúdo individual permanece distinta da contagem de envios.
 - Segurança testada com transações reversíveis: Henrique e Giovanna podem registrar status EI; Érica é impedida de registrar acompanhamento EI. A publicação do GitHub Pages e testes de login em navegador real ainda exigem confirmação.
+
+## Integração 360 canônica — novembro de 2026
+- Governança integrada restrita: `/admin/integracao.html` (por login Supabase e RLS).
+- Registros de origem por ano/ciclo/etapa: `stg_360_cycles` e `stg_360_source_coverage`; levantamentos anuais são classificados como `YEAR`, sem falsamente pertencer a M1.
+- Histórico NPS agora também normalizado em `stg_360_nps`, com amostra, público e abrangência explícitos. Séries de populações diferentes não são mescladas.
+- Identidades antigas da base docente FI preservadas em `stg_360_teacher_identity`; vínculos com `stg_planning_teacher_summary` são homologados manualmente em `stg_360_planning_crosswalk`. Nenhum matching aproximado ganha status confirmado sem validação humana.
+- `stg_360_teacher_profile` é uma visão invoker que cruza indicadores FI M1, PDI e planejamento **somente quando identidade estiver homologada**; acesso reservado a `admin` e `master`.
+- O mapa de integração ainda não é uma análise longitudinal completa: M2/M3 não foram importados, avaliações por múltiplos públicos de todos os segmentos ainda não compartilham chaves canônicas e o painel inicial ainda contém números estáticos de agregados previamente auditados.
