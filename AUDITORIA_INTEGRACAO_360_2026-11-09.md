@@ -157,3 +157,33 @@ P5. Implantar validação automática de reconciliação por etapa, fonte, ciclo
 - `scripts/audit_site.py` passou a exigir a referência a `stg_360_operational_readiness`, para evitar retirada acidental do módulo no deploy.
 - A publicação real via GitHub Pages não foi validada: a ferramenta pública de consulta não acessou os URLs; uma tentativa alternativa falhou por DNS do ambiente. O conector GitHub disponível não lista execuções push do workflow por ID desconhecido. **Não afirmar deploy aprovado ou login testado.**
 - A view é dinâmica, mas o inventário `stg_360_source_coverage` continua representando fotografias históricas e não é recalculado automaticamente.
+
+## Auditoria transversal completa — famílias, alunos, professores, coordenação e funcionários (09/11/2026)
+
+### Inventário verificado e semântica dos cruzamentos
+- **Famílias FI M1:** 127 respondentes únicos em `stg_families`; 88 identificados com escopo FI e 39 FI+outras etapas. No recorte estrito de *série única do 2º–5º ano*, 66 casos (2º 19, 3º 15, 4º 14, 5º 18). Os outros 61 formulários **não** foram alocados arbitrariamente a uma série ou docente. Importante: os 88 de escopo FI não são necessariamente os mesmos 88 respondentes NPS FI 2026 — são pesquisas diferentes.
+- **Alunos FI M1:** 159 respondentes únicos em oito turmas do 2º ao 5º ano; 477 respostas textuais (três por aluno). Série: 2º 46, 3º 39, 4º 27, 5º 47. Ligações por classe/turma são **contextuais**, não identidade do professor avaliado; turma compartilhada não admite imputação de nota ao docente.
+- **Professores AUTO M1:** 462 notas, 22 docentes cadastrados (21 itens cada), transversais a segmentos. 168 itens de oito respostas completas em staging, ainda sem vínculo homologado; 220 evidências dissertativas AUTO com teacher_id.
+- **Coordenação FI M1:** 167 itens ligados a 14 docentes por teacher_id, mais 68 evidências textuais ligadas. FII e EM: 111 e 36 respostas objetivas, respectivamente, em agregados de quatro eixos; sem chave individual de avaliador–docente para cruzamento nominal.
+- **Escuta de funcionários 2026:** 17 respondentes, 27 indicadores objetivos de seis eixos e 149 comentários codificados, sem identificação individual; **não** constitui avaliação de desempenho pessoal de colaboradores ou professores.
+- **NPS 2026:** famílias EI 36, FI 88, FII 93, EM 19; alunos FII 134 (6º–8º 94, 9º 40), EM 38. NPS escolar de famílias e alunos é inventariado em linhas separadas e sem equivalência a survey FI M1. NPS de anos anteriores mantém escopo histórico EI+1º ano.
+- **Educação Infantil:** dez indicadores agregados do instrumento baseado em 42 respostas; arquivo de planejamento contém 190 planos na origem EI, sendo 51 registros identificados com 1º ano e ainda sob revisão de escopo. Não foi inventado vínculo nominal dessas famílias com crianças ou professoras.
+- **Planejamento:** 336 envios: 190 EI (inclui 1º ano), 119 FI, 13 FII e 14 EM. 32 nomes abreviados por etapa, nenhum vínculo homologado professor–planejamento.
+
+### Correção da cobertura
+- Em `stg_360_source_coverage`, AUTO M1 (462 itens) agora tem `stage='institutional'` — a antiga classificação FI exclusiva era incorreta.
+- As 1.400 evidências também foram reclassificadas como institucionais com `linked_to_teacher=false` por não serem todas identificáveis: 477 textos alunos, 635 famílias, 220 AUTO e 68 coordenação. Apenas 288 destes 1.400 textos estão diretamente vinculados a docente. A origem específica continua consultável nas tabelas.
+- **Não** se criou nenhuma associação por coincidência de turma, primeiro nome, sequência de resposta ou soma de NPS.
+
+### Objetos novos de integração
+- `stg_360_audience_coverage`: visão institucional master/admin, `security_invoker=true`, com 23 indicadores dinâmicos por etapa, público, unidade, fonte, nível de associação e ressalva metodológica, cobrindo cinco perspectivas (*familias, alunos, professores, coordenacao, funcionarios*).
+- `stg_360_fi_class_context`: oito turmas FI com 159 formulários de alunos, 477 textos e regentes de referência já confirmados. Ligação contextual por turma, sem nota atribuída automaticamente e reconhecendo regência compartilhada.
+- `stg_360_fi_grade_context`: quatro séries com respostas de estudantes e recorte das 66 famílias de única série, excluindo registros multietapa e 1º ano.
+- `admin/integracao.html`: nova Matriz Transversal com filtros por etapa e público, tabela com ressalvas visíveis, quadros de série e turma; consultas após login somente admin/master.
+- `scripts/audit_site.py`: reforçado para exigir as três consultas desta integração no preflight.
+
+### Validação
+- Simulações RLS: Henrique e Giovanna veem 23 leituras, cinco públicos, quatro séries e oito turmas; Érica não tem acesso à matriz institucional. Totais das 8 turmas: 159 alunos / 477 textos; quatro séries: 159 alunos / 66 formulários de família exclusiva.
+- Sintaxe JavaScript do módulo verificada, IDs HTML únicos e nenhuma resposta textual ou nome confidencial inserido estaticamente na página.
+- **Pendências reais:** respostas de alunos/famílias não têm chave validada de docente; FII/EM coordenação permanece agregada; funcionários são anônimos; identidade e planejamento têm 0/32 homologações; M2/M3 não importados. Nenhum desses fatos pode ser descrito como homologação integral ou comparação longitudinal completa.
+- As URLs do GitHub Pages não foram acessíveis pelo mecanismo de verificação web desta sessão. Isso não prova indisponibilidade do site; **publicação e login não testados externamente**.
