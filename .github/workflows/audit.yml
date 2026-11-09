@@ -27,7 +27,7 @@ jobs:
           import re, subprocess
           for path in [Path('index.html'), Path('fundamental-1/index.html'), *Path('admin').glob('*.html')]:
               content=path.read_text(encoding='utf-8')
-              for i, code in enumerate(re.findall(r'<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>',content,re.I)):
+              for i, code in enumerate(re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>',content,re.I)):
                   if not code.strip():
                       continue
                   if 'type="module"' in content:
