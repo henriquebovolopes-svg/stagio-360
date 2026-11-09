@@ -57,3 +57,9 @@ A taxa definitiva de participação e a evolução para o módulo 2 ainda não e
 - Procedimento de ativação e homologação: [DEPLOY_ADMIN.md](DEPLOY_ADMIN.md).
 
 Atenção: a chave `service_role`, os arquivos com respostas individuais e as senhas **nunca** devem ser enviados a este repositório público.
+
+## Validação contínua e publicação
+- `python3 scripts/audit_site.py` valida links locais, IDs, integridade do NPS, logo e presença acidental de credenciais privilegiadas.
+- `.github/workflows/audit.yml` executa esses testes e confere a sintaxe JavaScript em pushes e pull requests.
+- `.github/workflows/deploy-pages.yml` tenta publicar automaticamente a branch `main` depois da validação.
+- Em **Settings > Pages**, a fonte precisa estar configurada como **GitHub Actions**. O estado externo do Pages não foi confirmado pela integração disponível. O workflow sozinho não garante que o site já esteja no ar.
