@@ -24,6 +24,19 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 - A página somente organiza links: **a autorização real continua sendo aplicada pelo Supabase**, não pela exibição ou ocultação de botões.
 - Contas de Márcia e Patrícia ativadas no Supabase em 09/11/2026, com e-mails de Auth confirmados e políticas RLS testadas. Testes reais de entrada no navegador e confirmação do deploy externo ainda são necessários.
 
+
+## Conciliação da avaliação da coordenação FII/EM — M1/2026
+
+Fonte institucional privada `Typeform_COORD_FIIEM.xlsx` conciliada contra `LONGA_COORD_FII_EM` e `AUDITORIA_COORD_FII_EM` da arquitetura original: **297 registros válidos** (212 notas objetivas, 85 comentários), vinculados a 19 identificadores de docente presentes na fonte. Os 21 docentes ativos na CONFIG não equivalem a 21 respondentes com registros preenchidos.
+
+- FII exclusivo: 111 notas e 46 comentários; Médio exclusivo: 36 notas e 14 comentários; atuação FII+EM: 65 notas e 25 comentários.
+- Os 147 itens objetivos de atuação exclusiva já estavam representados nos quatro agregados por eixo de cada etapa. A comparação entre o detalhe importado e os agregados pré-existentes confirmou **8/8 contagens e médias corretas**; nenhuma tabela histórica foi sobrescrita.
+- As 90 respostas de docentes de atuação compartilhada ficaram em categoria própria e **não foram somadas a ambas as etapas**.
+- Banco: `public.stg_360_coord_fiiem_items` (RLS, SELECT somente `admin/master`) e `public.stg_360_coord_fiiem_coverage` (`security_invoker`). Dados pessoais e textos qualitativos não constam do repositório.
+- UI privada: `/admin/coord-fii-em.html`, acessível pelos atalhos de `Minha área` e `Integração 360`. Exibe notas/comentários por origem, etapa declarada, eixo e docente, com textos protegidos e filtros.
+- **Limite:** o identificador `P###` é do formulário, não o UUID canônico do perfil 360. A autoavaliação do próprio coordenador e outras questões institucionais da mesma fonte não são parte das 297 respostas docentes, tampouco foram importadas neste lote. Homologação de nomes, compartilhamento por etapa e outros públicos seguem pendentes.
+- Detalhes, critérios e testes: [Conciliação da Coordenação FII e EM — M1/2026](INTEGRACAO_COORD_FII_EM_M1_2026.md).
+
 ## Passo 8 — Padronização de painéis e experiência visual (09/11/2026)
 - **Tema comum:** `assets/stagio360-unified.css`, aplicado em 16 páginas por `body.s360-harmonized`. A folha contém apenas estilo: não altera autenticação, consultas, armazenamento, resultados nem permissões.
 - **Identidade preservada:** cores azuis do design aprovado, contraste branco/ciano, tipografia consistente, cantos e bordas de cartões, hierarquia de títulos, KPIs numéricos e logotipo oficial `stagio360-logo-oficial.svg`.
