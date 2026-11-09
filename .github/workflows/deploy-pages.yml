@@ -37,6 +37,10 @@ jobs:
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/admin/governanca.html
+          test -s _site/admin/integracao.html
+          test -s _site/admin/planejamento.html
+          test -s _site/admin/infantil.html
+          test -s _site/admin/config.js
           test -s _site/fundamental-1/index.html
           test -s _site/assets/stagio360-logo-oficial.svg
       - name: Preparar GitHub Pages
@@ -58,6 +62,15 @@ jobs:
           grep -qi "STAGIO 360" /tmp/stagio360-home.html
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/governanca.html" -o /tmp/stagio360-governanca.html
           grep -qi "Gestão por etapa" /tmp/stagio360-governanca.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/integracao.html" -o /tmp/stagio360-integracao.html
+          grep -q "stg_360_integrate_autoeval" /tmp/stagio360-integracao.html
+          grep -q "stg_360_autoeval_reconciliation" /tmp/stagio360-integracao.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/planejamento.html" -o /tmp/stagio360-planejamento.html
+          grep -q "stg_planning_entries" /tmp/stagio360-planejamento.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/infantil.html" -o /tmp/stagio360-infantil.html
+          grep -q "stg_infantil_indicators" /tmp/stagio360-infantil.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/admin/config.js" -o /tmp/stagio360-auth-config.js
+          grep -q "STAGIO_AUTH" /tmp/stagio360-auth-config.js
           curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/fundamental-1/" -o /tmp/stagio360-f1.html
           test -s /tmp/stagio360-f1.html
           echo "Site publicado e rotas principais acessíveis."
