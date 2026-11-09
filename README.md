@@ -103,3 +103,8 @@ Atenção: a chave `service_role`, os arquivos com respostas individuais e as se
 - **Ressalvas:** 51 envios classificados pelo formulário como Infantil têm turma `1º ano`, marcados com `first_year_scope_pending` até homologação; um registro de Ensino Médio informa aula em 2016, marcado `date_requires_review`. Não modificar silenciosamente a data de origem nem transferir os registros para outra etapa.
 - `stg_360_source_coverage` passou a incluir quatro fontes de planos individuais (ano, não M1/M2/M3), que se somam às fontes-resumo. Não somar fontes individuais com seus próprios resumos como se fossem respondentes diferentes.
 - Verificações: 336 IDs únicos; zero divergências por professor entre resumo e registros importados; acesso completo a Henrique e Giovanna, somente FI a Érica; ausência de acesso EI para Érica.
+
+### Conferência de cadastro docente (09/11/2026)
+- Direção/master encontra em `/admin/integracao.html` uma fila de 13 registros de docentes ainda sem correspondência no cadastro M1. Pode informar nome completo, situação, referência documental e salvar a conferência, com atribuição de usuário.
+- Esses 13 registros são identificadores de origem por etapa, não equivalem necessariamente a 13 pessoas únicas. Nenhum foi unido automaticamente a avaliações ou a outro registro de planejamento.
+- Novos campos são armazenados em `stg_360_teacher_registry_pending` sob RLS de direção/admin. Confirmação do nome **não** promove automaticamente a identidade global nem homologa a relação com avaliação.
