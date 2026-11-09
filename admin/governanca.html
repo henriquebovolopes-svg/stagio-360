@@ -29,7 +29,7 @@ function screen(id){for(const n of ['loading','signin','panel','denied'])$(n).hi
 function fmt(x){return Number(x).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
 async function load(){
 const stage=$('stage').value;const result=await client.from('stg_stage_rubric_aggregates').select('stage,axis,mean_score,answer_count,teacher_count').eq('stage',stage).eq('cycle_year',2026).eq('module','M1').order('axis');
-if(result.error){$('scores').textContent=result.error.message;screen('denied');return}
+if(result.error){$('scores').textContent='Não foi possível carregar os indicadores desta etapa.';screen('denied');return}
 if(!result.data?.length){screen('denied');return}
 const rows=result.data;let numerator=0,denominator=0;
 for(const row of rows){numerator+=row.mean_score*row.answer_count;denominator+=row.answer_count}
@@ -38,11 +38,28 @@ const container=$('scores');container.replaceChildren();
 for(const row of rows){const r=document.createElement('div');r.className='row-score';const name=document.createElement('span');name.textContent=row.axis;const track=document.createElement('div');track.className='track';const fill=document.createElement('div');fill.className='fill';fill.style.width=Math.max(0,Math.min(100,100*row.mean_score/5))+'%';track.append(fill);const value=document.createElement('b');value.textContent=fmt(row.mean_score);r.append(name,track,value);container.append(r)}
 screen('panel')
 }
-async function authorize(user){const {data,error}=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();if(error||!data||!data.active){screen('denied');return}member=data;$('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Direção/Administração':'Coordenação');await load()}
+async function authorize(user){
+const {data,error}=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();
+if(error||!data||!data.active){screen('denied');return}
+member=data;
+$('profile').textContent=data.display_name+' · '+(data.role==='admin'?'Direção/Administração':'Coordenação');
+const select=$('stage');
+for(const option of select.options) option.disabled=false;
+if(data.role!=='admin'){
+ const granted=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
+ if(granted.error){screen('denied');return}
+ const allowed=new Set((granted.data||[]).map(x=>x.stage));
+ for(const option of select.options) option.disabled=!allowed.has(option.value);
+ const available=[...select.options].find(o=>!o.disabled);
+ if(!available){screen('denied');return}
+ select.value=available.value;
+}
+await load()
+}
 async function start(){if(!cfg.url||!cfg.publishableKey){$('loading').textContent='Serviço de autenticação não configurado.';return}try{const module=await import('https://esm.sh/@supabase/supabase-js@2.95.0');client=module.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});const {data,error}=await client.auth.getUser();if(error||!data.user){screen('signin');return}await authorize(data.user)}catch(e){$('loading').textContent='Não foi possível conectar à autenticação: '+e.message}}
 $('login').addEventListener('submit',async event=>{event.preventDefault();$('auth-status').textContent='Validando credenciais…';const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('auth-status').textContent=error.message;return}$('password').value='';$('auth-status').textContent='';await authorize(data.user)});
 $('stage').addEventListener('change',load);
 $('logout').addEventListener('click',async()=>{await client.auth.signOut({scope:'local'});member=null;screen('signin')});
-$('back').addEventListener('click',()=>screen('signin'));
+$('back').addEventListener('click',()=>{if(member){const available=[...$('stage').options].find(o=>!o.disabled);if(available){$('stage').value=available.value;load();return}}screen('signin')});
 start();
 </script></body></html>
