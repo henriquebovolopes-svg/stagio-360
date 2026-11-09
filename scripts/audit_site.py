@@ -63,7 +63,8 @@ def verify_html(path):
     if not re.search("stagio360-logo-oficial.svg", code):
         WARNINGS.append(f"{path.relative_to(ROOT)}: não usa o logotipo oficial")
 
-def check_navigation_step3():
+def check_navigation_step3()
+check_stage_access_step4():
     """Mantém o menu principal enxuto e preserva o caminho protegido por etapa."""
     expected = [
         ('#inicio', 'Governança'),
@@ -85,9 +86,34 @@ def check_navigation_step3():
             ERRORS.append(f"{rel}: barra lateral não possui exatamente os cinco acessos principais")
         if "Gestão restrita" in nav or "Educação Infantil · restrito" in nav or "Acessos complementares" in nav:
             ERRORS.append(f"{rel}: barra lateral contém itens redundantes")
-        for token in ('id="historico"', 'id="fontes"', 'id="stage-access-link"', "updateContextualAccess(stage)", "fundamental1:{href:'./admin/index.html'", "infantil:{href:'./admin/infantil.html'"):
+        for token in ('id="historico"', 'id="fontes"', 'id="stage-access-link"', "updateContextualAccess(stage)", "fundamental1:{href:'./admin/segmento.html?etapa=fundamental1'", "infantil:{href:'./admin/segmento.html?etapa=infantil'"):
             if token not in html:
                 ERRORS.append(f"{rel}: destino preservado da etapa ou histórico ausente ({token})")
+
+def check_stage_access_step4():
+    """A entrada protegida deve autenticar por perfil e etapa, sem expor dados individuais no portal."""
+    page = ROOT / "admin/segmento.html"
+    if not page.exists():
+        ERRORS.append("Portal autenticado por segmento ausente")
+        return
+    code = page.read_text(encoding="utf-8")
+    required = (
+        "stg_members", "stg_scope_access", "signInWithPassword",
+        "fundamental1", "fundamental2", "medio", "infantil",
+        "stg_stage_rubric_aggregates", "stg_infantil_indicators",
+        "stg_teachers", "stg_pdi_plans",
+        "stages[scope]", "Acesso não autorizado para este segmento",
+        "./index.html?tab=teachers", "./index.html?tab=search",
+        "./pdi.html", "./governanca.html?etapa="
+    )
+    for token in required:
+        if token not in code:
+            ERRORS.append(f"Área da coordenação sem requisito: {token}")
+    for route in ("fundamental1", "fundamental2", "medio", "infantil"):
+        for public in ("index.html", "painel.html"):
+            page_text = (ROOT / public).read_text(encoding="utf-8")
+            if f"./admin/segmento.html?etapa={route}" not in page_text:
+                ERRORS.append(f"{public}: não direciona acesso protegido a {route}")
 
 def check_shared_dashboard():
     """O acesso comum deve ser só de agregados e não depender de identidade docente."""
