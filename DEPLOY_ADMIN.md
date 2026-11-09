@@ -1,5 +1,16 @@
 # Implantação da área administrativa — STAGIO 360
 
+## Atualização operacional — 09/11/2026
+
+O status datado de 04/11/2026 abaixo foi mantido como histórico da implantação inicial. **A situação atual é diferente:**
+- Administração, Érica, Giovanna, Márcia e Patrícia possuem perfis institucionais ativos no Supabase.
+- Márcia: `master` com autorização específica à Escuta dos Funcionários; Patrícia: `coordenacao` apenas para `infantil`.
+- A entrada orientada por perfil é `/admin/minha-area.html`, que lê os perfis no Supabase após autenticação.
+- As contas de Márcia e Patrícia estão com e-mails confirmados e senha cadastrada; nenhuma das duas realizou login registrado no momento da auditoria.
+- Testes de RLS por simulação de sessão autenticada passaram. Falta validação real de login no navegador e confirmação da publicação do GitHub Pages.
+- **Não compartilhar senhas ou credenciais administrativas no repositório.**
+
+
 ## Situação atual (04/11/2026)
 
 - ✅ Projeto Supabase **stagio-360** criado na organização Stagio Academy (região São Paulo; plano gratuito).
