@@ -244,10 +244,17 @@ def check_visual_step8():
                       'href="../painel.html"'):
             if token not in source:
                 ERRORS.append(f"Passo 8: navegação não padronizada em admin/{rel}")
-    for rel in ("index.html", "painel.html", "admin/minha-area.html"):
+    for rel in ("index.html", "painel.html", "admin/minha-area.html",
+                "admin/sintese.html", "admin/pdi.html", "admin/revisao.html"):
         source = (ROOT / rel).read_text(encoding="utf-8")
         if "stagio360-logo-oficial.svg" not in source:
             ERRORS.append(f"Passo 8: marca aprovada ausente de {rel}")
+    for rel in ("admin/sintese.html", "admin/pdi.html", "admin/revisao.html",
+                "admin/import.html", "admin/reset.html", "fundamental-1/index.html"):
+        source = (ROOT / rel).read_text(encoding="utf-8")
+        href = '../admin/minha-area.html' if rel.startswith("fundamental-1/") else './minha-area.html'
+        if f'href="{href}"' not in source:
+            ERRORS.append(f"Passo 8: {rel} sem acesso lateral à Minha área")
 
 
 def check_shared_dashboard():
