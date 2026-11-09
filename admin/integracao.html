@@ -8,8 +8,9 @@
 <div class="card"><div class="filters"><label for="stage">Etapa</label><select id="stage"><option value="all">Todas as etapas autorizadas</option></select><label for="module">Período</label><select id="module"><option value="all">Todas as fontes</option><option value="M1">M1 · Primeiro ciclo</option><option value="M2">M2 · Segundo ciclo</option><option value="M3">M3 · Terceiro ciclo</option><option value="YEAR">Anual · Sem atribuição a M1–M3</option></select><button id="logout" class="btn alt" style="margin-left:auto">Sair</button></div></div>
 <div class="kpis"><div class="kpi"><span>Fontes mapeadas</span><strong id="sources">—</strong><small>No recorte selecionado</small></div><div class="kpi"><span>Etapas com dados</span><strong id="stages">—</strong><small>Inclui recorte institucional quando autorizado</small></div><div class="kpi"><span>Fontes ligadas a docente</span><strong id="linked">—</strong><small>Vínculos de origem já declarados</small></div><div class="kpi"><span>Integrações pendentes</span><strong id="pending">—</strong><small>Fontes agregadas ou sem chave docente</small></div></div>
 <div class="grid"><div class="card"><h2>Fontes e cobertura efetiva</h2><div class="tablewrap"><table><thead><tr><th>Etapa</th><th>Período</th><th>Fonte</th><th>Volume</th><th>Nível</th><th>Identidade docente</th></tr></thead><tbody id="rows"></tbody></table></div><p class="muted" id="empty"></p></div><div class="card"><h2>Interpretação institucional</h2><div class="notice"><strong>Integração ≠ navegação.</strong> Um link entre páginas não cria correlação entre professor, aluno, planejamento e avaliação. Para comparação longitudinal é necessário ano, etapa, turma, ciclo e docente canônicos.</div><div id="cycles-box" hidden><h3>Estado dos ciclos</h3><div id="cycles"></div></div><div id="mapping-box" hidden><h3>Vinculação de professores</h3><p class="muted" id="mapping-stats"></p><div class="notice warn">Associações pendentes não entram em comparações individuais. Exigem conferência por responsável autorizado.</div></div><p class="muted">Contagens são heterogêneas (envios, respostas, itens e indicadores). Não devem ser somadas para produzir total de participantes.</p><div class="linkrow"><a href="./planejamento.html">Planejamento docente</a><a href="./governanca.html">Rubricas FII e EM</a><a href="./infantil.html">Educação Infantil</a></div></div></div>
+<div class="card"><h2>NPS histórico por público · 2023–2026</h2><p class="muted">Séries preservadas por público e abrangência. O NPS institucional misto de 2026 não é comparável ao histórico de famílias de 2023–2025.</p><div class="filters"><label for="nps-audience">Público</label><select id="nps-audience"><option value="familias">Famílias</option><option value="alunos">Alunos</option><option value="misto">Misto · somente 2026</option></select><label for="nps-stage">Etapa</label><select id="nps-stage"><option value="all">Etapas autorizadas</option></select></div><div class="tablewrap"><table><thead><tr><th>Ano</th><th>Etapa</th><th>Abrangência</th><th>Respondentes</th><th>NPS</th><th>Comparabilidade</th></tr></thead><tbody id="nps-rows"></tbody></table></div><p id="nps-empty" class="muted"></p><div class="notice warn">As diferenças de metodologia, série escolar e composição da amostra devem ser revisadas antes de qualquer comparação de desempenho. Indicadores das famílias e alunos nunca são somados como se pertencessem ao mesmo respondente.</div></div>
 </section><footer>STAGIO 360 · Rastreabilidade e governança · Informações restritas</footer></main><script src="./config.js"></script><script type="module">
-const $=id=>document.getElementById(id);const cfg=window.STAGIO_AUTH||{};let api,coverage=[],cycles=[],mapping=[];
+const $=id=>document.getElementById(id);const cfg=window.STAGIO_AUTH||{};let api,coverage=[],cycles=[],mapping=[],nps=[];
 const labels={infantil:'Educação Infantil',fundamental1:'Fundamental I',fundamental2:'Fundamental II',medio:'Ensino Médio',institutional:'Institucional'};
 const levels={individual:'Registros individuais',aggregated:'Agregado',summary:'Resumo de envios',not_integrated:'Não integrado'};
 function screen(id){for(const key of ['loading','signin','denied','panel'])$(key).hidden=key!==id}
@@ -22,6 +23,18 @@ const target=$('rows');target.replaceChildren();
 for(const x of rows){const tr=elem('tr');for(const val of [labels[x.stage]||x.stage,x.module==='YEAR'?'Anual':x.module,x.source_kind,x.records_count,levels[x.coverage_status]||x.coverage_status,x.linked_to_teacher?'Fonte vinculada':'Não vinculada']){const td=elem('td',val);tr.append(td)}target.append(tr)}
 $('empty').textContent=rows.length?'':'Nenhuma fonte importada neste ciclo e etapa. Ausência de registros não é nota zero.';
 }
+function drawNPS(){
+const a=$('nps-audience').value,st=$('nps-stage').value;
+const rows=nps.filter(x=>x.audience===a&&(st==='all'||x.stage===st)).sort((x,y)=>x.school_year-y.school_year||x.stage.localeCompare(y.stage));
+const target=$('nps-rows');target.replaceChildren();
+for(const x of rows){
+ const tr=elem('tr');
+ for(const v of [x.school_year,labels[x.stage]||x.stage,x.population_scope,x.respondents,Number(x.nps).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2}),x.comparable_series||'Recorte próprio']){
+ const td=elem('td',v);tr.append(td)}
+ target.append(tr)
+}
+$('nps-empty').textContent=rows.length?'':'Não há dados de NPS disponíveis para essa combinação de público e etapa.';
+}
 async function authorized(user){
 const a=await api.from('stg_members').select('role,active').eq('user_id',user.id).maybeSingle();
 if(a.error||!a.data?.active){screen('denied');return}
@@ -29,6 +42,10 @@ const privileged=['master','admin'].includes(a.data.role);
 const r=await api.from('stg_360_source_coverage').select('stage,module,source_kind,records_count,coverage_status,linked_to_teacher,interpretation').eq('school_year',2026).order('stage').order('module');
 if(r.error||!r.data?.length){screen('denied');return}
 coverage=r.data;
+const nr=await api.from('stg_360_nps').select('school_year,stage,audience,population_scope,respondents,nps,comparable_series').order('school_year');
+if(nr.error){$('loading').textContent='Falha ao consultar o histórico do NPS protegido.';return}
+nps=nr.data||[];
+const npsSelect=$('nps-stage');for(const st of Object.keys(labels)){if(nps.some(x=>x.stage===st))npsSelect.add(new Option(labels[st],st))}
 const select=$('stage');for(const st of Object.keys(labels)){if(coverage.some(x=>x.stage===st))select.add(new Option(labels[st],st))}
 if(privileged){
 const [c,m]=await Promise.all([api.from('stg_360_cycles').select('module,data_status,notes').eq('school_year',2026).order('module'),api.from('stg_360_planning_crosswalk').select('link_status')]);
@@ -39,11 +56,11 @@ const area=$('cycles');area.replaceChildren();for(const x of cycles){const p=ele
 const confirmed=mapping.filter(x=>x.link_status==='confirmed').length;
 $('mapping-stats').textContent=confirmed+' de '+mapping.length+' vínculos de planejamento homologados; '+(mapping.length-confirmed)+' pendentes ou sem confirmação.';
 }
-draw();screen('panel')
+draw();drawNPS();screen('panel')
 }
 async function boot(){try{if(!cfg.url||!cfg.publishableKey){$('loading').textContent='Configuração de autenticação ausente.';return}const mod=await import('https://esm.sh/@supabase/supabase-js@2.95.0');api=mod.createClient(cfg.url,cfg.publishableKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});const {data}=await api.auth.getUser();if(!data.user){screen('signin');return}await authorized(data.user)}catch(e){$('loading').textContent='Não foi possível iniciar a governança. Verifique sua conexão.'}}
 $('login').addEventListener('submit',async e=>{e.preventDefault();$('error').textContent='Autenticando…';const {data,error}=await api.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){$('error').textContent='Credenciais inválidas ou acesso indisponível.';return}$('password').value='';await authorized(data.user)});
-$('stage').addEventListener('change',draw);$('module').addEventListener('change',draw);
-async function logout(){await api.auth.signOut({scope:'local'});coverage=[];mapping=[];cycles=[];screen('signin')}
+$('stage').addEventListener('change',draw);$('module').addEventListener('change',draw);$('nps-audience').addEventListener('change',drawNPS);$('nps-stage').addEventListener('change',drawNPS);
+async function logout(){await api.auth.signOut({scope:'local'});coverage=[];mapping=[];cycles=[];nps=[];screen('signin')}
 $('change').addEventListener('click',logout);$('logout').addEventListener('click',logout);boot();
 </script></body></html>
