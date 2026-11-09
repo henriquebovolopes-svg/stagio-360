@@ -45,6 +45,7 @@ jobs:
           test -s _site/admin/integracao.html
           test -s _site/admin/coord-fii-em.html
           test -s _site/admin/pesquisas-2026.html
+          test -s _site/admin/academico.html
           test -s _site/admin/planejamento.html
           test -s _site/admin/infantil.html
           test -s _site/admin/config.js
@@ -96,13 +97,13 @@ jobs:
           grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-home.html
           grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-minha-area.html
           grep -q 's360-quick-nav' /tmp/stagio360-planejamento.html
-          # Passo 9: conferência HTTP da totalidade das 18 páginas publicadas,
+          # Passo 9: conferência HTTP da totalidade das 19 páginas publicadas,
           # não apenas dos pontos de entrada. Não requer nem expõe credenciais.
           for route in \
             index.html painel.html fundamental-1/ \
             admin/index.html admin/minha-area.html admin/segmento.html \
             admin/infantil.html admin/planejamento.html admin/governanca.html \
-            admin/integracao.html admin/coord-fii-em.html admin/pesquisas-2026.html admin/funcionarios.html admin/sintese.html \
+            admin/integracao.html admin/coord-fii-em.html admin/pesquisas-2026.html admin/academico.html admin/funcionarios.html admin/sintese.html \
             admin/pdi.html admin/revisao.html admin/import.html admin/reset.html; do
             curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "${BASE}/${route}" -o /tmp/stagio360-checked-route.html
             grep -qi "STAGIO 360" /tmp/stagio360-checked-route.html
@@ -110,4 +111,4 @@ jobs:
             grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-checked-route.html
             echo "Rota validada: ${route}"
           done
-          echo "Site publicado e 18 rotas principais acessíveis."
+          echo "Site publicado e 19 rotas principais acessíveis."
