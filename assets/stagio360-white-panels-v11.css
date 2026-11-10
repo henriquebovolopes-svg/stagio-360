@@ -104,10 +104,7 @@ body.s360-v9 .stage-access{
 body.s360-v9 .stage-access-copy :is(strong,p){color:#1a4a83}
 /* Botões, chips, barras, linhas, roscas e gráficos:
  conservam as cores sem repintar seus contêineres. */
-body.s360-v9 .s360-v9-chart-card .s360-v9-donut,
-body.s360-v9 .s360-v9-chart-card .s360-v9-hbar-fill{
- background-color:initial;
-}
+/* Não redefinir nenhum background aplicado diretamente pelo motor de gráficos. */
 body.s360-v9 :is(.fill,.bar-fill,.progress-fill,.s360-v9-hbar-fill){
  border-radius:999px;
 }
