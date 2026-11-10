@@ -4,6 +4,17 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 
 **Acesso ao portal:** https://henriquebovolopes-svg.github.io/stagio-360/
 
+## Ajustes visuais v10 — paleta pastel e navegação simplificada (09/11/2026)
+
+- A home, o painel e a Minha área agora exibem **Avaliação 360** como único atalho principal, sem a opção redundante **Governança**. O menu global dos módulos também foi simplificado.
+- **Colaboradores · Privado** substitui “Funcionários · privado” na navegação, preservando a mesma área restrita e suas permissões.
+- “PLATAFORMA INSTITUCIONAL” e “ANO DE REFERÊNCIA” receberam texto branco no cabeçalho aprovado.
+- As **19 rotas** receberam a camada `assets/stagio360-pastel-v10.css`, após a v9: fundos inteiros de cards, KPIs e quadros em tons pastéis, além de botões coloridos legíveis em todas as áreas de interface.
+- O quarto KPI da home deixou de destacar somente o Fundamental I: agora apresenta **NPS institucional de famílias e alunos** diretamente da linha agregada de 2026/M1, com **408 respostas e +40,69**. O indicador misto fica indisponível em recortes históricos ou ciclos não importados, para não induzir comparação metodológica incorreta.
+- O menu global usa `assets/stagio360-visual-v10.js`; gráficos e dados continuam independentes dessa mudança de aparência. Não foram modificados Supabase, RLS, credenciais ou registros.
+- Testes: `scripts/audit_site.py`, `scripts/audit_visual_v9.py` (ampliado para v10), `node --check assets/stagio360-visual-v10.js` e verificação de 19 rotas HTTP.
+- [Relatório de auditoria do refinamento pastel v10](AUDITORIA_VISUAL_STAGIO360_V10_2026-11-09.md).
+
 ## Design System v9 — padronização integral de interface (09/11/2026)
 
 - **Referência oficial:** captura da home com sidebar marinho, logotipo STAGIO 360 em branco no hero azul/ciano, cards executivos e barras/gráficos multicores.
