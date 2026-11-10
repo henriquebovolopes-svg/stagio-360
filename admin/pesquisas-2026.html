@@ -154,7 +154,7 @@ async function boot(){
   }
   const {data:blockData,error:blockError}=await client.from('stg_360_survey_teacher_blocks').select('cohort,block_number,first_source_column,last_source_column,source_teacher_id,teacher_source_label').limit(100);
   if(blockError)throw blockError;blocks=blockData||[];
-  if(blocks.length!==38){$('error-reason').textContent='Mapa de blocos docentes incompleto ('+blocks.length+'/38).';screen('denied');return}
+  if(blocks.length<38){$('error-reason').textContent='Mapa de blocos docentes incompleto ('+blocks.length+'/38).';screen('denied');return}
   const {data:familyData,error:familyError}=await client.from('stg_360_family_stage_coverage').select('stage,nps_exclusive,nps_exclusive_value,nps_inclusive,nps_inclusive_value').limit(10);
   if(familyError)throw familyError;familyCoverage=familyData||[];
   if(familyCoverage.length!==4){$('error-reason').textContent='Conciliação de etapas das famílias não disponível.';screen('denied');return}
