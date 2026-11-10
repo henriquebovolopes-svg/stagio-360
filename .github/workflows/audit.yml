@@ -23,6 +23,8 @@ jobs:
         run: python scripts/audit_visual_v9.py
       - name: Validar JavaScript visual v9
         run: node --check assets/stagio360-visual-v10.js
+      - name: Auditar listas de professores do ciclo M1/2026
+        run: node scripts/audit_teacher_dropdowns_2026.mjs
       - name: Verificar sintaxe dos scripts inline
         shell: bash
         run: |
