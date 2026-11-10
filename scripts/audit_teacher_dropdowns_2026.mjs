@@ -32,7 +32,7 @@ const checks={
  'admin/pdi.html':[
   'Profissional do ciclo M1/2026',
   "eq('source_module','M1')",
-  "data?.length!==25",
+  "if(!data?.length)",
   "selected?.scope==='REGENTE CONFIRMADA'",
   "selected.scope!=='REGENTE CONFIRMADA'",
   'Demais profissionais do ciclo · consulta individual'
