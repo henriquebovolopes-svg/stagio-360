@@ -61,7 +61,7 @@ button:disabled{opacity:.5;cursor:default}
 <h2>Construção de um plano de desenvolvimento</h2>
 <p class="muted">O PDI é um instrumento de diálogo e acompanhamento, não uma decisão automática sobre desempenho. Escolha uma das <strong>sete regentes homologadas</strong> para preparar o piloto. Os dados são lidos somente após autenticação.</p>
 <div class="grid" style="margin-top:18px">
-<div><label for="teacher">Professora regente</label><select id="teacher"></select></div>
+<div><label for="teacher">Profissional do ciclo M1/2026</label><select id="teacher"></select></div>
 <div><label>Situação do registro</label><div style="padding:8px 0"><span class="status" id="status">Nenhum rascunho criado</span><div class="tiny muted" id="modified"></div></div></div>
 </div>
 <div id="profile" class="note"></div>
@@ -186,12 +186,12 @@ function chosenIds(){return [...$('evidence-list').querySelectorAll('input[type=
 function updateEvidenceCounter(){$('evidence-counter').textContent=chosenIds().length+' de 5 evidências selecionadas'}
 function clearForm(){fields.forEach(f=>$(f).value='');$('focus-source').value='ERICA';fillAxisOptions('');currentPlan=null;notify('');}
 function setWriteAccess(){
- const editable=role==='admin'&&currentPlan?.status!=='pactuacao_registrada';
+ const eligible=selected?.scope==='REGENTE CONFIRMADA';const editable=role==='admin'&&eligible&&currentPlan?.status!=='pactuacao_registrada';
  for(const id of [...fields,'focus-source','focus-axis','consulted'])$(id).disabled=!editable;
  for(const id of ['save','review-btn','template'])$(id).disabled=!editable;
  $('pactuate').disabled=!editable||currentPlan?.status!=='para_revisao';
  const readOnly=$('read-only');readOnly.hidden=editable;
- readOnly.textContent=role!=='admin'?'Direção e coordenação podem consultar o PDI e seu histórico, mas somente a administração pode editá-los.':'Pactuação registrada e congelada. Esta versão não pode ser editada; o registro permanece disponível para consulta e impressão.';
+ readOnly.textContent=!eligible?'O profissional está no cadastro M1/2026, mas não possui regência homologada para este fluxo. A consulta individual está disponível; a edição de PDI permanece bloqueada até validação institucional.':role!=='admin'?'Direção e coordenação podem consultar o PDI e seu histórico, mas somente a administração pode editá-los.':'Pactuação registrada e congelada. Esta versão não pode ser editada; o registro permanece disponível para consulta e impressão.';
 }
 function renderPlan(){
  if(!selected)return;
@@ -318,7 +318,7 @@ function fillExample(){
  notify('Proposta editável inserida. Não há diagnóstico automático; confirme as ações com a professora.');
 }
 async function save(status){
- if(role!=='admin'||!selected||currentPlan?.status==='pactuacao_registrada')return;
+ if(role!=='admin'||!selected||selected.scope!=='REGENTE CONFIRMADA'||currentPlan?.status==='pactuacao_registrada')return;
  if(status==='pactuacao_registrada'){
   if(currentPlan?.status!=='para_revisao'){notify('Encaminhe o plano para revisão antes de registrar a pactuação.',true);return}
   if(!$('consulted').checked||!$('meeting-date').value||!$('participants').value.trim()||!$('feedback').value.trim()||!$('agreements').value.trim()){
@@ -367,13 +367,21 @@ async function boot(){
   const {data:members,error:memberError}=await sup.from('stg_members').select('role,active').eq('user_id',user.id).limit(1);
   if(memberError||!members?.[0]?.active||!['admin','master','coordenacao'].includes(members[0].role))throw Error('Seu perfil não está autorizado a acessar o PDI.');
   role=members[0].role;
-  const {data,error}=await sup.from('stg_teachers').select('id,name,classes,scope,role_label').eq('scope','REGENTE CONFIRMADA').order('name').limit(15);
-  if(error)throw error;if(data?.length!==7)throw Error('O conjunto de regentes homologadas foi alterado. Confira a base antes de elaborar um PDI.');
+  const {data,error}=await sup.from('stg_teachers').select('id,name,classes,scope,role_label,source_module').eq('source_module','M1').order('name').limit(100);
+  if(error)throw error;
+  if(data?.length!==25||data.filter(t=>t.scope==='REGENTE CONFIRMADA').length!==7)throw Error('O cadastro M1/2026 está incompleto ou as regências foram alteradas. Confira a base antes de consultar PDIs.');
   teachers=data||[];
   const select=$('teacher');select.replaceChildren();
-  for(const t of teachers){const option=el('option',t.name);option.value=t.id;select.append(option)}
+  const validated=document.createElement('optgroup');validated.label='Regentes homologadas · PDI habilitado';
+  const remaining=document.createElement('optgroup');remaining.label='Demais profissionais do ciclo · consulta individual';
+  for(const t of teachers){
+    const option=el('option',t.name+(t.scope==='REGENTE CONFIRMADA'?'':' · vínculo a conferir'));
+    option.value=t.id;
+    (t.scope==='REGENTE CONFIRMADA'?validated:remaining).append(option);
+  }
+  select.append(validated,remaining);
   const initial=new URLSearchParams(location.search).get('teacher');
-  const start=teachers.some(t=>t.id===initial)?initial:teachers[0].id;
+  const start=teachers.some(t=>t.id===initial)?initial:teachers.find(t=>t.scope==='REGENTE CONFIRMADA').id;
   select.value=start;
   $('gate').hidden=true;$('app').hidden=false;
   setWriteAccess();
