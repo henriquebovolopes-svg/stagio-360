@@ -92,6 +92,29 @@ def check_navigation_step3():
             if token not in html:
                 ERRORS.append(f"{rel}: destino preservado da etapa ou histórico ausente ({token})")
 
+def check_planning_stage_panel_link():
+    """O atalho de planejamento acompanha a etapa e não fica preso ao Infantil."""
+    page = ROOT / "admin/planejamento.html"
+    if not page.is_file():
+        ERRORS.append("Planejamento não encontrado para validar o painel contextual")
+        return
+    html = page.read_text(encoding="utf-8")
+    for token in (
+        'id="stage-panel-link"',
+        'function updateStagePanelLink(stage)',
+        "updateStagePanelLink(stage);",
+        "infantil:{label:'Painel Infantil',href:'./infantil.html'}",
+        "fundamental1:{label:'Painel Fundamental I',href:'./segmento.html?etapa=fundamental1'}",
+        "fundamental2:{label:'Painel Fundamental II',href:'./segmento.html?etapa=fundamental2'}",
+        "medio:{label:'Painel Ensino Médio',href:'./segmento.html?etapa=medio'}",
+        "link.hidden=!target;",
+    ):
+        if token not in html:
+            ERRORS.append("Atalho contextual de planejamento sem requisito: " + token)
+    if '<a class="btn alt" href="./infantil.html">Painel Infantil</a>' in html:
+        ERRORS.append("Planejamento ainda possui atalho Infantil estático")
+
+
 def check_stage_access_step4():
     """A entrada protegida deve autenticar por perfil e etapa, sem expor dados individuais no portal."""
     page = ROOT / "admin/segmento.html"
@@ -460,6 +483,7 @@ check_2026_reconciliation(ROOT/"assets/stagio360-2026-agregados.json")
 check_integration_routes()
 check_shared_dashboard()
 check_navigation_step3()
+check_planning_stage_panel_link()
 check_stage_access_step4()
 check_navigation_step5()
 check_permissions_step6()
