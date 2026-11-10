@@ -22,7 +22,7 @@ jobs:
       - name: Auditar consistência visual v9 em 19 páginas
         run: python scripts/audit_visual_v9.py
       - name: Validar JavaScript visual v9
-        run: node --check assets/stagio360-visual-v9.js
+        run: node --check assets/stagio360-visual-v10.js
       - name: Verificar sintaxe dos scripts inline
         shell: bash
         run: |
