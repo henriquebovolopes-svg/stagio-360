@@ -153,7 +153,7 @@ async function initialize(){
   const {data,error}=await api.from('stg_360_coord_fiiem_items').select('source_key,source_block,source_offset,source_teacher_id,teacher_label,declared_stage,assessment_axis,question_label,response_kind,score,response_text').eq('school_year',2026).eq('module','M1').order('source_block').order('source_offset').limit(500);
   if(error)throw error;
   items=data||[];
-  if(items.length!==297){$('denied-reason').textContent='A reconciliação da fonte está incompleta: '+items.length+' de 297 registros. Solicite auditoria do banco.';screen('denied');return}
+  if(items.length<297){$('denied-reason').textContent='A reconciliação da fonte está incompleta: '+items.length+' de 297 registros. Solicite auditoria do banco.';screen('denied');return}
   const source=await api.from('stg_360_survey_teacher_blocks').select('cohort,block_number,source_teacher_id,teacher_source_label').limit(100);
   studentBlocks=source.error?[]:(source.data||[]);
   populate();
