@@ -63,7 +63,7 @@ footer{font-size:11px;color:#7086a4;margin-top:28px}
 <div class="filters"><label for="cohort">Fonte<select id="cohort"><option value="all">Todas as fontes</option><option value="fii_6a8">Fundamental II · 6º–8º</option><option value="fii_9ano">Fundamental II · 9º</option><option value="em">Ensino Médio</option><option value="families">Famílias multietapa</option></select></label>
 <label for="kind">Tipo de resposta<select id="kind"><option value="all">Todos</option><option value="open_text">Respostas abertas</option><option value="rating_1to5">Escala numérica 1–5</option><option value="rating_categorical">Escala categórica</option><option value="nps">NPS 0–10</option><option value="choice">Outras escolhas</option></select></label>
 <label for="search">Pergunta (buscar)<input id="search" type="search" placeholder="Ex.: comunicação, professor"></label>
-<label for="cohort-class">Turma ou segmento<input id="cohort-class" type="search" placeholder="Ex.: 9º A, Médio, Infantil"></label><label for="teacher">Docente na fonte<input id="teacher" type="search" placeholder="Nome ou código de origem"></label>
+<label for="cohort-class">Turma ou segmento<input id="cohort-class" type="search" placeholder="Ex.: 9º A, Médio, Infantil"></label><label for="teacher">Professor do ciclo M1/2026<select id="teacher" aria-label="Professor identificado no formulário"><option value="all">Todos os professores identificados</option></select></label>
 </div><p id="results-count" class="muted" role="status"></p><div class="tablewrap"><table><thead><tr><th>Origem</th><th>Registro</th><th>Turma/segmento</th><th>Docente na fonte</th><th>Pergunta</th><th>Resposta</th></tr></thead><tbody id="items"></tbody></table></div><div class="actions"><button type="button" id="more" class="btn secondary" hidden>Mostrar mais</button></div>
 </div>
 </section><footer>STAGIO 360 · Área protegida com RLS · M1/2026 · Dados de menores e famílias sujeitos a sigilo</footer>
@@ -98,21 +98,34 @@ function renderFamilyCoverage(){
   body.append(tr);
  }
 }
+function teacherOptions(){
+ const control=$('teacher'),prior=control.value,cohort=$('cohort').value;
+ control.replaceChildren();
+ const all=document.createElement('option');all.value='all';all.textContent='Todos os professores identificados';control.append(all);
+ const permitted=blocks.filter(b=>cohort==='all'||b.cohort===cohort).sort((a,b)=>a.teacher_source_label.localeCompare(b.teacher_source_label,'pt-BR')||a.cohort.localeCompare(b.cohort));
+ const labels={fii_6a8:'6º–8º',fii_9ano:'9º ano',em:'Ensino Médio'};
+ for(const b of permitted){
+  const option=document.createElement('option');option.value=b.cohort+'|'+b.block_number;
+  option.textContent=b.teacher_source_label+' · '+labels[b.cohort]+' · '+b.source_teacher_id;
+  control.append(option);
+ }
+ if([...control.options].some(o=>o.value===prior))control.value=prior;
+}
 function flatten(){
  flat=[];
  for(const f of forms)for(const a of f.answers||[]){
   const block=blocks.find(b=>b.cohort===f.cohort&&a.column>=b.first_source_column&&a.column<=b.last_source_column);
-  flat.push({cohort:f.cohort,source:f.source_key,context:f.cohort==='families'?(f.declared_segments||'Não declarado'):(f.class_or_series||'Não declarado'),teacher:block?(block.teacher_source_label+' · '+block.source_teacher_id):'Não se aplica',question:a.question||'',kind:a.kind||'',value:a.value||'',column:a.column});
+  flat.push({cohort:f.cohort,source:f.source_key,context:f.cohort==='families'?(f.declared_segments||'Não declarado'):(f.class_or_series||'Não declarado'),teacher:block?(block.teacher_source_label+' · '+block.source_teacher_id):'Não se aplica',teacherKey:block?(block.cohort+'|'+block.block_number):'',question:a.question||'',kind:a.kind||'',value:a.value||'',column:a.column});
  }
  $('forms-total').textContent=forms.length.toLocaleString('pt-BR');
  $('items-total').textContent=flat.length.toLocaleString('pt-BR');
  $('nps-valid').textContent=forms.filter(f=>f.nps_value!==null).length.toLocaleString('pt-BR');
  $('nps-missing').textContent=forms.filter(f=>f.nps_value===null).length.toLocaleString('pt-BR');
- groupRows();renderFamilyCoverage();limit=70;render();
+ groupRows();renderFamilyCoverage();teacherOptions();limit=70;render();
 }
 function render(){
- const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR'),teacher=$('teacher').value.trim().toLocaleLowerCase('pt-BR');
- visible=flat.filter(x=>(cohort==='all'||x.cohort===cohort)&&(kind==='all'||x.kind===kind)&&(!q||x.question.toLocaleLowerCase('pt-BR').includes(q))&&(!cls||x.context.toLocaleLowerCase('pt-BR').includes(cls))&&(!teacher||x.teacher.toLocaleLowerCase('pt-BR').includes(teacher)));
+ const cohort=$('cohort').value,kind=$('kind').value,q=$('search').value.trim().toLocaleLowerCase('pt-BR'),cls=$('cohort-class').value.trim().toLocaleLowerCase('pt-BR'),teacher=$('teacher').value;
+ visible=flat.filter(x=>(cohort==='all'||x.cohort===cohort)&&(kind==='all'||x.kind===kind)&&(!q||x.question.toLocaleLowerCase('pt-BR').includes(q))&&(!cls||x.context.toLocaleLowerCase('pt-BR').includes(cls))&&(teacher==='all'||x.teacherKey===teacher));
  $('results-count').textContent=visible.length.toLocaleString('pt-BR')+' resposta(s) selecionada(s). Exibindo no máximo '+Math.min(limit,visible.length).toLocaleString('pt-BR')+'.';
  const body=$('items');body.replaceChildren();
  for(const x of visible.slice(0,limit)){
@@ -139,7 +152,7 @@ async function boot(){
    const {data,error}=await client.from('stg_360_survey_forms').select('source_key,cohort,stage,audience,class_or_series,declared_segments,nps_value,answers,answers_count').eq('school_year',2026).eq('cohort',cohort).order('source_row').limit(400);
    if(error)throw error;forms.push(...(data||[]));
   }
-  const {data:blockData,error:blockError}=await client.from('stg_360_survey_teacher_blocks').select('cohort,first_source_column,last_source_column,source_teacher_id,teacher_source_label').limit(100);
+  const {data:blockData,error:blockError}=await client.from('stg_360_survey_teacher_blocks').select('cohort,block_number,first_source_column,last_source_column,source_teacher_id,teacher_source_label').limit(100);
   if(blockError)throw blockError;blocks=blockData||[];
   if(blocks.length!==38){$('error-reason').textContent='Mapa de blocos docentes incompleto ('+blocks.length+'/38).';screen('denied');return}
   const {data:familyData,error:familyError}=await client.from('stg_360_family_stage_coverage').select('stage,nps_exclusive,nps_exclusive_value,nps_inclusive,nps_inclusive_value').limit(10);
@@ -158,7 +171,7 @@ $('login').addEventListener('submit',async event=>{
 });
 async function logout(){forms=[];blocks=[];familyCoverage=[];flat=[];visible=[];$('items').replaceChildren();if(client)await client.auth.signOut();$('password').value='';screen('signin')}
 $('logout').addEventListener('click',logout);$('switch-account').addEventListener('click',logout);
-for(const id of ['cohort','kind','search','cohort-class','teacher'])$(id).addEventListener(id==='cohort'||id==='kind'?'change':'input',()=>{limit=70;render()});
+for(const id of ['cohort','kind','search','cohort-class','teacher'])$(id).addEventListener(['cohort','kind','teacher'].includes(id)?'change':'input',()=>{if(id==='cohort')teacherOptions();limit=70;render()});
 $('more').addEventListener('click',()=>{limit+=70;render()});
 boot();
 </script></body></html>
