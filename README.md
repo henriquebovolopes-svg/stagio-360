@@ -4,6 +4,13 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 
 **Acesso ao portal:** https://henriquebovolopes-svg.github.io/stagio-360/
 
+## Refinamento visual v11 — branco nos painéis de dados (09/11/2026)
+
+- **Preservado exatamente como na captura aprovada:** os quatro KPIs da home com fundos pastéis azul, verde, pêssego e violeta; as quatro abas da Avaliação 360; o quadro de escolha da etapa de ensino.
+- **Todas as demais caixas de gráficos e dados voltaram ao branco**, incluindo os 19 módulos/rotas. Barras, gráficos, legendas e indicadores semânticos continuam coloridos; botões seguem em tons pastéis para manter o padrão já aprovado.
+- A nova folha `assets/stagio360-white-panels-v11.css`, carregada por último, diferencia explicitamente superfícies neutras e os três tipos de destaque pastel. Nenhum dado, política de acesso nem consulta do Supabase foi alterado.
+- [Relatório de auditoria do padrão v11](AUDITORIA_VISUAL_STAGIO360_V11_PAINÉIS_BRANCOS.md), com limites do teste visual e critérios de aceitação.
+
 ## Ajustes visuais v10 — paleta pastel e navegação simplificada (09/11/2026)
 
 - A home, o painel e a Minha área agora exibem **Avaliação 360** como único atalho principal, sem a opção redundante **Governança**. O menu global dos módulos também foi simplificado.
