@@ -1,0 +1,130 @@
+/*
+ STAGIO 360 · Refinamento v11: painéis de dados brancos.
+ Aprovado: 4 KPIs da visão executiva, 4 abas e quadro de escolha de etapa em tons pastéis.
+ Demais quadros, cards de gráficos, filtros, tabelas e resultados permanecem brancos.
+ Barras, gráficos, badges e botões continuam coloridos. Camada CSS sem dados/Auth.
+*/
+:root{
+ --s360-v11-panel:#fff;
+ --s360-v11-panel-border:#d4e2f2;
+ --s360-v11-accent-blue:#e0edff;
+ --s360-v11-accent-green:#e0f4e8;
+ --s360-v11-accent-peach:#fff0e2;
+ --s360-v11-accent-violet:#ebe6ff;
+ --s360-v11-accent-cyan:#dff5fa;
+}
+/* Regra geral para TODAS as rotas: superfície de dados/consulta neutra.
+ Especificidade intencional para vencer os seletores !important de v10. */
+body.s360-v9 :is(
+ .card,.panel,.filter,.authcard,.kpi,.metric,.s360-card,.s360-v9-chart-card,
+ .s360-mini-stat,.open-question,.detail,.score,.row-score,.stage-access-card,
+ .stage-card,.institutional-card,.dash-card,.details-panel,.dash-metrics,
+ .topbar.card,.s360-widget,.s360-data-card,.s360-panel,.chart-card,.graph-card
+){
+ --s360-v10-card-bg:#fff;
+ --s360-v10-card-border:var(--s360-v11-panel-border);
+ background:#fff !important;
+ background-image:none !important;
+ background-color:#fff !important;
+ border-color:var(--s360-v11-panel-border);
+}
+/* Cabeçalho dos dados, tabelas e conteúdos internos: branco, não pastel. */
+body.s360-v9 :is(.tablewrap,.table-scroll,.table-container,.data-table,.results-table){
+ background-color:#fff;
+}
+body.s360-v9 table tbody tr{background-color:transparent}
+body.s360-v9 table tbody tr:hover{background-color:#f2f8ff}
+body.s360-v9 table thead :is(th,td){background-color:#eff5fc;color:#315b92}
+body.s360-v9 :is(#pesquisas-agregadas,#historico,#fontes){
+ background:#fff !important;
+ background-color:#fff !important;
+ border-color:var(--s360-v11-panel-border);
+}
+body.s360-v9 :is(.s360-v9-charts,.s360-v9-charts .s360-v9-chart-card)
+ {background-color:transparent}
+body.s360-v9 .s360-v9-charts > .s360-v9-chart-card:nth-child(n){
+ background:#fff !important;
+ background-color:#fff !important;
+ border-color:var(--s360-v11-panel-border);
+}
+/* Os quatro KPIs da captura são a ÚNICA exceção para cartões de dados:
+ preenchimento completo e cores dedicadas. */
+body.s360-v9 #avaliacao > .card.kpi:nth-child(1){
+ --s360-v10-card-bg:var(--s360-v11-accent-blue);
+ background:var(--s360-v11-accent-blue) !important;
+ background-color:var(--s360-v11-accent-blue) !important;
+ border-color:#b6d0ee;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(2){
+ --s360-v10-card-bg:var(--s360-v11-accent-green);
+ background:var(--s360-v11-accent-green) !important;
+ background-color:var(--s360-v11-accent-green) !important;
+ border-color:#aedbc0;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(3){
+ --s360-v10-card-bg:var(--s360-v11-accent-peach);
+ background:var(--s360-v11-accent-peach) !important;
+ background-color:var(--s360-v11-accent-peach) !important;
+ border-color:#f3d0ab;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(4){
+ --s360-v10-card-bg:var(--s360-v11-accent-violet);
+ background:var(--s360-v11-accent-violet) !important;
+ background-color:var(--s360-v11-accent-violet) !important;
+ border-color:#c4b8f1;
+}
+body.s360-v9 #avaliacao > .card.kpi::before{display:none!important}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(1) strong{color:#164b8b}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(2) strong{color:#17684d}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(3) strong{color:#935016}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(4) strong{color:#56439c}
+/* Preserva a barra superior de abas e seus quatro botões no padrão aprovado. */
+body.s360-v9 .eval-path{
+ background:#e5effc;
+ border-color:#c7dcf5;
+}
+body.s360-v9 .eval-path a:nth-child(4n+1),
+body.s360-v9 .eval-path a:nth-child(4n+3),
+body.s360-v9 .eval-path a:nth-child(4n+4){
+ background:var(--s360-v11-accent-cyan)!important;
+ border-color:#a6dbe8!important;
+ color:#185785!important;
+}
+body.s360-v9 .eval-path a:nth-child(4n+2){
+ background:var(--s360-v11-accent-violet)!important;
+ border-color:#c5bbec!important;
+ color:#51408b!important;
+}
+/* Preserva o aviso de acesso por etapa da captura, com fundo azul pastel. */
+body.s360-v9 .stage-access{
+ background:var(--s360-v11-accent-blue)!important;
+ background-color:var(--s360-v11-accent-blue)!important;
+ border-color:#b8d1f1;
+}
+body.s360-v9 .stage-access-copy :is(strong,p){color:#1a4a83}
+/* Botões, chips, barras, linhas, roscas e gráficos:
+ conservam as cores sem repintar seus contêineres. */
+body.s360-v9 .s360-v9-chart-card .s360-v9-donut,
+body.s360-v9 .s360-v9-chart-card .s360-v9-hbar-fill{
+ background-color:initial;
+}
+body.s360-v9 :is(.fill,.bar-fill,.progress-fill,.s360-v9-hbar-fill){
+ border-radius:999px;
+}
+/* Login, estados e área administrativa ganham superfície branca.
+ Avisos semânticos permanecem destacados para conservar legibilidade de status. */
+body.s360-v9 :is(#signin,#login-view,#request,.authcard,.auth.panel,.auth.card){
+ background:#fff!important;
+ background-color:#fff!important;
+ border-color:var(--s360-v11-panel-border)!important;
+}
+body.s360-v9 #denied{
+ background:#fff!important;
+ background-color:#fff!important;
+ border-left:5px solid #e1a32f;
+}
+@media print{
+ body.s360-v9 :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card){
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+ }
+}
