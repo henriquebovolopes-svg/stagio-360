@@ -19,7 +19,7 @@ jobs:
           python-version: '3.12'
       - name: Auditar arquivos e indicadores
         run: python scripts/audit_site.py
-      - name: Auditar consistência visual v9 em 19 páginas
+      - name: Auditar KPIs pastéis e painéis brancos v11 em 19 páginas
         run: python scripts/audit_visual_v9.py
       - name: Validar JavaScript visual v9
         run: node --check assets/stagio360-visual-v10.js
