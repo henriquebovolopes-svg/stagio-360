@@ -1,0 +1,234 @@
+/*
+ STAGIO 360 · Estilo pastel v10
+ Complementa o Design System v9, preservando todas as rotas, consultas, SVGs e RLS.
+ Decisões: cards inteiros preenchidos, botões pastéis legíveis, NPS da escola como 4º KPI.
+*/
+:root{
+ --s360-pastel-blue:#e0edff;
+ --s360-pastel-cyan:#dff5fa;
+ --s360-pastel-green:#e0f4e8;
+ --s360-pastel-lavender:#ebe6ff;
+ --s360-pastel-peach:#fff0e2;
+ --s360-pastel-yellow:#fff3d9;
+ --s360-pastel-rose:#ffeaf1;
+ --s360-pastel-border-blue:#a8c9ee;
+ --s360-pastel-border-green:#b0dac2;
+ --s360-pastel-border-violet:#c6bbee;
+ --s360-pastel-ink:#163960;
+}
+body.s360-v9{
+ --s360-v10-card-bg:var(--s360-pastel-blue);
+ --s360-v10-card-border:var(--s360-pastel-border-blue);
+}
+/* Preserva o cabeçalho em degradê; títulos sobre fundo escuro são brancos. */
+body.s360-v9 .shell > .workspace > header.hero :is(.kicker,.year-control span),
+body.s360-v9 .shell > .workspace > header.hero .year-control > span,
+body.s360-v9 header.hero :is(.kicker,.year-control span),
+body.s360-v9.s360-chrome > header :is(.kicker,.eyebrow,.s360-hero-kicker),
+body.s360-v9.s360 header.s360-hero :is(.kicker,.s360-hero-kicker) {
+ color:#fff !important;
+}
+body.s360-v9 .shell > .workspace > header.hero .year-control{color:#fff}
+body.s360-v9 header.hero .year-control span{font-weight:800;text-shadow:0 1px 3px rgba(1,25,55,.28)}
+/* Cards: cor em TODA a superfície. Não são cartões brancos com filete colorido. */
+body.s360-v9 :is(
+ .card,.panel,.filter,.authcard,.kpi,.metric,.s360-card,.s360-v9-chart-card,
+ .s360-mini-stat,.open-question,.detail,.score,.row-score,.stage-access,.stage-access-card,
+ .stage-card,.institutional-card
+){
+ background:var(--s360-v10-card-bg) !important;
+ background-image:none !important;
+ border-color:var(--s360-v10-card-border);
+ color:var(--s360-pastel-ink);
+}
+body.s360-v9 :is(.card,.panel,.filter,.authcard,.kpi,.metric,.s360-card,.s360-v9-chart-card) :is(h2,h3,strong,b){
+ color:#153e78;
+}
+body.s360-v9 :is(.card,.panel,.filter,.authcard,.kpi,.metric,.s360-card,.s360-v9-chart-card) .muted{
+ color:#506b8a;
+}
+/* Alternância de preenchimentos em grades, KPIs e cartões de acesso. */
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+1){
+ --s360-v10-card-bg:var(--s360-pastel-blue);
+ --s360-v10-card-border:#b7d1f0;
+}
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+2){
+ --s360-v10-card-bg:var(--s360-pastel-green);
+ --s360-v10-card-border:#aed9c0;
+}
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+3){
+ --s360-v10-card-bg:var(--s360-pastel-peach);
+ --s360-v10-card-border:#f0d2b2;
+}
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+4){
+ --s360-v10-card-bg:var(--s360-pastel-lavender);
+ --s360-v10-card-border:#c6b9ee;
+}
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+5){
+ --s360-v10-card-bg:var(--s360-pastel-cyan);
+ --s360-v10-card-border:#afe1ec;
+}
+body.s360-v9 :is(.cards,.kpis,.grid,.columns,.metrics,.s360-dashboard-grid,.s360-kpi-row,.s360-admin-kpis,.s360-v9-charts,.stage-access-links,.stage-cards) > :is(.card,.panel,.kpi,.metric,.s360-v9-chart-card,.stage-card):nth-child(6n+6){
+ --s360-v10-card-bg:var(--s360-pastel-rose);
+ --s360-v10-card-border:#ebc5d3;
+}
+/* Os quatro cards principais precisam ter preenchimentos diferentes e visíveis. */
+body.s360-v9 #avaliacao > .card.kpi:nth-child(1){
+ background:var(--s360-pastel-blue)!important;border-color:#b6d0ee;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(2){
+ background:var(--s360-pastel-green)!important;border-color:#aedbc0;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(3){
+ background:var(--s360-pastel-peach)!important;border-color:#f3d0ab;
+}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(4){
+ background:var(--s360-pastel-lavender)!important;border-color:#c4b8f1;
+}
+body.s360-v9 #avaliacao > .card.kpi::before{
+ height:0!important;display:none!important;
+}
+body.s360-v9 #avaliacao > .card.kpi :is(small,p){color:#375d89}
+body.s360-v9 #avaliacao > .card.kpi strong{color:#164b8b}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(2) strong{color:#17684d}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(3) strong{color:#935016}
+body.s360-v9 #avaliacao > .card.kpi:nth-child(4) strong{color:#56439c}
+/* Conteúdos grandes igualmente preenchidos; a ordem varia entre telas. */
+body.s360-v9 :is(main,.s360-main) > :is(.card,.panel,section.card,section.panel):nth-of-type(5n+2){
+ --s360-v10-card-bg:var(--s360-pastel-cyan);
+ --s360-v10-card-border:#a9dfea;
+}
+body.s360-v9 :is(main,.s360-main) > :is(.card,.panel,section.card,section.panel):nth-of-type(5n+3){
+ --s360-v10-card-bg:var(--s360-pastel-lavender);
+ --s360-v10-card-border:#c9bcf0;
+}
+body.s360-v9 :is(main,.s360-main) > :is(.card,.panel,section.card,section.panel):nth-of-type(5n+4){
+ --s360-v10-card-bg:var(--s360-pastel-green);
+ --s360-v10-card-border:#b5dac5;
+}
+body.s360-v9 :is(main,.s360-main) > :is(.card,.panel,section.card,section.panel):nth-of-type(5n+5){
+ --s360-v10-card-bg:var(--s360-pastel-peach);
+ --s360-v10-card-border:#ecd0b5;
+}
+body.s360-v9 :is(#pesquisas-agregadas,#fontes){background:var(--s360-pastel-cyan)!important;border-color:#addbe9}
+body.s360-v9 #historico{background:var(--s360-pastel-lavender)!important;border-color:#c9bcea}
+body.s360-v9 #denied{background:var(--s360-pastel-yellow)!important;border-color:#edc881}
+body.s360-v9 :is(#signin,#login-view,#request,.authcard,.auth.panel,.auth.card){
+ background:var(--s360-pastel-blue)!important;border-color:#b1d1f3!important;
+}
+/* O preenchimento se aplica também a botões sem classes e ações tipo link. */
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ button,.btn,.primary,.secondary,.ghost,.textlink,.text-link,.button-link,.linkline a,
+ .s360-toolbar-actions a,.stage-access-links a
+):not(.s360-menu-toggle){
+ background:var(--s360-pastel-blue) !important;
+ color:#164d89 !important;
+ border:1px solid #a6c6ef !important;
+ text-decoration:none;
+ border-radius:10px;
+ box-shadow:0 2px 7px rgba(34,83,155,.06);
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ .primary,.btn:not(.alt):not(.outline),button[type="submit"],.linkline a:first-child
+){
+ background:#c9e2ff !important;
+ color:#104784 !important;
+ border-color:#94bce9 !important;
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ .secondary,.btn.alt,.btn.outline,.ghost,.textlink,.text-link
+){
+ background:var(--s360-pastel-lavender) !important;
+ color:#4f3c88 !important;
+ border-color:#c3b8ed !important;
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ .success,.btn.success,.btn.approve,.positive
+){
+ background:var(--s360-pastel-green) !important;
+ color:#17684d !important;
+ border-color:#abd9be !important;
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ .danger,.btn.danger,.destructive
+){
+ background:var(--s360-pastel-rose) !important;
+ color:#9a3552 !important;
+ border-color:#e9bfd0 !important;
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(
+ button,.btn,.primary,.secondary,.ghost,.textlink,.text-link,.button-link,.linkline a,
+ .s360-toolbar-actions a,.stage-access-links a
+):not(.s360-menu-toggle):not(:disabled):hover{
+ filter:brightness(.965);
+ box-shadow:0 4px 12px rgba(38,95,165,.12);
+}
+body.s360-v9 :is(main,.s360-main,.workspace,.s360-workspace,header) :is(button,.btn):disabled{
+ opacity:.6;cursor:not-allowed;
+}
+/* Links que têm aparência de botão fora do main (breadcrumb/menu contextual). */
+body.s360-v9 .s360-quick-nav a,
+body.s360-v9 .eval-path a{
+ background:var(--s360-pastel-cyan)!important;
+ border-color:#a6dbe8!important;
+ color:#185785!important;
+ border-radius:10px;
+}
+body.s360-v9 .s360-quick-nav a:nth-child(3n+2),
+body.s360-v9 .eval-path a:nth-child(3n+2){
+ background:var(--s360-pastel-lavender)!important;
+ border-color:#c5bbec!important;
+ color:#51408b!important;
+}
+body.s360-v9 .s360-quick-nav a:hover,
+body.s360-v9 .eval-path a:hover{filter:brightness(.965)}
+/* Inputs não são botões. Tintura leve mantém campos editáveis reconhecíveis. */
+body.s360-v9 :is(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+ background:#f3f8ff!important;
+ border-color:#b0c9e7;
+ color:#173c6d;
+}
+body.s360-v9 :is(.filter,.toolbar,.filters) :is(input,select){
+ background:#ecf4ff!important;
+}
+/* Status, subtítulos e pequenas caixas ganham superfície tonalizada. */
+body.s360-v9 :is(.notice,.note,.hint,.info,.callout,.stage-access,.s360-statusbar){
+ background:var(--s360-pastel-cyan);
+ color:#204c74;
+ border-color:#afdce8;
+}
+body.s360-v9 :is(.notice.warn,.note.warn,[data-status="warning"],.warning){
+ background:var(--s360-pastel-yellow);
+ color:#775419;
+ border-color:#f0cf85;
+}
+body.s360-v9 :is(.s360-v9-chart-card,.s360-v9-chart-card h3){color:#183e77}
+body.s360-v9 .s360-v9-charts > .s360-v9-chart-card:nth-child(1){background:var(--s360-pastel-green)!important}
+body.s360-v9 .s360-v9-charts > .s360-v9-chart-card:nth-child(2){background:var(--s360-pastel-cyan)!important}
+body.s360-v9 .s360-v9-charts > .s360-v9-chart-card:nth-child(3){background:var(--s360-pastel-lavender)!important}
+body.s360-v9 .s360-v9-chart-note{color:#54748d}
+body.s360-v9 :is(.tag,.chip,.pill,.badge,.flag){background:#d4e9ff;color:#164d88;border-color:#b0d3f2}
+body.s360-v9 table thead :is(th,td){background:#cde2fb;color:#16477d}
+body.s360-v9 table tbody tr:hover{background:rgba(255,255,255,.25)}
+/* Preservar legibilidade/estilo do menu lateral escuro e seus estados. */
+body.s360-v9 :is(.shell > aside,.s360-sidebar,.s360-global-sidebar) :is(a,button):not(:hover){color:#edf4ff}
+body.s360-v9 :is(.shell > aside,.s360-sidebar,.s360-global-sidebar) :is(a,button)[aria-current="page"],
+body.s360-v9 :is(.shell > aside,.s360-sidebar,.s360-global-sidebar) :is(a,button).active{
+ background:linear-gradient(110deg,#337ee9,#185dcc)!important;
+ color:#fff!important;
+}
+/* A indicação de foco continua visível para navegação por teclado. */
+body.s360-v9 :is(button,a,input,select,textarea):focus-visible{
+ outline:3px solid #1686c9;
+ outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+ body.s360-v9 :is(button,.btn,.card,.panel){transition:none!important}
+}
+@media(max-width:600px){
+ body.s360-v9 #avaliacao > .card.kpi{padding:17px}
+ body.s360-v9 :is(.card,.panel,.authcard){max-width:100%}
+}
+@media print{
+ body.s360-v9 :is(.card,.panel,.kpi,.metric){-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
