@@ -32,7 +32,7 @@ jobs:
       - name: Auditar consistência visual v9 em 19 páginas
         run: python scripts/audit_visual_v9.py
       - name: Validar JavaScript visual v9
-        run: node --check assets/stagio360-visual-v9.js
+        run: node --check assets/stagio360-visual-v10.js
       - name: Empacotar apenas o site público
         run: |
           mkdir -p _site
@@ -58,6 +58,8 @@ jobs:
           test -s _site/assets/stagio360-unified.css
           test -s _site/assets/stagio360-visual-v9.css
           test -s _site/assets/stagio360-visual-v9.js
+          test -s _site/assets/stagio360-pastel-v10.css
+          test -s _site/assets/stagio360-visual-v10.js
       - name: Preparar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Publicar arquivos estáticos
@@ -110,7 +112,14 @@ jobs:
           grep -q 'id="s360-v9-insights"' /tmp/stagio360-home.html
           grep -q 'id="s360-v9-insights"' /tmp/stagio360-painel.html
           grep -q 'stagio360-visual-v9.css?v=9' /tmp/stagio360-home.html
-          grep -q 'stagio360-visual-v9.js?v=9' /tmp/stagio360-minha-area.html
+          grep -q 'stagio360-pastel-v10.css?v=10' /tmp/stagio360-home.html
+          grep -q 'stagio360-visual-v10.js?v=10' /tmp/stagio360-minha-area.html
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/assets/stagio360-pastel-v10.css" -o /tmp/stagio360-pastel-v10.css
+          curl -fsSL --retry 8 --retry-delay 5 --retry-all-errors "${BASE}/assets/stagio360-visual-v10.js" -o /tmp/stagio360-visual-v10.js
+          grep -q -- "--s360-pastel-blue" /tmp/stagio360-pastel-v10.css
+          grep -q 'Colaboradores · Privado' /tmp/stagio360-visual-v10.js
+          grep -q 'id="nps-institucional"' /tmp/stagio360-home.html
+          grep -q 'id="nps-institucional"' /tmp/stagio360-painel.html
           # Passo 9: conferência HTTP da totalidade das 19 páginas publicadas,
           # não apenas dos pontos de entrada. Não requer nem expõe credenciais.
           for route in \
@@ -124,8 +133,9 @@ jobs:
             grep -q 's360-harmonized' /tmp/stagio360-checked-route.html
             grep -q 'stagio360-unified.css?v=8' /tmp/stagio360-checked-route.html
             grep -q 'stagio360-visual-v9.css?v=9' /tmp/stagio360-checked-route.html
-            grep -q 'stagio360-visual-v9.js?v=9' /tmp/stagio360-checked-route.html
+            grep -q 'stagio360-pastel-v10.css?v=10' /tmp/stagio360-checked-route.html
+            grep -q 'stagio360-visual-v10.js?v=10' /tmp/stagio360-checked-route.html
             grep -q 's360-v9' /tmp/stagio360-checked-route.html
             echo "Rota validada: ${route}"
           done
-          echo "Site publicado e 19 rotas com identidade visual v9 acessíveis."
+          echo "Site publicado e 19 rotas com identidade pastel v10 acessíveis."
