@@ -232,7 +232,7 @@ async function start(){
   ]);
   if(te.error)throw te.error;if(sc.error)throw sc.error;
   teachers=te.data||[];scores=sc.data||[];
-  if(teachers.length!==25||scores.length!==629){
+  if(teachers.length<25||scores.length<629){
     const n=$('gate');n.className='card';setAccessError('Leitura parcial da base detectada ('+teachers.length+' profissionais, '+scores.length+' notas). Não serão exibidos indicadores incompletos. Contate a administração.');return
   }
   $('gate').hidden=true;$('app').hidden=false;renderScope();
