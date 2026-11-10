@@ -70,10 +70,9 @@ def verify_html(path):
 def check_navigation_step3():
     """Mantém o menu principal enxuto e preserva o caminho protegido por etapa."""
     expected = [
-        ('#inicio', 'Governança'),
         ('#segmentos', 'Avaliação 360'),
         ('./admin/planejamento.html', 'Planejamento docente'),
-        ('./admin/funcionarios.html', 'Funcionários · privado'),
+        ('./admin/funcionarios.html', 'Colaboradores · Privado'),
         ('./admin/integracao.html', 'Painel Administrativo')
     ]
     for rel in ("index.html", "painel.html"):
@@ -86,7 +85,7 @@ def check_navigation_step3():
         entries = re.findall(r'<a\s+[^>]*href="([^"]+)"[^>]*>(.*?)</a>', nav, re.S)
         actual = [(href, re.sub(r'<[^>]+>', '', label).strip().lstrip('◫◎▥♧').strip()) for href, label in entries]
         if actual != expected:
-            ERRORS.append(f"{rel}: barra lateral não possui exatamente os cinco acessos principais")
+            ERRORS.append(f"{rel}: barra lateral não possui exatamente os quatro acessos principais")
         if "Gestão restrita" in nav or "Educação Infantil · restrito" in nav or "Acessos complementares" in nav:
             ERRORS.append(f"{rel}: barra lateral contém itens redundantes")
         for token in ('id="historico"', 'id="fontes"', 'id="stage-access-link"', "updateContextualAccess(stage)", "fundamental1:{href:'./admin/segmento.html?etapa=fundamental1'", "infantil:{href:'./admin/segmento.html?etapa=infantil'"):
