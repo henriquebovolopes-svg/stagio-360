@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Auditoria de design Stagio 360 v9 — segurança estrutural + UI consistente."""
+"""Auditoria de design Stagio 360 v10 — segurança estrutural + UI consistente."""
 from pathlib import Path
 import json
 import re
@@ -28,9 +28,15 @@ for route in PAGES:
         errors.append(f"{route}: body sem versão visual oficial v9")
     prefix="../assets/" if "/" in route else "./assets/"
     css=f'<link rel="stylesheet" href="{prefix}stagio360-visual-v9.css?v=9">'
-    js=f'<script defer src="{prefix}stagio360-visual-v9.js?v=9"></script>'
+    pastel=f'<link rel="stylesheet" href="{prefix}stagio360-pastel-v10.css?v=10">'
+    js=f'<script defer src="{prefix}stagio360-visual-v10.js?v=10"></script>'
     if html.count(css)!=1:errors.append(f"{route}: CSS v9 ausente ou duplicado")
-    if html.count(js)!=1:errors.append(f"{route}: enhancement v9 ausente ou duplicado")
+    if html.count(pastel)!=1:errors.append(f"{route}: preenchimento pastel v10 ausente ou duplicado")
+    if html.count(js)!=1:errors.append(f"{route}: visual JavaScript v10 ausente ou duplicado")
+    if css in html and pastel in html and html.index(css)>html.index(pastel):
+        errors.append(f"{route}: a camada pastel deve ser carregada depois do design system")
+    if pastel in html and js in html and html.index(pastel)>html.index(js):
+        errors.append(f"{route}: JavaScript visual não deve preceder o CSS pastel")
     if html.index(css)>html.index("</head>") if css in html else False:
         errors.append(f"{route}: CSS carregado após o head")
     if "stagio360-unified.css?v=8" not in html:
@@ -46,15 +52,23 @@ for route in PAGES:
             errors.append(f"{route}: os três gráficos oficiais não foram conectados")
         if 'class="s360-v9-charts"' not in html:
             errors.append(f"{route}: grid de gráficos ausente")
-        for token in ('id="ano"','id="ciclo"','id="etapa"'):
-            if token not in html:errors.append(f"{route}: seletor gráfico {token} ausente")
+        for token in ('id="ano"','id="ciclo"','id="etapa"','id="nps-institucional"','id="nps-institucional-sub"','institutional.nps'):
+            if token not in html:errors.append(f"{route}: indicador misto ou seletor {token} ausente")
+        nav=re.search(r'<nav aria-label="Navegação institucional">([\s\S]*?)</nav>',html)
+        if not nav:errors.append(f"{route}: menu lateral ausente")
+        else:
+            if 'Governança</a>' in nav.group(1):errors.append(f"{route}: Governança duplicada no menu")
+            if nav.group(1).count('Avaliação 360</a>')!=1:errors.append(f"{route}: Avaliação 360 não é o único acesso")
+            if 'Colaboradores · Privado</a>' not in nav.group(1):errors.append(f"{route}: colaboradores não renomeados")
+        if 'NPS das famílias · Fundamental I</small>' in html:errors.append(f"{route}: quarto KPI não foi generalizado")
     # Segurança: não mudar autenticação ou nomes das tabelas nesta etapa visual
     if route.startswith("admin/") and route not in ("admin/reset.html",):
         if "<script" not in html:
             errors.append(f"{route}: módulo perdeu scripts de sessão")
 
 css=(ROOT/"assets/stagio360-visual-v9.css").read_text("utf-8")
-js=(ROOT/"assets/stagio360-visual-v9.js").read_text("utf-8")
+js=(ROOT/"assets/stagio360-visual-v10.js").read_text("utf-8")
+pastel_css=(ROOT/"assets/stagio360-pastel-v10.css").read_text("utf-8")
 for name,color in (
  ("deep","#081e43"),("blue","#2f73d9"),("cyan","#35c4e8"),
  ("violet","#7c5cfa"),("green","#27ae60"),("amber","#e1a32f"),
@@ -75,6 +89,11 @@ for token in (
  "'2026'","'M1'","getRoot()"
 ):
     if token not in js:errors.append("Implementação gráfica ou adaptativa ausente: "+token)
+for token in ("#avaliacao > .card.kpi:nth-child(1)","#avaliacao > .card.kpi:nth-child(4)","--s360-pastel-blue","--s360-pastel-green","--s360-pastel-lavender","--s360-pastel-peach",".year-control","color:#fff","background:var(--s360-v10-card-bg) !important","button[type=\"submit\"]"):
+    if token not in pastel_css:errors.append("Pastel v10 sem componente cromático: "+token)
+if "label:'Governança'" in js or "label:'Colaboradores · Privado'" not in js:
+    errors.append("Sidebar global não reflete Avaliação 360 / Colaboradores")
+if "label:'Avaliação 360'" not in js:errors.append("Avaliação 360 ausente da sidebar global")
 if any(t in js.lower() for t in ("service_role","sb_secret_","auth.signin","createclient(","supabase.auth")):
     errors.append("O script visual deve ficar completamente alheio a Auth/Supabase")
 # Evita conclusões visuais com dados inventados
@@ -90,7 +109,7 @@ historical=json.loads((ROOT/"assets/stagio360-historico.json").read_text("utf-8"
 historical_ids={x["id"] for x in historical["segments"]}
 if not {"total","infantil","fundamental1","fundamental2","medio"}.issubset(historical_ids):
     errors.append("Gráfico de histórico sem segmentos disponíveis")
-print(f"Auditoria visual v9: {len(PAGES)} páginas, {len(errors)} erros, {len(warnings)} avisos.")
+print(f"Auditoria visual v10: {len(PAGES)} páginas, {len(errors)} erros, {len(warnings)} avisos.")
 for e in errors:print("ERRO:",e)
 for w in warnings:print("AVISO:",w)
 sys.exit(1 if errors else 0)
