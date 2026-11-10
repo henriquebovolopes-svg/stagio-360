@@ -369,7 +369,7 @@ async function boot(){
   role=members[0].role;
   const {data,error}=await sup.from('stg_teachers').select('id,name,classes,scope,role_label,source_module').eq('source_module','M1').order('name').limit(100);
   if(error)throw error;
-  if(data?.length!==25||data.filter(t=>t.scope==='REGENTE CONFIRMADA').length!==7)throw Error('O cadastro M1/2026 está incompleto ou as regências foram alteradas. Confira a base antes de consultar PDIs.');
+  if(!data?.length)throw Error('Nenhum profissional do ciclo M1/2026 está disponível para este perfil.');
   teachers=data||[];
   const select=$('teacher');select.replaceChildren();
   const validated=document.createElement('optgroup');validated.label='Regentes homologadas · PDI habilitado';
@@ -381,7 +381,7 @@ async function boot(){
   }
   select.append(validated,remaining);
   const initial=new URLSearchParams(location.search).get('teacher');
-  const start=teachers.some(t=>t.id===initial)?initial:teachers.find(t=>t.scope==='REGENTE CONFIRMADA').id;
+  const start=teachers.some(t=>t.id===initial)?initial:(teachers.find(t=>t.scope==='REGENTE CONFIRMADA')||teachers[0]).id;
   select.value=start;
   $('gate').hidden=true;$('app').hidden=false;
   setWriteAccess();
