@@ -121,6 +121,7 @@ const stages={
 const scope=Object.hasOwn(stages,requested)?requested:null;
 const cfg=window.STAGIO_AUTH||{};
 let client=null;
+let institutionalView=false;
 function show(id){for(const k of ['loading','signin','denied','app'])$(k).hidden=k!==id}
 function notice(id,text){$(id).textContent=text}
 const tabs=['visao','pesquisas','professores','pdis'];
@@ -171,7 +172,8 @@ async function requireStage(user){
  const m=await client.from('stg_members').select('display_name,role,active').eq('user_id',user.id).maybeSingle();
  if(m.error)throw new Error('Falha ao consultar o perfil autorizado.');
  if(!m.data?.active){notice('denied-reason','Sua conta não possui vínculo ativo no Stagio 360.');show('denied');return}
- if(!['admin','master'].includes(m.data.role)){
+ institutionalView=['admin','master'].includes(m.data.role);
+ if(!institutionalView){
   const access=await client.from('stg_scope_access').select('stage').eq('user_id',user.id);
   if(access.error)throw new Error('Falha ao consultar as permissões por etapa.');
   if(!(access.data||[]).some(x=>x.stage===scope)){
@@ -203,6 +205,7 @@ async function load(){
   addAction('professores','Professores e avaliações','Perfis docentes, autoavaliação e avaliação da coordenação, com as evidências vinculadas.','./index.html?tab=teachers','Abrir perfis docentes');
   addAction('pesquisas','Respostas escritas na íntegra','Busca de textos disponíveis de professores, alunos e famílias, conforme os vínculos comprovados.','./index.html?tab=search','Consultar respostas abertas');
   addAction('pesquisas','Alunos e famílias','Leituras por turma, comparações e respostas individuais disponíveis no acervo.','./index.html?tab=students','Abrir pesquisas por turma');
+  if(institutionalView)addAction('pesquisas','Pesquisas 2026 · Fontes originais','Consulta confidencial dos formulários de alunos do Fundamental II, Ensino Médio e famílias, inclusive respostas escritas preservadas.','./pesquisas-2026.html','Consultar fontes originais');
   addAction('pdis','PDI e acompanhamento','Planos individuais do módulo M1, incluindo documentos em rascunho, sem tratá-los como concluídos.','./pdi.html','Consultar PDIs');
   notice('availability-note','Fundamental I: acervo individual em uso. As atribuições professor/turma e os vínculos de respostas devem respeitar a homologação existente. A visão pública continua exclusivamente agregada.');
  }else if(stage.kind==='infantil'){
@@ -216,6 +219,7 @@ async function load(){
   notice('indicator-note',rows.length?'Indicadores de 2026 em escala de 1 a 4. Não correspondem a uma avaliação individual docente.':'Não há indicadores homologados para esta consulta.');
   rows.slice(0,10).forEach(x=>addBar(x.label,x.mean_score,x.response_count,4));
   addAction('pesquisas','Painel da Educação Infantil','Indicadores internos da etapa e leitura institucional da pesquisa.','./infantil.html','Consultar painel da etapa');
+  if(institutionalView)addAction('pesquisas','Pesquisa de famílias · Fonte original','Consulte os formulários de famílias de 2026, incluindo registros multietapa. Isso não equivale a avaliação nominal docente da Educação Infantil.','./pesquisas-2026.html','Consultar respostas originais');
   addAction('professores','Planejamento pedagógico','Acompanhamento do planejamento docente da Educação Infantil, conforme permissão.','./planejamento.html#infantil','Consultar planejamento');
   addAction('professores','Avaliação individual docente','Ainda não há avaliação nominal docente vinculada e homologada para a Educação Infantil.',null,null);
   addAction('pesquisas','Pesquisas individuais','Ainda não existe conjunto de registros individuais vinculados à etapa e homologados para exibição.',null,null);
@@ -232,11 +236,16 @@ async function load(){
   notice('indicator-note',rows.length?'Resultados agregados de coordenação da etapa. São médias da rubrica; não atribuem respostas a professores específicos.':'Sem dados de rubrica para esta etapa e módulo.');
   rows.forEach(x=>addBar(x.axis,x.mean_score,x.answer_count));
   addAction('pesquisas','Rubrica da coordenação','Indicadores protegidos por etapa e dimensão.','./governanca.html?etapa='+encodeURIComponent(scope),'Abrir análise da rubrica');
-  addAction('pesquisas','Pesquisas individuais','Sem importação validada de respostas individuais vinculadas a professores nesta etapa.',null,null);
-  addAction('pesquisas','Textos integrais','Sem textos individuais homologados para exibição nesta etapa. Não reutilizamos indevidamente textos de outro segmento.',null,null);
+  addAction('pesquisas','Vínculo nominal das pesquisas','A associação das respostas a perfis docentes canônicos ainda está em homologação. Isso não impede a leitura da fonte original.',null,null);
+  if(institutionalView){
+   addAction('pesquisas','Respostas escritas · Fonte original','Consulte as respostas de alunos e famílias preservadas na fonte de 2026. O código do professor na origem não equivale a vínculo nominal homologado.','./pesquisas-2026.html','Abrir respostas originais');
+   addAction('pesquisas','Comentários da coordenação · FII e Médio','Acesse os registros qualitativos da coordenação, incluindo a categoria de atuação compartilhada sem duplicar respostas.','./coord-fii-em.html','Consultar comentários');
+  }else{
+   addAction('pesquisas','Textos por professor','A vinculação nominal das respostas ainda depende de homologação institucional.',null,null);
+  }
   addAction('professores','Resultados por professor','As médias desta rubrica representam a etapa; não há vinculação individual validada por docente.',null,null);
   addAction('pdis','PDI por professor','Sem vinculação docente e PDI individual homologado para esta etapa.',null,null);
-  notice('availability-note',stage.label+': a rubrica agregada do M1 pode ser consultada. Os nomes, textos completos e PDIs somente serão apresentados após integração e homologação das respectivas fontes.');
+  notice('availability-note',stage.label+': a rubrica agregada do M1 está disponível. '+(institutionalView?'A Direção pode consultar os textos originais em Pesquisas 2026 e Coordenação FII/EM; somente a atribuição nominal a professores permanece em homologação.':'A atribuição nominal de comentários a professores e os PDIs dependem de homologação.'));
  }
  activateTab(new URLSearchParams(location.search).get('aba')||'visao');
  show('app')
