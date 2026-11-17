@@ -4,6 +4,13 @@ Portal do Colégio Stagio com navegação para direção, coordenações e aprof
 
 **Acesso ao portal:** https://henriquebovolopes-svg.github.io/stagio-360/
 
+## Fechamento de dados M1 / preparação M2 — 16/11/2026
+
+- [Auditoria técnica de fechamento do M1, fontes, correções, pendências e protocolo M2](AUDITORIA_FECHAMENTO_M1_PRE_M2_2026-11-16.md).
+- O painel de [Integração 360](admin/integracao.html) exibe os indicadores privados da view `stg_360_m1_gate`, reservada à direção/administração.
+- **M1 permanece parcial; não considerar o fluxo pronto para importar resultados M2 enquanto houver decisões institucionais de identidade e revisão do acesso real pendentes.**
+- Duas migrações conservadoras: classificação curricular derivada do 1º ano sem sobrescrever a fonte e indexação de relacionamentos.
+  
 ## Refinamento visual v11 — branco nos painéis de dados (09/11/2026)
 
 - **Preservado exatamente como na captura aprovada:** os quatro KPIs da home com fundos pastéis azul, verde, pêssego e violeta; as quatro abas da Avaliação 360; o quadro de escolha da etapa de ensino.
