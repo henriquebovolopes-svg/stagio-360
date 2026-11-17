@@ -11,7 +11,7 @@
   - Famílias: 248 formulários e 4.468 itens (236 NPS válidos).
   - Total: 408 notas NPS válidas; 15 formulários sem nota. Não transformar ausência em zero.
 - Coordenação FII/EM: 297 itens de origem distintos, sendo 212 notas e 85 textos; segmentação exclusiva FII (111+46), exclusiva EM (36+14), compartilhada (65+25). Não duplicar a faixa compartilhada.
-- Fundamental I: 1.400 evidências qualitativas originais e 629 notas por critério (462 AUTO, 167 coordenação).
+- Acervo legado 360 de origem FI: 1.400 evidências qualitativas originais e 629 notas por critério (462 AUTO de docentes que podem atuar em mais de uma etapa, 167 de coordenação FI); não interpretar todos os 462 itens como docentes exclusivamente do FI.
 - Planejamento 2026: 336 registros individuais; 32 combinações professor/etapa.
 - Autoavaliação Typeform_PROFS: 36 envios conciliados, 22 integrações legadas exatamente verificadas (462 itens), 8 novas respostas completas retidas em staging seguro (168 itens) e 6 respostas incompletas excluídas do cálculo, mas preservadas.
 
